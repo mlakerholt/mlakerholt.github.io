@@ -16,6 +16,12 @@ body {
     line-height: 1.6;
 }
 
+/* Main content column with left accent line */
+main {
+    border-left: 3px solid #c9c3b8;
+    padding-left: 24px;
+}
+
 h1 {
     font-size: 36px;
     margin-bottom: 10px;
@@ -35,9 +41,11 @@ a:hover {
 }
 
 nav {
-    margin-top: 30px;
-    padding-top: 10px;
-    border-top: 1px solid #ccc;
+    margin-top: 25px;
+}
+
+nav a {
+    margin-right: 16px;
 }
 
 footer {
@@ -51,7 +59,16 @@ footer {
 
 <body>
 
+<main>
+
 <h1>Magnus Lian Akerholt</h1>
+
+<nav>
+<a href="/">Home</a>
+<a href="/apps">Apps</a>
+<a href="/articles">Articles</a>
+<a href="/art">Art</a>
+</nav>
 
 <p>
 Welcome to my personal website.
@@ -61,23 +78,13 @@ Welcome to my personal website.
 Here I share small programs, things I write, and paintings.
 </p>
 
-<nav>
-
-<h2>Sections</h2>
-
-<ul>
-<li><a href="/apps">Apps</a></li>
-<li><a href="/articles">Articles</a></li>
-<li><a href="/art">Art</a></li>
-</ul>
-
-</nav>
-
 <footer>
 <p>
 © 2026 Magnus Lian Akerholt
 </p>
 </footer>
+
+</main>
 
 </body>
 </html>
