@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Article Title</title>
+
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<main>
+
+<h1>Article Title</h1>
+
+<nav>
+<a href="/">Home</a>
+<a href="/apps/">Apps</a>
+<a href="/articles/">Articles</a>
+<a href="/art/">Art</a>
+</nav>
+
+<p>March 8, 2026</p>
+
+<p>
+First paragraph of the article.
+</p>
+
+<p>
+Second paragraph of the article.
+</p>
+
+</main>
+
+<footer>
+<p>© 2026 Magnus Lian Akerholt</p>
+</footer>
+
+</body>
+</html>
