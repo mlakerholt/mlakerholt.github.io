@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A browser-based bacterial fermentation simulator for batch, fed-batch and continuous stirred-tank processes.">
+  <title>Fermentation Simulator</title>
+  <link rel="stylesheet" href="simulator.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-title" href="/">Magnus Lian Akerholt</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/apps/" aria-current="page">Apps</a>
+        <a href="/articles/">Articles</a>
+        <a href="/art/">Art</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Browser-based process model <span class="badge">Beta 0.1</span></div>
+        <h1>Fermentation Simulator</h1>
+        <p class="lede">Configure a stirred-tank bacterial process and estimate biomass, substrate, product, oxygen transfer, feed use and final mass balance.</p>
+      </div>
+      <div class="hero-note">
+        <strong>Model status</strong>
+        <p>Educational and early process-development estimator. Presets are illustrative and must be calibrated before real process decisions.</p>
+      </div>
+    </section>
+
+    <div class="toolbar" aria-label="Scenario tools">
+      <button type="button" id="saveScenarioBtn">Save in browser</button>
+      <button type="button" id="loadScenarioBtn">Load saved</button>
+      <button type="button" id="exportScenarioBtn">Export scenario</button>
+      <label class="button-like" for="importScenarioInput">Import scenario</label>
+      <input id="importScenarioInput" type="file" accept="application/json,.json" hidden>
+      <button type="button" id="resetScenarioBtn" class="quiet">Reset demo</button>
+      <span id="saveStatus" class="status-message" aria-live="polite"></span>
+    </div>
+
+    <nav class="stepper" aria-label="Simulation stages">
+      <button type="button" class="step is-active" data-step="0"><span>1</span>Reactor</button>
+      <button type="button" class="step" data-step="1"><span>2</span>Strain & product</button>
+      <button type="button" class="step" data-step="2"><span>3</span>Process</button>
+      <button type="button" class="step" data-step="3"><span>4</span>Medium</button>
+      <button type="button" class="step" data-step="4"><span>5</span>Feed</button>
+      <button type="button" class="step" data-step="5"><span>6</span>Review</button>
+      <button type="button" class="step" data-step="6"><span>7</span>Results</button>
+    </nav>
+
+    <div class="workspace">
+      <div class="stage-column">
+        <form id="simulatorForm" novalidate>
+          <section class="stage is-active" data-stage="0">
+            <div class="stage-heading">
+              <div>
+                <p class="stage-number">Stage 1</p>
+                <h2>Reactor and gas system</h2>
+              </div>
+              <p>Select an equipment archetype, then edit every value to match the vessel you want to examine.</p>
+            </div>
+
+            <div class="callout information">
+              Manufacturer-style presets reproduce broad equipment classes rather than certified vendor specifications. Confirm geometry and limits against the actual equipment manual.
+            </div>
+
+            <fieldset>
+              <legend>Vessel preset</legend>
+              <div class="field wide">
+                <label for="reactorPreset">Equipment archetype</label>
+                <select id="reactorPreset"></select>
+                <small id="reactorPresetNote"></small>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Vessel geometry</legend>
+              <div class="form-grid three">
+                <div class="field">
+                  <label for="totalVolume">Total vessel volume <span>L</span></label>
+                  <input id="totalVolume" type="number" min="0.1" step="0.1" required>
+                </div>
+                <div class="field">
+                  <label for="initialVolume">Initial working volume <span>L</span></label>
+                  <input id="initialVolume" type="number" min="0.05" step="0.1" required>
+                </div>
+                <div class="field">
+                  <label for="maxWorkingVolume">Maximum working volume <span>L</span></label>
+                  <input id="maxWorkingVolume" type="number" min="0.1" step="0.1" required>
+                </div>
+                <div class="field">
+                  <label for="vesselDiameter">Internal diameter <span>m</span></label>
+                  <input id="vesselDiameter" type="number" min="0.03" step="0.01" required>
+                </div>
+                <div class="field">
+                  <label for="liquidHeight">Liquid height at max volume <span>m</span></label>
+                  <input id="liquidHeight" type="number" min="0.05" step="0.01" required>
+                </div>
+                <div class="field">
+                  <label for="heightDiameterRatio">Height : diameter</label>
+                  <input id="heightDiameterRatio" type="number" min="0.5" max="10" step="0.1">
+                </div>
+                <div class="field checkbox-field">
+                  <label><input id="baffled" type="checkbox"> Baffled vessel</label>
+                </div>
+                <div class="field">
+                  <label for="maxPressure">Maximum pressure <span>bar(g)</span></label>
+                  <input id="maxPressure" type="number" min="0" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="operatingPressure">Operating pressure <span>bar(g)</span></label>
+                  <input id="operatingPressure" type="number" min="0" step="0.05">
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Agitation</legend>
+              <div class="form-grid three">
+                <div class="field">
+                  <label for="impellerType">Impeller type</label>
+                  <select id="impellerType">
+                    <option value="rushton">Six-blade Rushton turbine</option>
+                    <option value="pitched">Pitched-blade turbine</option>
+                    <option value="hydrofoil">Hydrofoil</option>
+                    <option value="marine">Marine impeller</option>
+                    <option value="parabolic">Parabolic microbial turbine</option>
+                    <option value="custom">Custom impeller</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="impellerCount">Number of impellers</label>
+                  <input id="impellerCount" type="number" min="1" max="8" step="1">
+                </div>
+                <div class="field">
+                  <label for="impellerDiameter">Impeller diameter <span>m</span></label>
+                  <input id="impellerDiameter" type="number" min="0.01" step="0.01">
+                </div>
+                <div class="field">
+                  <label for="powerNumber">Power number, N<sub>p</sub></label>
+                  <input id="powerNumber" type="number" min="0.05" max="10" step="0.05">
+                </div>
+                <div class="field">
+                  <label for="baseRpm">Initial agitation <span>rpm</span></label>
+                  <input id="baseRpm" type="number" min="10" step="10">
+                </div>
+                <div class="field">
+                  <label for="maxRpm">Maximum agitation <span>rpm</span></label>
+                  <input id="maxRpm" type="number" min="10" step="10">
+                </div>
+              </div>
+              <div class="derived-strip" id="agitationDerived"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Gas delivery</legend>
+              <div class="form-grid three">
+                <div class="field">
+                  <label for="spargerType">Sparger</label>
+                  <select id="spargerType">
+                    <option value="open-pipe">Open-pipe sparger</option>
+                    <option value="ring">Ring sparger</option>
+                    <option value="micro">Microsparger</option>
+                    <option value="drilled">Drilled-hole sparger</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="baseVvm">Initial aeration <span>vvm</span></label>
+                  <input id="baseVvm" type="number" min="0" step="0.05">
+                </div>
+                <div class="field">
+                  <label for="maxVvm">Maximum aeration <span>vvm</span></label>
+                  <input id="maxVvm" type="number" min="0" step="0.05">
+                </div>
+                <div class="field">
+                  <label for="maxOxygenFraction">Maximum inlet O₂ <span>%</span></label>
+                  <input id="maxOxygenFraction" type="number" min="21" max="100" step="1">
+                </div>
+                <div class="field checkbox-field">
+                  <label><input id="allowNitrogen" type="checkbox"> Nitrogen available</label>
+                </div>
+                <div class="field checkbox-field">
+                  <label><input id="allowCo2" type="checkbox"> CO₂ available</label>
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="stage" data-stage="1">
+            <div class="stage-heading">
+              <div>
+                <p class="stage-number">Stage 2</p>
+                <h2>Strain and product</h2>
+              </div>
+              <p>Choose a biological archetype and explicitly define the product model. All kinetic values remain editable.</p>
+            </div>
+
+            <fieldset>
+              <legend>Strain</legend>
+              <div class="field wide">
+                <label for="strainPreset">Strain preset</label>
+                <select id="strainPreset"></select>
+                <small id="strainPresetNote"></small>
+              </div>
+              <div class="form-grid four">
+                <div class="field">
+                  <label for="muMax">Maximum growth rate, μ<sub>max</sub> <span>h⁻¹</span></label>
+                  <input id="muMax" type="number" min="0.01" max="2" step="0.01">
+                </div>
+                <div class="field">
+                  <label for="ks">Monod K<sub>S</sub> <span>g/L</span></label>
+                  <input id="ks" type="number" min="0.001" step="0.001">
+                </div>
+                <div class="field">
+                  <label for="yxS">Biomass yield, Y<sub>X/S</sub> <span>g/g</span></label>
+                  <input id="yxS" type="number" min="0.01" max="1" step="0.01">
+                </div>
+                <div class="field">
+                  <label for="maintenance">Maintenance, m<sub>S</sub> <span>g/g/h</span></label>
+                  <input id="maintenance" type="number" min="0" max="1" step="0.005">
+                </div>
+                <div class="field">
+                  <label for="qO2Max">Maximum qO₂ <span>mmol/g/h</span></label>
+                  <input id="qO2Max" type="number" min="0.1" max="50" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="optimalTemperature">Optimal temperature <span>°C</span></label>
+                  <input id="optimalTemperature" type="number" min="10" max="60" step="0.5">
+                </div>
+                <div class="field">
+                  <label for="optimalPh">Optimal pH</label>
+                  <input id="optimalPh" type="number" min="3" max="10" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="overflowThreshold">Overflow threshold q<sub>S</sub> <span>g/g/h</span></label>
+                  <input id="overflowThreshold" type="number" min="0" max="5" step="0.05">
+                </div>
+              </div>
+              <div class="field checkbox-field">
+                <label><input id="enableOverflow" type="checkbox"> Enable E. coli-style acetate overflow and reassimilation</label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Product</legend>
+              <div class="form-grid three">
+                <div class="field">
+                  <label for="productType">Product archetype</label>
+                  <select id="productType">
+                    <option value="biomass">Biomass</option>
+                    <option value="recombinant">Intracellular recombinant protein</option>
+                    <option value="secreted">Secreted protein</option>
+                    <option value="plasmid">Plasmid DNA</option>
+                    <option value="growth-metabolite">Growth-associated metabolite</option>
+                    <option value="nongrowth-metabolite">Non-growth-associated metabolite</option>
+                    <option value="custom">Custom product</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="productName">Product name</label>
+                  <input id="productName" type="text" maxlength="80">
+                </div>
+                <div class="field">
+                  <label for="solubleFraction">Recoverable / soluble fraction <span>%</span></label>
+                  <input id="solubleFraction" type="number" min="0" max="100" step="1">
+                </div>
+                <div class="field">
+                  <label for="productAlpha">Growth-associated coefficient, α <span>g/g</span></label>
+                  <input id="productAlpha" type="number" min="0" max="5" step="0.001">
+                </div>
+                <div class="field">
+                  <label for="productBeta">Non-growth coefficient, β <span>g/g/h</span></label>
+                  <input id="productBeta" type="number" min="0" max="5" step="0.001">
+                </div>
+                <div class="field">
+                  <label for="productDegradation">Product degradation <span>h⁻¹</span></label>
+                  <input id="productDegradation" type="number" min="0" max="2" step="0.001">
+                </div>
+                <div class="field">
+                  <label for="inductionTime">Induction time <span>h</span></label>
+                  <input id="inductionTime" type="number" min="0" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="postInductionTemperature">Post-induction temperature <span>°C</span></label>
+                  <input id="postInductionTemperature" type="number" min="10" max="50" step="0.5">
+                </div>
+                <div class="field">
+                  <label for="burdenFactor">Growth retained after induction <span>%</span></label>
+                  <input id="burdenFactor" type="number" min="0" max="100" step="1">
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="stage" data-stage="2">
+            <div class="stage-heading">
+              <div>
+                <p class="stage-number">Stage 3</p>
+                <h2>Process and controls</h2>
+              </div>
+              <p>Define the operating mode, initial state, environmental controls and simulation resolution.</p>
+            </div>
+
+            <fieldset>
+              <legend>Operating mode</legend>
+              <div class="segmented" role="radiogroup" aria-label="Process type">
+                <label><input type="radio" name="processType" value="batch"> <span>Batch</span></label>
+                <label><input type="radio" name="processType" value="fed-batch" checked> <span>Fed-batch</span></label>
+                <label><input type="radio" name="processType" value="continuous"> <span>Continuous</span></label>
+              </div>
+              <p id="processDescription" class="mode-description"></p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Initial state and duration</legend>
+              <div class="form-grid four">
+                <div class="field">
+                  <label for="initialBiomass">Initial biomass <span>gDCW/L</span></label>
+                  <input id="initialBiomass" type="number" min="0.001" step="0.01">
+                </div>
+                <div class="field">
+                  <label for="duration">Simulation duration <span>h</span></label>
+                  <input id="duration" type="number" min="0.1" max="1000" step="0.5">
+                </div>
+                <div class="field">
+                  <label for="timeStep">Integration step <span>h</span></label>
+                  <input id="timeStep" type="number" min="0.002" max="0.1" step="0.002">
+                </div>
+                <div class="field">
+                  <label for="initialDo">Initial dissolved oxygen <span>% air sat.</span></label>
+                  <input id="initialDo" type="number" min="0" max="200" step="1">
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Environmental controls</legend>
+              <div class="form-grid four">
+                <div class="field">
+                  <label for="temperature">Growth temperature <span>°C</span></label>
+                  <input id="temperature" type="number" min="10" max="60" step="0.5">
+                </div>
+                <div class="field">
+                  <label for="phSetpoint">pH setpoint</label>
+                  <input id="phSetpoint" type="number" min="3" max="10" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="doSetpoint">DO cascade setpoint <span>% air sat.</span></label>
+                  <input id="doSetpoint" type="number" min="0" max="100" step="1">
+                </div>
+                <div class="field">
+                  <label for="phMode">pH model</label>
+                  <select id="phMode">
+                    <option value="controlled">Controlled pH with base dosing</option>
+                    <option value="uncontrolled">Uncontrolled pH drift</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="baseNormality">Base concentration <span>mol/L</span></label>
+                  <input id="baseNormality" type="number" min="0.01" max="20" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="maxBaseRate">Maximum base-pump rate <span>mL/min</span></label>
+                  <input id="maxBaseRate" type="number" min="0" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="bufferCapacity">Buffer capacity <span>mmol/L/pH</span></label>
+                  <input id="bufferCapacity" type="number" min="1" step="1">
+                </div>
+                <div class="field">
+                  <label for="harvestCondition">Harvest condition</label>
+                  <select id="harvestCondition">
+                    <option value="duration">At process duration</option>
+                    <option value="substrate">When substrate is exhausted</option>
+                    <option value="volume">At maximum working volume</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="stage" data-stage="3">
+            <div class="stage-heading">
+              <div>
+                <p class="stage-number">Stage 4</p>
+                <h2>Base medium</h2>
+              </div>
+              <p>Choose a recipe and edit its components. Components marked as carbon sources contribute to the simulated substrate pool.</p>
+            </div>
+
+            <div class="form-grid two compact-grid">
+              <div class="field">
+                <label for="mediumPreset">Medium preset</label>
+                <select id="mediumPreset"></select>
+              </div>
+              <div class="field">
+                <label for="mediumName">Scenario medium name</label>
+                <input id="mediumName" type="text" maxlength="100">
+              </div>
+            </div>
+
+            <div class="composition-card">
+              <div class="table-header">
+                <div>
+                  <h3>Base-medium composition</h3>
+                  <p>Values are concentrations in the initial working volume.</p>
+                </div>
+                <button type="button" id="addMediumComponentBtn">Add component</button>
+              </div>
+              <div class="table-scroll">
+                <table class="composition-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Component</th>
+                      <th scope="col">Concentration</th>
+                      <th scope="col">Unit</th>
+                      <th scope="col">Role</th>
+                      <th scope="col"><span class="sr-only">Remove</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="mediumComponents"></tbody>
+                </table>
+              </div>
+              <div id="mediumTotals" class="derived-strip"></div>
+            </div>
+          </section>
+
+          <section class="stage" data-stage="4">
+            <div class="stage-heading">
+              <div>
+                <p class="stage-number">Stage 5</p>
+                <h2>Feed and addition strategy</h2>
+              </div>
+              <p>Feed composition and the pump profile are defined independently. Batch mode ignores nutrient feed but still includes base addition.</p>
+            </div>
+
+            <div class="form-grid two compact-grid">
+              <div class="field">
+                <label for="feedPreset">Feed composition preset</label>
+                <select id="feedPreset"></select>
+              </div>
+              <div class="field">
+                <label for="feedName">Scenario feed name</label>
+                <input id="feedName" type="text" maxlength="100">
+              </div>
+            </div>
+
+            <div class="composition-card">
+              <div class="table-header">
+                <div>
+                  <h3>Feed composition</h3>
+                  <p>Concentrations are specified per litre of feed solution.</p>
+                </div>
+                <button type="button" id="addFeedComponentBtn">Add component</button>
+              </div>
+              <div class="table-scroll">
+                <table class="composition-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Component</th>
+                      <th scope="col">Concentration</th>
+                      <th scope="col">Unit</th>
+                      <th scope="col">Role</th>
+                      <th scope="col"><span class="sr-only">Remove</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="feedComponents"></tbody>
+                </table>
+              </div>
+              <div id="feedTotals" class="derived-strip"></div>
+            </div>
+
+            <fieldset id="feedStrategyFieldset">
+              <legend>Feed strategy</legend>
+              <div class="form-grid four">
+                <div class="field">
+                  <label for="feedStrategy">Profile</label>
+                  <select id="feedStrategy">
+                    <option value="constant">Constant rate</option>
+                    <option value="linear">Linear ramp</option>
+                    <option value="exponential">Exponential feed</option>
+                    <option value="do-stat">Simple DO-stat</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="feedStart">Feed start <span>h</span></label>
+                  <input id="feedStart" type="number" min="0" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="initialFeedRate">Initial feed rate <span>mL/min</span></label>
+                  <input id="initialFeedRate" type="number" min="0" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="maxFeedRate">Pump maximum <span>mL/min</span></label>
+                  <input id="maxFeedRate" type="number" min="0" step="0.1">
+                </div>
+                <div class="field feed-option linear-option">
+                  <label for="linearFeedSlope">Linear slope <span>mL/min/h</span></label>
+                  <input id="linearFeedSlope" type="number" min="0" step="0.1">
+                </div>
+                <div class="field feed-option exponential-option">
+                  <label for="targetGrowthRate">Target μ <span>h⁻¹</span></label>
+                  <input id="targetGrowthRate" type="number" min="0.001" max="2" step="0.01">
+                </div>
+                <div class="field continuous-option">
+                  <label for="dilutionRate">Dilution rate, D <span>h⁻¹</span></label>
+                  <input id="dilutionRate" type="number" min="0.001" max="2" step="0.01">
+                </div>
+                <div class="field do-stat-option">
+                  <label for="doStatThreshold">DO-stat trigger <span>%</span></label>
+                  <input id="doStatThreshold" type="number" min="0" max="100" step="1">
+                </div>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="stage" data-stage="5">
+            <div class="stage-heading">
+              <div>
+                <p class="stage-number">Stage 6</p>
+                <h2>Review and simulate</h2>
+              </div>
+              <p>Review the assumptions, then run the local numerical model. No scenario data leaves your browser.</p>
+            </div>
+
+            <div id="validationSummary"></div>
+            <div id="reviewCards" class="review-grid"></div>
+
+            <div class="run-panel">
+              <div>
+                <h3>Ready to calculate</h3>
+                <p>The model integrates volume, biomass, carbon substrate, product, acetate, oxygen and approximate pH-control demand over time.</p>
+              </div>
+              <button type="button" id="runSimulationBtn" class="primary large">Run simulation</button>
+            </div>
+          </section>
+
+          <section class="stage" data-stage="6">
+            <div class="stage-heading results-heading">
+              <div>
+                <p class="stage-number">Stage 7</p>
+                <h2>Simulation results</h2>
+              </div>
+              <div class="result-actions">
+                <button type="button" id="rerunBtn">Run again</button>
+                <button type="button" id="downloadCsvBtn">Download time series</button>
+                <button type="button" id="downloadReportBtn">Download report</button>
+              </div>
+            </div>
+
+            <div id="resultPlaceholder" class="empty-state">
+              <h3>No results yet</h3>
+              <p>Complete the process definition and run the simulation.</p>
+            </div>
+
+            <div id="resultsContent" hidden>
+              <div id="kpiGrid" class="kpi-grid"></div>
+
+              <section class="result-section">
+                <div class="section-title-row">
+                  <div>
+                    <h3>Process warnings</h3>
+                    <p>Warnings identify model limits or equipment constraints encountered during the run.</p>
+                  </div>
+                </div>
+                <div id="warningList"></div>
+              </section>
+
+              <section class="result-section">
+                <h3>Time profiles</h3>
+                <div class="chart-grid">
+                  <figure class="chart-card">
+                    <figcaption>Biomass and product concentration</figcaption>
+                    <canvas id="growthChart" aria-label="Biomass and product chart"></canvas>
+                  </figure>
+                  <figure class="chart-card">
+                    <figcaption>Carbon substrate and acetate</figcaption>
+                    <canvas id="substrateChart" aria-label="Substrate and acetate chart"></canvas>
+                  </figure>
+                  <figure class="chart-card">
+                    <figcaption>Oxygen transfer and uptake</figcaption>
+                    <canvas id="oxygenChart" aria-label="Oxygen transfer and uptake chart"></canvas>
+                  </figure>
+                  <figure class="chart-card">
+                    <figcaption>Volume and cumulative nutrient feed</figcaption>
+                    <canvas id="volumeChart" aria-label="Volume and feed chart"></canvas>
+                  </figure>
+                  <figure class="chart-card wide-chart">
+                    <figcaption>Dissolved oxygen and pH</figcaption>
+                    <canvas id="controlChart" aria-label="Dissolved oxygen and pH chart"></canvas>
+                  </figure>
+                </div>
+              </section>
+
+              <section class="result-section">
+                <h3>Final state and material use</h3>
+                <div class="table-scroll">
+                  <table class="results-table">
+                    <tbody id="finalStateTable"></tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section class="result-section assumptions">
+                <h3>Interpretation</h3>
+                <p id="interpretationText"></p>
+                <p><strong>Do not treat this output as validated process evidence.</strong> The kinetic, k<sub>L</sub>a, overflow and pH models are deliberately simplified and depend strongly on the values supplied.</p>
+              </section>
+            </div>
+          </section>
+
+          <div class="stage-controls">
+            <button type="button" id="previousBtn" class="quiet" disabled>Previous</button>
+            <button type="button" id="nextBtn" class="primary">Next stage</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="process-sidebar">
+        <section class="vessel-card">
+          <div class="sidebar-heading">
+            <h2>Configured vessel</h2>
+            <span id="sidebarProcessBadge" class="mini-badge">Fed-batch</span>
+          </div>
+          <svg id="vesselSvg" viewBox="0 0 300 380" role="img" aria-label="Configured bioreactor diagram"></svg>
+          <div id="vesselReadout" class="vessel-readout"></div>
+        </section>
+
+        <section class="live-summary">
+          <h2>Scenario summary</h2>
+          <dl id="sidebarSummary"></dl>
+        </section>
+
+        <section class="equation-card">
+          <h2>Core growth model</h2>
+          <p class="equation">μ = μ<sub>max</sub> · S/(K<sub>S</sub>+S) · O₂/(K<sub>O₂</sub>+O₂) · f(pH,T)</p>
+          <p>Product formation uses the Luedeking–Piret form q<sub>P</sub> = αμ + β.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Magnus Lian Akerholt · <a href="/apps/">Back to apps</a></p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
