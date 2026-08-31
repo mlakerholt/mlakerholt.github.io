@@ -53,4 +53,5 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 
 - `index.html` — staged interface and report layout
 - `simulator.css` — responsive visual design
-- `app.js` — presets, state management, simulation engine, charts and exports
+- `app.js` — lightweight compressed-bundle loader
+- `app.payload.*` — compressed simulation source containing presets, state management, model, charts and exports
