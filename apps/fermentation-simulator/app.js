@@ -6,6 +6,16 @@
   retroStylesheet.href = "retro.css";
   document.head.appendChild(retroStylesheet);
 
+  const modelStatus = document.querySelector(".hero-note");
+  if (modelStatus) {
+    modelStatus.remove();
+  }
+
+  const hero = document.querySelector(".hero");
+  if (hero) {
+    hero.style.gridTemplateColumns = "minmax(0, 1fr)";
+  }
+
   const showLoadError = (error) => {
     console.error(error);
     const status = document.getElementById("saveStatus");
