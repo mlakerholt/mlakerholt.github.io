@@ -1,6 +1,11 @@
 (() => {
   "use strict";
 
+  const retroStylesheet = document.createElement("link");
+  retroStylesheet.rel = "stylesheet";
+  retroStylesheet.href = "retro.css";
+  document.head.appendChild(retroStylesheet);
+
   const showLoadError = (error) => {
     console.error(error);
     const status = document.getElementById("saveStatus");
