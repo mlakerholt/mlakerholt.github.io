@@ -1,3 +1,13 @@
+# First-run setup and screening presets
+
+9 September 2026
+
+- Four-step first-run path: goal, screening system, measurement and review.
+- Eight literature-linked screening-system starting points: kinetic absorbance, fluorescence and luminescence microplates; endpoint microplates; colony imaging; cellular/FACS reporters; droplet sorting; and growth-coupled selection.
+- Presets fill editable route, sample-format, signal-unit, normalization and plate-format suggestions without replacing assay-specific detector limits or quality thresholds.
+- Type-ahead suggestions for common metrics, units, hosts, sample formats and normalization approaches; custom text remains available.
+- Built-in versus planning-only routes are explicit, with validation cautions and an evidence example beside each choice.
+
 # Evozyme 1.3.0 — Research Desk
 
 9 September 2026

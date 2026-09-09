@@ -21,6 +21,9 @@ Prepared 9 September 2026. The handbook separates reported observations, propose
 | [Gärtner and colleagues (2019): P450 BM3 screening comparison](https://www.nature.com/articles/s41598-019-52077-w) | Product-resolved screening versus cofactor depletion. | Comparison in a specific enzyme/substrate system. |
 | [An Open-Source Plate Reader (2020)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7144579/) | Feasibility of custom instrument construction. | Published build and benchmarks; new builds require acceptance testing. |
 | [Agresti and colleagues (2010)](https://pmc.ncbi.nlm.nih.gov/articles/PMC2840095/) | Droplet-based enzyme evolution example. | Specialist compartmentalized assay, not a universal platform. |
+| [Directed evolution of bacterial α-amylase](https://pmc.ncbi.nlm.nih.gov/articles/PMC2366932/) | Agar/colony activity screening example. | Enzyme-specific activity stain followed by rescreening; not a universal colony assay. |
+| [FACS screening of chitinase A](https://pmc.ncbi.nlm.nih.gov/articles/PMC8002391/) | Cellular/compartment-linked fluorescent screening example. | Assay-specific substrate, expression and cross-talk controls are essential. |
+| [Growth selection for amine-forming enzymes](https://pmc.ncbi.nlm.nih.gov/articles/PMC9718777/) | Growth-coupled enzyme selection example. | Growth is a complex phenotype and may not be proportional to specific activity. |
 | [Wu and colleagues (2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6500146/), [published correction](https://pmc.ncbi.nlm.nih.gov/articles/PMC6955331/) | Machine-learning-assisted evolution example. | Method demonstration; proposed adoption checks are the handbook's guidance. |
 
 ## Official implementation references

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {analyze,budget,validateAssay} from '../core.mjs';
-import {newCampaign,activeRound,assayConfig,nextRound} from '../data.mjs';
+import {newCampaign,activeRound,assayConfig,nextRound,screeningSystems,applyScreeningSystem} from '../data.mjs';
 import {parseCSV,validateBackup,fingerprint} from '../io.mjs';
 import {configKey,hasReviewed,minimumControls,workflowIssues,analysisIssues} from '../workflow.mjs';
 import {controlProposal} from '../workflow-ui.mjs';
@@ -49,4 +49,12 @@ test('unsupported format and unexplained reference changes are explicit analysis
 test('linked rounds update reference and clear prior configuration review',()=>{
   const c=newCampaign(),r=activeRound(c);r.assay.reviewRecord={key:'old',sha256:'old',reviewedAt:'old'};r.assay.rulesReviewed=true;
   const n=nextRound(c,'C03');assert.equal(n.assay.reference_parent_id,'C03');assert.equal(n.review.parentCloneId,'C03');assert.equal(n.assay.reviewRecord,null);assert.equal(n.assay.rulesReviewed,false);assert.equal(r.assay.reviewRecord.key,'old');
+});
+test('screening-system starting points are explicit, editable and preserve assay-specific limits',()=>{
+  const r=activeRound(newCampaign());r.assay.assay_id='KEEP';r.assay.run_id='RUN';r.assay.signal_ceiling=4321;r.assay.minimum_r2=.91;r.assay.rulesReviewed=true;r.assay.reviewRecord={key:'old'};
+  const fluorescence=applyScreeningSystem(r,'plate_fluorescence');
+  assert.equal(fluorescence.status,'Built-in analysis');assert.equal(r.assay.detection,'Fluorescence');assert.equal(r.assay.signal_unit,'RFU');assert.equal(r.assay.assay_id,'KEEP');assert.equal(r.assay.run_id,'RUN');assert.equal(r.assay.signal_ceiling,4321);assert.equal(r.assay.minimum_r2,.91);assert.equal(r.assay.rulesReviewed,false);assert.equal(r.assay.reviewRecord,null);
+  assert.equal(applyScreeningSystem(r,'cell_sorting').status,'Planning only');assert.equal(r.assay.detection,'Other — planning only');
+  assert.equal(Object.keys(screeningSystems).length,8);assert.throws(()=>applyScreeningSystem(r,'invented'),/Choose a supported/);
+  const earlier=newCampaign();delete activeRound(earlier).assay.screeningSystem;assert.equal(activeRound(validateBackup(earlier)).assay.screeningSystem,'plate_absorbance');
 });

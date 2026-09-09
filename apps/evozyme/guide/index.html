@@ -1052,12 +1052,14 @@
 <p>Start on the process overview. Follow <strong>Plan → Test → Learn</strong>, then open the planner at the stage you need. Laboratory work sits between the app stages; completing a form does not demonstrate an assay or enzyme improvement.</p>
 <h2>Find your place in Research Desk</h2>
 <p>The top navigation opens <strong>Workflow</strong>, <strong>Campaign</strong>, <strong>Screening</strong>, <strong>Handbook</strong> and <strong>Files</strong>. The round outline keeps all seven stages available. Workflow is the opening screen and offers a resume link when a campaign is saved. Appearance can follow your system or use light/dark colours.</p>
-<p>Campaign setup has three parts: useful improvement, measurement route and a review of the brief. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.</p>
+<p>Campaign setup has four short parts: goal, screening system, measurement and review. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.</p>
 <p>Screening places candidate comparison beside a selected-record inspector. Selecting a clone shows actual raw traces, fitting times, technical CV, stock identity and independent-evidence status. Expand the plate map to inspect controls or individual wells. A filter can hide a selected candidate from the list; the inspector explicitly says when the selected record is outside the filter.</p>
 <p>The handbook displays one chapter at a time; search finds matching chapters. <strong>Return to…</strong> restores the campaign and selected record. Record URLs preserve round, analysis, plate, well and filter within the same browser. They do not transfer data to another device; use a backup for that. While an import is staged, other pages open alongside the original workspace to keep it available.</p>
 <p>Files collects backup export, saved campaigns, recovery drafts, separate-copy restoration, reports and templates. The campaign also retains these actions under <strong>Manage campaigns &amp; backups</strong>.</p>
 <h2>A short starting path</h2>
-<p>In <strong>Campaign</strong>, enter a campaign name, parent enzyme and exact clone ID, the intended improvement, metric and units, and the conditions for comparison. Choose a measurement route. Guided view exposes starting information first; <strong>Show complete forms</strong> reveals the same records in full. Switching views preserves your entries. Later documentation stays in expandable sections.</p>
+<p>In <strong>Campaign</strong>, enter a campaign name, parent enzyme and exact clone ID, then describe the intended improvement. Choose a screening-system starting point before filling in the metric, units and comparison conditions. Guided view exposes starting information first; <strong>Show complete forms</strong> reveals the same records in full. Switching views preserves your entries. Later documentation stays in expandable sections.</p>
+<p>The screening-system list covers kinetic absorbance, fluorescence and luminescence microplates; endpoint microplates; colony or agar imaging; cellular reporters with FACS; droplet sorting; and growth-coupled selection. Each choice explains where it fits, what must be validated and an example literature source. Kinetic 96-well plate routes can use the built-in analyser. The other routes are planning records and require an external validated analysis method.</p>
+<p>Applying a starting point fills the detection route, sample format, signal unit, normalization wording and 96-well/technical-repeat fields where applicable. It does not choose the substrate, detector limits, linear fitting interval, quality thresholds or minimum worthwhile improvement. Those values must come from the actual assay and pilot evidence. Suggested metric, unit, host, sample-format and normalization fields allow either a listed value or custom text.</p>
 <p>If you change the campaign parent before its first analysis, screening and confirmation references that still match the old parent follow the change. Once results exist, references are explicit historical choices. Explain any intentional difference between campaign, screen and confirmation references.</p>
 <p>The next-action list changes with the stage. Expand the list across all stages to see unresolved work. It distinguishes missing information, missing evidence, planning inconsistencies, settings review and analysis blockers. The status concerns recorded information, not biological validity.</p>
 <h2>Before the first screen</h2>
@@ -1604,6 +1606,21 @@ Inspect traces and plate patterns even when numerical rules pass. Thresholds are
 <td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2840095/">Agresti and colleagues (2010)</a></td>
 <td>Droplet-based enzyme evolution example.</td>
 <td>Specialist compartmentalized assay, not a universal platform.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2366932/">Directed evolution of bacterial α-amylase</a></td>
+<td>Agar/colony activity screening example.</td>
+<td>Enzyme-specific activity stain followed by rescreening; not a universal colony assay.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8002391/">FACS screening of chitinase A</a></td>
+<td>Cellular/compartment-linked fluorescent screening example.</td>
+<td>Assay-specific substrate, expression and cross-talk controls are essential.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9718777/">Growth selection for amine-forming enzymes</a></td>
+<td>Growth-coupled enzyme selection example.</td>
+<td>Growth is a complex phenotype and may not be proportional to specific activity.</td>
 </tr>
 <tr>
 <td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6500146/">Wu and colleagues (2019)</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6955331/">published correction</a></td>

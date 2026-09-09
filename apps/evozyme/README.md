@@ -4,6 +4,8 @@ A static browser application for campaign planning, equipment and software acces
 
 Opening `/apps/evozyme/` shows the graphical mental map: Plan → Test → Learn, with links to all seven app stages, laboratory work, quality checks, and the next-round loop. The planner is at `planner.html`; existing bookmarks such as `/#screen` continue to open that stage. The overview remains available at `overview.html`, works without JavaScript, adapts to narrow screens, and includes a print layout.
 
+First-time setup asks for a goal, a screening-system starting point, the measurement and a final review. Literature-linked presets cover common plate, imaging, cell-sorting, droplet and growth-selection routes. They fill editable descriptive parameters but intentionally leave assay-specific detector limits, fitting windows and acceptance thresholds to pilot evidence.
+
 Open the app through an HTTP server at `/apps/evozyme/`. The planner's ES modules and workers require HTTP(S); opening the planner file directly is not supported. Production uses the existing GitHub Pages site. There are no runtime third-party dependencies, accounts, analysis API charges, or server data uploads.
 
 ## Develop and verify

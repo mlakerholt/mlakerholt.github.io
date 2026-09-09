@@ -5,6 +5,7 @@ export function migrateCampaign(value) {
   c.guided??=true;c.mappingPresets??=[];c.restorationCheckedAt??=null;
   if(legacy)c.migration={from:1,at:new Date().toISOString(),note:'Earlier analysis snapshots and decisions retained. New analyses require explicit parent identity and configuration review.'};
   for(const r of c.rounds){
+    r.assay.screeningSystem??=(r.assay.detection==='Fluorescence'?'plate_fluorescence':r.assay.detection==='Luminescence'?'plate_luminescence':r.assay.detection==='Absorbance'?'plate_absorbance':'plate_endpoint');
     r.assay.reference_parent_id??=r.brief.parentCloneId||'';
     r.assay.reviewRecord??=null;
     if(legacy){r.assay.rulesReviewed=false;r.assay.reviewRecord=null;}

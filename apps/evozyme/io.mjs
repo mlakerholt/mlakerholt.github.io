@@ -74,6 +74,7 @@ export function validateBackup(value){
   for(const preset of migrated.mappingPresets){if(!preset||preset.version!==1||typeof preset.name!=='string')fail('invalid mapping preset.');recipeCheck(preset.recipe);}
   for(const r of migrated.rounds){
     if(typeof r.assay.reference_parent_id!=='string'||typeof r.review.referenceReason!=='string')fail('invalid reference identity.');
+    if(!['plate_absorbance','plate_fluorescence','plate_luminescence','plate_endpoint','colony_imaging','cell_sorting','droplet_sorting','growth_selection'].includes(r.assay.screeningSystem))fail('invalid screening system.');
     const review=r.assay.reviewRecord;
     if(review!==null&&(!review||typeof review.key!=='string'||typeof review.sha256!=='string'||typeof review.reviewedAt!=='string'))fail('invalid settings review.');
     if(!r.criteria||typeof r.criteria!=='object'||typeof r.criteria.enabled!=='boolean'||!['product','enzyme'].includes(r.criteria.normalization)||!['at_least','at_most'].includes(r.criteria.direction)||typeof r.criteria.assayId!=='string'||typeof r.criteria.notes!=='string'||(r.criteria.fold!==null&&(typeof r.criteria.fold!=='number'||!Number.isFinite(r.criteria.fold)||r.criteria.fold<0)))fail('invalid campaign criteria.');

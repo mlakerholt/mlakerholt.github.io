@@ -1,5 +1,12 @@
 # Evozyme 1.3.0 verification
 
+## First-run setup and screening-system presets
+
+- The guided campaign start now progresses through goal, screening system, measurement and review, with back navigation and a stable `brief=4` review URL.
+- Eight selectable routes were checked in the browser. Each displays its built-in/planning-only status, appropriate use, validation caution and a literature link. Applying the cellular/FACS preset changed the sample format, signal unit, normalization and analysis support warning without changing the stored assay/run IDs or detector/quality limits.
+- Metric, unit, host, sample-format, signal-unit and normalization suggestions render as editable comboboxes; custom values remain accepted.
+- Earlier version-2 campaign records without a screening-system field migrate to the matching plate route. The JavaScript suite contains 46 passing tests, including preset application and migration coverage. The build and browser console checks pass.
+
 9 September 2026. Research Desk implementation checked on synthetic fixtures in headless Microsoft Edge on Windows. These checks concern software behaviour, not an experimental assay or enzyme improvement.
 
 - All 45 JavaScript tests pass. The four new tests cover record URL round-tripping, required brief answers, preserved raw traces and evidence distinctions, and source-time preview. Existing calculations, import replay, reference identity, confirmation gates and migration tests continue to pass.

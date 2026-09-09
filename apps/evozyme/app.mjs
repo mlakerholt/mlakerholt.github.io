@@ -1,7 +1,7 @@
 import {readRoute,rememberContext,syncNavigation} from './desk.mjs';
 import{budget,equipmentTotal,confirmationSummary,validateAssay}from'./core.mjs';
 import{parseCSV,toCSV,download,readFile,fingerprint,saveCampaign,loadCampaign,listCampaigns,getActive,setActive,validateBackup,safeName,MAX_IMPORT_BYTES}from'./io.mjs';
-import{newCampaign,nextRound,activeRound,assayConfig,stages,uid,configurations}from'./data.mjs';
+import{newCampaign,nextRound,activeRound,assayConfig,stages,uid,configurations,applyScreeningSystem}from'./data.mjs';
 import{campaignView,assayView,equipmentView,libraryView,budgetView,libraryProbabilities}from'./planner.mjs';
 import{screenView,selectedAnalysis}from'./screen.mjs';
 import{reviewView,reportHTML,confirmationReady}from'./review.mjs';
@@ -24,7 +24,7 @@ const round=()=>activeRound(campaign);
 const views=[campaignView,assayView,equipmentView,libraryView,budgetView,screenView,reviewView];
 const notice=(message,kind='info')=>{$('#notice').innerHTML=message?`<div class="callout ${kind}">${e(message)}</div>`:'';};
 function remember(){if(booting)return;const r=round(),run=selectedAnalysis(r,ui);if(run){ui.analysisId=run.id;if(!run.result.quality[ui.plate])ui.plate=Object.keys(run.result.quality)[0];const wells=run.result.wells.filter(w=>w.plate_id===ui.plate);if(!wells.some(w=>w.well===ui.well))ui.well=(wells.find(w=>w.clone_id===run.result.candidates.find(x=>x.plate_id===ui.plate)?.clone_id)||wells[0])?.well;ui.clone=wells.find(w=>w.well===ui.well)?.clone_id||'';}else{ui.analysisId=null;ui.plate=null;ui.well=null;ui.clone='';}const url=rememberContext(campaign,r,ui,stages[stage].toLowerCase());history.replaceState(null,'',url);syncNavigation();}
-function restoreRoute(){const p=readRoute(location.search),r=round();for(const [key,value]of Object.entries({analysisId:p.analysis,plate:p.plate,well:p.well,filter:p.filter,search:p.search}))if(value!==undefined)ui[key]=value;ui.setupStep=[1,2,3].includes(Number(p.brief))?Number(p.brief):1;if(ui.analysisId&&!r.analyses.some(a=>a.id===ui.analysisId)){ui.analysisId=null;ui.plate=null;ui.well=null;notice('That analysis is unavailable in this campaign. Showing the latest retained analysis.','warning');}if(ui.plate){const run=selectedAnalysis(r,ui);if(run&&!run.result.quality[ui.plate]){notice('That plate is unavailable. Showing the first retained plate.','warning');ui.plate=null;ui.well=null;}else if(run&&ui.well&&!run.result.wells.some(w=>w.plate_id===ui.plate&&w.well===ui.well)){notice('That well is unavailable. Choose a retained measurement.','warning');ui.well=null;}}}
+function restoreRoute(){const p=readRoute(location.search),r=round();for(const [key,value]of Object.entries({analysisId:p.analysis,plate:p.plate,well:p.well,filter:p.filter,search:p.search}))if(value!==undefined)ui[key]=value;ui.setupStep=[1,2,3,4].includes(Number(p.brief))?Number(p.brief):1;if(ui.analysisId&&!r.analyses.some(a=>a.id===ui.analysisId)){ui.analysisId=null;ui.plate=null;ui.well=null;notice('That analysis is unavailable in this campaign. Showing the latest retained analysis.','warning');}if(ui.plate){const run=selectedAnalysis(r,ui);if(run&&!run.result.quality[ui.plate]){notice('That plate is unavailable. Showing the first retained plate.','warning');ui.plate=null;ui.well=null;}else if(run&&ui.well&&!run.result.wells.some(w=>w.plate_id===ui.plate&&w.well===ui.well)){notice('That well is unavailable. Choose a retained measurement.','warning');ui.well=null;}}}
 function importFailure(err){if(!ui.pending){notice(err.message,'error');return;}ui.importError=err.message;render();const box=$('#import-error');box?.focus();box?.scrollIntoView({block:'center'});}
 function showSetupErrors(){for(const x of ui.setupErrors){const input=document.getElementById('f-'+x.path.replaceAll('.','-'));if(!input)continue;input.setAttribute('aria-invalid','true');const id=input.id+'-error';input.setAttribute('aria-describedby',[input.getAttribute('aria-describedby'),id].filter(Boolean).join(' '));input.insertAdjacentHTML('afterend',`<p class="field-error" id="${id}">${e(x.message)}</p>`);}}
 function renderSummary(){
@@ -205,9 +205,14 @@ const exportCSV=(name,rows,headers)=>download(name,toCSV(rows,headers),'text/csv
 async function action(name,button){
   const r=round(),run=selectedAnalysis(r,ui);notice('');
   switch(name){
-    case'brief-next':{ui.setupErrors=setupIssues(campaign,r,ui.setupStep);if(!ui.setupErrors.length)ui.setupStep=Math.min(3,ui.setupStep+1);render({focus:true});if(ui.setupErrors.length)document.getElementById('f-'+ui.setupErrors[0].path.replaceAll('.','-'))?.focus();break;}
+    case'brief-next':{
+      ui.setupErrors=setupIssues(campaign,r,ui.setupStep);
+      if(!ui.setupErrors.length){if(ui.setupStep===2){applyScreeningSystem(r,r.assay.screeningSystem);changed();}ui.setupStep=Math.min(4,ui.setupStep+1);}
+      render({focus:true});if(ui.setupErrors.length)document.getElementById('f-'+ui.setupErrors[0].path.replaceAll('.','-'))?.focus();break;
+    }
     case'brief-back':ui.setupStep=Math.max(1,ui.setupStep-1);ui.setupErrors=[];render({focus:true});break;
     case'toggle-view':campaign.guided=!campaign.guided;changed();render();break;
+    case'screening-preset':{const preset=applyScreeningSystem(r,r.assay.screeningSystem);changed();render();notice(preset.name+' starting parameters applied. Validate them with your assay before analysis.');break;}
     case'restore-check':restoreAsCopy=true;$('#backup-input').click();break;
     case'map-preview':await previewMapping();break;
     case'validate-import':await validateImport();break;

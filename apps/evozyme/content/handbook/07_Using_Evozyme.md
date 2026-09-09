@@ -8,7 +8,7 @@ Start on the process overview. Follow **Plan → Test → Learn**, then open the
 
 The top navigation opens **Workflow**, **Campaign**, **Screening**, **Handbook** and **Files**. The round outline keeps all seven stages available. Workflow is the opening screen and offers a resume link when a campaign is saved. Appearance can follow your system or use light/dark colours.
 
-Campaign setup has three parts: useful improvement, measurement route and a review of the brief. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.
+Campaign setup has four short parts: goal, screening system, measurement and review. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.
 
 Screening places candidate comparison beside a selected-record inspector. Selecting a clone shows actual raw traces, fitting times, technical CV, stock identity and independent-evidence status. Expand the plate map to inspect controls or individual wells. A filter can hide a selected candidate from the list; the inspector explicitly says when the selected record is outside the filter.
 
@@ -18,7 +18,11 @@ Files collects backup export, saved campaigns, recovery drafts, separate-copy re
 
 ## A short starting path
 
-In **Campaign**, enter a campaign name, parent enzyme and exact clone ID, the intended improvement, metric and units, and the conditions for comparison. Choose a measurement route. Guided view exposes starting information first; **Show complete forms** reveals the same records in full. Switching views preserves your entries. Later documentation stays in expandable sections.
+In **Campaign**, enter a campaign name, parent enzyme and exact clone ID, then describe the intended improvement. Choose a screening-system starting point before filling in the metric, units and comparison conditions. Guided view exposes starting information first; **Show complete forms** reveals the same records in full. Switching views preserves your entries. Later documentation stays in expandable sections.
+
+The screening-system list covers kinetic absorbance, fluorescence and luminescence microplates; endpoint microplates; colony or agar imaging; cellular reporters with FACS; droplet sorting; and growth-coupled selection. Each choice explains where it fits, what must be validated and an example literature source. Kinetic 96-well plate routes can use the built-in analyser. The other routes are planning records and require an external validated analysis method.
+
+Applying a starting point fills the detection route, sample format, signal unit, normalization wording and 96-well/technical-repeat fields where applicable. It does not choose the substrate, detector limits, linear fitting interval, quality thresholds or minimum worthwhile improvement. Those values must come from the actual assay and pilot evidence. Suggested metric, unit, host, sample-format and normalization fields allow either a listed value or custom text.
 
 If you change the campaign parent before its first analysis, screening and confirmation references that still match the old parent follow the change. Once results exist, references are explicit historical choices. Explain any intentional difference between campaign, screen and confirmation references.
 
