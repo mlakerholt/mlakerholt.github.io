@@ -2,6 +2,7 @@
 
 9 September 2026
 
+- The process overview is now the default app screen. The planner opens from its stage links or “Open the planner”; existing links to individual stages continue to work.
 - Added a graphical Plan → Test → Learn overview for first-time readers, linked prominently from the planner and handbook.
 - Connected all seven app stages to their place in the experiment, including laboratory work, failed-check recovery, independent confirmation and the next-round loop.
 - Added a narrow-screen layout, landscape print styles and chapter links. The overview works without JavaScript.

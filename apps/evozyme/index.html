@@ -3,34 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Plan enzyme-evolution campaigns, compare equipment and costs, estimate library coverage, and review screening results with Evozyme.">
+  <meta name="description" content="A simple map of an enzyme directed-evolution round: plan, test, confirm, and use the evidence to decide what comes next.">
   <meta name="color-scheme" content="light">
-  <title>Evozyme — Directed Evolution Planner</title>
+  <title>The evolution workflow — Evozyme</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="overview.css">
-  <script type="module" src="app.mjs"></script>
+  <script src="entry.js"></script>
 </head>
-<body>
-  <a class="skip" href="#stage">Skip to workspace</a>
+<body class="workflow-overview">
+  <a class="skip" href="#process-map">Skip to process map</a>
   <div class="sheet">
     <header class="site-header">
       <a class="site-title" href="/">Magnus Lian Akerholt</a>
       <nav aria-label="Main navigation"><a href="/">Home</a><a href="/apps/" aria-current="page">Apps</a><a href="/articles/">Articles</a><a href="/art/">Art</a></nav>
     </header>
     <main>
-      <div class="intro"><div><p class="eyebrow">Directed evolution planner <span class="badge">1.0</span></p><h1>Evozyme</h1><p>Define the assay. Fit the library to your capacity. Follow the evidence.</p></div><div class="intro-links"><a class="guide-link" href="overview.html"><strong>Start here: process overview →</strong></a><a class="guide-link" href="guide/index.html">Read the handbook ↗</a></div></div>
-      <div class="toolbar" aria-label="Campaign tools">
-        <button type="button" data-action="new">New campaign</button><button type="button" data-action="demo">Open worked example</button><button type="button" data-action="saved">Saved campaigns</button><button type="button" data-action="export">Export backup</button><label class="button-like">Import backup<input id="backup-input" type="file" accept=".json,application/json" class="file-control"></label><button type="button" data-action="print">Print report</button>
+      <div class="map-heading">
+        <p class="eyebrow">Evozyme · Start here</p>
+        <h1>The evolution workflow</h1>
+        <p>One round: plan the experiment, test variants, confirm what improved.</p>
       </div>
-      <div class="status-line"><span id="origin-label"></span><span id="save-status" role="status" aria-live="polite">Preparing workspace…</span></div>
-      <nav id="steps" class="steps" aria-label="Campaign stages"></nav>
-      <div id="notice" role="status" aria-live="polite"></div>
-      <div class="workspace"><section id="stage" tabindex="-1" aria-labelledby="stage-title"></section><aside id="summary" aria-label="Campaign summary"></aside></div>
-      <div class="stage-controls"><button id="previous" type="button">← Previous</button><span id="stage-count"></span><button id="next" type="button">Next stage →</button></div>
-      <noscript><p class="callout error">Enable JavaScript to use the planner. The <a href="guide/index.html">handbook</a> is available without JavaScript.</p></noscript>
+      <p class="map-key" id="map-key">Follow the arrows. Numbered links match the app’s seven stages; laboratory work happens between them.</p>
+      <figure class="process-map" id="process-map" tabindex="-1" aria-label="Directed evolution process map" aria-describedby="map-key map-caption">
+        <div class="process-phases">
+          <section class="process-phase" aria-labelledby="plan-title">
+            <h2 id="plan-title"><span aria-hidden="true">A</span> Plan</h2>
+            <ol class="process-nodes">
+              <li>
+                <h3>Define success</h3>
+                <p>Choose the parent enzyme, target reaction and improvement to measure.</p>
+                <a class="stage-chip" href="planner.html#campaign"><span>1</span> Campaign</a>
+              </li>
+              <li>
+                <h3>Make the assay trustworthy</h3>
+                <p>Check controls, repeatability and whether the readout reflects the intended reaction.</p>
+                <a class="stage-chip" href="planner.html#assay"><span>2</span> Assay</a>
+              </li>
+              <li>
+                <h3>Fit the experiment</h3>
+                <p>Match the library to equipment, capacity and cost. Reserve room for controls and confirmation.</p>
+                <div class="stage-chips"><a class="stage-chip" href="planner.html#equipment"><span>3</span> Equipment</a><a class="stage-chip" href="planner.html#library"><span>4</span> Library</a><a class="stage-chip" href="planner.html#budget"><span>5</span> Budget</a></div>
+              </li>
+            </ol>
+            <p class="process-check"><strong>Before screening:</strong> demonstrate a reliable assay and a working sample-tracking pilot.</p>
+          </section>
+          <section class="process-phase" aria-labelledby="test-title">
+            <h2 id="test-title"><span aria-hidden="true">B</span> Test</h2>
+            <ol class="process-nodes">
+              <li class="lab-node">
+                <h3>Make &amp; prepare variants</h3>
+                <p>Build the library, check representative sequences, express and prepare samples.</p>
+                <span class="lab-label">Laboratory work</span>
+              </li>
+              <li>
+                <h3>Measure &amp; screen</h3>
+                <p>Measure activity, inspect raw data and nominate candidates for retesting.</p>
+                <a class="stage-chip" href="planner.html#screen"><span>6</span> Screen</a>
+              </li>
+            </ol>
+            <p class="process-retry"><span aria-hidden="true">↶</span> <strong>Checks fail?</strong> Revisit the <a href="planner.html#assay">assay</a> or preparation and repeat affected measurements before ranking candidates.</p>
+          </section>
+          <section class="process-phase" aria-labelledby="learn-title">
+            <h2 id="learn-title"><span aria-hidden="true">C</span> Learn</h2>
+            <ol class="process-nodes">
+              <li>
+                <h3>Confirm independently</h3>
+                <p>Prepare candidates again. Verify sequence, intended product and useful performance.</p>
+                <a class="stage-chip" href="planner.html#review"><span>7</span> Review</a>
+              </li>
+              <li>
+                <h3>Decide &amp; archive</h3>
+                <p>Keep stocks and evidence. Choose a supported parent, revise the approach or stop.</p>
+                <span class="decision-label">Continue · Change · Stop</span>
+              </li>
+            </ol>
+            <p class="process-check"><strong>A screen gives a shortlist.</strong> Independent confirmation supports the decision to use a new parent.</p>
+          </section>
+        </div>
+        <div class="process-loop"><span class="loop-arrow" aria-hidden="true">↑</span><p><strong>Next round: return to Plan.</strong> Use the evidence to revisit the parent, assay, library and resources.</p><span class="loop-up" aria-hidden="true">↲</span></div>
+        <figcaption id="map-caption"><strong>Track every variant throughout:</strong> link its sequence, plate position, raw data and recoverable stock.</figcaption>
+      </figure>
+      <div class="map-next">
+        <p><strong>Now explore the details.</strong> The handbook explains the decisions; the planner helps you record and review them.</p>
+        <div class="actions"><a class="button-like primary" href="guide/index.html">Read the handbook →</a><a class="button-like" href="planner.html#campaign">Open the planner →</a></div>
+        <p class="map-reading">Read by phase: <a href="guide/index.html#campaign">Plan an assay</a> · <a href="guide/index.html#libraries">Prepare a library</a> · <a href="guide/index.html#progression">Confirm and decide</a> · <a href="guide/index.html#examples">Follow a worked example</a></p>
+      </div>
     </main>
   </div>
-  <footer>© 2026 Magnus Lian Akerholt · <a href="/apps/">Back to apps</a> · <a href="guide/index.html#sources">Sources &amp; downloads</a> · <a href="RELEASE_NOTES.md">Release notes</a></footer>
-  <dialog id="dialog"><div id="dialog-body"></div><div class="dialog-actions"><button type="button" id="close-dialog">Close</button></div></dialog>
+  <footer>© 2026 Magnus Lian Akerholt · <a href="planner.html">Evozyme planner</a> · <a href="guide/index.html">Handbook</a> · <a href="/apps/">All apps</a></footer>
 </body>
 </html>

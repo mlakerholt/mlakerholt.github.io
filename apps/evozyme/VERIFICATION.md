@@ -41,4 +41,6 @@ GitHub Pages successfully published application release `5224a4053877cdd0d4f97ec
 
 ## Process overview update
 
+The default-entry follow-up was checked in the in-app browser: opening the app shows the overview, “Open the planner” opens Campaign, the planner's overview link returns home, the old `/#screen` route opens Screen, and the handbook's return link opens the planner. No browser errors were reported. The static homepage is generated from the same overview source, and planner storage remains on the same origin and database.
+
 The graphical Plan → Test → Learn page was checked in the Codex in-app browser at desktop width and a 390px viewport. The diagram switches to one column with downward connectors, retains the next-round return path, and has no horizontal page overflow at the tested narrow width. All seven numbered links opened their corresponding selected app stage; each app stage returned to the overview. The handbook entry and return link were also checked. No browser errors were reported during this walkthrough. The build checks local links in the planner, overview and generated handbook; all 26 existing Node tests passed after integration. The overview uses semantic HTML and CSS without a script dependency. Its named landscape print rules are scoped to the overview; print output was not visually verified in this update.
