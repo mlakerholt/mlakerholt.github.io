@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan enzyme-evolution campaigns, compare equipment and costs, estimate library coverage, and review screening results with Evozyme.">
+  <meta name="color-scheme" content="light">
+  <title>Evozyme — Directed Evolution Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#stage">Skip to workspace</a>
+  <div class="sheet">
+    <header class="site-header">
+      <a class="site-title" href="/">Magnus Lian Akerholt</a>
+      <nav aria-label="Main navigation"><a href="/">Home</a><a href="/apps/" aria-current="page">Apps</a><a href="/articles/">Articles</a><a href="/art/">Art</a></nav>
+    </header>
+    <main>
+      <div class="intro"><div><p class="eyebrow">Directed evolution planner <span class="badge">1.0</span></p><h1>Evozyme</h1><p>Define the assay. Fit the library to your capacity. Follow the evidence.</p></div><a class="guide-link" href="guide/index.html">Read the handbook ↗</a></div>
+      <div class="toolbar" aria-label="Campaign tools">
+        <button type="button" data-action="new">New campaign</button><button type="button" data-action="demo">Open worked example</button><button type="button" data-action="saved">Saved campaigns</button><button type="button" data-action="export">Export backup</button><label class="button-like">Import backup<input id="backup-input" type="file" accept=".json,application/json" class="file-control"></label><button type="button" data-action="print">Print report</button>
+      </div>
+      <div class="status-line"><span id="origin-label"></span><span id="save-status" role="status" aria-live="polite">Preparing workspace…</span></div>
+      <nav id="steps" class="steps" aria-label="Campaign stages"></nav>
+      <div id="notice" role="status" aria-live="polite"></div>
+      <div class="workspace"><section id="stage" tabindex="-1" aria-labelledby="stage-title"></section><aside id="summary" aria-label="Campaign summary"></aside></div>
+      <div class="stage-controls"><button id="previous" type="button">← Previous</button><span id="stage-count"></span><button id="next" type="button">Next stage →</button></div>
+      <noscript><p class="callout error">Enable JavaScript to use the planner. The <a href="guide/index.html">handbook</a> is available without JavaScript.</p></noscript>
+    </main>
+  </div>
+  <footer>© 2026 Magnus Lian Akerholt · <a href="/apps/">Back to apps</a> · <a href="guide/index.html#sources">Sources &amp; downloads</a> · <a href="RELEASE_NOTES.md">Release notes</a></footer>
+  <dialog id="dialog"><div id="dialog-body"></div><div class="dialog-actions"><button type="button" id="close-dialog">Close</button></div></dialog>
+</body>
+</html>

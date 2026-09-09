@@ -1,0 +1,1803 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Evozyme Handbook</title><meta name="description" content="A practical guide to cost-efficient directed evolution of enzymes, equipment, assays, libraries, and data review."><link rel="stylesheet" href="../style.css"><style>@media print{.site-header,.guide-controls,footer{display:none}.sheet{border:0;padding:0;margin:0}.guide-body{max-width:none}}</style><script defer src="guide.js"></script></head><body><div class="sheet"><header class="site-header"><a class="site-title" href="/">Magnus Lian Akerholt</a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/apps/">Apps</a><a href="/articles/">Articles</a><a href="/art/">Art</a></nav></header><main class="guide-body"><h1>Evozyme handbook</h1><p><a href="../">← Return to the planner</a> · Edition 2 · 9 September 2026</p><div class="guide-controls"><label class="field"><span>Search handbook chapters</span><input id="guide-search" type="search" placeholder="e.g. plate reader, confirmation, NNK"></label><p id="search-count" role="status"></p><nav class="guide-index" aria-label="Handbook chapters"><a href="#overview">Handbook overview</a><a href="#campaign">Campaign and assays</a><a href="#libraries">Libraries and expression</a><a href="#equipment">Equipment and software</a><a href="#examples">Three worked examples</a><a href="#progression">Progression and troubleshooting</a><a href="#advanced">Advanced methods</a><a href="#toolkit">Toolkit and formats</a><a href="#screen-example">Synthetic screening report</a><a href="#sources">Sources</a><a href="#verification">Reference verification</a><a href="#starter">Compact starter guide</a></nav><div class="callout"><strong>Downloads</strong><p><a href="../downloads/Evozyme_Directed_Evolution_v2.pptx" download>PowerPoint presentation</a> · <a href="../downloads/Evozyme_Planners.xlsx" download>Planning workbook</a> · <a href="../downloads/evozyme.py" download>Python analysis toolkit</a></p><p>Routine equipment and standard protocols are listed briefly. Detailed guidance focuses on the decisions needed to make the workflow work.</p></div></div><section class="guide-section" id="overview" data-search-title="Handbook overview"><h2>Directed evolution of enzymes: a practical handbook</h2>
+<p>Evozyme · Edition 2 · 9 September 2026</p>
+<p><a href="../downloads/Evozyme_Directed_Evolution_v2.pptx">PowerPoint presentation</a>: 20 main slides and four reference slides, with speaker notes and editable charts.</p>
+<p><strong>Start with a reliable activity assay, a small traceable library, and access to a compatible plate reader.</strong> A standard molecular-biology laboratory, manual multichannel pipetting, outsourced sequencing, and a simple data workflow can support the first campaign. Expand equipment when a measured limitation justifies it.</p>
+<p>This handbook focuses on a cost-efficient platform that can be adapted between benign enzymes. The default starting route uses individually tracked clones, expression in a suitable laboratory host, and 96-well activity measurements. The assay and expression system must be chosen for each enzyme. A general workflow does not imply a universal substrate, host, or detector.</p>
+<p>Equipment recommendations and decision rules are proposed starting practices. Published findings are cited near the relevant text. All supplied example measurements and prefilled operating costs are <strong>illustrative</strong>, not laboratory results or current supplier quotations. Software has been exercised on the examples; biochemical adaptations need laboratory validation.</p>
+<h2>Read according to the decision in front of you</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Chapter</th>
+<th>Companion resource</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>What should improve, and how will we measure it?</td>
+<td><a href="#campaign">Campaign definition and assay validation</a></td>
+<td><a href="../downloads/Campaign_Brief.md">Campaign brief</a></td>
+</tr>
+<tr>
+<td>Which variants, host, and sample format?</td>
+<td><a href="#libraries">Libraries, coverage, and expression</a></td>
+<td><a href="../downloads/Evozyme_Planners.xlsx">Coverage and budget workbook</a></td>
+</tr>
+<tr>
+<td>What must the laboratory and computer provide?</td>
+<td><a href="#equipment">Equipment, software, and purchasing</a></td>
+<td><a href="../downloads/Equipment_Acceptance.md">Equipment acceptance checklist</a></td>
+</tr>
+<tr>
+<td>How does a complete example fit together?</td>
+<td><a href="#examples">Three worked examples</a></td>
+<td><a href="#screen-example">Synthetic screening report</a></td>
+</tr>
+<tr>
+<td>Which candidate becomes a parent? What failed?</td>
+<td><a href="#progression">Campaign progression and troubleshooting</a></td>
+<td><a href="../downloads/Round_Review.md">Round review</a></td>
+</tr>
+<tr>
+<td>When should the platform change?</td>
+<td><a href="#advanced">Advanced methods</a></td>
+<td><a href="#toolkit">Cost-model interpretation</a></td>
+</tr>
+<tr>
+<td>How do I use and check the tools?</td>
+<td><a href="#toolkit">Toolkit instructions</a></td>
+<td><a href="#verification">Verification record</a></td>
+</tr>
+<tr>
+<td>What supports the guidance?</td>
+<td><a href="#sources">Source map</a></td>
+<td>Primary studies and official documentation</td>
+</tr>
+</tbody></table></div>
+<h2>The first campaign, in six steps</h2>
+<ol>
+<li><strong>Write a campaign brief.</strong> Identify the parent, exact coding sequence, intended substrate, conditions, improvement metric, properties to preserve, and available effort.</li>
+<li><strong>Establish the parent assay.</strong> Measure background, detector range, reaction progress and preparation variation. Demonstrate the intended product or validate the relation between the screen and a separate product assay.</li>
+<li><strong>Complete a tracking pilot.</strong> Process known clones from stored material through growth, preparation, measurement, analysis and recovery. Establish usable throughput from the whole workflow.</li>
+<li><strong>Construct a library that fits.</strong> Select a mutation strategy, check representative sequences, and reserve capacity for controls, repeats and confirmation.</li>
+<li><strong>Screen, inspect and confirm.</strong> Use a predefined ranking rule. Inspect raw traces and plate patterns. Re-grow candidates independently, verify sequences, and confirm performance on the intended reaction.</li>
+<li><strong>Archive and decide.</strong> Preserve the parent and confirmed variants, record uncertainty and tradeoffs, and decide whether to continue, change strategy or stop.</li>
+</ol>
+<p>Routine protocols remain brief references: PCR, mutagenesis/assembly, transformation, expression, lysis, plasmid preparation, sequencing, purification and stock preparation should follow established local or method-specific procedures.</p>
+<h2>Minimum equipment and software</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Initial provision</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Routine laboratory work</td>
+<td>Pipettes, thermocycler, gel access, centrifuges, incubators, heating, pH measurement, refrigeration/freezers and standard consumables.</td>
+</tr>
+<tr>
+<td>Preparation at plate scale</td>
+<td>Multichannel pipette, compatible culture plates/shaking fixtures, suitable centrifuge carriers and reproducible recovery/lysis where required.</td>
+</tr>
+<tr>
+<td>Activity measurements</td>
+<td>Reader with the actual assay wavelength, timing, temperature behavior and data export demonstrated.</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>Sequencing and appropriate protein preparation/product-analysis access. Shared services are acceptable.</td>
+</tr>
+<tr>
+<td>Data continuity</td>
+<td>Recoverable stocks linked to plate maps and unchanged raw measurements.</td>
+</tr>
+<tr>
+<td>Initial software</td>
+<td>Sequence editor, method-compatible primer design, spreadsheet software and supported instrument software.</td>
+</tr>
+<tr>
+<td>Repeatable analysis</td>
+<td>The supplied Python example or equivalent validated workflow, with saved settings and quality flags.</td>
+</tr>
+</tbody></table></div>
+<p>The <a href="#equipment">equipment chapter</a> turns these needs into three configurations and acceptance criteria. The workbook contains an operating budget and separate acquisition worksheet; its example numbers are not a purchasing estimate.</p>
+<h2>Criteria for moving forward</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Transition</th>
+<th>Evidence needed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Parent to pilot</td>
+<td>Target activity is detectable in a useful range; background and interference have been investigated.</td>
+</tr>
+<tr>
+<td>Pilot to library screen</td>
+<td>Noise permits meaningful ranking, the sample chain works, and recovery has been demonstrated.</td>
+</tr>
+<tr>
+<td>Screen to confirmation</td>
+<td>Candidate measurements satisfy the assay&#39;s quality rules and the clone is recoverable.</td>
+</tr>
+<tr>
+<td>Candidate to new parent</td>
+<td>Independent preparations support the required improvement; sequence, product identity and secondary properties are checked.</td>
+</tr>
+<tr>
+<td>Manual work to automation</td>
+<td>A stable assay and quantified recurring bottleneck justify added cost and maintenance.</td>
+</tr>
+</tbody></table></div>
+<p>These are evidence requirements, not universal numerical thresholds. The example software&#39;s 20% retest threshold and quality limits demonstrate a workflow; replace them with rules justified by the intended assay.</p>
+<p>For an immediate walkthrough, read the <a href="#examples">LipA example</a>, open the <a href="#screen-example">report</a>, and fill in the <a href="../downloads/Campaign_Brief.md">campaign brief</a>. The earlier <a href="#starter">starter guide</a> remains available as a compact equipment-oriented introduction.</p>
+</section>
+<section class="guide-section" id="campaign" data-search-title="Campaign and assays"><h2>Campaign definition and assay validation</h2>
+<p><a href="#overview">Handbook home</a></p>
+<h2>Define the useful improvement</h2>
+<p>Write the goal as a measurable comparison under specified conditions. “More active” leaves too many alternatives unresolved. A brief might ask for greater initial product formation at equal target-enzyme concentration, while preserving a minimum operational lifetime and required selectivity. Values belong in the brief and should reflect the application.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Objective</th>
+<th>Primary measurement</th>
+<th>Companion measurement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Faster catalysis</td>
+<td>Product rate at stated substrate concentration and target-enzyme amount.</td>
+<td>Enzyme amount, product identity and substrate dependence.</td>
+</tr>
+<tr>
+<td>Better production</td>
+<td>Useful activity or yield per culture volume or production input.</td>
+<td>Growth, soluble expression and preparation yield.</td>
+</tr>
+<tr>
+<td>Operational stability</td>
+<td>Residual activity after a defined exposure.</td>
+<td>Activity before exposure and absolute activity after exposure.</td>
+</tr>
+<tr>
+<td>Substrate preference</td>
+<td>Rates or conversions on intended and competing substrates.</td>
+<td>Comparable enzyme amounts and analytical response factors.</td>
+</tr>
+<tr>
+<td>Product selectivity</td>
+<td>Desired product fraction, including the relevant stereoisomer.</td>
+<td>Total conversion and product identity.</td>
+</tr>
+</tbody></table></div>
+<p>Do not call a single-substrate rate a measured kcat. For the simple Michaelis–Menten model, v = Vmax[S]/(Km + [S]); a change at one concentration can reflect several underlying parameters. Determine a substrate-response series and appropriate enzyme concentration before estimating kinetic constants. <a href="https://www.ncbi.nlm.nih.gov/books/NBK92007/">Assay Guidance Manual: enzyme assays</a></p>
+<h2>Select a parent using evidence</h2>
+<p>Compare a small set of plausible starting enzymes before committing to a long campaign. Record evidence rather than assigning unexplained scores.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Evidence to record</th>
+<th>Action if weak or unknown</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Starting activity</td>
+<td>Product-confirmed activity on the intended or a justified starting reaction.</td>
+<td>Establish the baseline or compare another parent.</td>
+</tr>
+<tr>
+<td>Expression and recovery</td>
+<td>Soluble active material in an accessible format.</td>
+<td>Test expression before diversifying the gene.</td>
+</tr>
+<tr>
+<td>Handling stability</td>
+<td>Activity after storage and normal bench handling.</td>
+<td>Resolve handling losses that could overwhelm variant differences.</td>
+</tr>
+<tr>
+<td>Assay compatibility</td>
+<td>Signal in the proposed matrix and practical confirmation.</td>
+<td>Develop the assay before ordering a large primer set.</td>
+</tr>
+<tr>
+<td>Sequence provenance</td>
+<td>Verified coding sequence, boundaries, tags, vector and accession/source.</td>
+<td>Resolve identity and mutation numbering.</td>
+</tr>
+<tr>
+<td>Resource fit</td>
+<td>Substrate supply, assay cost, instrument access and cycle time.</td>
+<td>Change format or parent if the screen cannot be sustained.</td>
+</tr>
+</tbody></table></div>
+<p>Use the <a href="../downloads/Campaign_Brief.md">campaign brief</a>. Record mature-protein versus precursor numbering explicitly; tags and signal peptides can otherwise make mutation names ambiguous.</p>
+<h2>Select the readout</h2>
+<ol>
+<li><strong>Can the intended product or substrate be measured directly at useful throughput?</strong> Evaluate that assay first.</li>
+<li><strong>Can a coupled assay report it quantitatively?</strong> Establish coupling capacity, specificity and absence of a limiting reporter step.</li>
+<li><strong>Is a surrogate substrate necessary?</strong> Demonstrate that promising variants transfer to the intended substrate before further rounds.</li>
+<li><strong>Is a spatial or cellular reporter proposed?</strong> Demonstrate that signal remains linked to its source clone and survives a separate biochemical test.</li>
+<li><strong>If none is credible,</strong> resolve measurement or select another starting reaction. Library size cannot compensate for an uninformative score.</li>
+</ol>
+<p>For crude preparations, establish that measured activity comes from the target. High protein mass purity alone does not prove enzymatic identity. Coupling reagents can introduce additional activities. <a href="https://www.ncbi.nlm.nih.gov/books/NBK91995/">Assay Guidance Manual: identity and purity</a></p>
+<h2>Assemble a validation panel</h2>
+<p>This is a proposed working checklist. Set acceptance limits from repeated pilot measurements and the smallest improvement worth pursuing.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Evidence</th>
+<th>Response to failure</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Detector response</td>
+<td>Product/reporter standards in the matrix across the intended range.</td>
+<td>Change concentration, optics or analysis range.</td>
+</tr>
+<tr>
+<td>Reaction progress</td>
+<td>Several enzyme amounts and time courses with a useful interval.</td>
+<td>Investigate depletion, lag, inhibition or instability.</td>
+</tr>
+<tr>
+<td>Matrix background</td>
+<td>Reagent blank, host/empty-vector preparation and substrate-omission control.</td>
+<td>Determine which background matches actual samples.</td>
+</tr>
+<tr>
+<td>Product recovery</td>
+<td>Known product added to the matrix where appropriate.</td>
+<td>Investigate quenching, absorption, chemical reaction or analytical loss.</td>
+</tr>
+<tr>
+<td>Preparation variation</td>
+<td>Independent parent cultures/preparations across days.</td>
+<td>Improve growth, recovery or normalization.</td>
+</tr>
+<tr>
+<td>Plate position/order</td>
+<td>Distributed controls and deliberate changes in placement/order.</td>
+<td>Diagnose evaporation, temperature, dispensing or read delays.</td>
+</tr>
+<tr>
+<td>Secondary assay</td>
+<td>Parent and comparison panel measured on the intended reaction.</td>
+<td>Reconsider whether the proxy supports the application.</td>
+</tr>
+</tbody></table></div>
+<p>Detector linearity and reaction linearity are separate checks. The Assay Guidance Manual describes establishing both and commonly evaluates initial rates before substantial substrate conversion. Apply these principles to the enzyme rather than borrowing inhibitor-screening concentrations indiscriminately. <a href="https://www.ncbi.nlm.nih.gov/books/NBK92007/">Enzyme assay development</a></p>
+<h2>Analyze rates transparently</h2>
+<p>Preserve the instrument export. Join observations to plate/well and preparation identifiers. Fit signal versus time in a validated window, retain slopes and residual information, subtract an appropriate matched background, and retain the reaction direction. A falling NADH signal needs the opposite sign convention from a rising product signal.</p>
+<p>Converting absorbance slopes to concentration rates requires a justified calibration or extinction coefficient and optical path length. Microplate volume alone is not a universal path length. Without these, report absorbance units/minute. For fluorescence, calibrate in the appropriate matrix and detector settings.</p>
+<p>Do not let software choose each variant&#39;s most favorable time interval. Record a fitting rule before ranking. High R² can coexist with a saturated detector or biased background; low R² can reflect a genuinely weak reaction. Keep these distinctions in review flags.</p>
+<h2>Replication and statistics</h2>
+<p><strong>Technical replicates</strong> repeat a measurement from one preparation. <strong>Biological/preparation replicates</strong> repeat the culture and/or preparation process. Average technical wells within a preparation before using preparation counts to describe biological uncertainty. Record what was actually repeated.</p>
+<ul>
+<li><strong>CV = standard deviation / mean.</strong> Useful for positive measurements above background; unstable near zero and unsuitable as a universal blank criterion.</li>
+<li><strong>Fold change = candidate mean / matched parent mean.</strong> Require a valid positive denominator and preserve absolute rates.</li>
+<li><strong>Residual activity = post-challenge rate / pre-challenge rate.</strong> Preserve both rates so weak starting activity does not disappear behind an attractive ratio.</li>
+<li><strong>Z′ = 1 − 3(σpositive + σnegative) / |μpositive − μnegative|.</strong> A control-separation metric, not proof of specificity or sensitivity to small improvements over an already active parent. <a href="https://journals.sagepub.com/doi/10.1177/108705719900400206">Zhang, Chung and Oldenburg, 1999</a></li>
+</ul>
+<p>Define the minimum worthwhile improvement, control rules and retest policy before the pilot. Estimate whether preparation variation permits that improvement to be detected. For formal comparisons, use independent preparations as the replication unit and a justified statistical model.</p>
+<p>Large screens create chance extremes. Retest from new preparations, randomize confirmation placement, and avoid selecting a parent from the largest single-well result. When making many formal significance claims, specify the comparison set and multiple-testing approach. The supplied program implements screening rules, not hypothesis testing or automatic discovery claims.</p>
+<p>Proceed when the brief is filled, signal and controls are demonstrated, fitting/retesting rules are recorded, and the desired improvement is meaningful relative to pilot variation. If the parent or assay needs replacement, record that outcome rather than forcing a campaign.</p>
+</section>
+<section class="guide-section" id="libraries" data-search-title="Libraries and expression"><h2>Libraries, coverage, and expression</h2>
+<p><a href="#overview">Handbook home</a></p>
+<h2>Choose diversity that the screen can examine</h2>
+<p>For a small first campaign, consider defined substitutions or a small number of separately tracked single-site libraries. Broader exploration becomes practical when capacity and assay quality support it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Useful when</th>
+<th>Main burden</th>
+<th>What to verify</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Defined substitutions</td>
+<td>Specific hypotheses or very limited capacity.</td>
+<td>Explores only proposed changes.</td>
+<td>Construct identity and rationale.</td>
+</tr>
+<tr>
+<td>Single-site saturation</td>
+<td>A residue should be explored broadly.</td>
+<td>Repeated/unequal variants in degenerate libraries.</td>
+<td>Codon design, representation and background.</td>
+</tr>
+<tr>
+<td>Gene-wide single-residue scan</td>
+<td>Whole-protein exploration fits the screen.</td>
+<td>Many construction reactions and repeated sampling.</td>
+<td>Site-pooling balance and coverage.</td>
+</tr>
+<tr>
+<td>Random mutagenesis</td>
+<td>Distributed changes/combinations and sufficient throughput.</td>
+<td>Variable mutation counts, nucleotide bias, unchanged/inactive clones.</td>
+<td>Mutation distribution in representative sequences.</td>
+</tr>
+<tr>
+<td>Recombination</td>
+<td>Several confirmed changes or lineages exist.</td>
+<td>Combinations may interact.</td>
+<td>Parent sequences, linkage and combined constructs.</td>
+</tr>
+<tr>
+<td>Model-guided library</td>
+<td>A suitable model/dataset supports testable rankings.</td>
+<td>Prediction uncertainty and distribution shifts.</td>
+<td>Baseline comparison and prospective performance.</td>
+</tr>
+</tbody></table></div>
+<p>York&#39;s single-residue strategy matched their screen better than the broad random libraries they tried. This is an observation for that campaign, not evidence that random mutagenesis is universally inferior. <a href="https://andrewgyork.github.io/relaxation_sensors/appendix.html">York notes</a></p>
+<p>Choose a construction method and its corresponding primer rules. NEB&#39;s Q5 method uses non-overlapping back-to-back primers, with NEBaseChanger providing matching design support. <a href="https://www.neb.com/en-us/tools-and-resources/video-library/overview-of-the-q5-site-directed-mutagenesis-kit">Q5 overview</a>, <a href="https://nebasechanger.neb.com/">NEBaseChanger</a></p>
+<h2>Count samples and variants separately</h2>
+<p>A parent of L amino acids has 19L possible single-amino-acid substitutions excluding the unchanged parent. That is a design-space count; 19L colonies do not guarantee coverage.</p>
+<p>The planner assumes independent draws with replacement from a specified distribution. Repeated assays from the same clone add precision, not diversity. Distinguish transformed colonies, sampled clones, valid measurements and unique verified sequences in the round record.</p>
+<p>Library statistics distinguish expected diversity from the probability of complete sampling. Firth and Patrick describe this distinction and models for common construction strategies. <a href="https://academic.oup.com/bioinformatics/article/21/15/3314/195665">Statistics of protein library construction</a></p>
+<p>For target variant i, per-draw probability pᵢ and n sampled clones:</p>
+<ul>
+<li>Probability of observing i: <strong>1 − (1 − pᵢ)ⁿ</strong>.</li>
+<li>Expected distinct targets: <strong>Σᵢ[1 − (1 − pᵢ)ⁿ]</strong>.</li>
+<li>Probability of observing every target is at least <strong>max(0, 1 − Σᵢ(1 − pᵢ)ⁿ)</strong> and at most <strong>minᵢ[1 − (1 − pᵢ)ⁿ]</strong>.</li>
+</ul>
+<p>The last quantities are rigorous bounds under the model, not an exact completeness probability. The lower bound can be loose. They follow from missing-variant probabilities and do not assume independence between observing different variants.</p>
+<h3>Numerical comparison</h3>
+<p>For 20 equally likely targets, 96 draws give approximately 99.3% expected coverage. For an ideal single-site NNK library targeting all 20 amino acids, 96 draws give <strong>97.1% expected coverage</strong>, while the probability of seeing every amino acid is bounded between <strong>42.0% and 95.3%</strong>. These are calculations, not measured library quality.</p>
+<p>NNK has 32 codons, including TAG stop, and unequal amino-acid representation. The workbook includes codon counts and treats stop as unused probability mass. It includes the parental amino acid among its 20 targets. To consider only 19 substitutions, remove the parent amino acid from the command-line probability input without renormalizing the remaining probabilities.</p>
+<p>Additional off-target loss is separate; do not count stop codons twice. Parental carryover needs special care: if the unchanged parent is a target, it adds probability to that target. The workbook&#39;s loss fraction represents material outside the entire target set. Use explicit probabilities for complex mixtures.</p>
+<p>For multiple sites, use combination-level probabilities. Multiplying site probabilities assumes independent incorporation, which may not describe a real library. The custom input supports an enumerated target set; it does not infer an unknown distribution from a few sequences.</p>
+<h3>Library quality checks</h3>
+<p>Sequence representative clones and record how they were sampled. Look for parental carryover, unexpected changes, stops/frameshifts and uneven site/design representation. Small samples reveal major defects but cannot establish full coverage. Keep sublibrary identities when this helps localize failures.</p>
+<p>Many colonies can still yield little usable diversity. Investigate construction and expression separately from activity failure. Verify coding regions and relevant boundaries of confirmed hits; reconstruct changes in a clean parent background when causality is uncertain.</p>
+<h2>Choose the host and sample format</h2>
+<p>Obtain active parent material in the simplest accessible format. Change one major layer at a time so losses can be localized.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Advantage</th>
+<th>Potential confounding factors</th>
+<th>Equipment consequence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Whole cells</td>
+<td>Minimal extraction and recoverable clones.</td>
+<td>Transport, metabolism, growth and abundance.</td>
+<td>Consistent cultivation/mixing and compatible readout.</td>
+</tr>
+<tr>
+<td>Lysate</td>
+<td>Accessible intracellular enzyme without full purification.</td>
+<td>Host enzymes, variable lysis and matrix effects.</td>
+<td>Reproducible lysis, clarification and background controls.</td>
+</tr>
+<tr>
+<td>Supernatant</td>
+<td>Convenient for secreted enzymes.</td>
+<td>Secretion, degradation and medium variation.</td>
+<td>Consistent cultivation and cell separation.</td>
+</tr>
+<tr>
+<td>Purified enzyme</td>
+<td>Control of amount and environment.</td>
+<td>Recovery and behavior outside the expression context.</td>
+<td>Purification, protein assessment and added labor.</td>
+</tr>
+<tr>
+<td>Cell-free expression</td>
+<td>Access to product and expression mixture.</td>
+<td>Background, expression variation and reagent cost.</td>
+<td>Expression reagents and DNA identity/recovery method.</td>
+</tr>
+</tbody></table></div>
+<p>Use a default laboratory <em>E. coli</em> system only if it supplies active protein. Disulfide formation, localization and folding can justify different strains or export routes. <a href="https://www.neb.com/tools-and-resources/feature-articles/bypassing-common-obstacles-in-protein-expression">NEB expression considerations</a></p>
+<p>Evaluate yeast or another eukaryotic system when needed processing is absent from the current host. Confirm what modifications are actually necessary and compatible with the application. Account for changes in media, vessels, selection, cycle time and background before moving a library. Request a small active-parent demonstration first.</p>
+<p>For format changes, compare a panel containing the parent and several characterized variants in both formats. Investigate ranking disagreements before assuming that a different host, lysis method or concentration preserves the objective.</p>
+<h2>Capacity planning</h2>
+<p>With W wells, C controls, T technical wells per preparation and B preparations per clone:</p>
+<p><strong>Clone capacity per plate = floor[(W − C)/(T × B)].</strong></p>
+<p>The workbook starts with 96 wells, 16 controls, two technical wells and one preparation: 40 clones/plate. Four primary plates give 160 slots. Repeat plates and confirmation are separate. These are illustrative choices; the synthetic analysis plate has a richer teaching control panel and is not this capacity layout.</p>
+<p>Proceed when intended diversity is defined, sampling fits usable capacity, active-parent expression is reproducible, and the library can be checked and recovered. Reduce the first library if those checks cannot be sustained at the proposed scale.</p>
+</section>
+<section class="guide-section" id="equipment" data-search-title="Equipment and software"><h2>Equipment, software, and purchasing</h2>
+<p><a href="#overview">Handbook home</a></p>
+<h2>Choose a complete configuration</h2>
+<p>The following are proposed configurations, not vendor bundles. All require routine molecular-biology infrastructure. “Access” may mean ownership, a shared facility, or a service agreement.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>A: shared laboratory pilot</th>
+<th>B: dedicated manual screening</th>
+<th>C: partly automated screening</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Construction</td>
+<td>Shared thermocycler, gel system, centrifuge and cloning tools.</td>
+<td>Same tools with booked or dedicated capacity.</td>
+<td>Same, with batch construction handling if justified.</td>
+</tr>
+<tr>
+<td>Expression</td>
+<td>Small culture batches; compatible shaking access.</td>
+<td>Plate culture fixtures, reproducible seals and plate centrifugation.</td>
+<td>Validated plate logistics and sufficient growth capacity for automated batches.</td>
+</tr>
+<tr>
+<td>Liquid handling</td>
+<td>Single-channel and multichannel pipettes.</td>
+<td>Multichannel/electronic pipetting or a dispenser for repetitive additions.</td>
+<td>Liquid handler for validated transfers plus manual exception handling.</td>
+</tr>
+<tr>
+<td>Assay instrument</td>
+<td>Shared compatible reader.</td>
+<td>Dedicated reader matching the actual assay.</td>
+<td>Same detection requirement, plus reliable integration and recovery after interruption.</td>
+</tr>
+<tr>
+<td>Sample identity</td>
+<td>Written labels and digital plate maps.</td>
+<td>Consistent identifiers, inventory and retained stocks.</td>
+<td>Barcodes where helpful, checked transfer maps and event records.</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>Sequencing and shared analytical access.</td>
+<td>Same, with enough booking capacity for candidate batches.</td>
+<td>Same, scaled to prevent confirmation becoming the limiting step.</td>
+</tr>
+<tr>
+<td>Software</td>
+<td>Sequence editor, spreadsheet, reader software and example analysis.</td>
+<td>Reusable acquisition methods and batch analysis.</td>
+<td>Versioned transfer scripts, supported interfaces and monitored exceptions.</td>
+</tr>
+<tr>
+<td>Best initial use</td>
+<td>Demonstrating feasibility with limited acquisition spending.</td>
+<td>Repeated campaigns with a stable assay and regular workload.</td>
+<td>A documented repetitive bottleneck after the manual workflow is stable.</td>
+</tr>
+</tbody></table></div>
+<h2>Routine equipment inventory</h2>
+<p>List these without elaborating standard procedures: pipettes/tips/reservoirs, thermocycler, DNA gel and imaging access, microcentrifuge, vortex mixer, heating block/water bath, incubator and shaking incubator, balance, pH meter, water/sterilization facilities, refrigeration and freezing, long-term stock storage, DNA/protein quantification, protein gel and purification access. Confirm sequencing access before screening.</p>
+<p>Electroporation is conditional on the chosen construction/transformation workflow. A low-speed plate spinner does not substitute for a centrifuge capable of the intended cell-pelleting operation. A sonicator is unnecessary if a different preparation method is effective and reproducible.</p>
+<h2>Verify compatibility before buying</h2>
+<p>Follow the physical sample: culture vessel → shaker fixture → centrifuge carrier → transfer device → assay plate → reader → retained source stock. Check actual plate height, working volume, sealing requirements, rotor compatibility and instrument software. A component can meet its individual specification and still fail to fit this chain.</p>
+<p>For a reader, demonstrate the intended sample and assay rather than relying on a generic sensitivity claim:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Demonstration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Correct detection mode</td>
+<td>Absorbance wavelength, fluorescence excitation/emission, or luminescence matches the assay.</td>
+</tr>
+<tr>
+<td>Useful measurement range</td>
+<td>Matrix-matched standards and parent dilution series resolve relevant signals without saturation.</td>
+</tr>
+<tr>
+<td>Reaction timing</td>
+<td>Full-plate reading and reagent-addition delays resolve the intended time interval.</td>
+</tr>
+<tr>
+<td>Temperature</td>
+<td>Required range, equilibration and stability work with the actual plates and volumes.</td>
+</tr>
+<tr>
+<td>Mixing</td>
+<td>Mixing is adequate without bubbles or unacceptable settling.</td>
+</tr>
+<tr>
+<td>Export</td>
+<td>Raw well-level observations, times and settings can be retained in an accessible format.</td>
+</tr>
+<tr>
+<td>Computer support</td>
+<td>Software, license, drivers, cables and operating-system compatibility are established.</td>
+</tr>
+</tbody></table></div>
+<p>Reader incubation and shaking capabilities differ between models; manufacturer documentation is a starting point for acceptance tests. <a href="https://www.bmglabtech.com/en/incubation-and-shaking/">BMG Labtech incubation and shaking</a></p>
+<p>For NADH/NADPH assays, verify 340-nm operation and plate transmission. Clear plates commonly serve absorbance assays, black plates reduce fluorescence background/crosstalk, and white plates commonly serve luminescence. Check exact plate properties, including bottom-reading requirements. <a href="https://www.corning.com/catalog/cls/documents/selection-guides/CLS-DD-081.pdf">Corning selection guide</a></p>
+<p>A basic absorbance reader may meet one colorimetric assay. Absorbance plus fluorescence provides flexibility for multiple planned assays. Fast reactions may require injection, smaller read batches, or another assay format. Additional detection modes should follow a specific need.</p>
+<h2>Custom imaging and low-cost construction</h2>
+<p>York&#39;s photography system used a roughly 10-cm field of view, a PCO edge 4.2 bi camera, Zeiss 100-mm lens, filtered LEDs, NI control hardware and Python. The reported throughput was approximately 10⁴ colonies/day. <a href="https://andrewgyork.github.io/relaxation_sensors/appendix.html">York setup</a></p>
+<p>An enzyme-oriented build needs a stable camera/lens, controlled illumination, suitable filters, a light-excluding enclosure, repeatable positioning and quantitative image analysis. Define minimum resolvable spot separation, acceptable lighting variation and signal range using the actual assay. Test product diffusion and clone recovery. Do not infer catalytic performance from colony brightness alone.</p>
+<p>Custom and open-source readers are a possible route when engineering capacity is available. Published designs provide useful component and benchmarking examples. Their published cost and sensitivity do not establish the price or performance of a new local build. Include assembly, calibration, maintenance and failed-development time in the comparison. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7144579/">An Open-Source Plate Reader</a></p>
+<h2>Software: one default route</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Starting choice</th>
+<th>Retained output</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sequence editing</td>
+<td><a href="https://jorgensen.biology.utah.edu/wayned/ape/">ApE</a> or an existing sequence editor.</td>
+<td>Annotated parent/variant files and traceable numbering.</td>
+</tr>
+<tr>
+<td>Primer design</td>
+<td>Method-matched software such as <a href="https://nebasechanger.neb.com/">NEBaseChanger</a> for Q5.</td>
+<td>Primer design, target and construction-method record.</td>
+</tr>
+<tr>
+<td>Tracking and planning</td>
+<td><a href="https://www.libreoffice.org/">LibreOffice Calc</a> or existing spreadsheet software.</td>
+<td>Plate maps, clone register, budget and assay record.</td>
+</tr>
+<tr>
+<td>Acquisition</td>
+<td>Supported vendor software.</td>
+<td>Raw measurements and saved settings.</td>
+</tr>
+<tr>
+<td>Primary-screen analysis</td>
+<td>Supplied Python program and, for plots, <a href="https://matplotlib.org/">Matplotlib</a>.</td>
+<td>Quality report, candidate list, well-level calculations and plots.</td>
+</tr>
+<tr>
+<td>Larger analysis work</td>
+<td><a href="https://jupyter.org/">JupyterLab</a>, <a href="https://pandas.pydata.org/docs/getting_started/">pandas</a> and <a href="https://scipy.org/">SciPy</a>, when needed.</td>
+<td>Reproducible notebooks/scripts and recorded environment.</td>
+</tr>
+<tr>
+<td>Sequence batches</td>
+<td><a href="https://biopython.org/wiki/SeqIO">Biopython</a>, when useful.</td>
+<td>Sequence parsing and trace/quality processing.</td>
+</tr>
+<tr>
+<td>Imaging</td>
+<td><a href="https://fiji.sc/">Fiji</a> and supported control software.</td>
+<td>Original images, segmentation settings and spot-to-clone map.</td>
+</tr>
+</tbody></table></div>
+<p>The supplied example intentionally keeps the calculation core in Python&#39;s standard library; plotting is the only external dependency. <a href="#toolkit">Toolkit instructions</a> give installation, commands, expected outputs and adaptation limits. A normal workstation is sufficient. A GPU or machine-learning service is not required for this starter route.</p>
+<p>For custom imaging, <a href="https://micro-manager.org/">Micro-Manager</a> supports many devices, but check the exact hardware and driver combination. Avoid choosing hardware on the assumption that an undocumented interface can be automated later.</p>
+<p>Keep raw files unchanged and separate from derived outputs. A stable clone ID should link parent/round, preparation, plate/well, verified sequence and physical stock. Back up records and test restoration. Source control is useful for scripts and definitions; it does not replace a raw-data backup or physical-stock archive.</p>
+<h2>Costs and procurement</h2>
+<p>Use the workbook&#39;s <strong>Round budget</strong> to estimate recurring costs. Its default example has four primary plates, one repeat plate, 160 primary clone slots and an assumed 90% usable fraction. It budgets eight confirmation candidates with three independent preparations each. Under its deliberately illustrative NOK inputs, total recurring cost is <strong>22,869 NOK</strong>, or <strong>158.81 NOK per expected usable clone</strong>. These are model outputs, not a price quote or prediction of biological success.</p>
+<p>The <strong>Equipment quotes</strong> sheet leaves purchase prices blank. Enter dated local quotes, specify tax/freight/service exclusions, and mark available/shared items accordingly. Shared access may have zero acquisition cost while still carrying an operating fee. Routine lab infrastructure is assumed available; add missing infrastructure to the inventory and budget before interpreting the configuration as affordable.</p>
+<p>Compare ownership with shared access using incremental costs. A simple screening-equipment break-even calculation is purchase/setup cost divided by annual access fees avoided minus added annual maintenance, consumables and labor. Use it only when the denominator is positive and the compared service levels are equivalent. A low capital price can be offset by integration time or unreliable access to repairs.</p>
+<p>For used equipment, check optics/installed modules, service history, instrument health, transferable license, compatible computer, consumables availability, calibration/verification options and a return or acceptance arrangement. Use the <a href="../downloads/Equipment_Acceptance.md">acceptance checklist</a> with real samples before relying on the instrument.</p>
+<p>Before automation, quantify time and errors in the manual method. Verify transfers at the actual volumes and liquid properties, including carryover and dead volume. Vendor accuracy specifications are volume- and hardware-specific; they are not proof of performance with a different liquid or protocol. <a href="https://docs.opentrons.com/flex/system-description/pipettes/">Opentrons pipette specifications</a></p>
+</section>
+<section class="guide-section" id="examples" data-search-title="Three worked examples"><h2>Three worked examples</h2>
+<p><a href="#overview">Handbook home</a></p>
+<p><strong>Evidence key:</strong> “Published” paragraphs describe cited observations. “Proposed” workflows are adaptations for planning. Every supplied data value, candidate identifier and cost scenario is synthetic or illustrative. No example establishes that a particular mutation improves an enzyme.</p>
+<h2>Example 1: LipA and a colorimetric screen</h2>
+<p><strong>Published starting point.</strong> A study of <em>Bacillus subtilis</em> lipase A used tributyrin agar activity screening followed by a microplate assay with p-nitrophenyl butyrate. The study also examined stability and hydrolysis of different chain-length esters. This supports an accessible optical screening concept while highlighting that substrate choice matters. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7139672/">LipA study</a></p>
+<p><strong>Proposed campaign.</strong> Improve activity on a selected intended ester substrate while retaining adequate stability. Use p-nitrophenyl-butyrate hydrolysis as a first-pass assay only if it provides a useful ranking for that objective. Start from a verified LipA construct and active-parent preparation. The choice of soluble lysate versus secreted material must be demonstrated for the chosen construct; secretion should not be assumed from the enzyme name.</p>
+<h3>Step 1: define equipment and success</h3>
+<p>Use configuration A or B: routine lab equipment, compatible culture handling, reproducible preparation, a multichannel pipette, absorbance reader suitable for the p-nitrophenol readout, and a separate confirmation method for the intended product. Include protein quantification/purification access if the goal is activity per target-enzyme amount.</p>
+<p>In the illustrative brief, a ≥20% first-screen increase nominates candidates for independent testing. This is a teaching rule, not a demonstrated limit of detection. The real threshold should reflect preparation variation and the application&#39;s minimum worthwhile improvement.</p>
+<h3>Step 2: validate the parent assay</h3>
+<p>Check product calibration in the chosen matrix, spontaneous substrate hydrolysis, host background, pH dependence of the optical response, a usable time window and sensitivity to preparation/dilution. Maintain common conditions during variant comparisons. Test whether the intended product assay supports the screening interpretation.</p>
+<p>The example software measures absorbance units/minute. It does not contain a p-nitrophenol calibration or extinction coefficient and does not calculate concentrations or kcat.</p>
+<h3>Step 3: track a small library</h3>
+<p>Choose a bounded defined-variant set or a small separately tracked saturation library after the pilot. Verify the library and retain source stocks before destructive preparation. In the supplied teaching dataset, C01–C32 are invented clone IDs with no sequences; the code is demonstrating data handling, not providing a mutation list.</p>
+<p>The 96-well teaching plate contains 32 candidates with two technical wells each, eight independent parent preparations with two wells each, eight blanks and eight host controls. Thus, 64 + 16 + 8 + 8 = 96 wells. Positions are reproducibly shuffled to illustrate distributed controls. Each candidate has one preparation, so its first-screen replicate count is not evidence of reproducibility between cultures.</p>
+<h3>Step 4: inspect the analysis</h3>
+<p>Run the <a href="#toolkit">toolkit example</a> or open the <a href="#screen-example">saved report</a>. It joins the plate map to the clone register and seven timepoints per well, fits a fixed interval, checks control quality, subtracts blank drift and compares candidate rates with the parent.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Synthetic sample</th>
+<th>Intended teaching behavior</th>
+<th>Correct action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C03</td>
+<td>Higher first-screen rate with acceptable measurements.</td>
+<td>Retest independently.</td>
+</tr>
+<tr>
+<td>C11</td>
+<td>Higher first-screen rate with acceptable measurements.</td>
+<td>Retest independently.</td>
+</tr>
+<tr>
+<td>C07</td>
+<td>Curved time traces.</td>
+<td>Investigate the time window or reaction; no candidate rank.</td>
+</tr>
+<tr>
+<td>C19</td>
+<td>Technical-well disagreement.</td>
+<td>Check preparation/dispensing and repeat.</td>
+</tr>
+<tr>
+<td>C23</td>
+<td>Signal above the configured measurement ceiling.</td>
+<td>Dilute or change validated settings and repeat.</td>
+</tr>
+<tr>
+<td>C27</td>
+<td>Nonpositive corrected rate in a rising-signal assay.</td>
+<td>Inspect background/identity/readout; no favorable rank.</td>
+</tr>
+</tbody></table></div>
+<p><img src="../example/results/quality_plots.png" alt="Synthetic quality plots"></p>
+<p>The ceiling and R²/CV limits are example settings, not measured instrument properties. The program retains quality flags instead of making partial or failed measurements look like confirmed hits.</p>
+<h3>Step 5: confirm on the intended reaction</h3>
+<p>Recover C03 and C11, obtain independent cultures/preparations, confirm their coding sequences and test the intended substrate. Where the goal is intrinsic catalytic performance, compare equal quantified target-enzyme amounts and verify product identity. Test required stability/selectivity in the same confirmation batch.</p>
+<p>The supplied <strong>synthetic</strong> confirmation file illustrates how rankings can change:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Independent product rates (µM/min)</th>
+<th>Mean relative to parent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Parent</td>
+<td>1.00, 1.04, 0.98</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>C03</td>
+<td>1.30, 1.33, 1.28</td>
+<td>1.295</td>
+</tr>
+<tr>
+<td>C11</td>
+<td>1.02, 1.00, 1.05</td>
+<td>1.017</td>
+</tr>
+</tbody></table></div>
+<p>All rows specify the same illustrative enzyme concentration, 0.1 µM. These are rates at a fixed assay condition, not fitted kinetic constants. The first-screen increase for C11 does not transfer to this product assay. Expression or surrogate-substrate behavior would be hypotheses to investigate, not conclusions proven by these numbers.</p>
+<h3>Step 6: choose the next parent</h3>
+<p>In this scenario C03 merits further consideration; C11 does not meet the example improvement objective in confirmation. C03 becomes a next-round parent only after sequence, product and secondary-property checks are satisfied. The table alone supplies none of those missing experimental observations. Record the decision in the <a href="../downloads/Round_Review.md">round review</a> and preserve the original parent.</p>
+<h3>Step 7: schedule and budget the round</h3>
+<p>The following is a planning sequence, not guaranteed turnaround. Standard procedures and incubation details remain in local protocols.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Work</th>
+<th>Release criterion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Assay establishment</td>
+<td>Active parent, calibration, matrix controls and repeatability.</td>
+<td>Reliable parent assay; duration is enzyme-dependent.</td>
+</tr>
+<tr>
+<td>Construction and identity</td>
+<td>Library construction and representative sequence checks.</td>
+<td>Acceptable library before extensive screening.</td>
+</tr>
+<tr>
+<td>Screening batch</td>
+<td>Culture/preparation, controls, measurement and analysis.</td>
+<td>Valid observations and recoverable candidates.</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>New preparations, sequencing, target-product and secondary-property tests.</td>
+<td>Supported candidate decision.</td>
+</tr>
+<tr>
+<td>Review</td>
+<td>Archive, costs and next-round design.</td>
+<td>Updated brief and available capacity.</td>
+</tr>
+</tbody></table></div>
+<p>For an illustrative established campaign, reserve a first work block for construction, a second for expression/screening, a third for confirmation and a final review block. Insert actual growth times, sequencing turnaround and shared-instrument bookings before assigning calendar dates. Do not report the readout time as the full cycle time.</p>
+<p>The workbook models a separate four-primary-plate budget example with 40 clones per plate, not the richer teaching control layout above. Adjust controls, replicate counts, preparation expenses and analytical confirmation costs before using it for this enzyme.</p>
+<h2>Example 2: an alcohol dehydrogenase and a cofactor readout</h2>
+<p><strong>Published starting point.</strong> The (S)-specific alcohol dehydrogenase described from <em>Lactobacillus kefir</em> DSM 20587 is NADH-dependent, was expressed in <em>E. coli</em>, and reduced acetophenone to (S)-phenylethanol. The study provides a defined parent candidate; it is not a directed-evolution campaign implemented here. Do not conflate it with differently named NADPH-dependent enzymes from the same species. <a href="https://pubmed.ncbi.nlm.nih.gov/19082766/">Parent characterization</a></p>
+<p><strong>Proposed adaptation.</strong> Evaluate a focused variant set for improved reduction of the intended ketone under stated conditions. Use NADH loss at 340 nm for a first screen after verifying the direction and stoichiometric relation to the intended product. Confirm product conversion and stereoselectivity independently.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Change from the LipA example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Equipment</td>
+<td>Demonstrated 340-nm reader/plate compatibility; analytical access capable of resolving the relevant products/enantiomers.</td>
+</tr>
+<tr>
+<td>Sample flow</td>
+<td>Prepare active parent/variants, run cofactor-controlled reactions, then analyze selected product samples.</td>
+</tr>
+<tr>
+<td>Records</td>
+<td>Exact enzyme identity, cofactor identity/concentration, substrate, direction, preparation ID and product-assay method.</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td>NADH stability, no-substrate reaction, host background, matrix absorption and parent preparation variation.</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>Falling-signal sign convention; rate limits and saturation rules recalibrated for this assay.</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>Quantified target enzyme, intended ketone, product calibration and suitable selectivity analysis.</td>
+</tr>
+<tr>
+<td>Cost drivers</td>
+<td>Cofactor, substrate, analytical standards and chromatography time.</td>
+</tr>
+</tbody></table></div>
+<p>A cofactor-regeneration system changes the interpretation of net cofactor concentration. Separate the activity screen from process demonstrations using recycling, or model and validate both reactions explicitly. Net NADH absorbance in a regenerating mixture is not automatically the target-enzyme turnover rate.</p>
+<p>If cofactor disappearance is fast but desired product is low, test substrate dependence, background consumption, analytical recovery and product identity before advancing the variant. The delivered synthetic LipA settings must not be reused unchanged.</p>
+<h2>Example 3: P450 BM3 and product-specific analytics</h2>
+<p><strong>Published comparison.</strong> Gärtner and colleagues compared NADPH-depletion screening with multiplexed capillary electrophoresis for P450 BM3 oxidation of α-isophorone. Cofactor consumption could include uncoupling and side products; product-based screening was more effective at identifying beneficial variants in that experiment. <a href="https://www.nature.com/articles/s41598-019-52077-w">P450 BM3 study</a></p>
+<p><strong>Proposed adaptation.</strong> Decide whether the goal is the amount of one hydroxylation product, total conversion or a specified product distribution. Obtain a product-resolving assay before treating NADPH loss as a ranking metric.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Practical implication</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Equipment</td>
+<td>Shared HPLC/GC/LC–MS or another validated product-resolving method. The published 96-capillary instrument is not mandatory.</td>
+</tr>
+<tr>
+<td>Sample flow</td>
+<td>Expression/preparation, reaction under controlled conditions, sample handling, analytical separation, identified product quantification and candidate recovery.</td>
+</tr>
+<tr>
+<td>Records</td>
+<td>Product standards, sample preparation, analytical run/sample IDs, peak assignments, response factors and enzyme amount.</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td>No-enzyme/background, parent, cofactor loss without target substrate, product recovery and analytical carryover.</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>Quantify desired product and side products separately; use cofactor use as additional context.</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>Independent preparations and target-product yield/selectivity under the intended conditions.</td>
+</tr>
+<tr>
+<td>Cost drivers</td>
+<td>Standards, extraction/preparation, analytical consumables, method development and instrument booking.</td>
+</tr>
+</tbody></table></div>
+<p>If the optical and product assays disagree, preserve both results and investigate the reason. Do not simply average incompatible measures into a composite score. If analytical capacity is limited, a smaller well-characterized library may be more economical than a large screen whose hits cannot be confirmed.</p>
+</section>
+<section class="guide-section" id="progression" data-search-title="Progression and troubleshooting"><h2>Campaign progression, scheduling, and troubleshooting</h2>
+<p><a href="#overview">Handbook home</a></p>
+<h2>Decide from confirmed performance</h2>
+<p>Treat each round as a decision, with the <a href="../downloads/Round_Review.md">round-review worksheet</a> recording evidence and the next action. Retain the original parent and representative lineages so comparisons remain possible.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Next decision</th>
+<th>Evidence required before proceeding</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Plate controls fail</td>
+<td>Review or repeat the affected measurements.</td>
+<td>A documented cause or reproducible correction; do not rank candidates from the failed plate.</td>
+</tr>
+<tr>
+<td>Primary candidates fail independent retesting</td>
+<td>Investigate selection noise and preparation effects.</td>
+<td>Raw traces, recovery/sequence checks, and matched parent preparations.</td>
+</tr>
+<tr>
+<td>Improvement persists only per culture volume</td>
+<td>Decide whether improved production meets the campaign objective.</td>
+<td>Target-enzyme amount and per-enzyme performance where catalysis is the objective.</td>
+</tr>
+<tr>
+<td>Intended reaction improves, with acceptable secondary properties</td>
+<td>Consider the variant as a next parent.</td>
+<td>Independent confirmation, verified identity, recoverable stock and the predefined improvement criterion.</td>
+</tr>
+<tr>
+<td>Different variants improve different properties</td>
+<td>Retain distinct lineages or test combinations.</td>
+<td>A comparison showing the tradeoff in application-relevant units.</td>
+</tr>
+<tr>
+<td>No useful improvement despite valid measurements</td>
+<td>Reassess exploration, parent choice or the objective.</td>
+<td>Library representation, active-expression fraction and coverage estimates.</td>
+</tr>
+<tr>
+<td>Assay or substrate changes</td>
+<td>Re-establish comparability before continuing.</td>
+<td>Parent and characterized comparison variants measured in both conditions.</td>
+</tr>
+</tbody></table></div>
+<p>The largest primary-screen value is a nomination. It is not enough to select a new parent. Re-grow candidates independently, preserve technical-versus-preparation identity, verify the coding region and relevant boundaries, and measure the intended product or validated endpoint. Resolve unexpected changes by reconstructing the intended genotype when needed.</p>
+<h2>Combine mutations deliberately</h2>
+<p>For two confirmed changes A and B, compare the original parent, A, B and AB in matched conditions. This reveals whether the combination retains each benefit and whether tradeoffs emerge. Specify the measurement scale before interpreting additivity: adding absolute-rate differences is different from multiplying fold changes. A comparison against the original parent should continue even when the immediate parent has changed.</p>
+<p>Do not pool different lineages so early that useful alternatives become unrecoverable. Preserve separately identified stocks and sequences. When comparing stability and activity, retain the absolute values as well as ratios; the next parent should meet the campaign&#39;s required combination of properties.</p>
+<p>A plateau has several explanations: insufficient exploration, a noisy or misleading assay, inaccessible combinations, or an unsuitable starting enzyme. Use the library and assay records to distinguish them before increasing library size. Changing several workflow components simultaneously makes that diagnosis harder.</p>
+<h2>Schedule the whole cycle</h2>
+<p>The following is an illustrative work sequence for a manual campaign, not a promised biological turnaround. Expression duration, sequencing service, assay development and facility queues determine actual elapsed time.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Work to reserve</th>
+<th>Exit condition</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Before the first round</td>
+<td>Parent identity, active expression, assay validation and inventory.</td>
+<td>Parent-to-pilot criteria satisfied.</td>
+</tr>
+<tr>
+<td>Planning and construction</td>
+<td>Library design, orders, construction, initial sequence checks.</td>
+<td>Library identity/quality acceptable; required materials available.</td>
+</tr>
+<tr>
+<td>Tracking pilot</td>
+<td>Known clones through cultivation, preparation, assay and recovery.</td>
+<td>Usable capacity and sample continuity demonstrated.</td>
+</tr>
+<tr>
+<td>Primary screening</td>
+<td>Staggered cultivation/preparation, timed measurements and daily quality review.</td>
+<td>Valid measurements linked to archived clones.</td>
+</tr>
+<tr>
+<td>Repeats and confirmation</td>
+<td>New candidate preparations, parent comparisons, sequencing and product analysis.</td>
+<td>Improvement and tradeoffs assessed independently.</td>
+</tr>
+<tr>
+<td>Review and archive</td>
+<td>Final records, stock checks, budget reconciliation and next-round choice.</td>
+<td>A named parent or documented alternative decision.</td>
+</tr>
+</tbody></table></div>
+<p>Book the confirmation instrument while planning the primary screen. Include handling and cleaning between batches, failed preparations, raw-data review and stock recovery in labor estimates. Capacity is limited by the slowest sustained stage, not by the reader&#39;s shortest advertised measurement time.</p>
+<p>Keep two clocks: <strong>hands-on hours</strong> for cost and <strong>elapsed days</strong> for delivery. Waiting for sequencing can increase elapsed time without adding the same amount of labor. Parallel preparation can improve throughput only when downstream measurement remains within the validated handling window.</p>
+<h2>Use costs to choose improvements</h2>
+<p>The supplied <a href="../downloads/Evozyme_Planners.xlsx">workbook</a> budgets 160 distinct sampled clones across four primary plates, with one repeat plate and eight confirmation candidates. With its teaching assumptions, 144 clones yield usable primary results and recurring cost is NOK 22,869, or NOK 158.81 per usable clone. This is not cost per unique sequence or per confirmed improvement. It excludes equipment acquisition, which has its own worksheet.</p>
+<p>Replace assumptions with measured labor, actual consumable use and dated local charges. Reconcile predicted and observed preparation failure, repeat demand and confirmation workload after the pilot. Culture/preparation costs for controls must be included in the general assay allowance or added explicitly; the default preparation count covers sample slots.</p>
+<p>For ownership versus shared access, compare annualized acquisition, maintenance, training and operating costs with shared fees and handling/queue burden. Avoid counting staff time twice. A simple automation payback estimate is:</p>
+<p><strong>Payback rounds = acquisition and setup cost / net recurring savings per round</strong>, provided net savings are positive.</p>
+<p>For example, an assumed NOK 120,000 installed system saving NOK 6,000 per round after maintenance and extra consumables has a 20-round simple payback. These invented values demonstrate the calculation; financing, downtime, useful life and resale are excluded. If the manual assay changes frequently, integration and revalidation can dominate this estimate.</p>
+<h2>Troubleshooting by distinguishing causes</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Plausible causes</th>
+<th>Distinguishing check</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Little signal in parent and variants</td>
+<td>Inactive material, inappropriate reaction, detector mismatch.</td>
+<td>Compare known active material, product standard and fresh reagents separately.</td>
+<td>Restore the failed layer before screening more clones.</td>
+</tr>
+<tr>
+<td>Strong signal in host controls</td>
+<td>Host activity or matrix chemistry.</td>
+<td>Host, reagent and substrate-omission controls; intended-product measurement.</td>
+<td>Change preparation or assay specificity; use matched backgrounds.</td>
+</tr>
+<tr>
+<td>Curved progress trace</td>
+<td>Lag, depletion, inhibition, instability or detector saturation.</td>
+<td>Compare enzyme amounts, product standards and time courses.</td>
+<td>Establish a justified fitting window or change assay conditions.</td>
+</tr>
+<tr>
+<td>Edge or read-order pattern</td>
+<td>Evaporation, temperature variation, timing or dispensing.</td>
+<td>Redistribute parent controls; inspect plate maps and actual timestamps.</td>
+<td>Correct the source and repeat affected comparisons.</td>
+</tr>
+<tr>
+<td>Technical wells disagree</td>
+<td>Transfer error, mixing, bubbles or heterogeneous sample.</td>
+<td>Inspect wells and traces; repeat transfers from a common preparation.</td>
+<td>Repair handling; do not silently remove the lower well.</td>
+</tr>
+<tr>
+<td>Technical wells agree but preparations differ</td>
+<td>Cultivation, expression, recovery or instability.</td>
+<td>Independent parent preparations with recorded yields and timing.</td>
+<td>Standardize the variable process or choose appropriate normalization.</td>
+</tr>
+<tr>
+<td>Primary hit disappears on purification</td>
+<td>Abundance, host contribution, preparation loss or context dependence.</td>
+<td>Compare target-enzyme amount and activity across preparation stages.</td>
+<td>Resolve the cause before attributing intrinsic catalytic improvement.</td>
+</tr>
+<tr>
+<td>Surrogate assay improves but intended product does not</td>
+<td>Changed substrate preference or reporter interference.</td>
+<td>Separate product assay on the intended substrate.</td>
+<td>Revise the screen or reject the candidate for this objective.</td>
+</tr>
+<tr>
+<td>Sequence differs from the record</td>
+<td>Mislabeling, contamination or unintended construction changes.</td>
+<td>Re-isolate from stored material and check coding region/boundaries.</td>
+<td>Correct provenance; reconstruct where needed.</td>
+</tr>
+<tr>
+<td>Apparent hit cannot be recovered</td>
+<td>Stock failure, transfer error or selection from a mixed sample.</td>
+<td>Check stock and register against original map and lineage.</td>
+<td>Repeat recovery/identity checks; do not advance an untraceable hit.</td>
+</tr>
+<tr>
+<td>A large library has few distinct active variants</td>
+<td>Sampling bias, carryover, failed expression or excessive changes.</td>
+<td>Representative sequences plus parent expression controls.</td>
+<td>Adjust construction or expression based on the diagnosed failure.</td>
+</tr>
+</tbody></table></div>
+<h2>Maintenance and continuity</h2>
+<p>Before a batch, check instrument readiness, correct methods/plates, reagents, labels and an accessible output location. Use a recurring parent comparison to notice drift. Follow manufacturer and local schedules for pipette checks, reader performance, temperature verification, cleaning and centrifuge inspection; intervals depend on usage and equipment.</p>
+<p>After a batch, preserve original exports, record deviations, save analysis settings and check a backup. Periodically restore a complete run into a separate folder and reproduce its report. Archive sequence files and stock locations together with decisions. A successful campaign requires a recoverable enzyme as well as an attractive graph.</p>
+</section>
+<section class="guide-section" id="advanced" data-search-title="Advanced methods"><h2>When to extend the platform</h2>
+<p><a href="#overview">Handbook home</a></p>
+<p>These methods can address specific limitations. Adopt one after demonstrating an active parent, an informative assay and a way to recover the corresponding genotype. Throughput claims from one system do not transfer automatically to a different enzyme.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Prerequisites and additional capabilities</th>
+<th>Main limitations</th>
+<th>Adoption criterion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Colony imaging</td>
+<td>Spatially localized assay, suitable illumination/camera/optics, image analysis and colony recovery.</td>
+<td>Colony size, diffusion, growth and position can influence signal.</td>
+<td>A panel of known variants retains its ranking after recovery and biochemical retest.</td>
+</tr>
+<tr>
+<td>Droplet screening</td>
+<td>Compartment-compatible expression/reaction, controlled loading, fluidics, detection/sorting and genotype recovery.</td>
+<td>Leakage, occupancy, emulsion behavior and specialist operation; confirmation remains necessary.</td>
+<td>Reaction and genotype remain linked through compartment handling and recovery.</td>
+</tr>
+<tr>
+<td>Cell sorting with fluorescent readout</td>
+<td>A validated cellular reporter or display system, sorter access and recovery workflow.</td>
+<td>Signal can reflect expression, transport or reporter behavior rather than catalysis.</td>
+<td>Reporter rankings predict the intended enzyme property in independent tests.</td>
+</tr>
+<tr>
+<td>Growth selection</td>
+<td>A credible link between desired enzyme function and a selectable cellular phenotype.</td>
+<td>Bypass mechanisms, host adaptation and growth advantages can dominate.</td>
+<td>Recovered coding changes reproduce the intended biochemical improvement in a clean background.</td>
+</tr>
+<tr>
+<td>Cell-free expression</td>
+<td>Suitable expression chemistry, DNA tracking, matrix-compatible assay and recovery strategy.</td>
+<td>Reagent cost, background and variable active-enzyme yield.</td>
+<td>The host or transport limitation is demonstrated, and parent performance is reproducible in the new format.</td>
+</tr>
+<tr>
+<td>Liquid-handling automation</td>
+<td>Stable transfers, compatible labware and a repeatable manual method.</td>
+<td>Setup, dead volume, consumables, cleaning, interruption recovery and maintenance.</td>
+<td>Measured net capacity/cost benefit after full workflow validation.</td>
+</tr>
+<tr>
+<td>Model-guided libraries</td>
+<td>Suitable sequence/structure information and trustworthy assay labels.</td>
+<td>Data leakage, small datasets, extrapolation and objective mismatch.</td>
+<td>Prospective improvement over a simple baseline at the same experimental budget.</td>
+</tr>
+</tbody></table></div>
+<h2>York&#39;s imaging route: reproduce the capability, then adapt</h2>
+<p>York&#39;s sensor work combined whole-plate imaging with custom illumination/control and Python-based analysis. Its nitrocellulose-transfer approach helped control the chemical environment around colonies. Treat this as a coherent assay-and-instrument system: camera sensitivity alone is not the method. <a href="https://andrewgyork.github.io/relaxation_sensors/appendix.html">Experimental appendix</a></p>
+<p>For an enzyme, first establish whether substrate delivery, product retention and colony recovery support spatial ranking. Compare image scores with individually measured activity. Write down which custom parts need alignment, calibration, repair and software support before comparing its cost with shared reader access.</p>
+<p>The magnetic-field hardware in the MagLOV work addressed that sensor&#39;s specific readout. It is not a general requirement for evolving enzymes. <a href="https://andrewgyork.github.io/gfp_magnetofluorescence/appendix.html">MagLOV appendix</a></p>
+<h2>Droplets and sorting</h2>
+<p>Agresti and colleagues demonstrated droplet-based directed evolution of horseradish peroxidase. This is evidence that a suitable compartmentalized enzyme assay can support a high-throughput campaign, not that any soluble product assay can be transferred unchanged. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2840095/">Primary study</a></p>
+<p>Before adopting, test loading distribution, signal retention, negative controls, stability through the actual handling sequence and recovery of known positive genotypes. Include downstream retesting and failed-sort recovery in capacity calculations. A shared specialist facility may make a feasibility test more practical than constructing an entire platform.</p>
+<h2>Cell-free and selection-based routes</h2>
+<p>For cell-free work, compare the parent and a characterized variant panel with the existing expression route. Measure useful activity per reaction and, where needed, per target-enzyme amount. Include the expression mix in background and interference tests. Preserve a reliable link to the template DNA.</p>
+<p>For a selection, establish that the desired enzyme property causes the phenotype. Retesting only in the selected host can preserve an unrelated adaptation. Reconstruct recovered enzyme changes and use an independent biochemical assay. The guide does not prescribe a universal selection circuit: it must be designed around the particular reaction.</p>
+<h2>Model-guided design</h2>
+<p>Wu and colleagues provide a primary example of machine-learning-assisted directed evolution; the paper has a published figure correction. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6500146/">Study</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6955331/">correction</a></p>
+<p>Start with a traceable dataset: full sequence, lineage, assay version, preparation identity, measured values, quality flags and failed measurements. Do not turn invalid measurements into zero activity. Separate expression failure from measured low activity when the data support that distinction.</p>
+<p>Compare predictions with simple alternatives such as the existing focused library strategy. Evaluate on sequences not used to fit or tune the model, avoiding near-duplicate or lineage leakage where possible. The strongest practical check is prospective: nominate a fixed-size batch before measuring it and compare its confirmed performance with an equal-budget baseline.</p>
+<p>For the starter workflow, a normal workstation is sufficient for recordkeeping and the supplied analysis. Cloud compute or a dedicated accelerator should follow a specific modeling requirement. Include model/tool version, input sequence and prediction output in the record; predictions alone do not establish enzyme performance.</p>
+<h2>A bounded adoption experiment</h2>
+<p>Define the limitation, select a small parent/variant panel, specify an acceptance rule and reserve a fixed evaluation budget. Measure useful recovered results, staff effort, repeat demand and agreement with the existing confirmation assay. Scale only after this comparison supports the change. Keep the established route available until the new method can reproduce its essential decisions.</p>
+</section>
+<section class="guide-section" id="toolkit" data-search-title="Toolkit and formats"><h2>Evozyme companion toolkit</h2>
+<p><a href="#overview">Handbook home</a></p>
+<p>This toolkit provides editable records, a planning workbook, and a runnable primary-screen example. <strong>All example measurements, clone IDs, stock locations and confirmation results are synthetic.</strong> Budget inputs are teaching assumptions. No sequences or experimentally validated enzyme improvements are supplied.</p>
+<h2>Start without installing software</h2>
+<p>Open the <a href="#screen-example">saved screening report</a>, <a href="#examples">worked examples</a>, and <a href="../downloads/Evozyme_Planners.xlsx">planning workbook</a>. Copy the <a href="../downloads/Campaign_Brief.md">campaign brief</a> into a new campaign folder. The example report includes the actual output from running the supplied program.</p>
+<h2>Run the example</h2>
+<p>Use Python 3.10 or newer. The calculation core uses its standard library. Matplotlib is required only to regenerate figures. Tested versions: Python 3.12.14 and Matplotlib 3.11.1 on Windows. The commands below assume the working folder contains the handbook and <code>toolkit</code> directory.</p>
+<p>Create an isolated environment and install plotting support on Windows:</p>
+<pre><code class="language-powershell">python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r toolkit/requirements.txt
+.\.venv\Scripts\python.exe toolkit/evozyme.py analyze --input toolkit/example --output toolkit/example/results_local
+</code></pre>
+<p>On macOS/Linux, the environment interpreter is <code>.venv/bin/python</code>. To run without installing plotting packages:</p>
+<pre><code class="language-text">python toolkit/evozyme.py analyze --input toolkit/example --output toolkit/example/results_local --no-plots
+</code></pre>
+<p>Outputs go into a separate folder. Existing files of the same output names are replaced; use a new run-specific output directory to preserve prior analyses. The program does not modify its input files.</p>
+<p>Expected result: plate <code>DEMO01</code> passes the example control rules; <strong>C03 and C11</strong> are nominated for independent retesting. <strong>C07, C19, C23 and C27</strong> require measurement review. A nomination is not a confirmed enzyme improvement.</p>
+<h2>Files and identifiers</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Purpose and required structure</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="../downloads/plate_map.csv">plate_map.csv</a></td>
+<td>One row per plate/well. <code>sample_type</code> is <code>candidate</code>, <code>parent</code>, <code>blank</code> or <code>host</code>. Use well coordinates A01–H12.</td>
+</tr>
+<tr>
+<td><a href="../downloads/clone_register.csv">clone_register.csv</a></td>
+<td>One row per clone ID, including parent/round, sequence status/file and stock location.</td>
+</tr>
+<tr>
+<td><a href="../downloads/measurements.csv">measurements.csv</a></td>
+<td>One row per run/plate/well/time. <code>time_s</code> is seconds; <code>signal</code> is a finite number; units must match the assay settings.</td>
+</tr>
+<tr>
+<td><a href="../example/assay.json">assay.json</a></td>
+<td>Machine-readable analysis settings. Copy and validate for a new assay; retain a version with the run.</td>
+</tr>
+<tr>
+<td><a href="../downloads/assay_record.csv">assay_record.csv</a></td>
+<td>Human-readable experimental conditions and provenance. Retain alongside the settings; the program does not parse this file.</td>
+</tr>
+<tr>
+<td><a href="../example/confirmation.csv">confirmation.csv</a></td>
+<td>Separate illustrative intended-product measurements. Not processed by the primary-screen program.</td>
+</tr>
+</tbody></table></div>
+<p>Preserve the column headers. Use UTF-8 CSV and a decimal point for numeric data. The map and register must resolve every candidate and parent to a nonempty stock location. Preparation IDs distinguish independent preparations; technical-replicate IDs distinguish repeated wells within each preparation. The example uses invented locations beginning <code>DEMO_ONLY</code>; replace these with real recoverable locations for laboratory work.</p>
+<p>The program rejects duplicate map positions, clone IDs, technical-replicate IDs and observations; unrecognized coordinates; unmapped observations; and run/assay/unit mismatches. It verifies that a stock-location field exists, not that a physical stock is viable or a sequence is correct. Those checks remain part of campaign review.</p>
+<h2>Analysis settings</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Meaning in this program</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>run_id</code>, <code>assay_id</code>, <code>data_origin</code>, <code>signal_unit</code></td>
+<td>Identity, provenance and measurement units.</td>
+</tr>
+<tr>
+<td><code>signal_direction</code></td>
+<td>+1 for increasing signal, −1 for decreasing signal.</td>
+</tr>
+<tr>
+<td><code>fit_times_s</code></td>
+<td>Exact timepoints expected in every fitted well; at least three distinct nonnegative times. Extra observations are retained in the input but excluded from fitting.</td>
+</tr>
+<tr>
+<td><code>signal_ceiling</code></td>
+<td>Upper detector limit; any fitted observation at or above it is flagged. This is a configured assumption, not a detector calibration.</td>
+</tr>
+<tr>
+<td><code>minimum_r2</code></td>
+<td>Fit-quality threshold for parent/candidate traces. Blanks and host controls may be nearly flat and are not held to this rule.</td>
+</tr>
+<tr>
+<td><code>maximum_parent_cv</code></td>
+<td>CV limit across valid independent parent-preparation means.</td>
+</tr>
+<tr>
+<td><code>maximum_technical_cv</code></td>
+<td>CV limit within a preparation.</td>
+</tr>
+<tr>
+<td><code>maximum_host_fraction</code></td>
+<td>Largest allowed mean blank-corrected host rate as a fraction of the parent mean.</td>
+</tr>
+<tr>
+<td><code>minimum_blank_wells</code>, <code>minimum_host_wells</code></td>
+<td>Minimum valid control wells per plate.</td>
+</tr>
+<tr>
+<td><code>minimum_parent_preparations</code></td>
+<td>Minimum independent parent preparations per plate; use at least two for a between-preparation CV.</td>
+</tr>
+<tr>
+<td><code>minimum_technical_wells</code></td>
+<td>Minimum valid wells per parent/candidate preparation.</td>
+</tr>
+<tr>
+<td><code>minimum_fold_for_retest</code></td>
+<td>Fold increase nominating an otherwise valid candidate for retesting.</td>
+</tr>
+</tbody></table></div>
+<p>Use positive integer replicate/control counts, finite times and thresholds, and assay-justified values. Controls should be appropriate to the actual sample matrix. This example uses one plate-level reagent-blank correction plus a host-background acceptance rule; it does not automatically model well-specific or clone-specific backgrounds.</p>
+<h2>What the calculations do</h2>
+<ol>
+<li>Join observations to the map and register, checking identity.</li>
+<li>Fit a straight line over the configured times. Missing times prevent a partial fit from qualifying as a hit.</li>
+<li>Flag high signal and poor parent/candidate fits. Subtract the mean valid blank slope and apply the reaction sign.</li>
+<li>Average technical parent wells within each preparation, then calculate the plate&#39;s parent mean and variation.</li>
+<li>Check control counts, failed control measurements, parent variation and host background. A failed plate cannot nominate candidates.</li>
+<li>Check candidate measurement quality and technical agreement. Only unflagged candidates receive a fold-change value and decision.</li>
+<li>Save well-level results, quality information, candidate decisions and optional figures.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>well_results.csv</code></td>
+<td>Raw slopes, R², corrected rates, identities and measurement flags.</td>
+</tr>
+<tr>
+<td><code>candidates.csv</code></td>
+<td>One candidate preparation per plate, technical CV, valid fold change, decision and stock reference.</td>
+</tr>
+<tr>
+<td><code>quality.json</code></td>
+<td>Copied settings/provenance, per-plate control metrics and failure reasons.</td>
+</tr>
+<tr>
+<td><code>report.md</code></td>
+<td>Human-readable control summary, retest candidates, flagged measurements and figures.</td>
+</tr>
+<tr>
+<td><code>quality_plots.png</code></td>
+<td>Single-plate heatmap, control-well values and selected traces; multiple plates receive numbered image files.</td>
+</tr>
+</tbody></table></div>
+<p>Rates are signal units/minute. Technical wells do not establish between-culture reproducibility. Descriptive Z′ uses parent-preparation means and host-control wells; it is not used as a discovery threshold. Figures show raw individual control wells, while parent CV uses preparation means.</p>
+<h2>Boundaries when adapting</h2>
+<p>The example supports 96-well primary screens with one preparation per candidate per plate. It evaluates multiple plates independently and does not pool repeated candidates across plates. It does not estimate kinetic constants, active-enzyme concentration, statistical significance, sequence coverage from observed reads, or corrected rankings across different assays.</p>
+<p>It does not automatically correct evaporation, read-order bias, lower detector clipping, path length, reporter stoichiometry, matrix interference or nonlinear kinetics. Inspect these during validation. Falling signals are supported by the sign convention, but a lower detection limit needs an additional assay-specific check. The illustrative threshold values must be replaced before interpreting laboratory data.</p>
+<p>The confirmation file deliberately uses independent product measurements to show that a screening gain may not persist in confirmation: C03 averages 1.295× parent; C11 averages 1.017× parent. These arithmetic ratios are presented in the worked example, without a significance claim. Sequence verification, actual product identity and secondary-property checks have not been performed on these invented samples.</p>
+<h2>Coverage calculation</h2>
+<pre><code class="language-text">python toolkit/evozyme.py coverage --probabilities toolkit/example/nnk_probabilities.csv --draws 96
+</code></pre>
+<p>Expected output: 20 target amino acids, 19.420 expected distinct targets, 97.100% expected coverage, and a probability-of-complete-coverage lower/upper bound of 42.006%/95.254%. The bounds are not an exact completeness probability.</p>
+<p>For a custom library, fill <a href="../downloads/probabilities.csv">probabilities.csv</a>. Each row gives a distinct target and its probability per independent draw. Probabilities must be finite, between zero and one, and sum to at most one. Omitted probability mass represents off-target material. Zero-probability targets cannot be observed. Draws must be a nonnegative integer.</p>
+<p>The <a href="#libraries">library chapter</a> explains the assumptions. For combinatorial libraries, enumerate joint variants and probabilities; the calculator does not infer them. Repeated measurements from a single clone are not additional draws.</p>
+<h2>Use the workbook</h2>
+<p>Yellow cells are editable inputs. Blue numeric text identifies input values. Formula cells calculate outputs. Keep a fresh copy before editing.</p>
+<ul>
+<li><strong>Round budget:</strong> enter primary/repeat plates, controls, technical/preparation replication, usable fraction, confirmation workload and recurring costs. Example output: 160 primary sample slots, 144 expected usable clones, NOK 22,869 total and NOK 158.81 per usable clone.</li>
+<li><strong>Coverage:</strong> compare uniform targets with an ideal one-site NNK library. The NNK table includes all 20 amino acids and already accounts for TAG stop. Additional off-target loss must exclude that built-in loss. The required-draw outputs apply to the uniform model only.</li>
+<li><strong>Equipment quotes:</strong> assign each capability to existing/shared access or purchase. Enter quantity, dated price and source/exclusions for purchases. Missing quotes remain unavailable and block a misleading complete total. Shared operating charges belong in the round budget.</li>
+</ul>
+<p>The operating budget assumes routine laboratory infrastructure is available. Add missing capabilities and control-preparation expenses to your actual budget. Its full-plate assay cost is conservative when some wells are unused. Confirmation costs are an allowance, not a demonstrated analytical quote. Include tax, shipping and service charges consistently; the workbook does not estimate them automatically.</p>
+<p>Formula recalculation and representative input changes were tested in the authoring engine. Native Excel and LibreOffice were not tested. When opening in your spreadsheet application, recalculate and check the default outputs above before relying on edited values. <a href="#verification">Verification record</a></p>
+<h2>Recordkeeping, backup and tests</h2>
+<p>Use a campaign folder with separate <code>raw</code>, <code>maps</code>, <code>sequences</code>, <code>analysis</code> and <code>reports</code> subfolders. Keep original exports unchanged. Save the exact analysis settings and software version alongside derived output. Record protocol/instrument versions in the assay record. Copy raw data, sequences and stock registers to a second managed location; test restoration by regenerating a report in a separate folder.</p>
+<p>Run the supplied checks with:</p>
+<pre><code class="language-text">python -m unittest discover -s toolkit/tests -v
+</code></pre>
+<p>The 13 tests exercise expected candidate decisions, missing/duplicate data, recovery identifiers, row ordering, signal direction, fitting and coverage bounds. They do not replace instrument acceptance or biochemical validation.</p>
+<p>Use the <a href="../downloads/Equipment_Acceptance.md">equipment acceptance record</a> when arranging access, and the <a href="../downloads/Round_Review.md">round review</a> to decide which confirmed variants and conditions enter the next round.</p>
+</section>
+<section class="guide-section" id="screen-example" data-search-title="Synthetic screening report"><h2>Example screening report</h2>
+<p>Data origin: <strong>SYNTHETIC TEACHING DATA; no laboratory experiment</strong>.</p>
+<p>Retest labels nominate measurements for independent confirmation. They do not establish improved enzymes.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Plate</th>
+<th>Usable</th>
+<th>Parent preparations</th>
+<th>Parent CV</th>
+<th>Reasons</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEMO01</td>
+<td>True</td>
+<td>8</td>
+<td>3.2%</td>
+<td>None under example rules</td>
+</tr>
+</tbody></table></div>
+<h2>Candidates for independent retesting</h2>
+<ul>
+<li>C03: 1.463 × parent; stock DEMO_ONLY/boxA/C03.</li>
+<li>C11: 1.359 × parent; stock DEMO_ONLY/boxA/C11.</li>
+</ul>
+<h2>Measurements requiring review</h2>
+<ul>
+<li>C07: insufficient_valid_technical_wells;nonlinear_or_low_signal.</li>
+<li>C19: technical_disagreement.</li>
+<li>C23: insufficient_valid_technical_wells;signal_at_or_above_ceiling.</li>
+<li>C27: nonpositive_rate.</li>
+</ul>
+<p>Rates are blank-corrected signal units per minute. There is no protein-amount normalization or kinetic-constant estimation.
+Z-prime is descriptive here and uses preparation means for parents versus host-control wells. It is not a hit threshold.
+Inspect traces and plate patterns even when numerical rules pass. Thresholds are illustrative and need assay-specific validation.</p>
+<p><img src="../example/results/quality_plots.png" alt="Quality plots"></p>
+</section>
+<section class="guide-section" id="sources" data-search-title="Sources"><h2>Evidence and source map</h2>
+<p><a href="#overview">Handbook home</a></p>
+<p>Prepared 9 September 2026. The handbook separates reported observations, proposed workflow adaptations, mathematical calculations and synthetic teaching data. Primary research supports the scientific examples; official documentation supports software and equipment capabilities. Sources do not experimentally validate the supplied adaptation as a complete platform.</p>
+<h2>Scientific and methodological sources</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Used for</th>
+<th>Scope of evidence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://andrewgyork.github.io/relaxation_sensors/appendix.html">York: relaxation-sensor experimental appendix</a></td>
+<td>Imaging configuration, construction/screening lessons and colony handling.</td>
+<td>Original project methods/notes for sensors; general enzyme adaptations are proposed here.</td>
+</tr>
+<tr>
+<td><a href="https://andrewgyork.github.io/gfp_magnetofluorescence/appendix.html">York: MagLOV appendix</a></td>
+<td>Follow-on construction, imaging and specialized magnetic hardware.</td>
+<td>Campaign-specific implementation; historical costs are not current quotes.</td>
+</tr>
+<tr>
+<td><a href="https://andrewgyork.github.io/gfp_magnetofluorescence/">York: MagLOV project</a></td>
+<td>Context for the specialized readout.</td>
+<td>Sensor findings under reported conditions.</td>
+</tr>
+<tr>
+<td><a href="https://www.ncbi.nlm.nih.gov/books/NBK92007/">Assay Guidance Manual: Basics of Enzymatic Assays for HTS</a></td>
+<td>Assay range, reaction progress and kinetic interpretation.</td>
+<td>Methodological reference; the guide&#39;s validation panel is an adaptation.</td>
+</tr>
+<tr>
+<td><a href="https://www.ncbi.nlm.nih.gov/books/NBK91995/">Assay Guidance Manual: enzyme identity and purity</a></td>
+<td>Target attribution and interfering activities.</td>
+<td>Assay-development principles.</td>
+</tr>
+<tr>
+<td><a href="https://journals.sagepub.com/doi/10.1177/108705719900400206">Zhang, Chung and Oldenburg (1999)</a></td>
+<td>Z-factor definition and screening-control quality.</td>
+<td>Control separation does not establish improved catalysis.</td>
+</tr>
+<tr>
+<td><a href="https://academic.oup.com/bioinformatics/article/21/15/3314/195665">Firth and Patrick (2005): Statistics of protein library construction</a></td>
+<td>Library diversity and completeness distinctions.</td>
+<td>DOI 10.1093/bioinformatics/bti516; supplied bounds are explicitly derived occupancy calculations.</td>
+</tr>
+<tr>
+<td><a href="https://guinevere.otago.ac.nz/STATS/glue.html">GLUE: authors&#39; library-statistics resource</a></td>
+<td>Optional background and alternative calculator.</td>
+<td>Method/model assumptions must match the library.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7139672/">BSLA deletion and randomization study (2020)</a></td>
+<td>LipA optical-screening starting point.</td>
+<td>Published enzyme assays; the supplied 32-candidate dataset is invented.</td>
+</tr>
+<tr>
+<td><a href="https://pubmed.ncbi.nlm.nih.gov/19082766/">Cloning, expression, and characterization of a novel (S)-specific alcohol dehydrogenase from Lactobacillus kefir</a></td>
+<td>Identity and characterization of the NADH-dependent parent candidate.</td>
+<td>Parent characterization, not a directed-evolution campaign carried out here.</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/s41598-019-52077-w">Gärtner and colleagues (2019): P450 BM3 screening comparison</a></td>
+<td>Product-resolved screening versus cofactor depletion.</td>
+<td>Comparison in a specific enzyme/substrate system.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7144579/">An Open-Source Plate Reader (2020)</a></td>
+<td>Feasibility of custom instrument construction.</td>
+<td>Published build and benchmarks; new builds require acceptance testing.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2840095/">Agresti and colleagues (2010)</a></td>
+<td>Droplet-based enzyme evolution example.</td>
+<td>Specialist compartmentalized assay, not a universal platform.</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6500146/">Wu and colleagues (2019)</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6955331/">published correction</a></td>
+<td>Machine-learning-assisted evolution example.</td>
+<td>Method demonstration; proposed adoption checks are the handbook&#39;s guidance.</td>
+</tr>
+</tbody></table></div>
+<h2>Official implementation references</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method-specific primer design</td>
+<td><a href="https://www.neb.com/en-us/tools-and-resources/video-library/overview-of-the-q5-site-directed-mutagenesis-kit">Q5 method overview</a>, <a href="https://nebasechanger.neb.com/">NEBaseChanger</a></td>
+</tr>
+<tr>
+<td>Expression considerations</td>
+<td><a href="https://www.neb.com/tools-and-resources/feature-articles/bypassing-common-obstacles-in-protein-expression">NEB: obstacles in protein expression</a></td>
+</tr>
+<tr>
+<td>Plate optics and selection</td>
+<td><a href="https://www.corning.com/catalog/cls/documents/selection-guides/CLS-DD-081.pdf">Corning selection guide</a></td>
+</tr>
+<tr>
+<td>Reader incubation/mixing</td>
+<td><a href="https://www.bmglabtech.com/en/incubation-and-shaking/">BMG Labtech</a></td>
+</tr>
+<tr>
+<td>Liquid-handler transfer specifications</td>
+<td><a href="https://docs.opentrons.com/flex/system-description/pipettes/">Opentrons Flex pipettes</a></td>
+</tr>
+<tr>
+<td>Sequence editing</td>
+<td><a href="https://jorgensen.biology.utah.edu/wayned/ape/">ApE</a></td>
+</tr>
+<tr>
+<td>Spreadsheet work</td>
+<td><a href="https://www.libreoffice.org/">LibreOffice</a></td>
+</tr>
+<tr>
+<td>Analysis and plotting</td>
+<td><a href="https://jupyter.org/">Jupyter</a>, <a href="https://pandas.pydata.org/docs/getting_started/">pandas</a>, <a href="https://scipy.org/">SciPy</a>, <a href="https://matplotlib.org/">Matplotlib</a></td>
+</tr>
+<tr>
+<td>Sequence-file handling</td>
+<td><a href="https://biopython.org/wiki/SeqIO">Biopython SeqIO</a></td>
+</tr>
+<tr>
+<td>Imaging</td>
+<td><a href="https://fiji.sc/">Fiji</a>, <a href="https://micro-manager.org/">Micro-Manager</a></td>
+</tr>
+</tbody></table></div>
+<p>Vendor documentation establishes supported features for specified products, not performance in an untested assay. Obtain model-specific specifications, license terms, compatible accessories and dated quotations before purchasing. No current vendor prices are asserted by the workbook.</p>
+<h2>Locally generated material</h2>
+<p>The campaign matrices, equipment configurations, decision rules, schedules and templates are proposed practical guidance. The cost values are explicitly stated assumptions. Coverage examples are mathematical outputs under independent sampling with replacement. The screening and confirmation datasets are synthetic; the code and workbook were checked as described in the <a href="#verification">verification record</a>.</p>
+</section>
+<section class="guide-section" id="verification" data-search-title="Reference verification"><h2>Verification record</h2>
+<p><a href="#overview">Handbook home</a></p>
+<p>Edition 2 · 9 September 2026</p>
+<h2>Completed checks</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Check and result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Example analysis</td>
+<td>Ran the supplied input through the program and generated the saved CSV, JSON, report and figure outputs. C03/C11 were nominated; C07/C19/C23/C27 were flagged as intended.</td>
+</tr>
+<tr>
+<td>Automated tests</td>
+<td>All 13 tests passed on Python 3.12.14. Coverage includes known slope, expected decisions, input-order invariance, duplicate/missing records, technical identities, stock references, decreasing signals and library statistics.</td>
+</tr>
+<tr>
+<td>Coverage mathematics</td>
+<td>Compared expectation/bounds against exact enumeration of a small sampling problem. Checked zero draws, impossible targets, certain targets and invalid probability inputs.</td>
+</tr>
+<tr>
+<td>NNK calculation</td>
+<td>Checked 20 amino-acid targets and total non-stop probability 31/32. At 96 draws, expected fraction 0.9710028541; completeness lower/upper bounds 0.4200570821/0.9525403327.</td>
+</tr>
+<tr>
+<td>Workbook calculations</td>
+<td>Recalculated formulas in Artifact Tool; scanned for spreadsheet formula errors. Default budget produced 160 primary slots, 144 expected usable clones and NOK 22,869.</td>
+</tr>
+<tr>
+<td>Workbook input changes</td>
+<td>Checked changes to plate count, zero/missing assay cost, invalid control capacity, zero draws, entirely off-target sampling, one uniform target and incomplete equipment quotes. Restored defaults before export.</td>
+</tr>
+<tr>
+<td>Figures and workbook layout</td>
+<td>Rendered and visually inspected all three sheets and the example quality figure. Plotting used Matplotlib 3.11.1.</td>
+</tr>
+<tr>
+<td>Multiple-plate output</td>
+<td>Exercised a two-plate input; both figures were generated and correctly linked from the report.</td>
+</tr>
+<tr>
+<td>Export and navigation</td>
+<td>Checked 87 formulas in the exported workbook with no stored error cells; checked 71 local document links with none broken.</td>
+</tr>
+<tr>
+<td>Content consistency</td>
+<td>Linked the chapters, templates, worked examples, analysis and planners; distinguished the 32-candidate teaching layout from the 40-clone capacity example.</td>
+</tr>
+</tbody></table></div>
+<p>The <a href="#toolkit">toolkit instructions</a> provide commands to repeat the software checks and describe supported inputs and limits.</p>
+<h2>What remains application-specific</h2>
+<p>No biochemical experiment, instrument acceptance test, sequence verification or physical-stock recovery was performed. The three enzyme workflows are proposed adaptations grounded in cited research. The first has synthetic demonstration data; the other two explain the required changes in measurement and confirmation.</p>
+<p>The workbook was not opened or recalculated in native Excel or LibreOffice. Check its documented default outputs in the intended application before relying on edited inputs. Equipment prices are blank pending local quotations; recurring cost values are assumptions, not current market estimates.</p>
+<p>The program is a teaching primary-screen workflow. It does not establish active-enzyme normalization, detector calibration, product identity, statistical significance, or assay suitability. Set quality and retest rules from the actual parent assay and pilot. Documented model limitations are part of interpreting its output.</p>
+</section>
+<section class="guide-section" id="starter" data-search-title="Compact starter guide"><h2>Starting directed evolution of enzymes</h2>
+<p>The expanded <a href="#overview">Directed Evolution Handbook</a> now provides detailed campaign guidance, three worked examples, planning tools, and a tested example analysis. This starter guide remains the short equipment-oriented introduction.</p>
+<p>A practical equipment and software guide for Evozyme · 9 September 2026</p>
+<p><strong>Recommended starting configuration:</strong> access to a standard molecular-biology laboratory, a 96-well activity assay, a compatible plate reader, manual multichannel liquid handling, outsourced DNA sequencing, and a simple system linking every measurement to a recoverable clone.</p>
+<p>This guide assumes a small team working with a benign enzyme that can be expressed in a standard laboratory host. The default is an <em>E. coli</em> workflow; proteins requiring another host may need additional expression equipment. Recommendations below are a starting design for Evozyme, informed by the cited work. They are not a universal validated protocol or a priced purchasing list.</p>
+<p>The reusable platform consists of library construction, sample handling, measurement, analysis, and record keeping. The enzyme-specific component is the assay: substrate, reaction conditions, and a signal that reliably reports the desired activity.</p>
+<h2>1. Decide what the screen must measure</h2>
+<p>Before choosing equipment, write down the enzyme, intended substrate, operating conditions, and the property to improve. Choose one primary score and any properties that must be preserved.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Objective</th>
+<th>What the assay must distinguish</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Faster catalysis</td>
+<td>Product formation rate at comparable enzyme amounts.</td>
+</tr>
+<tr>
+<td>Better production</td>
+<td>Useful activity obtained per culture volume or production input.</td>
+</tr>
+<tr>
+<td>Greater operational stability</td>
+<td>Activity retained after a defined challenge, alongside starting activity.</td>
+</tr>
+<tr>
+<td>Different substrate preference or selectivity</td>
+<td>Desired conversion relative to competing substrates or products.</td>
+</tr>
+</tbody></table></div>
+<p>These distinctions determine the equipment. An optical reporter may support rapid screening, while confirmation of a particular product or stereoisomer may require chromatography or another analytical method.</p>
+<p>A published P450 BM3 study illustrates the problem: NADPH consumption could include uncoupling and side-product formation, so it did not uniquely measure the desired product. Direct product analysis identified beneficial variants more efficiently in that experiment. Plan access to a suitable confirmation assay from the beginning. <a href="https://www.nature.com/articles/s41598-019-52077-w">Gärtner, Ruff and Schwaneberg, 2019</a></p>
+<h2>2. The complete cycle</h2>
+<p><strong>Choose a parent → design variants → construct the library → express clones → measure activity → confirm hits → archive and choose the next parents.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Necessary output</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Design</td>
+<td>Verified parent sequence, mutation plan, and primer or synthesis order.</td>
+</tr>
+<tr>
+<td>Construction</td>
+<td>A library with checked diversity and acceptable parental background.</td>
+</tr>
+<tr>
+<td>Expression</td>
+<td>Identifiable cultures and a retained source for recovering each candidate.</td>
+</tr>
+<tr>
+<td>Screening</td>
+<td>Raw measurements, controls, plate map, and a defined ranking rule.</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>Repeated activity measurements from independent preparations and verified sequences.</td>
+</tr>
+<tr>
+<td>Next round</td>
+<td>Archived parent and hits, documented selection decision, and updated library plan.</td>
+</tr>
+</tbody></table></div>
+<p>Standard procedures can follow established local protocols: PCR, mutagenesis or assembly, transformation, colony picking, expression, lysis, plasmid preparation, sequencing, and stock preparation. Choose a coherent construction method and its corresponding primer-design rules. For example, NEB&#39;s Q5 method uses back-to-back, non-overlapping primers; these rules should not be assumed to match York&#39;s rolling-circle approach. <a href="https://www.neb.com/en-us/tools-and-resources/video-library/overview-of-the-q5-site-directed-mutagenesis-kit">NEB Q5 method</a></p>
+<h2>3. Essential laboratory equipment</h2>
+<p>“Essential” means access is required; it does not mean every item must be purchased.</p>
+<h3>Routine laboratory infrastructure</h3>
+<p>List these in the lab inventory without treating them as special directed-evolution purchases:</p>
+<ul>
+<li>Single-channel pipettes, filtered tips, tubes, racks, and reagent reservoirs.</li>
+<li>Thermocycler; gel electrophoresis and gel-imaging access.</li>
+<li>Microcentrifuge, vortex mixer, and heating block or water bath.</li>
+<li>Incubator and shaking incubator appropriate for the chosen culture format.</li>
+<li>Refrigeration, reagent freezing, and suitable long-term clone storage, usually shared −80 °C access.</li>
+<li>Balance, pH meter, water supply, sterilization, and routine waste handling.</li>
+<li>A method for DNA quantification and routine protein concentration measurements.</li>
+<li>Protein gel electrophoresis and small-scale purification access when confirming purified-enzyme performance.</li>
+<li>Standard cloning/expression consumables, culture media, and access to sequencing services.</li>
+</ul>
+<h3>Equipment that determines whether screening works</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item or capability</th>
+<th>Starter requirement</th>
+<th>Purchasing implication</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Activity detector</strong></td>
+<td>Compatible 96-well plate reader with the optical mode and timing the assay requires.</td>
+<td>The main assay-dependent instrument; test a shared reader first.</td>
+</tr>
+<tr>
+<td><strong>Multichannel pipette</strong></td>
+<td>An 8- or 12-channel pipette accurate at the actual transfer volumes.</td>
+<td>High priority for a manual plate workflow.</td>
+</tr>
+<tr>
+<td><strong>Plate-compatible growth setup</strong></td>
+<td>Shaker fixtures, culture plates, and seals suited to the expression workflow.</td>
+<td>Confirm the incubator accepts and adequately mixes the selected plates.</td>
+</tr>
+<tr>
+<td><strong>Centrifuge with suitable plate carriers</strong></td>
+<td>Capacity for the chosen culture plates and sufficient force for the intended pelleting/clarification step.</td>
+<td>A low-speed plate spinner used to collect droplets may be insufficient.</td>
+</tr>
+<tr>
+<td><strong>Reproducible lysis</strong></td>
+<td>A validated plate-compatible method for intracellular enzymes.</td>
+<td>Start with an appropriate existing method; a sonicator is conditional. Secreted enzymes may avoid this step.</td>
+</tr>
+<tr>
+<td><strong>Temperature control</strong></td>
+<td>Repeatable reaction temperature and a way to check it.</td>
+<td>Reader incubation or a compatible external arrangement, depending on assay timing.</td>
+</tr>
+<tr>
+<td><strong>Correct assay plates</strong></td>
+<td>Optical properties, working volume, and chemical compatibility matched to the assay.</td>
+<td>Culture plates and measurement plates often serve different purposes.</td>
+</tr>
+<tr>
+<td><strong>Hit confirmation</strong></td>
+<td>Appropriate protein preparation and a product-specific measurement method.</td>
+<td>Use shared purification, HPLC, GC, LC–MS, or other facilities where needed.</td>
+</tr>
+<tr>
+<td><strong>Data workstation and backup</strong></td>
+<td>Instrument-compatible computer and reliable export/storage.</td>
+<td>Obtain working software and licenses with any instrument.</td>
+</tr>
+</tbody></table></div>
+<p>Budget for repeat purchases as well: primers, competent cells, enzymes for construction, plates, seals, tips, lysis reagents, substrate, cofactors, reference standards, sequencing, and confirmation assays. Substrate cost can materially change the economics of a screen.</p>
+<h2>4. Choose the screening instrument</h2>
+<h3>Default: a 96-well microplate reader</h3>
+<p>For the first pilot, use individually tracked clones and physically separated reactions. My recommendation is to start in 96-well format and move to 384 wells only after dispensing, evaporation, signal strength, and sample recovery work reliably.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Assay signal</th>
+<th>Detector requirement</th>
+<th>Check before choosing</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Color change</td>
+<td>Absorbance at the assay wavelength.</td>
+<td>The installed filters or spectral range must include it.</td>
+</tr>
+<tr>
+<td>NADH/NADPH change</td>
+<td>Absorbance around 340 nm.</td>
+<td>Reader and plate transmission, plus whether cofactor turnover tracks the desired reaction.</td>
+</tr>
+<tr>
+<td>Fluorescent product or reporter</td>
+<td>Fluorescence intensity with suitable excitation and emission bands.</td>
+<td>Sensitivity in the actual sample matrix, background, and detector saturation.</td>
+</tr>
+<tr>
+<td>Luminescence</td>
+<td>Luminescence capability.</td>
+<td>Timing and any requirement for reagent injection.</td>
+</tr>
+<tr>
+<td>No dependable optical signal</td>
+<td>Suitable direct analytical measurement, or a separately validated coupled assay.</td>
+<td>A plate reader alone does not solve this assay.</td>
+</tr>
+</tbody></table></div>
+<p>Clear plates are commonly used for absorbance; black plates reduce background and crosstalk in fluorescence measurements; white plates are commonly used for luminescence. Check the exact plate specification, especially at UV wavelengths and when reading through the bottom. <a href="https://www.corning.com/catalog/cls/documents/selection-guides/CLS-DD-081.pdf">Corning plate-selection guide</a></p>
+<p>Use these acceptance criteria when evaluating a reader:</p>
+<ol>
+<li><strong>Correct optics:</strong> demonstrate the actual assay with its intended plates, volumes, and sample matrix.</li>
+<li><strong>Adequate timing:</strong> repeated reads must resolve the reaction. Check full-plate cycle time and the delay between reagent addition and the first measurement. Fast reactions may need an injector, fewer wells per run, or an alternative assay format.</li>
+<li><strong>Appropriate temperature and mixing:</strong> verify the required temperature range and equilibration behavior. Incubation and shaking are available on many readers, but capabilities vary by model. <a href="https://www.bmglabtech.com/en/incubation-and-shaking/">Manufacturer explanation</a></li>
+<li><strong>Useful raw export:</strong> time, well identity, signal, and measurement settings must be recoverable in a usable format such as CSV or XLSX.</li>
+<li><strong>Working software:</strong> confirm operating-system compatibility, license transfer, cables, manuals, and support, particularly for used instruments.</li>
+<li><strong>Repeatable measurements:</strong> run blanks, standards, and repeated parent samples across the plate before accepting the instrument for screening.</li>
+</ol>
+<p>For one validated colorimetric assay, consider an absorbance reader. For multiple planned assay types, absorbance plus fluorescence provides more flexibility. Additional modes should follow an actual assay requirement.</p>
+<h3>Alternative: York-style whole-plate imaging</h3>
+<p>York&#39;s group used a roughly 10-cm field of view to image an entire plate. Their system combined a PCO edge 4.2 bi camera, a Zeiss 100-mm lens, filtered blue/violet LEDs, NI control hardware, and Python. For pH-Countdown, colony transfers onto nitrocellulose allowed control of the chemical environment. Their reported screening capacity was approximately 10⁴ colonies/day. <a href="https://andrewgyork.github.io/relaxation_sensors/appendix.html">York setup and screening notes</a></p>
+<p>For an enzyme adaptation, the proposed minimum imaging assembly is:</p>
+<ul>
+<li>A camera with reproducible exposure and unprocessed image export.</li>
+<li>A lens resolving individual colonies or assay spots across the plate.</li>
+<li>Suitable illumination and, for fluorescence, excitation/emission filtering.</li>
+<li>A light-excluding enclosure and rigid, repeatable sample positioning.</li>
+<li>Exposure/illumination control; hardware triggering if the assay requires precise timing.</li>
+<li>Image analysis that identifies spots, subtracts background, and maps hits back to recoverable clones.</li>
+</ul>
+<p>Proceed only after showing that the signal remains associated with its source clone and predicts activity in a separate assay. Diffusing products, overlapping spots, uneven lighting, and variable colony growth are design issues to test. A faster camera cannot compensate for an unreliable association between signal and clone.</p>
+<p>York&#39;s MagLOV screen added an electromagnet controlled by an Arduino. That was specific to measuring magnetoresponse and is not part of the general enzyme platform. <a href="https://andrewgyork.github.io/gfp_magnetofluorescence/appendix.html">MagLOV instrumentation</a></p>
+<p>A custom build deserves a comparison that includes assembly, calibration, maintenance, and operator time. Published open-source plate-reader designs demonstrate another possible route, but their suitability must be checked against the chosen assay. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7144579/">An Open-Source Plate Reader</a></p>
+<h2>5. The software needed to make the cycle reproducible</h2>
+<p>Start with the first four capabilities below. Add the remaining tools when the workload calls for them.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Practical starting choice</th>
+<th>Role in the workflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Sequence editing and inspection</strong></td>
+<td><a href="https://jorgensen.biology.utah.edu/wayned/ape/">ApE</a> or an existing licensed sequence editor.</td>
+<td>Maintain the parent plasmid, annotate changes, and review designs. ApE is available without a purchase fee. <a href="https://jorgensen.biology.utah.edu/wayned/ape/Donations.html">Licensing information</a></td>
+</tr>
+<tr>
+<td><strong>Primer design</strong></td>
+<td>A tool matched to the construction method; <a href="https://nebasechanger.neb.com/">NEBaseChanger</a> for Q5 site-directed mutagenesis.</td>
+<td>Produce method-compatible primers. Batch saturation-library design needs additional checking.</td>
+</tr>
+<tr>
+<td><strong>Sample tracking and initial analysis</strong></td>
+<td><a href="https://www.libreoffice.org/">LibreOffice Calc</a> or existing spreadsheet software.</td>
+<td>Plate maps, clone inventory, raw-data joins, simple rate calculations, and pilot plots.</td>
+</tr>
+<tr>
+<td><strong>Acquisition</strong></td>
+<td>The instrument&#39;s supported software.</td>
+<td>Save reusable measurement settings and export raw data.</td>
+</tr>
+<tr>
+<td><strong>Repeatable batch analysis</strong></td>
+<td>Python with <a href="https://jupyter.org/">JupyterLab</a>, <a href="https://pandas.pydata.org/docs/getting_started/">pandas</a>, <a href="https://scipy.org/">SciPy</a>, and <a href="https://matplotlib.org/">Matplotlib</a>.</td>
+<td>Import measurements, fit appropriate time windows, compare controls, flag problems, and produce reports. Recommended as plate numbers grow.</td>
+</tr>
+<tr>
+<td><strong>Batch sequence processing</strong></td>
+<td><a href="https://biopython.org/wiki/SeqIO">Biopython</a>.</td>
+<td>Read sequence files, including ABI traces and quality scores, and support automated sequence checks.</td>
+</tr>
+<tr>
+<td><strong>Image analysis</strong></td>
+<td><a href="https://fiji.sc/">Fiji/ImageJ</a>.</td>
+<td>Process colony/spot images for the imaging route.</td>
+</tr>
+<tr>
+<td><strong>Custom instrument control</strong></td>
+<td>Vendor interfaces or <a href="https://micro-manager.org/">Micro-Manager</a>, where the exact devices are supported.</td>
+<td>Coordinate cameras and illumination; validate compatibility before buying hardware.</td>
+</tr>
+</tbody></table></div>
+<p>A normal workstation is adequate for these starting tasks. GPU-based models, machine learning, a laboratory information-management system, and a custom web application are optional later investments.</p>
+<p>For sequencing review, ensure the chosen editor or sequencing-service viewer can display chromatograms and alignments. Review ambiguous calls before assigning a verified mutation, and check the full enzyme coding sequence in confirmed hits.</p>
+<h3>Minimum data structure</h3>
+<p>Keep three linked records, using stable identifiers rather than relying on filenames alone:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Record</th>
+<th>Minimum contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Clone/variant register</strong></td>
+<td>Unique clone ID, parent, round, intended mutation, verified sequence status, and physical stock location.</td>
+</tr>
+<tr>
+<td><strong>Plate map</strong></td>
+<td>Plate ID, well, clone ID, sample type, condition, dilution, and biological/technical replicate identifiers.</td>
+</tr>
+<tr>
+<td><strong>Measurement record</strong></td>
+<td>Run ID, plate/well, timestamp, signal and units, assay version, instrument settings, and raw-file location.</td>
+</tr>
+</tbody></table></div>
+<p>Preserve raw exports unchanged. Save analysis settings and derived results separately. Retain original sequence traces and the lab record of each preparation. Back up both digital records and the information locating physical stocks. Version control can help with scripts and assay definitions; it does not replace a data backup.</p>
+<p>For the pilot, the analysis should produce a plate heatmap, control distributions, relevant time traces, and a candidate table linked to recoverable stocks. Define quality flags for missing controls, saturated signals, non-linear traces, and unusable wells before ranking candidates.</p>
+<h2>6. Run a small pilot before expanding the library</h2>
+<p><strong>The first milestone is a trustworthy, repeatable cycle, including clone recovery.</strong> Discovering an improved enzyme is a subsequent biological outcome and is not guaranteed by a successful equipment pilot.</p>
+<ol>
+<li><p><strong>Establish the parent assay.</strong> Show a usable signal above appropriate blanks and host/background controls. Test a dilution series and reaction time course to find a quantitative measurement range. Check the effect of the sample matrix on the readout.</p>
+</li>
+<li><p><strong>Measure variation across the workflow.</strong> Grow and prepare parent controls independently, then repeat the assay across plate positions and on another day. Technical repeats measure dispensing/reading variation; independent cultures also capture expression and preparation variation. Use the measured noise to decide what improvement is detectable.</p>
+</li>
+<li><p><strong>Exercise tracking and recovery.</strong> Follow a small set of known samples from stored clone to culture, measurement, analysis, and recovered stock. Include distributed parent controls on every screening plate. Avoid designs that confound a variant group with a plate edge or processing order.</p>
+</li>
+<li><p><strong>Build a library that fits the pilot.</strong> A focused set of substitutions or a small number of separately tracked saturation libraries is a practical first test. Check sequence identity, mutation distribution, and parental background on representative clones. An ordinary spreadsheet is sufficient to plan this first library.</p>
+</li>
+<li><p><strong>Screen and confirm.</strong> Rank candidates using the predefined score. Re-grow promising clones from retained stocks and repeat the assay from independent preparations. Confirm sequences; where needed, reconstruct a mutation in the parent background. Use the intended substrate and a product-specific assay for the final comparison.</p>
+</li>
+<li><p><strong>Choose the next parents.</strong> Archive the previous parent and confirmed hits. Record the improvement, uncertainty, and any loss in another required property. Maintain separate identities when carrying several candidates forward.</p>
+</li>
+</ol>
+<p>For activity-per-enzyme claims, compare appropriately quantified enzyme preparations. Culture density is useful context but is not a measurement of active enzyme concentration. Increased activity per culture can be a useful production improvement; describe it accordingly.</p>
+<h3>Size the library using measured capacity</h3>
+<p>Count the whole workflow: picking, growth, preparation, assay setup, reading, analysis, recovery, and confirmation. Reader speed alone is not throughput.</p>
+<p>An illustrative capacity calculation: with 16 wells reserved for controls, a 96-well plate has 80 sample wells. At two technical assay wells per clone, that is 40 clones per plate, or 160 across four plates. Independent cultures and confirmation consume additional capacity. These are planning numbers, not a recommended universal plate layout.</p>
+<p>A protein with L residues has 19L possible single-amino-acid substitutions relative to its parent. Sampling that many colonies does not guarantee observing every substitution. Degenerate-codon libraries contain repeats and unequal amino-acid probabilities; common NNK designs also include a stop codon and can regenerate the parent residue. Plan coverage explicitly before claiming an exhaustive scan.</p>
+<p>York found single-residue libraries better matched to their screen than broad random mutagenesis. They also reported useful progress from retaining several winners, and regretted postponing screening upgrades. These are relevant design lessons, rather than guarantees for every enzyme. <a href="https://andrewgyork.github.io/relaxation_sensors/appendix.html">York&#39;s evolution lessons</a></p>
+<h2>7. Purchase in stages</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Obtain or arrange access to</th>
+<th>Evidence needed before spending more</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>First</strong></td>
+<td>Routine molecular-biology facilities, compatible shared reader, multichannel pipette, culture/assay plates, sequencing, and sample-tracking software.</td>
+<td>Parent assay works and samples remain recoverable.</td>
+</tr>
+<tr>
+<td><strong>Next</strong></td>
+<td>Reliable plate growth/centrifugation, validated preparation method, independent hit-confirmation access, and repeatable analysis.</td>
+<td>A small screening batch produces interpretable results across preparations and days.</td>
+</tr>
+<tr>
+<td><strong>Then</strong></td>
+<td>Dedicated reader, electronic dispensing, improved temperature control, or other equipment addressing measured delays or errors.</td>
+<td>Quantified bottleneck and expected improvement in usable results per unit cost.</td>
+</tr>
+<tr>
+<td><strong>Later, if justified</strong></td>
+<td>384-well miniaturization, liquid-handling robot, automated colony picker, imaging station, droplets, or cell sorting.</td>
+<td>The assay remains valid in the new format and the added throughput is usable.</td>
+</tr>
+</tbody></table></div>
+<p>An electroporator, automated purification system, and in-house sequencer are conditional purchases. Choose them only when transformation efficiency, purification volume, or sequencing demand justifies ownership.</p>
+<p>York reported approximately $1,000 for 284 MagLOV primers and approximately $60 to update primers around a new winner. These were historical primer expenses, excluding the rest of a round. Use them as an example of balancing reagent spending against labor, not as a current project budget. <a href="https://andrewgyork.github.io/gfp_magnetofluorescence/appendix.html">MagLOV library costs</a></p>
+<p>Track total operating cost per confirmed candidate: consumables, sequencing, instrument access, labor, failed batches, and confirmation. Keep initial equipment spending separate so ownership can be compared with shared access.</p>
+<h2>8. Starter checklist</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Parent enzyme, host, intended substrate, and primary improvement metric are defined.</li>
+<li><input disabled="" type="checkbox"> Routine lab infrastructure and standard protocols are available.</li>
+<li><input disabled="" type="checkbox"> The activity assay has been demonstrated on the proposed instrument and plates.</li>
+<li><input disabled="" type="checkbox"> Reaction timing, temperature, sample preparation, and liquid handling are repeatable.</li>
+<li><input disabled="" type="checkbox"> Each measured sample links to a recoverable clone and a plate map.</li>
+<li><input disabled="" type="checkbox"> Instrument settings and raw data can be exported and backed up.</li>
+<li><input disabled="" type="checkbox"> Controls and an analysis rule are defined before screening.</li>
+<li><input disabled="" type="checkbox"> Sequencing and independent hit confirmation are available.</li>
+<li><input disabled="" type="checkbox"> Library size fits measured end-to-end capacity, including confirmation.</li>
+<li><input disabled="" type="checkbox"> Further equipment purchases address a demonstrated bottleneck.</li>
+</ul>
+</section>
+</main></div><footer><a href="../">Back to Evozyme</a> · <a href="/apps/">Back to apps</a></footer></body></html>

@@ -1,0 +1,13 @@
+{
+  "name": "evozyme-planner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "marked": "17.0.5"
+  }
+}

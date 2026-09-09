@@ -1,0 +1,41 @@
+{
+  "data_origin": "SYNTHETIC TEACHING DATA; no laboratory experiment",
+  "config": {
+    "run_id": "DEMO_RUN_01",
+    "assay_id": "DEMO_LIPA_OPTICAL_V1",
+    "data_origin": "SYNTHETIC TEACHING DATA; no laboratory experiment",
+    "signal_unit": "AU",
+    "signal_direction": 1,
+    "fit_times_s": [
+      0,
+      30,
+      60,
+      90,
+      120,
+      150,
+      180
+    ],
+    "signal_ceiling": 1.0,
+    "minimum_r2": 0.98,
+    "maximum_parent_cv": 0.15,
+    "maximum_technical_cv": 0.15,
+    "maximum_host_fraction": 0.1,
+    "minimum_blank_wells": 4,
+    "minimum_host_wells": 4,
+    "minimum_parent_preparations": 4,
+    "minimum_technical_wells": 2,
+    "minimum_fold_for_retest": 1.2
+  },
+  "plates": {
+    "DEMO01": {
+      "usable": true,
+      "reasons": [],
+      "blank_slope_per_min": 0.001014008035714285,
+      "parent_rate_per_min": 0.019869030803571427,
+      "parent_prep_count": 8,
+      "parent_cv": 0.03167453667586009,
+      "host_rate_per_min": 0.0001844125000000007,
+      "zprime_descriptive": 0.8967832387820215
+    }
+  }
+}

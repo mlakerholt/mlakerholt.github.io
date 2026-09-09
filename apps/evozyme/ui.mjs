@@ -1,0 +1,21 @@
+import{escapeHTML as e}from'./io.mjs';
+export{e};
+export const num=(v,d=2)=>typeof v==='number'&&Number.isFinite(v)?v.toLocaleString('en-GB',{maximumFractionDigits:d}):'Unavailable';
+export const pct=(v,d=1)=>typeof v==='number'&&Number.isFinite(v)?num(v*100,d)+'%':'Unavailable';
+export const get=(obj,path)=>path.split('.').reduce((a,k)=>a?.[k],obj);
+export const field=(obj,path,label,{type='text',hint='',step='any',options=null,wide=false,placeholder='',min=null,max=null}={})=>{
+  const value=get(obj,path),id='f-'+path.replaceAll('.','-');let input;
+  if(options)input=`<select id="${id}" data-field="${e(path)}">${options.map(o=>{const[v,t]=Array.isArray(o)?o:[o,o];return`<option value="${e(v)}" ${String(value)===String(v)?'selected':''}>${e(t)}</option>`;}).join('')}</select>`;
+  else if(type==='textarea')input=`<textarea id="${id}" data-field="${e(path)}" rows="3" placeholder="${e(placeholder)}">${e(value)}</textarea>`;
+  else input=`<input id="${id}" data-field="${e(path)}" type="${type}" value="${e(value)}" ${type==='number'?`step="${step}" ${min!==null?`min="${min}"`:''} ${max!==null?`max="${max}"`:''}`:''} placeholder="${e(placeholder)}">`;
+  return`<label class="field ${wide?'wide':''}" for="${id}"><span>${e(label)}</span>${input}${hint?`<small>${e(hint)}</small>`:''}</label>`;
+};
+export const check=(obj,path,label)=>`<label class="check"><input type="checkbox" data-field="${e(path)}" ${get(obj,path)?'checked':''}><span>${e(label)}</span></label>`;
+export const heading=(n,title,text)=>`<div class="stage-heading"><p class="eyebrow">Stage ${n}</p><h2 id="stage-title">${e(title)}</h2><p>${e(text)}</p></div>`;
+export const metric=(v,label)=>`<div class="metric"><strong>${e(v)}</strong><span>${e(label)}</span></div>`;
+export const table=(headers,rows,{caption='',className=''}={})=>`<div class="table-wrap"><table class="${className}">${caption?`<caption>${e(caption)}</caption>`:''}<thead><tr>${headers.map(h=>`<th scope="col">${e(h)}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.map(row=>`<tr>${row.map(c=>`<td>${c}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${headers.length}">No records yet.</td></tr>`}</tbody></table></div>`;
+export const callout=(text,kind='')=>`<div class="callout ${kind}">${text}</div>`;
+export const errorBox=err=>callout(e(err.message||err),'error');
+export const help=(title,text,anchor)=>`<details><summary>${e(title)}</summary><p>${text}</p><a href="guide/index.html#${anchor}">Read the handbook section →</a></details>`;
+export const tag=(text,kind='')=>`<span class="tag ${kind}">${e(text)}</span>`;
+export const date=s=>s?new Date(s).toLocaleString('en-GB'):'Never';

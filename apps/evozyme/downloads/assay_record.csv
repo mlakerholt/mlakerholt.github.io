@@ -1,0 +1,1 @@
+assay_id,enzyme,substrate,metric,sample_format,buffer,pH,temperature_C,substrate_concentration,concentration_unit,reaction_volume_uL,reader_id,plate_product,wavelengths_nm,fit_window_s,control_definition,acceptance_rule,raw_file,operator,date
