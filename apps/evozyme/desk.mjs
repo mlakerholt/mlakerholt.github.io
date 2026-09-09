@@ -1,4 +1,3 @@
-import {escapeHTML as e} from './io.mjs';
 export const contextKey='evozyme-desk-context-v1';
 const routeKeys=['campaign','round','analysis','plate','well','filter','search','brief'];
 export function readRoute(search){const p=new URLSearchParams(search),out={};for(const k of routeKeys)if(p.has(k))out[k]=p.get(k).slice(0,500);return out;}
@@ -9,7 +8,7 @@ export function header(base='./',current='Workflow'){return `<header class="desk
 export function syncNavigation(){
   const context=getContext();
   for(const a of document.querySelectorAll('[data-destination]')){const dest=a.dataset.destination;if(context&&['Campaign','Screening'].includes(dest)){const url=new URL(a.href);url.search=new URL(context.url,location.href).search;url.hash=dest==='Screening'?'screen':(['campaign','assay','equipment','library','budget'].includes(context.stage)?context.stage:'campaign');a.href=url.href;}}
-  const back=document.querySelector('#context-return');if(back){const url=new URL('planner.html',new URL('.',import.meta.url));back.href=context?new URL(context.url,url).href:url.href;back.textContent=context?'← Return to '+(context.clone||context.name)+' · round '+context.round:'← Open your campaign';}
+  const back=document.querySelector('#context-return');if(back){const url=new URL('planner.html',new URL('.',import.meta.url));back.href=context?new URL(context.url,url).href:url.href;back.textContent=context?'← Return to '+(context.clone||context.name)+' · round '+context.round:'← Open your campaign';back.hidden=false;document.querySelector('#context-loading')?.remove();}
 }
 if(typeof document!=='undefined'){
   const preference=document.querySelector('#appearance');let mode='system';try{mode=localStorage.getItem('evozyme-appearance')||mode;}catch{}
