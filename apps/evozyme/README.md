@@ -1,6 +1,6 @@
 # Evozyme — Directed Evolution Planner
 
-A static browser application for campaign planning, equipment and software access, library coverage, operating costs, primary-screen review, independent confirmation records, and linked rounds. Uses the Research Desk design: warm paper, forest accents, editorial serif headings and light/dark appearances.
+A static browser application for campaign planning, equipment and software access, library coverage, operating costs, 96-well primary-screen review, published sequence–fitness landscapes, independent confirmation records, and linked rounds. Uses the Research Desk design: warm paper, forest accents, editorial serif headings and light/dark appearances.
 
 Opening `/apps/evozyme/` shows the graphical mental map: Plan → Test → Learn, with links to all seven app stages, laboratory work, quality checks, and the next-round loop. The planner is at `planner.html`; existing bookmarks such as `/#screen` continue to open that stage. The overview remains available at `overview.html`, works without JavaScript, adapts to narrow screens, and includes a print layout.
 
@@ -44,13 +44,15 @@ The handbook displays one chapter at a time, with full-chapter search results an
 
 Campaigns are stored in the device's `evozyme-campaigns` IndexedDB database. Browser clearing, eviction, or disabled storage can remove/prevent this convenience copy. Export complete campaign JSON backups and keep external sequence/evidence files with them. Imported raw CSV text, SHA-256 fingerprints, assay settings, engine versions, analysis snapshots and round IDs are preserved. Fingerprints detect accidental raw-file changes; they do not authenticate laboratory results.
 
-Screen imports accept assigned CSV roles and columns, long or defined wide layouts, explicit time/decimal formats, and an optional settings JSON. The toolkit format remains supported. Original texts, conversion recipe and canonical analyser files are retained separately. Uploaded and expanded canonical files each have a combined 10 MB limit. Confirmation imports also have a 10 MB limit. Portable backup restoration accepts up to 100 MB. Browser quotas can be lower than campaign history growth; save failure is shown and export remains available. A blank quote or measurement is not converted into a zero.
+Screen imports accept either published NucB/PcIRED sequence–fitness CSVs or mapped 96-well data. Plate imports support assigned CSV roles and columns, long or defined wide layouts, explicit time/decimal formats, and an optional settings JSON. The toolkit format remains supported. Original texts, conversion recipe and canonical analyser files are retained separately. Uploaded and expanded files have a 25 MB limit, sufficient for the released 15.4 MB NucB landscape. Portable backup restoration accepts up to 100 MB. Browser quotas can be lower than campaign history growth; save failure is shown and export remains available. Blank values and spreadsheet errors in released fitness data remain missing rather than becoming zero.
 
 Same-origin applications share the browser security boundary; namespacing avoids accidental storage collisions, not access isolation. Imported strings are escaped as text and text-formula prefixes are neutralized in derived CSV exports. Original raw-file downloads remain unchanged.
 
 ## Analysis scope
 
-Supports 96-well, configured-timepoint linear-rate screens with one preparation per candidate per plate. Multiple plates are evaluated independently. Technical wells are averaged within preparations; parent variation uses independent-preparation means. Failed plates cannot nominate candidates. Lower and upper detector limits can be configured. Thresholds are assay-specific; defaults are teaching assumptions.
+Supports two evidence paths. The plate path handles 96-well, configured-timepoint linear-rate screens with one preparation per candidate per plate. The sequence–fitness path recognizes the official NucB activity landscape and PcIRED–tecalcet lrDMS release, preserving sequences, mutation distance, generations/library origins, categorical activity, continuous fitness, uncertainty, replicate counts and agreement flags. It never silently converts activity classes or log-enrichment fitness into catalytic fold changes.
+
+Published campaign templates provide editable, sourced goals for NucB at physiological pH and PcIRED chiral-amine synthesis. Published records are distinguished from recoverable laboratory stocks; users can explore all variants, filter by evidence availability, compare PcIRED timepoints and export a normalized table while retaining the original source and fingerprint.
 
 Confirmation summaries are descriptive means, sample standard deviations, and ratios within each assay ID. Different assay IDs are not pooled. A confirmed decision requires at least two independent candidate and parent observations plus explicit sequence, product, stock, property, reference, and rationale records. This records an analyst decision; it does not infer statistical significance or validate experimental claims.
 

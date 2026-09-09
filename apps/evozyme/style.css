@@ -17,3 +17,21 @@ pre{max-width:100%;overflow:auto}.table-wrap table:has(th:nth-child(4)){min-widt
 @media print{:root{color-scheme:light!important}.desk-header,.campaign-context,#campaign-tools,#save-alert{display:none!important}.sheet{min-height:0}.guide-controls,.reading-heading,#chapter-paging{display:none}.reading-layout{display:block}.guide-body{max-width:none}.guide-section[hidden]{display:block!important}.guide-body h2{font-size:18pt}.guide-body h3{font-size:15pt}}
 
 @media print{:root{color-scheme:light!important}body{font-size:11pt;background:white}.sheet{border:0;margin:0;padding:0;max-width:none;min-height:0}.print-only h1{font-size:24pt}.print-only h2{font-size:17pt}.print-only table{font-size:9pt}.guide-body{font-size:11pt}}
+/* Published sequence–fitness campaigns */
+.template-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem;margin-top:1rem}
+.template-cards button{display:grid;gap:.35rem;text-align:left;min-height:6.5rem;padding:1rem;border:1px solid var(--edge);background:var(--paper);color:inherit}
+.template-cards button:hover{border-color:var(--green)}
+.template-cards span{font-weight:400;line-height:1.4}
+.sequence-workspace{display:grid;gap:1rem;margin:1rem 0 2rem}
+.source-strip{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1rem 1.15rem;border-left:4px solid var(--green);background:var(--paper)}
+.source-strip h3,.source-strip p{margin-top:.2rem}
+.sequence-controls{grid-template-columns:repeat(auto-fit,minmax(12rem,1fr))}
+.sequence-grid{display:grid;grid-template-columns:minmax(22rem,.9fr) minmax(24rem,1.1fr);gap:1rem;align-items:start}
+.sequence-text{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;line-height:1.65}
+.fitness-histogram{margin:0;padding:1rem;background:var(--paper);border:1px solid var(--edge)}
+.fitness-histogram figcaption{font-weight:700;margin-bottom:.65rem}
+.histogram-bars{height:8rem;display:grid;grid-template-columns:repeat(12,1fr);align-items:end;gap:.3rem;border-bottom:1px solid var(--ink)}
+.histogram-bars span{height:100%;display:flex;align-items:end}
+.histogram-bars i{display:block;width:100%;height:var(--height);background:var(--green)}
+.histogram-axis{display:flex;justify-content:space-between;margin-top:.3rem;font-size:.85rem}
+@media(max-width:850px){.sequence-grid{grid-template-columns:1fr}.source-strip{display:block}.source-strip>div+div{margin-top:.75rem}}

@@ -1,4 +1,10 @@
-# Evozyme 1.3.0 verification
+# Evozyme 1.4.0 verification
+
+## Published sequence–fitness campaigns
+
+- The NucB and PcIRED import profiles were exercised against the actual released CSV files. The NucB landscape parsed 55,760 unique amino-acid sequences from the official 15.4 MB file, including categorical activity, function, generation and library membership. The PcIRED–tecalcet file parsed 4,286 unique sequences, including 20 h/40 h fitness, uncertainty, input/output counts and agreement flags. Spreadsheet-error cells remained missing.
+- All 51 Node checks pass. They cover both released layouts, NucB's unnamed index column and tuple fields, PcIRED missing-value handling and replicate counts, stable sequence identity, normalized export, published templates, schema migration, backup validation, and every existing plate-analysis regression.
+- The production build checks the new browser modules and worker together with the existing app and handbook links. These checks establish software behavior and faithful field handling, not biological validation of the published claims.
 
 ## First-run setup and screening-system presets
 

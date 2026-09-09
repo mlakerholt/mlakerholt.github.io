@@ -1,7 +1,7 @@
 import {readRoute,rememberContext,syncNavigation} from './desk.mjs';
 import{budget,equipmentTotal,confirmationSummary,validateAssay}from'./core.mjs';
 import{parseCSV,toCSV,download,readFile,fingerprint,saveCampaign,loadCampaign,listCampaigns,getActive,setActive,validateBackup,safeName,MAX_IMPORT_BYTES}from'./io.mjs';
-import{newCampaign,nextRound,activeRound,assayConfig,stages,uid,configurations,applyScreeningSystem}from'./data.mjs';
+import{newCampaign,nextRound,activeRound,assayConfig,stages,uid,configurations,applyScreeningSystem,applyPublishedCampaign}from'./data.mjs';
 import{campaignView,assayView,equipmentView,libraryView,budgetView,libraryProbabilities}from'./planner.mjs';
 import{screenView,selectedAnalysis}from'./screen.mjs';
 import{reviewView,reportHTML,confirmationReady}from'./review.mjs';
@@ -11,6 +11,7 @@ import{setupView,setupPaths,setupIssues}from'./guidance.mjs';
 import{SaveConflict,saveDraft,listDrafts,removeDraft,loadLegacyCampaign}from'./storage.mjs';
 import{configKey,hasReviewed,workflowIssues,analysisIssues}from'./workflow.mjs';
 import{issueList,controlProposal}from'./workflow-ui.mjs';
+import{normalizedSequenceCSV}from'./sequence-data.mjs';
 const $=s=>document.querySelector(s);
 let campaign=newCampaign(),stage=0,saveTimer,saveQueue=Promise.resolve(),storageOK=true,dirty=false,restoreAsCopy=false;
 let booting=true,saveProblem=null,editSerial=0,lastRenderedStage=null;
@@ -19,7 +20,7 @@ const draftKey=id=>id+':'+tabId;
 function saveAlert(){const p=saveProblem;$('#save-alert').innerHTML=p?`<div class="callout warning"><strong>${p.kind==='conflict'?'Newer saved version found':'Save needs attention'}</strong><p>${e(p.message)}</p>${p.draftSaved?'<p>A recovery copy of this draft is retained in this browser.</p>':''}${booting?'':`<div class="actions"><button data-action="draft-export">Export this draft</button><button data-action="save-copy">Save as separate campaign</button>${p.kind==='conflict'?'<button data-action="load-latest">Load latest saved version</button>':'<button data-action="retry-save">Retry saving</button>'}</div>`}</div>`:'';}
 window.addEventListener('evozyme-storage',({detail})=>{if(detail.kind!=='ready'){saveProblem={kind:detail.kind,message:detail.message};saveAlert();}else if(booting){saveProblem=null;saveAlert();}});
 if(channel)channel.onmessage=({data})=>{if(data.id===campaign.id&&data.revision>(revisions.get(campaign.id)??campaign.revision)){saveProblem={kind:'conflict',message:'Another tab saved changes. Keep this draft separately or load the latest saved version.'};saveAlert();}};
-const ui={pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false,setupStep:1,setupErrors:[]};
+const ui={pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false,setupStep:1,setupErrors:[],sequenceDatasetId:null,sequenceVariantId:null,sequenceMetric:null,sequenceSearch:'',sequenceFunctional:'all',sequenceSort:'best',sequencePage:0};
 const round=()=>activeRound(campaign);
 const views=[campaignView,assayView,equipmentView,libraryView,budgetView,screenView,reviewView];
 const notice=(message,kind='info')=>{$('#notice').innerHTML=message?`<div class="callout ${kind}">${e(message)}</div>`:'';};
@@ -30,8 +31,8 @@ function showSetupErrors(){for(const x of ui.setupErrors){const input=document.g
 function renderSummary(){
   const r=round();let b=null;try{b=budget(r.budget);}catch{}
   const missing=workflowIssues(r);
-  $('#summary').innerHTML=`<section class="panel"><h3>Campaign summary</h3><dl class="summary-list"><dt>Campaign</dt><dd>${e(campaign.name)}</dd><dt>Parent</dt><dd>${e(r.brief.parent||'Not defined')}</dd><dt>Round</dt><dd>${r.number} of ${campaign.rounds.length}</dd><dt>Primary slots</dt><dd>${num(b?.slots,0)}</dd><dt>Expected usable</dt><dd>${num(b?.usable,1)}</dd><dt>Round cost</dt><dd>${num(b?.total)} ${e(campaign.currency)}</dd><dt>Saved analyses</dt><dd>${r.analyses.length}</dd></dl></section><section class="panel"><h3>Next useful actions</h3>${issueList(r,stages[stage].toLowerCase())}<details><summary>Checks across all stages</summary>${issueList(r)}</details><small>Record completeness does not establish experimental validity.</small></section><section class="panel"><h3>Keep a second copy</h3><p>${storageOK&&!saveProblem?'Browser copy available.':'Browser save needs attention.'} Export a backup after important changes.</p><small>Last export: ${e(date(campaign.lastExportAt))}<br>Restore check: ${e(date(campaign.restorationCheckedAt))}</small><div class="actions"><button type="button" data-action="export">Export backup</button><button type="button" data-action="recovery">Recovery drafts</button></div><a href="guide/index.html">Handbook &amp; worked examples →</a></section>`;
-  $('#origin-label').textContent=campaign.origin==='synthetic'?'Synthetic teaching campaign · no laboratory experiment':'Your campaign · local browser data';
+  $('#summary').innerHTML=`<section class="panel"><h3>Campaign summary</h3><dl class="summary-list"><dt>Campaign</dt><dd>${e(campaign.name)}</dd><dt>Parent</dt><dd>${e(r.brief.parent||'Not defined')}</dd><dt>Round</dt><dd>${r.number} of ${campaign.rounds.length}</dd><dt>Primary slots</dt><dd>${num(b?.slots,0)}</dd><dt>Expected usable</dt><dd>${num(b?.usable,1)}</dd><dt>Round cost</dt><dd>${num(b?.total)} ${e(campaign.currency)}</dd><dt>Plate analyses</dt><dd>${r.analyses.length}</dd><dt>Sequence landscapes</dt><dd>${r.sequenceDatasets?.length||0}</dd></dl></section><section class="panel"><h3>Next useful actions</h3>${issueList(r,stages[stage].toLowerCase())}<details><summary>Checks across all stages</summary>${issueList(r)}</details><small>Record completeness does not establish experimental validity.</small></section><section class="panel"><h3>Keep a second copy</h3><p>${storageOK&&!saveProblem?'Browser copy available.':'Browser save needs attention.'} Export a backup after important changes.</p><small>Last export: ${e(date(campaign.lastExportAt))}<br>Restore check: ${e(date(campaign.restorationCheckedAt))}</small><div class="actions"><button type="button" data-action="export">Export backup</button><button type="button" data-action="recovery">Recovery drafts</button></div><a href="guide/index.html">Handbook &amp; worked examples →</a></section>`;
+  $('#origin-label').textContent=campaign.origin==='synthetic'?'Synthetic teaching campaign · no laboratory experiment':campaign.origin==='published'?'Published evidence · imported source data':'Your campaign · local browser data';
 }
 function render({focus=false}={}){
   const expansion=new Map([...document.querySelectorAll('#stage details')].map(d=>[d.querySelector('summary')?.textContent,d.open]));
@@ -94,7 +95,7 @@ async function ensureSaved(){if(!await persist())throw new Error('Keep or recove
 async function switchCampaign(c){await ensureSaved();campaign=c;revisions.set(c.id,c.revision??0);resetUI();dirty=true;editSerial++;await persist();location.hash='#campaign';render();}
 async function separateCopy(source=campaign){if(source!==campaign)await ensureSaved();const original=source.id,copy=structuredClone(source);copy.id=uid();copy.name+=' · recovered copy';copy.revision=0;copy.createdAt=new Date().toISOString();copy.updatedAt=copy.createdAt;copy.copiedFrom=original;campaign=copy;saveProblem=null;revisions.set(copy.id,0);resetUI();dirty=true;editSerial++;if(await persist()){await removeDraft(draftKey(original)).catch(()=>{});notice('Saved as a separate campaign. The earlier saved version is preserved.');}render();}
 async function acknowledge(config){validateAssay(config);const key=configKey(config);return{key,sha256:await fingerprint(key),reviewedAt:new Date().toISOString()};}
-function resetUI(){history.replaceState(null,'',location.pathname+location.hash);Object.assign(ui,{pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false,setupStep:1,setupErrors:[]});}
+function resetUI(){history.replaceState(null,'',location.pathname+location.hash);Object.assign(ui,{pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false,setupStep:1,setupErrors:[],sequenceDatasetId:null,sequenceVariantId:null,sequenceMetric:null,sequenceSearch:'',sequenceFunctional:'all',sequenceSort:'best',sequencePage:0});}
 function showDialog(content){$('#dialog-body').innerHTML=content;if(!$('#dialog').open)$('#dialog').showModal();}
 function closeDialog(){$('#dialog').close();}
 function requireIdle(){if(booting)throw new Error('Wait for saved records to load.');if(saveProblem)throw new Error('Resolve the save message before changing records. Your draft remains available to export.');if(ui.analyzing)throw new Error('Wait for the current analysis to finish before changing campaigns or rounds.');}
@@ -121,18 +122,26 @@ document.addEventListener('change',async event=>{const t=event.target;try{
   if(t.dataset.import){updateImport(t);return;}
   if(t.dataset.field){await applyField(t);if(t.tagName==='SELECT'||t.type==='checkbox'){const path=t.dataset.field;render();document.querySelector(`[data-field="${path}"]`)?.focus();}}
   else if(t.id==='screen-files')await stageScreenFiles(t.files);
+  else if(t.id==='sequence-data-input')await importSequenceDataset(t.files[0]);
   else if(t.id==='confirmation-input')await importConfirmation(t.files[0]);
   else if(t.id==='backup-input')await importBackup(t.files[0]);
   else if(t.id==='analysis-select'){ui.analysisId=t.value;ui.plate=null;ui.well=null;render();}
   else if(t.id==='plate-select'){ui.plate=t.value;ui.well=null;render();}
   else if(t.id==='candidate-filter'){ui.filter=t.value;render();}
   else if(t.id==='candidate-search'){ui.search=t.value;render();$('#candidate-search').focus();}
+  else if(t.id==='sequence-dataset-select'){ui.sequenceDatasetId=t.value;ui.sequenceVariantId=null;ui.sequencePage=0;render();}
+  else if(t.id==='sequence-metric'){ui.sequenceMetric=t.value;ui.sequencePage=0;render();}
+  else if(t.id==='sequence-functional'){ui.sequenceFunctional=t.value;ui.sequencePage=0;render();}
+  else if(t.id==='sequence-sort'){ui.sequenceSort=t.value;ui.sequencePage=0;render();}
+  else if(t.id==='sequence-search'){ui.sequenceSearch=t.value;ui.sequencePage=0;render();$('#sequence-search')?.focus();}
   else if(t.id==='round-select'){requireIdle();await ensureSaved();campaign.activeRoundId=t.value;resetUI();changed();render();}
 }catch(err){notice(err.message,'error');}});
 $('#previous').onclick=()=>{if(stage>0)location.hash=stages[stage-1].toLowerCase();};$('#next').onclick=()=>{if(stage<6)location.hash=stages[stage+1].toLowerCase();};$('#close-dialog').onclick=closeDialog;
 window.addEventListener('hashchange',()=>render({focus:true}));
 document.addEventListener('click',event=>{const link=event.target.closest('[data-go-field]');if(link){event.preventDefault();if(setupPaths.includes(link.dataset.goField))ui.setupStep=['brief.metric','brief.units','brief.conditions'].includes(link.dataset.goField)?2:1;history.pushState(null,'',location.search+link.getAttribute('href'));render();const field=document.querySelector(`[data-field="${link.dataset.goField}"]`);if(field){for(let p=field.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;field.focus();field.scrollIntoView({block:'center'});}}});window.addEventListener('beforeunload',event=>{if(dirty||ui.analyzing||ui.pending||!storageOK){event.preventDefault();event.returnValue='';}});
 async function recordFile(file){const text=await readFile(file);return{name:file.name,text,bytes:file.size,sha256:await fingerprint(text),importedAt:new Date().toISOString()};}
+function runSequenceWorker(source){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('./sequence-worker.mjs',import.meta.url),{type:'module'}),timeout=setTimeout(()=>{worker.terminate();reject(new Error('Sequence–fitness import exceeded two minutes.'));},120000);worker.onmessage=({data})=>{clearTimeout(timeout);worker.terminate();data.error?reject(new Error(data.error)):resolve(data.result);};worker.onerror=()=>{clearTimeout(timeout);worker.terminate();reject(new Error('Sequence–fitness importer could not run. Reload the app and try again.'));};worker.postMessage({name:source.name,text:source.text});});}
+async function importSequenceDataset(file){if(!file)return;requireIdle();if(!/\.csv$/i.test(file.name))throw new Error('Choose the released NucB or PcIRED CSV file.');const source=await recordFile(file);ui.analyzing=true;render();try{const dataset=await runSequenceWorker(source);dataset.sourceFile=source;const r=round();r.sequenceDatasets.push(dataset);ui.sequenceDatasetId=dataset.id;ui.sequenceVariantId=null;ui.sequenceMetric=null;ui.sequencePage=0;changed();if(await persist())notice(`${dataset.title} imported with ${dataset.summary.variants.toLocaleString('en-GB')} unique sequences.`);}finally{ui.analyzing=false;render();}}
 function configToAssay(cfg,base){cfg={...cfg,reference_parent_id:cfg.reference_parent_id??base.reference_parent_id};validateAssay({...cfg,signal_floor:cfg.signal_floor??null});const a={...base};for(const key of Object.keys(assayConfig(base)))if(key!=='fit_times_s'&&Object.hasOwn(cfg,key))a[key]=cfg[key];a.signal_floor=cfg.signal_floor??null;a.fit_times=cfg.fit_times_s.join(', ');a.rulesReviewed=false;a.reviewRecord=null;return a;}
 function updateImport(t){
   const p=ui.pending;if(!p)return;const parts=t.dataset.import.split('.');let parent=parts[0]==='editor'?p:p.recipe;
@@ -143,7 +152,7 @@ function updateImport(t){
 }
 async function stageScreenFiles(fileList){
   requireIdle();const files=Array.from(fileList);if(!files.length)return;
-  if(files.reduce((n,f)=>n+f.size,0)>MAX_IMPORT_BYTES)throw new Error('Combined screen import exceeds 10 MB. Split it into smaller independent plate batches.');
+  if(files.reduce((n,f)=>n+f.size,0)>MAX_IMPORT_BYTES)throw new Error('Combined screen import exceeds 25 MB. Split it into smaller independent plate batches.');
   const names=new Set();for(const f of files){if(names.has(f.name))throw new Error('Duplicate filename: '+f.name);names.add(f.name);if(!/\.(csv|json)$/i.test(f.name))throw new Error('Choose CSV exports and optional settings JSON.');}
   const originals=await Promise.all(files.map(recordFile)),config=assayConfig(round().assay);
   ui.pending={originals,recipe:newRecipe(originals,config),config,reviewRecord:null,step:1,mapped:null,editor:{plate:'',wells:'',sample_type:'candidate',clone_id:'',prep_id:'',stock_location:''}};ui.pending.recipe.timeUnit='';ui.importError='';render();
@@ -159,7 +168,7 @@ async function previewMapping(){
 async function validateImport(){
   const p=ui.pending;if(!p)return;const issues=previewIssues(p.mapped,p.config);if(issues.length)throw new Error(issues.slice(0,8).join(' '));
   const files=canonicalFiles(p.mapped);for(const f of Object.values(files)){f.sha256=await fingerprint(f.text);f.bytes=new TextEncoder().encode(f.text).length;f.importedAt=new Date().toISOString();}
-  if(Object.values(files).reduce((n,f)=>n+f.bytes,0)>MAX_IMPORT_BYTES)throw new Error('Expanded canonical files exceed 10 MB. Split the import.');
+  if(Object.values(files).reduce((n,f)=>n+f.bytes,0)>MAX_IMPORT_BYTES)throw new Error('Expanded canonical files exceed 25 MB. Split the import.');
   ui.analyzing=true;render();try{const result=await runWorker(files,p.config);p.quality=result.quality;p.files=files;p.step=3;p.reviewRecord=null;}finally{ui.analyzing=false;render();}
 }
 function runWorker(files,config){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('./analysis-worker.mjs',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(new Error('Analysis exceeded 60 seconds. Use a smaller plate batch.'));},60000);worker.onmessage=({data})=>{clearTimeout(timeout);worker.terminate();data.error?reject(new Error(data.error)):resolve(data.result);};worker.onerror=()=>{clearTimeout(timeout);worker.terminate();reject(new Error('Analysis worker could not run. Reload the app and try again.'));};worker.postMessage({id:uid(),files,config});});}
@@ -186,7 +195,7 @@ async function openDemo(){
   const result=await runWorker(r.files,assayConfig(r.assay));r.analyses.push({id:uid(),label:r.assay.run_id,createdAt:new Date().toISOString(),inputFiles:structuredClone(r.files),reviewRecord:structuredClone(r.assay.reviewRecord),result});campaign=demo;resetUI();prepareEvidence();changed();await persist();location.hash='#screen';render();notice('Synthetic example opened as a separate campaign. C03 and C11 are nominated for independent retesting; confirmation evidence is intentionally incomplete.');}finally{ui.analyzing=false;render();}
 }
 function exportBackup(){campaign.lastExportAt=new Date().toISOString();campaign.updatedAt=campaign.lastExportAt;download(safeName(campaign.name)+'-backup.json',JSON.stringify(campaign,null,2),'application/json');changed();persist();notice('Backup download started. Keep it with any externally referenced sequence and evidence files.');}
-async function verifyBackupHashes(c){for(const r of c.rounds){const all=[...Object.values(r.files),...r.analyses.flatMap(a=>Object.values(a.inputFiles||{})),...(r.confirmationSource?[r.confirmationSource]:[]),...(r.confirmationHistory||[]),...(r.importProvenance?.originals||[]),...r.analyses.flatMap(a=>a.importProvenance?.originals||[])];for(const f of all)if(f.sha256!==await fingerprint(f.text))throw new Error('Backup integrity check failed for '+f.name+'. The retained raw text differs from its recorded fingerprint.');}}
+async function verifyBackupHashes(c){for(const r of c.rounds){const all=[...Object.values(r.files),...r.analyses.flatMap(a=>Object.values(a.inputFiles||{})),...r.sequenceDatasets.map(d=>d.sourceFile),...(r.confirmationSource?[r.confirmationSource]:[]),...(r.confirmationHistory||[]),...(r.importProvenance?.originals||[]),...r.analyses.flatMap(a=>a.importProvenance?.originals||[])];for(const f of all)if(f.sha256!==await fingerprint(f.text))throw new Error('Backup integrity check failed for '+f.name+'. The retained raw text differs from its recorded fingerprint.');}}
 async function importBackup(file){
   if(!file)return;requireIdle();if(file.size>100*1024*1024)throw new Error('Campaign backup exceeds the 100 MB restore limit.');
   const parsed=validateBackup(JSON.parse(await file.text()));await verifyBackupHashes(parsed);await ensureSaved();const existing=await loadCampaign(parsed.id);
@@ -212,6 +221,7 @@ async function action(name,button){
     }
     case'brief-back':ui.setupStep=Math.max(1,ui.setupStep-1);ui.setupErrors=[];render({focus:true});break;
     case'toggle-view':campaign.guided=!campaign.guided;changed();render();break;
+    case'published-template':{const next=applyPublishedCampaign(newCampaign(),button.dataset.template);await switchCampaign(next);notice('Published campaign brief loaded. Open Screen to import the released sequence–fitness CSV.');break;}
     case'screening-preset':{const preset=applyScreeningSystem(r,r.assay.screeningSystem);changed();render();notice(preset.name+' starting parameters applied. Validate them with your assay before analysis.');break;}
     case'restore-check':restoreAsCopy=true;$('#backup-input').click();break;
     case'map-preview':await previewMapping();break;
@@ -261,6 +271,10 @@ async function action(name,button){
     case'cancel-import':ui.pending=null;ui.importError='';render();break;
     case'well':ui.well=button.dataset.well;ui.plate=button.dataset.plate;render();$('#clone-inspector')?.focus();$('#clone-inspector')?.scrollIntoView({block:'nearest'});break;
     case'clone':ui.plate=button.dataset.plate;ui.well=run.result.wells.find(w=>w.clone_id===button.dataset.clone&&w.plate_id===ui.plate)?.well;render();$('#clone-inspector')?.focus();$('#clone-inspector')?.scrollIntoView({block:'nearest'});break;
+    case'sequence-variant':ui.sequenceVariantId=button.dataset.id;render();$('#sequence-inspector')?.focus();break;
+    case'sequence-prev':ui.sequencePage=Math.max(0,(ui.sequencePage||0)-1);ui.sequenceVariantId=null;render();break;
+    case'sequence-next':ui.sequencePage=(ui.sequencePage||0)+1;ui.sequenceVariantId=null;render();break;
+    case'sequence-export':{const dataset=r.sequenceDatasets.find(d=>d.id===ui.sequenceDatasetId)||r.sequenceDatasets.at(-1);if(!dataset)throw new Error('Import a sequence–fitness dataset first.');download(dataset.profile+'-normalized.csv',normalizedSequenceCSV(dataset),'text/csv;charset=utf-8');break;}
     case'candidates-csv':exportCSV('candidates.csv',run.result.candidates);break;
     case'wells-csv':exportCSV('well-results.csv',run.result.wells.map(w=>({...w,flags:w.flags.join(';')})),['plate_id','well','clone_id','prep_id','technical_rep','sample_type','raw_slope_per_min','r2','corrected_rate_per_min','flags','stock_location']);break;
     case'quality-json':download('quality.json',JSON.stringify({engineVersion:run.result.engineVersion,config:run.result.config,plates:run.result.quality,mappingRecipe:run.importProvenance?.recipe,originalExports:run.importProvenance?.originals.map(({text,...meta})=>meta),provenance:Object.values(run.inputFiles).map(({text,...meta})=>meta)},null,2),'application/json');break;

@@ -3,13 +3,15 @@ import{assayConfig}from'./data.mjs';
 import{linePlot}from'./charts.mjs';
 import{confirmationReady}from'./review.mjs';
 import{importView}from'./import-ui.mjs';
+import{sequenceWorkspace}from'./sequence-view.mjs';
 export const decisions={retest_candidate:'Nominate for retest',review_measurement:'Review measurement',below_retest_threshold:'Below retest threshold'};
 export function selectedAnalysis(r,ui){return r.analyses.find(a=>a.id===ui.analysisId)||r.analyses.at(-1);}
 export function screenView(c,r,ui){
   const run=selectedAnalysis(r,ui);let html=heading(6,'Inspect the evidence','Compare candidates, inspect the original traces and decide what needs an independent retest.');
+  html+=sequenceWorkspace(r,ui);
   const importer=importView(c,r,ui.pending,ui.importError);
-  html+=run&&!ui.pending?'<details class="new-import"><summary>Import another screen</summary>'+importer+'</details>':importer;
-  if(!run)return html+`<div class="empty"><h3>No analyzed screen yet</h3><p>Open the worked example to inspect a complete synthetic screen, or import your mapped raw data above.</p><button type="button" data-action="demo">Open worked example</button></div>`+help('Supported analysis','96-well plates, at least three configured timepoints, one preparation per candidate per plate. Multiple plates are evaluated independently. Endpoint assays, nonlinear kinetics and pooled cross-plate rankings need separate methods.','toolkit');
+  html+=(run&&!ui.pending?'<details class="new-import"><summary>Import another 96-well kinetic screen</summary>':'<details class="new-import"><summary>Import a 96-well kinetic screen</summary>')+importer+'</details>';
+  if(!run)return html+`<div class="empty"><h3>No 96-well analysis saved</h3><p>${r.sequenceDatasets?.length?'The sequence–fitness landscape above is ready to explore. Plate analysis remains optional for published campaigns.':'Open the worked example, import a published landscape, or import mapped plate-reader data.'}</p><button type="button" data-action="demo">Open worked example</button></div>`+help('Two supported evidence paths','Sequence–fitness landscapes preserve released activity, enrichment, uncertainty and count fields. The existing plate analyser supports 96-well plates with at least three configured timepoints and evaluates plates independently.','toolkit');
   if(ui.pending)html+='<details><summary>Previously saved analysis (unchanged during import)</summary>';
   if(!run.reviewRecord||!run.result.config.reference_parent_id)html+=callout('Historical result: this snapshot predates explicit parent-identity checks or recorded settings review. It is preserved unchanged. Review the reference and run a new analysis to apply the current checks.','warning');
   const result=run.result,plates=Object.keys(result.quality),plate=plates.includes(ui.plate)?ui.plate:plates[0],q=result.quality[plate],wells=result.wells.filter(w=>w.plate_id===plate),well=wells.find(w=>w.well===ui.well)||wells.find(w=>w.clone_id===result.candidates.find(x=>x.plate_id===plate)?.clone_id)||wells[0];

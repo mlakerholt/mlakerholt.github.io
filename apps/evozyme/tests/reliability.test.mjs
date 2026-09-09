@@ -23,7 +23,7 @@ test('version-one migration preserves analysis and decision history and clears o
   r.analyses.push({id:'old-analysis',result,inputFiles});r.evidence.push({clone_id:'C03',decision:'confirmed'});
   r.assay.rulesReviewed=true;delete r.assay.reference_parent_id;delete r.assay.reviewRecord;
   const previous=JSON.stringify(r.analyses),original=JSON.stringify(c),migrated=validateBackup(c);
-  assert.equal(migrated.schemaVersion,2);assert.equal(migrated.revision,0);assert.equal(migrated.rounds[0].assay.reference_parent_id,'PARENT');
+  assert.equal(migrated.schemaVersion,3);assert.equal(migrated.revision,0);assert.equal(migrated.rounds[0].assay.reference_parent_id,'PARENT');assert.deepEqual(migrated.rounds[0].sequenceDatasets,[]);
   assert.equal(migrated.rounds[0].assay.rulesReviewed,false);assert.equal(migrated.rounds[0].assay.reviewRecord,null);
   assert.equal(JSON.stringify(migrated.rounds[0].analyses),previous);assert.equal(migrated.rounds[0].evidence[0].decision,'confirmed');assert.equal(JSON.stringify(c),original);
 });

@@ -1,3 +1,14 @@
+# Evozyme 1.4.0 — published sequence–fitness campaigns
+
+9 September 2026
+
+- Editable NucB and PcIRED–tecalcet campaign templates with stated goals, reference conditions, publication links and the appropriate droplet-screening route.
+- Direct import of the official NucB activity landscape and PcIRED lrDMS CSV formats, including full amino-acid sequences, mutation distance, generation/library origin, activity classes, fitness, uncertainty, sequencing counts and replicate-agreement flags.
+- Dedicated landscape workspace with source provenance, summary metrics, fitness distribution, search, filters, metric selection, pagination, variant inspection and normalized export.
+- Published categorical activity and log-enrichment fitness remain distinct from catalytic fold change. Blank values and spreadsheet errors remain missing rather than becoming zero.
+- Import capacity raised to 25 MB for the released 15.4 MB NucB landscape. Parsing runs away from the interface; original source text and SHA-256 fingerprint remain in the campaign backup.
+- Campaign schema version 3 adds structured goals and sequence datasets while migrating existing plate campaigns without changing their retained analyses.
+
 # First-run setup and screening presets
 
 9 September 2026
