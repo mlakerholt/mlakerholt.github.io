@@ -2,6 +2,8 @@
 
 Evozyme · Edition 2 · 9 September 2026
 
+**New to the workflow?** Start with the [graphical process overview](https://mlakerholt.github.io/apps/evozyme/overview.html) to see how planning, laboratory work, screening and confirmation fit together.
+
 [PowerPoint presentation](outputs/presentation/Evozyme_Directed_Evolution_v2.pptx): 20 main slides and four reference slides, with speaker notes and editable charts.
 
 **Start with a reliable activity assay, a small traceable library, and access to a compatible plate reader.** A standard molecular-biology laboratory, manual multichannel pipetting, outsourced sequencing, and a simple data workflow can support the first campaign. Expand equipment when a measured limitation justifies it.

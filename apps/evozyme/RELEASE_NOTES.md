@@ -1,3 +1,11 @@
+# Process overview update
+
+9 September 2026
+
+- Added a graphical Plan → Test → Learn overview for first-time readers, linked prominently from the planner and handbook.
+- Connected all seven app stages to their place in the experiment, including laboratory work, failed-check recovery, independent confirmation and the next-round loop.
+- Added a narrow-screen layout, landscape print styles and chapter links. The overview works without JavaScript.
+
 # Evozyme 1.0.0
 
 9 September 2026

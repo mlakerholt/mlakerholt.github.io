@@ -38,3 +38,7 @@ Read-summary and navigate-stage tools are registered only if the browser provide
 ## Publication checks
 
 GitHub Pages successfully published application release `5224a4053877cdd0d4f97ec709977fa599a608ea`. All 57 release files were checked against their uploaded Git blob hashes. The live app, modules, worker, guide, PowerPoint, workbook, templates, Python download, and release notes returned HTTP 200. The Apps listing contains the Evozyme entry. Both browser walkthroughs passed again against the public URL, including imports, backups, reanalysis, confirmation, linked rounds and reports. Native in-app-browser navigation and the skip link were also verified; the initial form had no unlabeled fields.
+
+## Process overview update
+
+The graphical Plan → Test → Learn page was checked in the Codex in-app browser at desktop width and a 390px viewport. The diagram switches to one column with downward connectors, retains the next-round return path, and has no horizontal page overflow at the tested narrow width. All seven numbered links opened their corresponding selected app stage; each app stage returned to the overview. The handbook entry and return link were also checked. No browser errors were reported during this walkthrough. The build checks local links in the planner, overview and generated handbook; all 26 existing Node tests passed after integration. The overview uses semantic HTML and CSS without a script dependency. Its named landscape print rules are scoped to the overview; print output was not visually verified in this update.
