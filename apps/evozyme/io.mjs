@@ -4,7 +4,8 @@ export {SCHEMA_VERSION};
 export {saveCampaign,loadCampaign,listCampaigns,getActive,setActive} from './storage.mjs';
 export const escapeHTML=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function safeHref(value){const text=String(value||'');return /^(https?:\/\/|downloads\/)[^\s]*$/i.test(text)?text:'#';}
-export function parseCSV(text,name='CSV'){
+export function parseCSV(text,name='CSV',delimiter=','){
+  if(![',',';','\t'].includes(delimiter))throw new Error('Unsupported CSV separator.');
   if(typeof text!=='string')throw new Error(`${name}: expected text.`);
   const rows=[];let row=[],cell='',quoted=false,afterQuote=false,line=1,startLine=1;
   text=text.replace(/^\uFEFF/,'');
@@ -13,9 +14,9 @@ export function parseCSV(text,name='CSV'){
   for(let i=0;i<text.length;i++){
     const c=text[i];
     if(quoted){if(c==='"'){if(text[i+1]==='"'){cell+='"';i++;}else{quoted=false;afterQuote=true;}}else{cell+=c;if(c==='\n')line++;}continue;}
-    if(afterQuote&&!['\r','\n',','].includes(c))throw new Error(`${name}, row ${line}: unexpected text after a quoted field.`);
+    if(afterQuote&&!['\r','\n',delimiter].includes(c))throw new Error(`${name}, row ${line}: unexpected text after a quoted field.`);
     if(c==='"'){if(cell!=='')throw new Error(`${name}, row ${line}: quote inside an unquoted field.`);quoted=true;}
-    else if(c===',')finishCell();else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;finishRow();line++;}else cell+=c;
+    else if(c===delimiter)finishCell();else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;finishRow();line++;}else cell+=c;
   }
   if(quoted)throw new Error(`${name}, row ${startLine}: unterminated quoted field.`);
   if(cell!==''||row.length||afterQuote)finishRow();
@@ -42,12 +43,15 @@ export function validateBackup(value){
   if(!['user','synthetic'].includes(value.origin)||!['NOK','EUR','USD','GBP','SEK','DKK'].includes(value.currency))fail('invalid data origin or currency.');
   const strings=(o,keys)=>{for(const key of keys)if(typeof o[key]!=='string')fail(`invalid text field ${key}.`);};
   const fileRecord=(name,f)=>{if(!f||typeof f.text!=='string'||typeof f.sha256!=='string'||typeof f.name!=='string'||f.text.length>MAX_IMPORT_BYTES)fail(`invalid file ${name}.`);};
+  const recipeCheck=recipe=>{if(!recipe||recipe.version!==1||!Array.isArray(recipe.sources)||!['long','wide'].includes(recipe.layout)||!['seconds','minutes','milliseconds'].includes(recipe.timeUnit)||!['.',','].includes(recipe.decimal))fail('invalid mapping recipe.');for(const source of recipe.sources)if(!source||typeof source.name!=='string'||!['unused','map','register','measurements','settings'].includes(source.role)||![',',';','\t'].includes(source.delimiter)||!source.columns||typeof source.columns!=='object'||Object.values(source.columns).some(x=>typeof x!=='string'))fail('invalid source mapping.');for(const key of ['mapOverride','registerOverride'])if(recipe[key]!==null&&(!Array.isArray(recipe[key])||recipe[key].some(r=>!r||typeof r!=='object')))fail('invalid map override.');};
+  const provenanceCheck=p=>{if(!p)return;if(p.version!==1||!Array.isArray(p.originals)||!p.originals.length)fail('invalid original export provenance.');p.originals.forEach(f=>fileRecord('original export',f));recipeCheck(p.recipe);};
   if(!Array.isArray(value.rounds)||!value.rounds.length||value.rounds.length>1000)fail('expected 1–1000 rounds.');
   const ids=new Set();for(const r of value.rounds){
     if(!r||typeof r.id!=='string'||ids.has(r.id))fail('round IDs must be present and unique.');ids.add(r.id);
     for(const key of ['brief','assay','library','budget','review'])if(!r[key]||typeof r[key]!=='object'||Array.isArray(r[key]))fail(`round ${r.id} is missing ${key}.`);
     for(const key of ['equipment','software','analyses','confirmation','evidence','budgetScenarios'])if(!Array.isArray(r[key]))fail(`round ${r.id}: ${key} must be an array.`);
     if(!r.files||typeof r.files!=='object'||Array.isArray(r.files))fail('missing raw-file collection.');
+    provenanceCheck(r.importProvenance);for(const a of r.analyses)provenanceCheck(a?.importProvenance);
     for(const [name,f]of Object.entries(r.files))fileRecord(name,f);
     strings(r.brief,['parent','parentCloneId','sequenceReference','reaction','objective','metric','units','conditions','secondary','stockPlan','backupLocation']);
     strings(r.assay,['run_id','assay_id','data_origin','signal_unit','fit_times']);
@@ -67,6 +71,7 @@ export function validateBackup(value){
   const migrated=migrateCampaign(value);
   if(!Number.isSafeInteger(migrated.revision)||migrated.revision<0)fail('invalid revision.');
   if(typeof migrated.guided!=='boolean'||!Array.isArray(migrated.mappingPresets))fail('invalid interface or mapping preferences.');
+  for(const preset of migrated.mappingPresets){if(!preset||preset.version!==1||typeof preset.name!=='string')fail('invalid mapping preset.');recipeCheck(preset.recipe);}
   for(const r of migrated.rounds){
     if(typeof r.assay.reference_parent_id!=='string'||typeof r.review.referenceReason!=='string')fail('invalid reference identity.');
     const review=r.assay.reviewRecord;

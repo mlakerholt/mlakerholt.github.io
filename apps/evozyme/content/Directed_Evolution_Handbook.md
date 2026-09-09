@@ -63,3 +63,7 @@ The [equipment chapter](handbook/03_Equipment_and_Software.md) turns these needs
 These are evidence requirements, not universal numerical thresholds. The example software's 20% retest threshold and quality limits demonstrate a workflow; replace them with rules justified by the intended assay.
 
 For an immediate walkthrough, read the [LipA example](handbook/04_Worked_Examples.md), open the [report](toolkit/example/results/report.md), and fill in the [campaign brief](toolkit/templates/Campaign_Brief.md). The earlier [starter guide](Directed_Evolution_Starter_Guide.md) remains available as a compact equipment-oriented introduction.
+
+## App workflow and pilot materials
+
+Read [Using Evozyme](handbook/07_Using_Evozyme.md) for guided setup, CSV mapping, confirmation targets and backup recovery. The [pilot kit](handbook/Pilot_Kit.md) contains beginner and laboratory-user tasks, an observation sheet and a decision rubric. The pilot has not been conducted.

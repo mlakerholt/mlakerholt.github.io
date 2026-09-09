@@ -3,7 +3,7 @@ import {e,table,callout,num} from './ui.mjs';
 import {budget} from './core.mjs';
 export function issueList(r,stage=null) {
   const issues=workflowIssues(r).filter(x=>!stage||x.stage===stage);
-  return issues.length?'<ul class="text-list">'+issues.map(x=>`<li><a href="#${x.stage}" data-go-field="${e(x.path)}"><strong>${e({analysis:'Analysis blocked',planning:'Plan conflict',evidence:'Evidence needed',review:'Review needed',information:'Information needed'}[x.kind])}:</strong> ${e(x.message)}</a></li>`).join('')+'</ul>':'<p>Planning checks are recorded. Confirm that the experimental evidence supports proceeding.</p>';
+  return issues.length?'<ul class="text-list">'+issues.map(x=>`<li><a href="#${x.stage}" data-go-field="${e(x.path)}"><strong>${e({analysis:'Analysis blocked',planning:'Plan conflict',evidence:'Evidence needed',review:'Review needed',information:'Information needed'}[x.kind])}:</strong> ${e(x.message)}</a></li>`).join('')+'</ul>':stage?'<p>No additional planning actions for this stage. Checks in other stages may still need attention.</p>':'<p>Planning checks are recorded. Confirm that the experimental evidence supports proceeding.</p>';
 }
 export const stageHelp=(r,stage)=>`<details class="next-actions"><summary>Next useful actions for this stage</summary>${issueList(r,stage)}<small>Completing records does not establish experimental validity.</small></details>`;
 export function settingsPreview(before,after) {

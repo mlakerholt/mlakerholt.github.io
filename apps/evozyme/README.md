@@ -15,7 +15,11 @@ The build checks module syntax, generates the searchable handbook, copies its do
 ## Structure
 
 - `core.mjs`: pure coverage, budget, fitting, screening, and confirmation calculations.
-- `io.mjs`: CSV handling, browser storage, backup validation, downloads, and file fingerprints.
+- `io.mjs`: CSV handling, backup validation, downloads, and file fingerprints.
+- `storage.mjs`, `migration.mjs`: atomic revision saves, recovery drafts and versioned record migration.
+- `workflow.mjs`, `workflow-ui.mjs`: shared configuration, capacity and readiness checks.
+- `importer.mjs`, `import-ui.mjs`: deterministic CSV conversion and staged map editing.
+- `guidance.mjs`: guided setup, descriptive confirmation criteria and archive guidance.
 - `data.mjs`: campaign/round records, equipment configurations, and defaults.
 - `app.mjs`: interface actions, persistence, imports, and analysis snapshots.
 - `planner.mjs`, `screen.mjs`, `review.mjs`, `ui.mjs`, `charts.mjs`: interface views and accessible tables/plots.
@@ -29,7 +33,7 @@ The build checks module syntax, generates the searchable handbook, copies its do
 
 Campaigns are stored in the device's `evozyme-campaigns` IndexedDB database. Browser clearing, eviction, or disabled storage can remove/prevent this convenience copy. Export complete campaign JSON backups and keep external sequence/evidence files with them. Imported raw CSV text, SHA-256 fingerprints, assay settings, engine versions, analysis snapshots and round IDs are preserved. Fingerprints detect accidental raw-file changes; they do not authenticate laboratory results.
 
-Screen imports use the toolkit's three CSV filenames and optional `assay.json`, with a combined 10 MB limit. Confirmation imports also have a 10 MB limit. Portable backup restoration accepts up to 100 MB. Browser quotas can be lower than campaign history growth; save failure is shown and export remains available. A blank quote or measurement is not converted into a zero.
+Screen imports accept assigned CSV roles and columns, long or defined wide layouts, explicit time/decimal formats, and an optional settings JSON. The toolkit format remains supported. Original texts, conversion recipe and canonical analyser files are retained separately. Uploaded and expanded canonical files each have a combined 10 MB limit. Confirmation imports also have a 10 MB limit. Portable backup restoration accepts up to 100 MB. Browser quotas can be lower than campaign history growth; save failure is shown and export remains available. A blank quote or measurement is not converted into a zero.
 
 Same-origin applications share the browser security boundary; namespacing avoids accidental storage collisions, not access isolation. Imported strings are escaped as text and text-formula prefixes are neutralized in derived CSV exports. Original raw-file downloads remain unchanged.
 
@@ -46,3 +50,11 @@ Coverage assumes independent draws with replacement. Complete-coverage bounds ar
 Commit the validated app directory together with `apps/index.html` to the site's publishing branch. Preserve the existing Pages configuration. Check the live app, worker, guide, downloads, and listing after deployment. Roll back by reverting the release commit if needed.
 
 See `RELEASE_NOTES.md` and `VERIFICATION.md` for release details and practical limits. The optional WebMCP interface is feature-detected; browsers without it use the normal interface.
+
+## Reliability and workflow updates
+
+Use guided setup or complete forms against the same records. The process overview remains the home screen. Database version 2 blocks old open connections during upgrade, archives version 1 records and checks revisions in a single write transaction. Imported revisions never grant overwrite authority. Conflict drafts can be exported or recovered as separate campaigns. Use current compatible code and a known-good backup for recovery; code rollback does not undo a database migration.
+
+Open `tests/storage.html` through the static server and run its isolated five-check storage harness. It creates and removes only a test database. The Node suite includes migration, explicit parent identity, exact configuration review, long/wide parity, decimal formats, map editing, recipe replay and structured criteria.
+
+Read [Using Evozyme](guide/index.html#using-app) and the [pilot kit](guide/index.html#pilot). No user pilot or reader-specific validation has been performed.

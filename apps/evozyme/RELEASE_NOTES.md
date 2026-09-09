@@ -1,3 +1,13 @@
+# Evozyme 1.2.0 — guided setup and CSV importing
+
+9 September 2026
+
+- Short guided campaign setup, expandable later details, complete-form toggle and stage-specific next actions. The overview remains the opening screen.
+- Staged CSV assistant with arbitrary filenames, explicit role/column choices, long and wide layouts, seconds/minutes/milliseconds, decimal and separator choices, editable 96-well maps and mapping presets.
+- Original exports and fingerprints, reproducible conversion recipes, canonical inputs and reviewed settings retained per analysis. Failed or cancelled imports preserve previous results.
+- Goals beside confirmation evidence, optional descriptive targets, explicit single-parent next-round actions and a guided separate-copy backup restore.
+- Updated handbook walkthrough, synthetic wide-minute example and pilot materials. Actual user pilot and reader-specific adapters await participants and representative exports.
+
 # Evozyme 1.1.0 — reliable records
 
 9 September 2026

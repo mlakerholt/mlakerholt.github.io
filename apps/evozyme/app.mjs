@@ -5,12 +5,14 @@ import{campaignView,assayView,equipmentView,libraryView,budgetView,libraryProbab
 import{screenView,selectedAnalysis}from'./screen.mjs';
 import{reviewView,reportHTML,confirmationReady}from'./review.mjs';
 import{e,num,date}from'./ui.mjs';
+import{newRecipe,sourceRows,suggestColumns,transform,canonicalFiles,previewIssues,assignWells,wellID}from'./importer.mjs';
+import{setupView,setupPaths}from'./guidance.mjs';
 import{SaveConflict,saveDraft,listDrafts,removeDraft,loadLegacyCampaign}from'./storage.mjs';
 import{configKey,hasReviewed,workflowIssues,analysisIssues}from'./workflow.mjs';
 import{issueList,controlProposal}from'./workflow-ui.mjs';
 const $=s=>document.querySelector(s);
-let campaign=newCampaign(),stage=0,saveTimer,saveQueue=Promise.resolve(),storageOK=true,dirty=false;
-let booting=true,saveProblem=null,editSerial=0;
+let campaign=newCampaign(),stage=0,saveTimer,saveQueue=Promise.resolve(),storageOK=true,dirty=false,restoreAsCopy=false;
+let booting=true,saveProblem=null,editSerial=0,lastRenderedStage=null;
 const tabId=uid(),revisions=new Map(),channel=typeof BroadcastChannel==='function'?new BroadcastChannel('evozyme-revisions-v2'):null;
 const draftKey=id=>id+':'+tabId;
 function saveAlert(){const p=saveProblem;$('#save-alert').innerHTML=p?`<div class="callout warning"><strong>${p.kind==='conflict'?'Newer saved version found':'Save needs attention'}</strong><p>${e(p.message)}</p>${p.draftSaved?'<p>A recovery copy of this draft is retained in this browser.</p>':''}${booting?'':`<div class="actions"><button data-action="draft-export">Export this draft</button><button data-action="save-copy">Save as separate campaign</button>${p.kind==='conflict'?'<button data-action="load-latest">Load latest saved version</button>':'<button data-action="retry-save">Retry saving</button>'}</div>`}</div>`:'';}
@@ -23,18 +25,36 @@ const notice=(message,kind='info')=>{$('#notice').innerHTML=message?`<div class=
 function renderSummary(){
   const r=round();let b=null;try{b=budget(r.budget);}catch{}
   const missing=workflowIssues(r);
-  $('#summary').innerHTML=`<section class="panel"><h3>Campaign summary</h3><dl class="summary-list"><dt>Campaign</dt><dd>${e(campaign.name)}</dd><dt>Parent</dt><dd>${e(r.brief.parent||'Not defined')}</dd><dt>Round</dt><dd>${r.number} of ${campaign.rounds.length}</dd><dt>Primary slots</dt><dd>${num(b?.slots,0)}</dd><dt>Expected usable</dt><dd>${num(b?.usable,1)}</dd><dt>Round cost</dt><dd>${num(b?.total)} ${e(campaign.currency)}</dd><dt>Saved analyses</dt><dd>${r.analyses.length}</dd></dl></section><section class="panel"><h3>Next useful actions</h3>${issueList(r)}<small>Record completeness does not establish experimental validity.</small></section><section class="panel"><h3>Keep a second copy</h3><p>${storageOK&&!saveProblem?'Browser copy available.':'Browser save needs attention.'} Export a backup after important changes.</p><small>Last export: ${e(date(campaign.lastExportAt))}</small><div class="actions"><button type="button" data-action="export">Export backup</button><button type="button" data-action="recovery">Recovery drafts</button></div><a href="guide/index.html">Handbook &amp; worked examples →</a></section>`;
+  $('#summary').innerHTML=`<section class="panel"><h3>Campaign summary</h3><dl class="summary-list"><dt>Campaign</dt><dd>${e(campaign.name)}</dd><dt>Parent</dt><dd>${e(r.brief.parent||'Not defined')}</dd><dt>Round</dt><dd>${r.number} of ${campaign.rounds.length}</dd><dt>Primary slots</dt><dd>${num(b?.slots,0)}</dd><dt>Expected usable</dt><dd>${num(b?.usable,1)}</dd><dt>Round cost</dt><dd>${num(b?.total)} ${e(campaign.currency)}</dd><dt>Saved analyses</dt><dd>${r.analyses.length}</dd></dl></section><section class="panel"><h3>Next useful actions</h3>${issueList(r,stages[stage].toLowerCase())}<details><summary>Checks across all stages</summary>${issueList(r)}</details><small>Record completeness does not establish experimental validity.</small></section><section class="panel"><h3>Keep a second copy</h3><p>${storageOK&&!saveProblem?'Browser copy available.':'Browser save needs attention.'} Export a backup after important changes.</p><small>Last export: ${e(date(campaign.lastExportAt))}<br>Restore check: ${e(date(campaign.restorationCheckedAt))}</small><div class="actions"><button type="button" data-action="export">Export backup</button><button type="button" data-action="recovery">Recovery drafts</button></div><a href="guide/index.html">Handbook &amp; worked examples →</a></section>`;
   if(stage===5){const run=selectedAnalysis(r,ui);if(run){const plate=ui.plate&&run.result.quality[ui.plate]?ui.plate:Object.keys(run.result.quality)[0],w=run.result.wells.find(x=>x.plate_id===plate&&x.well===ui.well)||run.result.wells.find(x=>x.plate_id===plate&&x.clone_id===run.result.candidates[0]?.clone_id);$('#summary').insertAdjacentHTML('afterbegin',`<section class="panel"><h3>Selected measurement</h3><dl class="summary-list"><dt>Plate</dt><dd>${e(plate)}</dd><dt>Well</dt><dd>${e(w?.well||'Choose a well')}</dd><dt>Clone</dt><dd>${e(w?.clone_id||w?.sample_type||'')}</dd><dt>Preparation</dt><dd class="wide">${e(w?.prep_id||'Control')}</dd><dt>Stock</dt><dd class="wide">${e(w?.stock_location||'Not applicable')}</dd></dl></section>`);}}
   $('#origin-label').textContent=campaign.origin==='synthetic'?'Synthetic teaching campaign · no laboratory experiment':'Your campaign · local browser data';
 }
 function render({focus=false}={}){
+  const expansion=new Map([...document.querySelectorAll('#stage details')].map(d=>[d.querySelector('summary')?.textContent,d.open]));
   stage=Math.max(0,stages.findIndex(s=>location.hash==='#'+s.toLowerCase()));
   $('#steps').innerHTML=stages.map((s,i)=>`<a href="#${s.toLowerCase()}" ${i===stage?'aria-current="step"':''}><span>${i+1}</span>${s}</a>`).join('');
   document.body.classList.toggle('stage-wide',stage>=5);
   try{$('#stage').innerHTML=views[stage](campaign,round(),ui);}catch(err){$('#stage').innerHTML=`<h2 id="stage-title">Unable to display this record</h2><p>${e(err.message)}</p><button data-action="export">Export backup</button>`;}
+  applyGuidedView();
+  if(lastRenderedStage===stage)for(const d of document.querySelectorAll('#stage details')){const key=d.querySelector('summary')?.textContent;if(expansion.has(key))d.open=expansion.get(key);}
+  lastRenderedStage=stage;
   $('#stage-count').textContent=`Stage ${stage+1} of 7`;$('#previous').disabled=stage===0;$('#next').disabled=stage===6;renderSummary();if(focus)$('#stage').focus();
   if(ui.analyzing||booting)document.querySelectorAll('#stage input,#stage select,#stage textarea,#stage button').forEach(input=>input.disabled=true);
   if(booting)document.querySelectorAll('.toolbar button,.toolbar input').forEach(input=>input.disabled=true);saveAlert();
+}
+function applyGuidedView(){
+  const node=$('#stage');
+  if(campaign.guided){
+    if(stage===0){
+      node.querySelector('.stage-heading')?.remove();
+      for(const path of setupPaths)node.querySelector(`[data-field="${path}"]`)?.closest('label')?.remove();
+      const more=node.innerHTML;node.innerHTML=setupView(campaign,round())+'<details><summary>More campaign details and later documentation</summary>'+more+'</details>';
+    }else{
+      const collapse={1:['Linear-rate analysis','Minimum control and replicate counts'],3:['Sampling model'],4:['Recurring costs and time'],6:['Round history','Planned versus observed']};
+      for(const group of [...node.querySelectorAll(':scope > fieldset')])if((collapse[stage]||[]).includes(group.querySelector('legend')?.textContent)){const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent=group.querySelector('legend').textContent;group.before(details);details.append(summary,group);}
+    }
+  }
+  node.insertAdjacentHTML('afterbegin','<div class="view-controls"><span>'+ (campaign.guided?'Guided view':'Complete forms')+'</span><button data-action="toggle-view">'+(campaign.guided?'Show complete forms':'Use guided view')+'</button></div>');
 }
 function changed(){editSerial++;campaign.updatedAt=new Date().toISOString();dirty=true;$('#save-status').textContent='Unsaved changes…';clearTimeout(saveTimer);saveTimer=setTimeout(()=>persist(),450);renderSummary();}
 async function persist(){
@@ -79,14 +99,16 @@ async function applyField(input){
     const a=round().assay;a.rulesReviewed=false;a.reviewRecord=null;
     if(value){const config=assayConfig(a),record=await acknowledge(config);if(configKey(assayConfig(a))!==record.key)throw new Error('Settings changed while reviewing. Review them again.');a.reviewRecord=record;a.rulesReviewed=true;}changed();return;
   }
-  parent[key]=value;
-  if(path.startsWith('assay.')){round().assay.rulesReviewed=false;round().assay.reviewRecord=null;}
-  if(path.startsWith('confirmation.')||['review.parentCloneId','review.normalization'].includes(path)){for(const ev of round().evidence)if(ev.decision==='confirmed')ev.decision='pending';}
+  const previous=parent[key];parent[key]=value;
+  if(path==='brief.parentCloneId'&&!round().analyses.length){if(round().assay.reference_parent_id===previous){round().assay.reference_parent_id=value;round().assay.rulesReviewed=false;round().assay.reviewRecord=null;}if(round().review.parentCloneId===previous)round().review.parentCloneId=value;}
+  if(path.startsWith('assay.')){round().assay.rulesReviewed=false;round().assay.reviewRecord=null;const checkbox=document.querySelector('[data-field="assay.rulesReviewed"]');if(checkbox)checkbox.checked=false;}
+  if(path.startsWith('confirmation.')||['review.parentCloneId','review.normalization','review.referenceReason'].includes(path)){for(const ev of round().evidence)if(ev.decision==='confirmed')ev.decision='pending';}
   if(path.startsWith('evidence.')&&key!=='decision'&&parent.decision==='confirmed'&&!confirmationReady(round(),parent.clone_id))parent.decision='pending';changed();refreshDerived();
 }
-function refreshDerived(){if(![1,2,3,4,6].includes(stage))return;const container=document.createElement('div');container.innerHTML=views[stage](campaign,round(),ui);for(const id of['calculator-output','confirmation-output','equipment-output','stage-checks']){const existing=document.getElementById(id),fresh=container.querySelector('#'+id);if(existing&&fresh)existing.innerHTML=fresh.innerHTML;}}
-document.addEventListener('input',async event=>{if(event.target.dataset.field&&event.target.type!=='checkbox'&&event.target.tagName!=='SELECT'){try{await applyField(event.target);}catch(err){notice(err.message,'error');render();}}});
+function refreshDerived(){if(![1,2,3,4,6].includes(stage))return;const container=document.createElement('div');container.innerHTML=views[stage](campaign,round(),ui);for(const id of['calculator-output','confirmation-output','equipment-output','stage-checks','criteria-output']){const existing=document.getElementById(id),fresh=container.querySelector('#'+id);if(existing&&fresh)existing.innerHTML=fresh.innerHTML;}}
+document.addEventListener('input',async event=>{if(event.target.dataset.import){try{updateImport(event.target);}catch(err){notice(err.message,'error');}return;}if(event.target.dataset.field&&event.target.type!=='checkbox'&&event.target.tagName!=='SELECT'){try{await applyField(event.target);}catch(err){notice(err.message,'error');render();}}});
 document.addEventListener('change',async event=>{const t=event.target;try{
+  if(t.dataset.import){updateImport(t);return;}
   if(t.dataset.field){await applyField(t);if(t.tagName==='SELECT'||t.type==='checkbox'){const path=t.dataset.field;render();document.querySelector(`[data-field="${path}"]`)?.focus();}}
   else if(t.id==='screen-files')await stageScreenFiles(t.files);
   else if(t.id==='confirmation-input')await importConfirmation(t.files[0]);
@@ -102,11 +124,32 @@ window.addEventListener('hashchange',()=>render({focus:true}));
 document.addEventListener('click',event=>{const link=event.target.closest('[data-go-field]');if(link){event.preventDefault();location.hash=link.getAttribute('href');render();const field=document.querySelector(`[data-field="${link.dataset.goField}"]`);if(field){for(let p=field.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;field.focus();field.scrollIntoView({block:'center'});}}});window.addEventListener('beforeunload',event=>{if(dirty||ui.analyzing||!storageOK){event.preventDefault();event.returnValue='';}});
 async function recordFile(file){const text=await readFile(file);return{name:file.name,text,bytes:file.size,sha256:await fingerprint(text),importedAt:new Date().toISOString()};}
 function configToAssay(cfg,base){cfg={...cfg,reference_parent_id:cfg.reference_parent_id??base.reference_parent_id};validateAssay({...cfg,signal_floor:cfg.signal_floor??null});const a={...base};for(const key of Object.keys(assayConfig(base)))if(key!=='fit_times_s'&&Object.hasOwn(cfg,key))a[key]=cfg[key];a.signal_floor=cfg.signal_floor??null;a.fit_times=cfg.fit_times_s.join(', ');a.rulesReviewed=false;a.reviewRecord=null;return a;}
+function updateImport(t){
+  const p=ui.pending;if(!p)return;const parts=t.dataset.import.split('.');let parent=parts[0]==='editor'?p:p.recipe;
+  for(const key of parts.slice(0,-1)){if(!Object.hasOwn(parent,key))throw new Error('Unknown mapping field.');parent=parent[key];}
+  parent[parts.at(-1)]=t.value;p.reviewRecord=null;
+  if(parts[0]==='sources'&&['role','delimiter'].includes(parts.at(-1))){const source=p.recipe.sources[Number(parts[1])];try{const keys=Object.keys(sourceRows(p.originals.find(o=>o.name===source.name),source.delimiter)[0]||{});source.columns=suggestColumns(keys,source.role);}catch{source.columns={};}}
+  if(t.tagName==='SELECT'){render();document.querySelector(`[data-import="${t.dataset.import}"]`)?.focus();}
+}
 async function stageScreenFiles(fileList){
-  requireIdle();ui.importError='';ui.pending=null;const files=Array.from(fileList),records={};let config=null;
+  requireIdle();const files=Array.from(fileList);if(!files.length)return;
   if(files.reduce((n,f)=>n+f.size,0)>MAX_IMPORT_BYTES)throw new Error('Combined screen import exceeds 10 MB. Split it into smaller independent plate batches.');
-  const seen=new Set();for(const file of files){if(seen.has(file.name))throw new Error('Duplicate filename in selection: '+file.name);seen.add(file.name);if(!['plate_map.csv','clone_register.csv','measurements.csv','assay.json'].includes(file.name))throw new Error('Unrecognized file: '+file.name+'. Use the toolkit filenames.');const f=await recordFile(file);if(file.name==='assay.json')config=JSON.parse(f.text);else{f.rows=parseCSV(f.text,file.name).length;records[file.name]=f;}}
-  for(const key of ['plate_map.csv','clone_register.csv','measurements.csv'])if(!records[key])throw new Error('Select all three CSV files together; missing '+key+'.');if(config)config=assayConfig(configToAssay(config,round().assay));ui.pending={files:records,config:config||assayConfig(round().assay),reviewRecord:null};render();
+  const names=new Set();for(const f of files){if(names.has(f.name))throw new Error('Duplicate filename: '+f.name);names.add(f.name);if(!/\.(csv|json)$/i.test(f.name))throw new Error('Choose CSV exports and optional settings JSON.');}
+  const originals=await Promise.all(files.map(recordFile)),config=assayConfig(round().assay);
+  ui.pending={originals,recipe:newRecipe(originals,config),config,reviewRecord:null,step:1,mapped:null,editor:{plate:'',wells:'',sample_type:'candidate',clone_id:'',prep_id:'',stock_location:''}};ui.importError='';render();
+}
+async function previewMapping(){
+  const p=ui.pending;if(!p)return;
+  const settings=p.recipe.sources.filter(s=>s.role==='settings');if(settings.length>1)throw new Error('Assign at most one settings JSON file.');
+  const config=settings.length?assayConfig(configToAssay(JSON.parse(p.originals.find(o=>o.name===settings[0].name).text),round().assay)):assayConfig(round().assay);validateAssay(config);
+  const issues=analysisIssues(round(),config);if(issues.length)throw new Error(issues.map(x=>x.message).join(' '));
+  const mapped=transform(p.originals,p.recipe,config);p.config=config;p.mapped=mapped;p.editor.plate=[...new Set(mapped.measurements.map(x=>x.plate_id))][0];p.reviewRecord=null;p.step=2;render();
+}
+async function validateImport(){
+  const p=ui.pending;if(!p)return;const issues=previewIssues(p.mapped,p.config);if(issues.length)throw new Error(issues.slice(0,8).join(' '));
+  const files=canonicalFiles(p.mapped);for(const f of Object.values(files)){f.sha256=await fingerprint(f.text);f.bytes=new TextEncoder().encode(f.text).length;f.importedAt=new Date().toISOString();}
+  if(Object.values(files).reduce((n,f)=>n+f.bytes,0)>MAX_IMPORT_BYTES)throw new Error('Expanded canonical files exceed 10 MB. Split the import.');
+  ui.analyzing=true;render();try{const result=await runWorker(files,p.config);p.quality=result.quality;p.files=files;p.step=3;p.reviewRecord=null;}finally{ui.analyzing=false;render();}
 }
 function runWorker(files,config){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('./analysis-worker.mjs',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(new Error('Analysis exceeded 60 seconds. Use a smaller plate batch.'));},60000);worker.onmessage=({data})=>{clearTimeout(timeout);worker.terminate();data.error?reject(new Error(data.error)):resolve(data.result);};worker.onerror=()=>{clearTimeout(timeout);worker.terminate();reject(new Error('Analysis worker could not run. Reload the app and try again.'));};worker.postMessage({id:uid(),files,config});});}
 async function analyzeFiles(retained=false){
@@ -117,8 +160,8 @@ async function analyzeFiles(retained=false){
   if(!reviewed||reviewed.key!==configKey(config)||reviewed.sha256!==await fingerprint(configKey(config)))throw new Error('Review the exact settings for this analysis before continuing.');
   await ensureSaved();ui.analyzing=true;ui.importError='';render();
   try{
-    const result=await runWorker(files,config),run={id:uid(),label:config.run_id,createdAt:new Date().toISOString(),inputFiles:files,reviewRecord:structuredClone(reviewed),result};
-    r.files=structuredClone(files);r.analyses.push(run);r.assay=configToAssay(config,r.assay);r.assay.reviewRecord=structuredClone(reviewed);r.assay.rulesReviewed=true;
+    const result=await runWorker(files,config),run={id:uid(),label:config.run_id,createdAt:new Date().toISOString(),inputFiles:files,importProvenance:structuredClone(retained?r.importProvenance??null:{originals:ui.pending.originals,recipe:ui.pending.recipe,version:1}),reviewRecord:structuredClone(reviewed),result};
+    r.files=structuredClone(files);r.importProvenance=structuredClone(run.importProvenance);r.analyses.push(run);r.assay=configToAssay(config,r.assay);r.assay.reviewRecord=structuredClone(reviewed);r.assay.rulesReviewed=true;
     ui.analysisId=run.id;ui.pending=null;ui.plate=null;ui.well=null;changed();
     if(await persist())notice('Analysis saved. Review controls, raw traces, and candidate flags.');
   }catch(err){ui.importError=err.message;}finally{ui.analyzing=false;render();}
@@ -132,7 +175,7 @@ async function openDemo(){
   const result=await runWorker(r.files,assayConfig(r.assay));r.analyses.push({id:uid(),label:r.assay.run_id,createdAt:new Date().toISOString(),inputFiles:structuredClone(r.files),reviewRecord:structuredClone(r.assay.reviewRecord),result});campaign=demo;resetUI();prepareEvidence();changed();await persist();location.hash='#screen';render();notice('Synthetic example opened as a separate campaign. C03 and C11 are nominated for independent retesting; confirmation evidence is intentionally incomplete.');}finally{ui.analyzing=false;render();}
 }
 function exportBackup(){campaign.lastExportAt=new Date().toISOString();campaign.updatedAt=campaign.lastExportAt;download(safeName(campaign.name)+'-backup.json',JSON.stringify(campaign,null,2),'application/json');changed();persist();notice('Backup download started. Keep it with any externally referenced sequence and evidence files.');}
-async function verifyBackupHashes(c){for(const r of c.rounds){const all=[...Object.values(r.files),...r.analyses.flatMap(a=>Object.values(a.inputFiles||{})),...(r.confirmationSource?[r.confirmationSource]:[]),...(r.confirmationHistory||[])];for(const f of all)if(f.sha256!==await fingerprint(f.text))throw new Error('Backup integrity check failed for '+f.name+'. The retained raw text differs from its recorded fingerprint.');}}
+async function verifyBackupHashes(c){for(const r of c.rounds){const all=[...Object.values(r.files),...r.analyses.flatMap(a=>Object.values(a.inputFiles||{})),...(r.confirmationSource?[r.confirmationSource]:[]),...(r.confirmationHistory||[]),...(r.importProvenance?.originals||[]),...r.analyses.flatMap(a=>a.importProvenance?.originals||[])];for(const f of all)if(f.sha256!==await fingerprint(f.text))throw new Error('Backup integrity check failed for '+f.name+'. The retained raw text differs from its recorded fingerprint.');}}
 async function importBackup(file){
   if(!file)return;requireIdle();if(file.size>100*1024*1024)throw new Error('Campaign backup exceeds the 100 MB restore limit.');
   const parsed=validateBackup(JSON.parse(await file.text()));await verifyBackupHashes(parsed);await ensureSaved();const existing=await loadCampaign(parsed.id);
@@ -141,6 +184,7 @@ async function importBackup(file){
     else {parsed.revision=existing?.revision??0;campaign=parsed;revisions.set(parsed.id,parsed.revision);resetUI();dirty=true;editSerial++;if(await persist())notice('Campaign restored with its original files and analysis snapshots.');render();}
     location.hash='#campaign';
   };
+  if(restoreAsCopy){restoreAsCopy=false;await restore(true);$('#backup-input').value='';return;}
   showDialog('<h2>Restore a backup</h2><p>Raw-file fingerprints and the record structure passed validation. External sequence and evidence files still need to be kept with your backup.</p><div class="actions"><button id="restore-copy" class="primary">Restore as a separate copy</button><button id="restore-original">'+(existing?'Replace the saved campaign':'Restore original campaign ID')+'</button></div>'+(existing?'<p>Replacing uses a revision check. Export the current saved version first if you need both.</p>':''));
   $('#restore-copy').onclick=()=>restore(true).catch(err=>notice(err.message,'error'));$('#restore-original').onclick=()=>restore(false).catch(err=>notice(err.message,'error'));$('#backup-input').value='';
 }
@@ -150,6 +194,17 @@ const exportCSV=(name,rows,headers)=>download(name,toCSV(rows,headers),'text/csv
 async function action(name,button){
   const r=round(),run=selectedAnalysis(r,ui);notice('');
   switch(name){
+    case'toggle-view':campaign.guided=!campaign.guided;changed();render();break;
+    case'restore-check':restoreAsCopy=true;$('#backup-input').click();break;
+    case'map-preview':await previewMapping();break;
+    case'validate-import':await validateImport();break;
+    case'import-back':ui.pending.step=1;ui.pending.reviewRecord=null;render();break;
+    case'import-map-back':ui.pending.step=2;ui.pending.reviewRecord=null;render();break;
+    case'edit-map-well':{const p=ui.pending,row=p.mapped.map.find(x=>x.plate_id===p.editor.plate&&x.well===button.dataset.well);Object.assign(p.editor,{wells:button.dataset.well,sample_type:row?.sample_type||'candidate',clone_id:row?.clone_id||'',prep_id:row?.prep_id||'',stock_location:p.mapped.register.find(x=>x.clone_id===row?.clone_id)?.stock_location||''});render();document.querySelector('[data-import="editor.clone_id"]')?.focus();break;}
+    case'assign-wells':{const p=ui.pending;p.mapped=assignWells(p.mapped,{...p.editor,plate:p.editor.plate,wells:p.editor.wells,parent_id:p.config.reference_parent_id,round:r.number,data_origin:p.config.data_origin,assay_id:p.config.assay_id});p.recipe.mapOverride=structuredClone(p.mapped.map);p.recipe.registerOverride=structuredClone(p.mapped.register);p.reviewRecord=null;render();break;}
+    case'remove-map-wells':{const p=ui.pending,wells=p.editor.wells.split(/[\s,;]+/).filter(Boolean).map(wellID);p.mapped.map=p.mapped.map.filter(x=>x.plate_id!==p.editor.plate||!wells.includes(x.well));p.recipe.mapOverride=structuredClone(p.mapped.map);p.reviewRecord=null;render();break;}
+    case'save-preset':{const name=$('#preset-name').value.trim();if(!name)throw new Error('Name this mapping preset.');const recipe=structuredClone(ui.pending.recipe);recipe.mapOverride=null;recipe.registerOverride=null;recipe.plateId='';campaign.mappingPresets.push({version:1,name,recipe});changed();notice('Mapping preset saved; identities must be reviewed on each import.');break;}
+    case'apply-preset':{const preset=campaign.mappingPresets[Number($('#mapping-preset').value)],p=ui.pending;if(!preset||preset.version!==1)throw new Error('Unsupported mapping preset.');const recipe=structuredClone(preset.recipe);recipe.sources=p.recipe.sources.map(source=>{const candidates=recipe.sources.filter(x=>x.role===source.role);return candidates.length===1?{...candidates[0],name:source.name}:source;});p.recipe=recipe;p.reviewRecord=null;render();notice('Preset loaded into the preview. Confirm columns, plate ID and units.');break;}
     case'draft-export':download(safeName(campaign.name)+'-draft.json',JSON.stringify(campaign,null,2),'application/json');break;
     case'save-copy':await separateCopy();break;
     case'load-latest':{
@@ -163,7 +218,7 @@ async function action(name,button){
       drafts.forEach((d,i)=>$('#recover-'+i).onclick=()=>{closeDialog();separateCopy(validateBackup(d.campaign)).catch(err=>notice(err.message,'error'));});break;
     }
     case'review-import':{
-      if(!ui.pending)throw new Error('Stage an import first.');const record=await acknowledge(ui.pending.config);if(!ui.pending||record.key!==configKey(ui.pending.config))throw new Error('Settings changed; review again.');ui.pending.reviewRecord=record;render();notice('These exact imported settings are acknowledged for analysis.');break;
+      if(!ui.pending)throw new Error('Stage an import first.');const record=await acknowledge(ui.pending.config);if(!ui.pending||record.key!==configKey(ui.pending.config))throw new Error('Settings changed; review again.');ui.pending.reviewRecord=record;ui.pending.step=4;render();notice('These exact imported settings are acknowledged for analysis.');break;
     }
     case'sync-controls':{
       const proposal=controlProposal(r);showDialog('<h2>Match capacity to the assay</h2>'+proposal.html+'<div class="actions"><button id="apply-controls" class="primary">Use this allocation</button></div>');$('#apply-controls').onclick=()=>{r.budget=proposal.proposed;closeDialog();changed();render();};break;
@@ -190,8 +245,10 @@ async function action(name,button){
     case'clone':ui.plate=button.dataset.plate;ui.well=run.result.wells.find(w=>w.clone_id===button.dataset.clone&&w.plate_id===ui.plate)?.well;render();document.querySelector('.plate .selected')?.scrollIntoView({block:'center'});break;
     case'candidates-csv':exportCSV('candidates.csv',run.result.candidates);break;
     case'wells-csv':exportCSV('well-results.csv',run.result.wells.map(w=>({...w,flags:w.flags.join(';')})),['plate_id','well','clone_id','prep_id','technical_rep','sample_type','raw_slope_per_min','r2','corrected_rate_per_min','flags','stock_location']);break;
-    case'quality-json':download('quality.json',JSON.stringify({engineVersion:run.result.engineVersion,config:run.result.config,plates:run.result.quality,provenance:Object.values(run.inputFiles).map(({text,...meta})=>meta)},null,2),'application/json');break;
-    case'raw-export':showDialog('<h2>Unchanged raw inputs</h2><p>Download each original file. Browsers may ask before allowing multiple downloads.</p>'+Object.keys(run.inputFiles).map(name=>`<p><button data-action="raw-file" data-name="${e(name)}">${e(name)}</button></p>`).join(''));break;
+    case'quality-json':download('quality.json',JSON.stringify({engineVersion:run.result.engineVersion,config:run.result.config,plates:run.result.quality,mappingRecipe:run.importProvenance?.recipe,originalExports:run.importProvenance?.originals.map(({text,...meta})=>meta),provenance:Object.values(run.inputFiles).map(({text,...meta})=>meta)},null,2),'application/json');break;
+    case'raw-export':showDialog('<h2>Analysis inputs and originals</h2><p>Canonical inputs are the files submitted to the analyser. Original exports and the conversion recipe are listed separately when an import was mapped.</p>'+ (run.importProvenance?'<h3>Original uploaded exports</h3>'+run.importProvenance.originals.map((f,i)=>`<p><button data-action="original-file" data-index="${i}">${e(f.name)}</button></p>`).join('')+'<button data-action="recipe-export">Download conversion recipe</button><h3>Canonical analysis inputs</h3>':'')+Object.keys(run.inputFiles).map(name=>`<p><button data-action="raw-file" data-name="${e(name)}">${e(name)}</button></p>`).join(''));break;
+    case'original-file':{const f=run.importProvenance.originals[Number(button.dataset.index)];download(f.name,f.text);break;}
+    case'recipe-export':download('mapping-recipe.json',JSON.stringify(run.importProvenance.recipe,null,2),'application/json');break;
     case'raw-file':download(button.dataset.name,run.inputFiles[button.dataset.name].text,'text/csv;charset=utf-8');break;
     case'add-confirmation':r.confirmation.push({clone_id:'',prep_id:'',enzyme_uM:'',product_uM_per_min:'',assay_id:'',data_origin:campaign.origin==='synthetic'?'synthetic':'user-entered'});changed();render();break;
     case'remove-confirmation':r.confirmation.splice(Number(button.dataset.index),1);for(const ev of r.evidence)ev.decision='pending';changed();render();break;

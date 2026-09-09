@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Evozyme Handbook</title><meta name="description" content="A practical guide to cost-efficient directed evolution of enzymes, equipment, assays, libraries, and data review."><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../overview.css"><style>@media print{.site-header,.guide-controls,footer{display:none}.sheet{border:0;padding:0;margin:0}.guide-body{max-width:none}}</style><script defer src="guide.js"></script></head><body><div class="sheet"><header class="site-header"><a class="site-title" href="/">Magnus Lian Akerholt</a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/apps/">Apps</a><a href="/articles/">Articles</a><a href="/art/">Art</a></nav></header><main class="guide-body"><h1>Evozyme handbook</h1><p><a href="../planner.html">← Return to the planner</a> · Edition 2 · 9 September 2026</p><div class="guide-controls"><div class="overview-entry"><p><strong>Start with the process map.</strong><br>See how planning, laboratory work and each round connect.</p><a class="button-like" href="../">View the overview →</a></div><label class="field"><span>Search handbook chapters</span><input id="guide-search" type="search" placeholder="e.g. plate reader, confirmation, NNK"></label><p id="search-count" role="status"></p><nav class="guide-index" aria-label="Handbook chapters"><a href="#overview">Handbook overview</a><a href="#campaign">Campaign and assays</a><a href="#libraries">Libraries and expression</a><a href="#equipment">Equipment and software</a><a href="#examples">Three worked examples</a><a href="#progression">Progression and troubleshooting</a><a href="#advanced">Advanced methods</a><a href="#toolkit">Toolkit and formats</a><a href="#screen-example">Synthetic screening report</a><a href="#sources">Sources</a><a href="#verification">Reference verification</a><a href="#starter">Compact starter guide</a></nav><div class="callout"><strong>Downloads</strong><p><a href="../downloads/Evozyme_Directed_Evolution_v2.pptx" download>PowerPoint presentation</a> · <a href="../downloads/Evozyme_Planners.xlsx" download>Planning workbook</a> · <a href="../downloads/evozyme.py" download>Python analysis toolkit</a></p><p>Routine equipment and standard protocols are listed briefly. Detailed guidance focuses on the decisions needed to make the workflow work.</p></div></div><section class="guide-section" id="overview" data-search-title="Handbook overview"><h2>Directed evolution of enzymes: a practical handbook</h2>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Evozyme Handbook</title><meta name="description" content="A practical guide to cost-efficient directed evolution of enzymes, equipment, assays, libraries, and data review."><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="../overview.css"><style>@media print{.site-header,.guide-controls,footer{display:none}.sheet{border:0;padding:0;margin:0}.guide-body{max-width:none}}</style><script defer src="guide.js"></script></head><body><div class="sheet"><header class="site-header"><a class="site-title" href="/">Magnus Lian Akerholt</a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/apps/">Apps</a><a href="/articles/">Articles</a><a href="/art/">Art</a></nav></header><main class="guide-body"><h1>Evozyme handbook</h1><p><a href="../planner.html">← Return to the planner</a> · Edition 2 · App workflow 1.2 · 9 September 2026</p><div class="guide-controls"><div class="overview-entry"><p><strong>Start with the process map.</strong><br>See how planning, laboratory work and each round connect.</p><a class="button-like" href="../">View the overview →</a></div><label class="field"><span>Search handbook chapters</span><input id="guide-search" type="search" placeholder="e.g. plate reader, confirmation, NNK"></label><p id="search-count" role="status"></p><nav class="guide-index" aria-label="Handbook chapters"><a href="#overview">Handbook overview</a><a href="#campaign">Campaign and assays</a><a href="#libraries">Libraries and expression</a><a href="#equipment">Equipment and software</a><a href="#examples">Three worked examples</a><a href="#progression">Progression and troubleshooting</a><a href="#advanced">Advanced methods</a><a href="#using-app">Using the app</a><a href="#pilot">User pilot kit</a><a href="#toolkit">Toolkit and formats</a><a href="#screen-example">Synthetic screening report</a><a href="#sources">Sources</a><a href="#verification">Reference verification</a><a href="#starter">Compact starter guide</a></nav><div class="callout"><strong>Downloads</strong><p><a href="../downloads/Evozyme_Directed_Evolution_v2.pptx" download>PowerPoint presentation</a> · <a href="../downloads/Evozyme_Planners.xlsx" download>Planning workbook</a> · <a href="../downloads/evozyme.py" download>Python analysis toolkit</a></p><p>Routine equipment and standard protocols are listed briefly. Detailed guidance focuses on the decisions needed to make the workflow work.</p></div></div><section class="guide-section" id="overview" data-search-title="Handbook overview"><h2>Directed evolution of enzymes: a practical handbook</h2>
 <p>Evozyme · Edition 2 · 9 September 2026</p>
 <p><strong>New to the workflow?</strong> Start with the <a href="https://mlakerholt.github.io/apps/evozyme/overview.html">graphical process overview</a> to see how planning, laboratory work, screening and confirmation fit together.</p>
 <p><a href="../downloads/Evozyme_Directed_Evolution_v2.pptx">PowerPoint presentation</a>: 20 main slides and four reference slides, with speaker notes and editable charts.</p>
@@ -134,6 +134,8 @@
 </tbody></table></div>
 <p>These are evidence requirements, not universal numerical thresholds. The example software&#39;s 20% retest threshold and quality limits demonstrate a workflow; replace them with rules justified by the intended assay.</p>
 <p>For an immediate walkthrough, read the <a href="#examples">LipA example</a>, open the <a href="#screen-example">report</a>, and fill in the <a href="../downloads/Campaign_Brief.md">campaign brief</a>. The earlier <a href="#starter">starter guide</a> remains available as a compact equipment-oriented introduction.</p>
+<h2>App workflow and pilot materials</h2>
+<p>Read <a href="../downloads/Using_Evozyme.md">Using Evozyme</a> for guided setup, CSV mapping, confirmation targets and backup recovery. The <a href="../downloads/Pilot_Kit.md">pilot kit</a> contains beginner and laboratory-user tasks, an observation sheet and a decision rubric. The pilot has not been conducted.</p>
 </section>
 <section class="guide-section" id="campaign" data-search-title="Campaign and assays"><h2>Campaign definition and assay validation</h2>
 <p><a href="#overview">Handbook home</a></p>
@@ -1044,6 +1046,264 @@
 <p>For the starter workflow, a normal workstation is sufficient for recordkeeping and the supplied analysis. Cloud compute or a dedicated accelerator should follow a specific modeling requirement. Include model/tool version, input sequence and prediction output in the record; predictions alone do not establish enzyme performance.</p>
 <h2>A bounded adoption experiment</h2>
 <p>Define the limitation, select a small parent/variant panel, specify an acceptance rule and reserve a fixed evaluation budget. Measure useful recovered results, staff effort, repeat demand and agreement with the existing confirmation assay. Scale only after this comparison supports the change. Keep the established route available until the new method can reproduce its essential decisions.</p>
+</section>
+<section class="guide-section" id="using-app" data-search-title="Using the app"><h2>Using Evozyme: from the overview to a recoverable campaign</h2>
+<p>App workflow update · 9 September 2026 · Evozyme 1.2</p>
+<p>Start on the process overview. Follow <strong>Plan → Test → Learn</strong>, then open the planner at the stage you need. Laboratory work sits between the app stages; completing a form does not demonstrate an assay or enzyme improvement.</p>
+<h2>A short starting path</h2>
+<p>In <strong>Campaign</strong>, enter a campaign name, parent enzyme and exact clone ID, the intended improvement, metric and units, and the conditions for comparison. Choose a measurement route. Guided view exposes starting information first; <strong>Show complete forms</strong> reveals the same records in full. Switching views preserves your entries. Later documentation stays in expandable sections.</p>
+<p>If you change the campaign parent before its first analysis, screening and confirmation references that still match the old parent follow the change. Once results exist, references are explicit historical choices. Explain any intentional difference between campaign, screen and confirmation references.</p>
+<p>The next-action list changes with the stage. Expand the list across all stages to see unresolved work. It distinguishes missing information, missing evidence, planning inconsistencies, settings review and analysis blockers. The status concerns recorded information, not biological validity.</p>
+<h2>Before the first screen</h2>
+<ol>
+<li>Define the intended reaction and confirmation method. Record demonstrated range, background, timing, repeatability and clone recovery.</li>
+<li>Review equipment access, accessories, software export and stock tracking. Record actual acceptance evidence. Blank purchase prices mean unquoted; zero is an explicit entered amount. Totals update while you type. Changing currency relabels values without conversion.</li>
+<li>Match the library to usable screening capacity. The supported analyser uses 96-well linear-rate screens, one candidate preparation per clone per plate, and independent plate comparisons.</li>
+<li>Match the budget reservation to the assay. Minimum controls are blank wells + host wells + independent parent preparations × technical wells. Six parent preparations, two technical wells, four blanks and four host wells require 20 controls. With four 96-well primary plates and two technical wells per candidate, primary capacity is 152 clones. Additional reserved controls are retained.</li>
+<li>Review costs and analysis thresholds. Prefilled values are teaching assumptions. An acknowledgement is tied to the exact analysis configuration, including the reference clone. Changing configuration invalidates it.</li>
+</ol>
+<p>Other plate formats and preparation counts may be planned, but require external analysis. Endpoint and nonlinear assays need another validated method. The app does not convert detector units into catalytic activity.</p>
+<h2>Import measurements without rewriting the CSV</h2>
+<h3>1. Choose files</h3>
+<p>Select CSV exports with any filenames. You can include a plate map, clone register and a settings JSON file. Files remain in the browser. Maximum combined uploaded text is 10 MB; expanded canonical inputs also have a 10 MB limit. Proprietary binary exports and Excel workbooks are not supported.</p>
+<p>The existing <code>plate_map.csv</code>, <code>clone_register.csv</code>, <code>measurements.csv</code> and <code>assay.json</code> examples continue to work. Map/register files may be omitted if you prepare their identities in the editor. This does not infer clone identity from well position.</p>
+<h3>2. Assign roles, columns and formats</h3>
+<p>Assign exactly one measurements file and at most one map, register and settings file. Mark unrelated files as ignored. Review the suggested columns; suggestions are starting points.</p>
+<ul>
+<li><strong>Long layout:</strong> one well/time/signal observation per row. Map the time, well and signal columns. Plate and run metadata can come from mapped columns or the explicitly displayed settings.</li>
+<li><strong>Wide layout:</strong> one time column; every other column is a well such as A01 or H12. One plate per wide file. Choose the time column and supply the plate ID. Non-well metadata columns must be removed from this defined wide layout before import.</li>
+<li>Choose seconds, minutes or milliseconds explicitly. Values are converted to seconds before fitting. Choose decimal point or comma and the separator for each CSV: comma, semicolon or tab. Thousands separators are unsupported.</li>
+<li>Supply the raw signal unit. It must agree with the analysis settings. No activity conversion is applied. Metadata absent from the source uses the displayed configuration, and that choice is retained with the import.</li>
+</ul>
+<p>A mapping preset stores format and column choices. It does not store plate-map identities. Preview its effect for each new file; column names, units and plate identity may have changed.</p>
+<h3>3. Check the map and units</h3>
+<p>Inspect the 96-well map, stock references and canonical observation preview. Missing configured times, duplicate observations, unmapped wells and incorrect parent identities are reported with coordinates. Use <strong>Back to columns</strong> to correct a mapping or unit choice.</p>
+<p>Click a well to load its identity. For bulk assignment, enter coordinates separated by commas, such as <code>A01, A02</code>, and supply the sample type, clone ID, independent preparation ID and stock location. The selected wells share that preparation and receive sequential technical replicate numbers. A second independent preparation needs a different preparation ID. Check existing replicate numbers after editing a subset of a preparation; duplicate IDs are rejected by the analyser.</p>
+<p>Blank and host controls may have empty clone/preparation identities. Parent controls must all use the declared reference clone. Remove accidental map entries with <strong>Remove selected map entries</strong>; a measured well still requires a valid map entry before analysis.</p>
+<h3>4. Review settings, then analyse</h3>
+<p>The full analyser checks the prepared files and displays plate control status. Review any failures. The comparison shows changes from current settings and the complete effective configuration: references, raw units, fitting times, detector limits, replicate requirements and thresholds.</p>
+<p>Click <strong>I have reviewed these imported settings</strong>, then <strong>Analyse and retain this import</strong>. A previous acknowledgement cannot approve a new import. Going back to edit the map or columns requires review again. Failed controls may be retained for inspection, but block nomination under the configured rules.</p>
+<p>Cancel at any point to discard the staged import. A failed or cancelled import does not replace existing files or analysis snapshots. Saving a mapping preset is a separate explicit campaign edit.</p>
+<h2>Synthetic wide-file walkthrough</h2>
+<p>Open the worked example, then select its map and register with <a href="../example/measurements_wide_minutes.csv">the wide minute export</a> and the example settings. Set measurements layout to <strong>Wide</strong>, time column <strong>Minutes</strong>, source time unit <strong>minutes</strong>, and plate ID <strong>DEMO01</strong>. Confirm columns, inspect the map, review settings and analyse. The converted measurements reproduce the original numeric results: C03 and C11 are nominated for retesting. The data are synthetic and demonstrate software behaviour only.</p>
+<h2>Understand what was retained</h2>
+<p>Each mapped analysis keeps three kinds of records:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Record</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Original uploaded text and SHA-256 fingerprints</td>
+<td>Exact source exports, including files marked ignored</td>
+</tr>
+<tr>
+<td>Versioned mapping recipe and reviewed configuration</td>
+<td>Column choices, conversions, explicit map edits and the acknowledged settings</td>
+</tr>
+<tr>
+<td>Canonical analysis inputs and results</td>
+<td>The three CSV files actually submitted to the analyser and its immutable snapshot</td>
+</tr>
+</tbody></table></div>
+<p>Use <strong>Export this run&#39;s raw inputs</strong> to choose original files, canonical files or the recipe. Quality/settings export includes the recipe and fingerprints. The complete JSON backup includes all of them. A later analysis keeps earlier snapshots; the current assay form may differ from the settings that produced a historical result.</p>
+<h2>Confirmation and the next round</h2>
+<p>The Review stage presents the written goal beside the reference, normalization and observations. Optional structured criteria compare a dimensionless mean ratio in an exact named confirmation assay with matching normalization. A target match is descriptive evidence, not an automatic decision or significance claim. Free-text goals and secondary properties still need interpretation.</p>
+<p>Record independent preparations, sequence and product checks, stock recovery, secondary properties, evidence locations and the rationale. Evidence completeness and the analyst decision are separate. Justified tradeoffs belong in the rationale; the app does not impose a universal biological success threshold.</p>
+<p><strong>Create one linked round</strong> creates exactly one new round with the selected clone as its parent. “Retain several lineages” and “Plan a combination library” document intentions. They do not automatically create several rounds or a multiple-parent model. Create each lineage separately and document additional parents and comparison panels.</p>
+<h2>Saving, conflicts and restoration</h2>
+<p>Browser saves have revision checks. If two tabs edit a campaign, a stale draft cannot overwrite the newer saved record. Use the conflict panel to export the draft, save it as a separate campaign, or load the latest saved version. Locally retained recovery drafts can be opened from <strong>Recovery drafts</strong>. Storage failures require an external export; the app does not claim a failed local save is protected.</p>
+<p>Export after important changes and record the external backup location. In Review, choose <strong>Check a backup by restoring a separate copy</strong>. Select a JSON backup, then inspect its imported files, results, confirmation decisions and round links. The restored copy has its own campaign ID. The original saved record remains available through Saved campaigns. A successful structural/hash check does not verify that external evidence files exist: open those separately.</p>
+<p>Version 1 records migrate while preserving historical results and decisions. Earlier analyses are labelled as predating explicit reference/review checks. Review the current configuration and run a new analysis to apply the current engine. Close older tabs if a storage upgrade is waiting. Recovery requires a compatible current app and a known-good backup; rolling back the website code alone does not reverse a data migration.</p>
+</section>
+<section class="guide-section" id="pilot" data-search-title="User pilot kit"><h2>Evozyme pilot kit</h2>
+<p>Prepared 9 September 2026 for the 1.2 workflow. <strong>Status: materials prepared; no participants recruited and no user pilot conducted.</strong></p>
+<h2>Purpose and participants</h2>
+<p>Observe whether a first-time reader and an experienced laboratory user can connect the overview, handbook and planner, prepare a supported import, interpret evidence and recover a backup. Use one session per participant initially. Recruit only after the project owner supplies participants or authorizes recruitment. Obtain consent for notes or recordings; use appropriately de-identified files if real instrument exports are supplied.</p>
+<h2>Preparation</h2>
+<ul>
+<li>Use a supported current browser and a fresh test campaign. Keep participants&#39; real records separate.</li>
+<li>Supply the synthetic example, its CSV/JSON files and the wide-minute CSV. State that no experiment occurred.</li>
+<li>Record browser/device, participant experience and prior exposure to Evozyme. Agree whether timing includes handbook reading.</li>
+<li>The facilitator should avoid teaching the workflow before the baseline attempt. Ask the participant to explain what they expect before clicking. Record help when it is needed.</li>
+<li>Keep a known-good backup and external evidence folder for the recovery exercise. Never test by deleting a participant&#39;s records.</li>
+</ul>
+<h2>First-time reader walkthrough</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Completion evidence</th>
+<th>Observe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read the overview and explain one round</td>
+<td>Participant identifies planning, lab work, screening, confirmation and iteration</td>
+<td>Confusion between app stages and laboratory work</td>
+</tr>
+<tr>
+<td>Start a campaign in guided view</td>
+<td>Name, parent ID, improvement, comparison and measurement route entered</td>
+<td>Unfamiliar terms, fields skipped, use of examples/chapter links</td>
+</tr>
+<tr>
+<td>Review access and capacity</td>
+<td>A shared reader is recorded and a missing capability identified</td>
+<td>Whether illustrative costs are mistaken for quotes</td>
+</tr>
+<tr>
+<td>Use six parent preparations and two technical wells</td>
+<td>Control reservation corrected from 16 to 20; four-plate capacity changes to 152</td>
+<td>Whether preparation and technical replicate are distinguished</td>
+</tr>
+<tr>
+<td>Import the synthetic screen</td>
+<td>Maps and units reviewed, settings acknowledged, result retained</td>
+<td>Preparation time, failed imports, assistance and backtracking</td>
+</tr>
+<tr>
+<td>Explain C03 and C11</td>
+<td>Both require independent confirmation; screen nomination is not proof</td>
+<td>Misread control status, folds or evidence completeness</td>
+</tr>
+<tr>
+<td>Export and restore as a separate copy</td>
+<td>Original campaign and restored copy remain available</td>
+<td>Backup location, external evidence expectations and recovery confusion</td>
+</tr>
+</tbody></table></div>
+<h2>Experienced laboratory user walkthrough</h2>
+<ol>
+<li>State the intended reaction, comparison basis and sample-preparation unit. Identify what would need assay-specific validation.</li>
+<li>Review equipment acceptance, costs and realistic throughput; record the gap between planned and observed workload if actual evidence exists.</li>
+<li>Import the wide-minute fixture without rewriting it into long CSV. Explain which metadata are supplied by the settings rather than the file.</li>
+<li>Load a well in the plate editor, correct an intentional identity mismatch, then inspect replicate and stock identities. Test cancellation before retaining the final import.</li>
+<li>Review a changed settings file. Verify that acknowledgement is requested again and earlier snapshots remain unchanged.</li>
+<li>Inspect confirmation observations, normalization, optional targets, secondary properties and analyst rationale. Explain exactly what one linked next round creates.</li>
+<li>Open the same test campaign in two tabs, edit both, and preserve both versions through the conflict panel. Restore a backup as a separate copy and locate original exports, recipe, canonical inputs and external evidence.</li>
+</ol>
+<p>If representative reader exports are available, first record their layout, units, missing metadata and preprocessing needs. Attempt an import only within the declared generic CSV contract. Record unsupported cases without claiming reader compatibility from the synthetic fixture.</p>
+<h2>Observation sheet</h2>
+<p>One row per task or failed attempt. Blank values mean not observed, not zero.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Participant code</th>
+<th>Experience</th>
+<th>Task</th>
+<th>Start/end</th>
+<th>Completed without help?</th>
+<th>Preparation minutes</th>
+<th>Import minutes</th>
+<th>Failed attempts</th>
+<th>Help supplied</th>
+<th>Misunderstood field/label</th>
+<th>Expected versus observed result</th>
+<th>Planned/observed workload</th>
+<th>Severity</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>Record exact words or actions where practical. Distinguish a software defect from missing scientific information, unsupported file format and usability confusion. Record abandoned tasks. Do not combine technical wells with independent preparations when describing workload.</p>
+<h2>Debrief</h2>
+<p>Ask which step was hardest, which labels were unclear, where the participant expected a different action, what they would need before using real data, and which missing capability would save measurable work. Ask them to locate the original source file for one saved result and explain what is outside the backup.</p>
+<h2>Decision record and extension rubric</h2>
+<p>Establish the baseline from observed completion, preparation/import time, failed attempts and help before setting numerical improvement targets. Use this decision table after the pilot; do not fill it with invented findings.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Proposed change</th>
+<th>Observed difficulty / participant evidence</th>
+<th>Frequency</th>
+<th>Consequence</th>
+<th>Representative data available?</th>
+<th>Scientific validation cases needed</th>
+<th>Implementation effort</th>
+<th>Decision and reason</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Endpoint assays</td>
+<td>Pending pilot</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Endpoint controls, dynamic range and independent confirmation</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Further plate formats</td>
+<td>Pending pilot</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Geometry, identities, capacity, control distribution</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Reader-specific adapters</td>
+<td>Pending pilot</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Representative exports, units, locale, timing, metadata</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sequence comparisons</td>
+<td>Pending pilot</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Identity, alignment, numbering and mutation provenance</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Lineage views</td>
+<td>Pending pilot</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Single/multiple-parent semantics and historical links</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Collaboration</td>
+<td>Pending pilot</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Permissions, conflict handling, audit and recovery</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>Prioritize record-loss or incorrect-comparison defects first. Then address repeated blockers within the supported workflow. Choose an analytical extension only when real demand, representative inputs and validation cases are available. Record the decision to defer as well as the decision to proceed. Cloud accounts and automatic significance claims are not prerequisites.</p>
 </section>
 <section class="guide-section" id="toolkit" data-search-title="Toolkit and formats"><h2>Evozyme companion toolkit</h2>
 <p><a href="#overview">Handbook home</a></p>

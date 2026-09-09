@@ -1,3 +1,30 @@
+# Evozyme 1.2.0 verification
+
+9 September 2026. This verifies software behaviour on synthetic fixtures, not an experimental assay or enzyme improvement.
+
+## Release checks
+
+- All 41 JavaScript tests pass, including the original 26 and regression coverage for reference identity, exact-settings acknowledgement, migration, capacity consistency, generic long/wide conversion, minute/decimal conversion, missing preset columns, map editing, recipe replay, backup provenance and compatible confirmation targets.
+- All 14 Python reference checks pass. Valid fixture numerical results retain parity; synthetic C03 and C11 are nominated.
+- The isolated browser storage harness passes all five checks: blocked legacy upgrade with archived record, atomic competing saves, separate recovery drafts, imported revision rejection, and closure on a newer database version.
+- Build passes: 14 handbook sections, browser module syntax, overview/home/planner and guide local file links. Runtime architecture and existing GitHub Pages hosting are preserved.
+
+## Browser walkthrough, Codex browser on Windows
+
+Verified live quote and quantity totals (12,345 then 24,690 NOK), missing quote handling, visible two-tab conflict and recovery as a separate campaign. Both saved versions remained listed. The six-parent-preparation case invalidated the settings acknowledgement and proposed 20 control wells, 152 primary clone slots, and a round cost of 22,649 NOK from the original 160 slots and 22,869 NOK.
+
+Completed toolkit long-file and wide-minute imports through role/column confirmation, map preview, control checks, explicit configuration review and retained analysis. Three snapshots remained accessible after reload. The wide screen retained the expected 1.463× and 1.359× screening folds. An intentionally incorrect parent at DEMO01/A02 was rejected at that coordinate, then corrected in the map editor. A mapping preset saved, and the raw-input dialog separately listed original exports, recipe and canonical inputs.
+
+A changed settings file displayed a 1.5 nomination threshold and required a new acknowledgement; cancelling left all three existing analyses intact. A synthetic version-one backup restored as a new campaign while the source campaign stayed listed. Its historical result retained engine 1.0.0 and an explicit warning that current identity/review checks were not retroactively applied. Current mapped records and presets also survived save/reload validation.
+
+Guided/complete views preserve entries. Expandable sections retain their state across field edits. Confirmation targets showed C03 meeting the recorded 1.2 ratio and C11 below it while analyst decisions remained separate. Desktop and 390px viewport setup/review displays were inspected; document width stayed within the viewport, with tables independently scrollable. Visible focus, form labels and stage/handbook navigation were checked. No browser console errors were recorded in the final walkthrough. This is not a multi-browser or screen-reader certification.
+
+## Limits and recovery
+
+Only generic supported CSV layouts and supplied synthetic data were tested; no reader-specific compatibility or user-pilot finding is claimed. The pilot kit is prepared, with participant sessions and representative exports still pending. External sequence, product and property evidence remains outside the JSON backup unless explicitly imported. A compatible app and a known-good backup are the recovery path; reverting code alone does not undo a database migration.
+
+The earlier numerical/performance record below remains useful context; version-specific walkthrough claims apply to the version identified.
+
 # Evozyme 1.1.0 verification
 
 9 September 2026. 32 JavaScript tests and 14 Python checks pass, retaining numerical fixture parity. Five isolated browser storage checks pass: blocked legacy upgrade/archive, concurrent saves, draft isolation, imported revision rejection and version-change closure. Visible two-tab conflict recovery and immediate quote/quantity totals were checked in the Codex browser. Scientific and cross-browser limitations below still apply.
