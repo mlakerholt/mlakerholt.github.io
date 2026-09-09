@@ -33,8 +33,8 @@ Main-thread timer callbacks continued during analysis. These are local measureme
 
 ## Optional agent interface
 
-Read-summary and navigate-stage tools are registered only if the browser provides `document.modelContext`. Registration and representative valid/invalid behavior passed a test shim using the documented interface. A native WebMCP-enabled browser context was unavailable, so native integration is unverified. Ordinary app functionality does not depend on it.
+Read-summary and navigate-stage tools are registered only if the browser provides `document.modelContext`. Registration and representative valid/invalid behavior passed a test shim, then passed native calls in the Codex in-app browser on the published site. Both invalid inputs were rejected; read-back confirmed unchanged campaign values, and valid navigation updated the visible stage. Ordinary app functionality does not depend on this optional interface.
 
 ## Publication checks
 
-The build checks module syntax and generated local handbook links. Publication includes the app and its listing together. Verify the live entry point, modules, worker, handbook, downloads, and full synthetic walkthrough after the website finishes publishing.
+GitHub Pages successfully published application release `5224a4053877cdd0d4f97ec709977fa599a608ea`. All 57 release files were checked against their uploaded Git blob hashes. The live app, modules, worker, guide, PowerPoint, workbook, templates, Python download, and release notes returned HTTP 200. The Apps listing contains the Evozyme entry. Both browser walkthroughs passed again against the public URL, including imports, backups, reanalysis, confirmation, linked rounds and reports. Native in-app-browser navigation and the skip link were also verified; the initial form had no unlabeled fields.
