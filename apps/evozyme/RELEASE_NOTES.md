@@ -1,3 +1,12 @@
+# Evozyme 1.1.0 — reliable records
+
+9 September 2026
+
+- Atomic revision checks, recoverable conflicting drafts, and restoration as a separate campaign. Older records migrate without altering historical results.
+- Explicit screening reference identity and a fingerprint of the reviewed settings retained with each new result.
+- Equipment totals update while typing. Shared checks connect assay controls, replication, capacity and evidence.
+- The Python reference applies the same parent identity rule.
+
 # Process overview update
 
 9 September 2026

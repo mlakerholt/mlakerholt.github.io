@@ -1,5 +1,7 @@
 export const MAX_IMPORT_BYTES=10*1024*1024;
-export const SCHEMA_VERSION=1;
+import {SCHEMA_VERSION,migrateCampaign} from './migration.mjs';
+export {SCHEMA_VERSION};
+export {saveCampaign,loadCampaign,listCampaigns,getActive,setActive} from './storage.mjs';
 export const escapeHTML=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function safeHref(value){const text=String(value||'');return /^(https?:\/\/|downloads\/)[^\s]*$/i.test(text)?text:'#';}
 export function parseCSV(text,name='CSV'){
@@ -31,19 +33,10 @@ export function download(name,content,type='text/plain;charset=utf-8'){
 }
 export async function readFile(file){if(file.size>MAX_IMPORT_BYTES)throw new Error(`${file.name}: maximum import size is 10 MB.`);return await file.text();}
 export async function fingerprint(text){const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');}
-let databasePromise;
-function openDB(){if(!databasePromise)databasePromise=new Promise((resolve,reject)=>{const request=indexedDB.open('evozyme-campaigns',1);request.onupgradeneeded=()=>{request.result.createObjectStore('campaigns',{keyPath:'id'});request.result.createObjectStore('preferences');};request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);request.onblocked=()=>reject(new Error('Close other Evozyme tabs to update browser storage.'));});return databasePromise;}
-async function dbOp(store,mode,fn){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(store,mode),request=fn(tx.objectStore(store));tx.oncomplete=()=>resolve(request?.result);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('Save interrupted.'));});}
-export const saveCampaign=c=>dbOp('campaigns','readwrite',s=>s.put(c));
-export const loadCampaign=id=>dbOp('campaigns','readonly',s=>s.get(id));
-export const listCampaigns=()=>dbOp('campaigns','readonly',s=>s.getAll());
-export const deleteCampaign=id=>dbOp('campaigns','readwrite',s=>s.delete(id));
-export const setActive=id=>dbOp('preferences','readwrite',s=>s.put(id,'active'));
-export const getActive=()=>dbOp('preferences','readonly',s=>s.get('active'));
 export function validateBackup(value){
   const fail=m=>{throw new Error('Backup: '+m);};
   if(!value||typeof value!=='object'||Array.isArray(value))fail('expected a campaign object.');
-  if(value.schemaVersion!==SCHEMA_VERSION)fail(`unsupported format version ${value.schemaVersion??'missing'}. This app supports version ${SCHEMA_VERSION}.`);
+  if(![1,SCHEMA_VERSION].includes(value.schemaVersion))fail(`unsupported format version ${value.schemaVersion??'missing'}. This app supports version ${SCHEMA_VERSION}.`);
   for(const key of ['id','name','createdAt','updatedAt','activeRoundId'])if(typeof value[key]!=='string'||value[key].length>1000)fail(`invalid ${key}.`);
   if(!/^[\w-]{1,100}$/.test(value.id))fail('invalid campaign ID.');
   if(!['user','synthetic'].includes(value.origin)||!['NOK','EUR','USD','GBP','SEK','DKK'].includes(value.currency))fail('invalid data origin or currency.');
@@ -71,6 +64,15 @@ export function validateBackup(value){
   }
   if(!ids.has(value.activeRoundId))fail('active round does not exist.');
   const walk=(o,depth=0)=>{if(depth>30)fail('nested data is too deep.');if(o&&typeof o==='object')for(const[k,v]of Object.entries(o)){if(['__proto__','constructor','prototype'].includes(k))fail('unsupported object key.');walk(v,depth+1);}};walk(value);
-  return value;
+  const migrated=migrateCampaign(value);
+  if(!Number.isSafeInteger(migrated.revision)||migrated.revision<0)fail('invalid revision.');
+  if(typeof migrated.guided!=='boolean'||!Array.isArray(migrated.mappingPresets))fail('invalid interface or mapping preferences.');
+  for(const r of migrated.rounds){
+    if(typeof r.assay.reference_parent_id!=='string'||typeof r.review.referenceReason!=='string')fail('invalid reference identity.');
+    const review=r.assay.reviewRecord;
+    if(review!==null&&(!review||typeof review.key!=='string'||typeof review.sha256!=='string'||typeof review.reviewedAt!=='string'))fail('invalid settings review.');
+    if(!r.criteria||typeof r.criteria!=='object'||typeof r.criteria.enabled!=='boolean'||!['product','enzyme'].includes(r.criteria.normalization)||!['at_least','at_most'].includes(r.criteria.direction)||typeof r.criteria.assayId!=='string'||typeof r.criteria.notes!=='string'||(r.criteria.fold!==null&&(typeof r.criteria.fold!=='number'||!Number.isFinite(r.criteria.fold)||r.criteria.fold<0)))fail('invalid campaign criteria.');
+  }
+  return migrated;
 }
 export function safeName(name){return String(name||'campaign').replace(/[^a-z0-9_-]/gi,'_').slice(0,70);}

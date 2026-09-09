@@ -1,4 +1,4 @@
-export const ENGINE_VERSION='1.0.0';
+export const ENGINE_VERSION='1.1.0';
 export const mean=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
 export const sd=a=>a.length>1?Math.sqrt(a.reduce((s,x)=>s+(x-mean(a))**2,0)/(a.length-1)):0;
 const finite=x=>typeof x==='number'&&Number.isFinite(x);
@@ -43,7 +43,7 @@ export function fitLine(times,values){
   return{slope,r2:yy?1-residual/yy:0,intercept:ym-slope*xm};
 }
 export function validateAssay(c){
-  for(const key of ['run_id','assay_id','signal_unit','data_origin'])need(typeof c[key]==='string'&&c[key].trim(),`Assay settings: ${key} is required.`);
+  for(const key of ['reference_parent_id','run_id','assay_id','signal_unit','data_origin'])need(typeof c[key]==='string'&&c[key].trim(),`Assay settings: ${key} is required.`);
   need([-1,1].includes(c.signal_direction),'Signal direction must be +1 or −1.');
   need(Array.isArray(c.fit_times_s)&&c.fit_times_s.length>=3&&new Set(c.fit_times_s).size===c.fit_times_s.length&&c.fit_times_s.every(t=>finite(t)&&t>=0),'Specify at least three unique, finite, nonnegative fitting times.');
   for(const key of ['minimum_r2','maximum_parent_cv','maximum_technical_cv','maximum_host_fraction'])need(finite(c[key])&&c[key]>=0&&c[key]<=1,`Assay settings: ${key} must be between 0 and 1.`);
@@ -68,6 +68,7 @@ export function analyze(input,cfg){
     if(mapping.has(key))fail('plate_map.csv',row,'Duplicate plate/well.');
     if(!/^[A-H](0[1-9]|1[0-2])$/.test(row.well))fail('plate_map.csv',row,'well must be A01–H12.');
     if(!['parent','candidate','blank','host'].includes(row.sample_type))fail('plate_map.csv',row,'Unrecognized sample_type.');
+    if(row.sample_type==='parent'&&row.clone_id!==cfg.reference_parent_id)fail('plate_map.csv',row,`Parent control ${row.plate_id}/${row.well}: expected ${cfg.reference_parent_id}, found ${row.clone_id||'missing clone ID'}.`);
     if(row.assay_id!==cfg.assay_id)fail('plate_map.csv',row,'assay_id does not match the settings.');
     if(['candidate','parent'].includes(row.sample_type)){
       if(!locations.get(row.clone_id)?.trim())fail('plate_map.csv',row,`Missing recoverable stock for ${row.clone_id}.`);

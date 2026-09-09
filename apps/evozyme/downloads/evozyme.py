@@ -57,6 +57,8 @@ def coverage(probabilities, draws):
 
 
 def load_inputs(folder, cfg):
+    if not isinstance(cfg.get('reference_parent_id'), str) or not cfg['reference_parent_id'].strip():
+        raise ValueError('An explicit reference_parent_id is required.')
     records = read_csv(folder/'plate_map.csv')
     register = read_csv(folder/'clone_register.csv')
     ids = [r['clone_id'] for r in register]
@@ -74,6 +76,8 @@ def load_inputs(folder, cfg):
             raise ValueError(f'Invalid 96-well coordinate: {key}')
         if row['sample_type'] not in ('parent', 'blank', 'host', 'candidate'):
             raise ValueError('Unrecognized sample_type.')
+        if row['sample_type'] == 'parent' and row['clone_id'] != cfg['reference_parent_id']:
+            raise ValueError(f"Parent control {key}: expected {cfg['reference_parent_id']}, found {row['clone_id']}.")
         if row['sample_type'] in ('parent','candidate'):
             if row['clone_id'] not in locations or not locations[row['clone_id']].strip():
                 raise ValueError(f'Missing recoverable stock for {key}')

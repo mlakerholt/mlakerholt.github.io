@@ -1220,6 +1220,9 @@
 </code></pre>
 <p>The 13 tests exercise expected candidate decisions, missing/duplicate data, recovery identifiers, row ordering, signal direction, fitting and coverage bounds. They do not replace instrument acceptance or biochemical validation.</p>
 <p>Use the <a href="../downloads/Equipment_Acceptance.md">equipment acceptance record</a> when arranging access, and the <a href="../downloads/Round_Review.md">round review</a> to decide which confirmed variants and conditions enter the next round.</p>
+<h2>Evozyme reliability update (1.1)</h2>
+<p>The configuration requires <code>reference_parent_id</code>. Every parent-control well must match it; different parent identities are never pooled. The app previews imported settings and records acknowledgement of the exact configuration. Editing those settings requires a new review. Existing snapshots remain historical records.</p>
+<p>Browser saves use revision checks. If another tab saved a newer version, export the pending draft, save it as a separate campaign, or load the latest version. Recovery drafts are local copies; keep an external JSON backup. Restore a backup as a separate copy to check recovery without replacing the active record. Old tabs must close before the database upgrade completes. Use a compatible current app and a known-good backup for recovery; rolling back code does not undo a data migration.</p>
 </section>
 <section class="guide-section" id="screen-example" data-search-title="Synthetic screening report"><h2>Example screening report</h2>
 <p>Data origin: <strong>SYNTHETIC TEACHING DATA; no laboratory experiment</strong>.</p>

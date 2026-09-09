@@ -1,3 +1,7 @@
+# Evozyme 1.1.0 verification
+
+9 September 2026. 32 JavaScript tests and 14 Python checks pass, retaining numerical fixture parity. Five isolated browser storage checks pass: blocked legacy upgrade/archive, concurrent saves, draft isolation, imported revision rejection and version-change closure. Visible two-tab conflict recovery and immediate quote/quantity totals were checked in the Codex browser. Scientific and cross-browser limitations below still apply.
+
 # Evozyme 1.0.0 verification
 
 9 September 2026. These checks establish software behavior on the stated fixtures; they do not validate an experimental assay or enzyme improvement.

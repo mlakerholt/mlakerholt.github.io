@@ -22,5 +22,6 @@
   "minimum_host_wells": 4,
   "minimum_parent_preparations": 4,
   "minimum_technical_wells": 2,
-  "minimum_fold_for_retest": 1.2
+  "minimum_fold_for_retest": 1.2,
+  "reference_parent_id": "PARENT"
 }

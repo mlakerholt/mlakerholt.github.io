@@ -129,3 +129,9 @@ python -m unittest discover -s toolkit/tests -v
 The 13 tests exercise expected candidate decisions, missing/duplicate data, recovery identifiers, row ordering, signal direction, fitting and coverage bounds. They do not replace instrument acceptance or biochemical validation.
 
 Use the [equipment acceptance record](templates/Equipment_Acceptance.md) when arranging access, and the [round review](templates/Round_Review.md) to decide which confirmed variants and conditions enter the next round.
+
+## Evozyme reliability update (1.1)
+
+The configuration requires `reference_parent_id`. Every parent-control well must match it; different parent identities are never pooled. The app previews imported settings and records acknowledgement of the exact configuration. Editing those settings requires a new review. Existing snapshots remain historical records.
+
+Browser saves use revision checks. If another tab saved a newer version, export the pending draft, save it as a separate campaign, or load the latest version. Recovery drafts are local copies; keep an external JSON backup. Restore a backup as a separate copy to check recovery without replacing the active record. Old tabs must close before the database upgrade completes. Use a compatible current app and a known-good backup for recovery; rolling back code does not undo a data migration.
