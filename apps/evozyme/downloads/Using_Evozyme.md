@@ -1,8 +1,20 @@
 # Using Evozyme: from the overview to a recoverable campaign
 
-App workflow update · 9 September 2026 · Evozyme 1.2
+App workflow update · 9 September 2026 · Evozyme 1.3
 
 Start on the process overview. Follow **Plan → Test → Learn**, then open the planner at the stage you need. Laboratory work sits between the app stages; completing a form does not demonstrate an assay or enzyme improvement.
+
+## Find your place in Research Desk
+
+The top navigation opens **Workflow**, **Campaign**, **Screening**, **Handbook** and **Files**. The round outline keeps all seven stages available. Workflow is the opening screen and offers a resume link when a campaign is saved. Appearance can follow your system or use light/dark colours.
+
+Campaign setup has three parts: useful improvement, measurement route and a review of the brief. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.
+
+Screening places candidate comparison beside a selected-record inspector. Selecting a clone shows actual raw traces, fitting times, technical CV, stock identity and independent-evidence status. Expand the plate map to inspect controls or individual wells. A filter can hide a selected candidate from the list; the inspector explicitly says when the selected record is outside the filter.
+
+The handbook displays one chapter at a time; search finds matching chapters. **Return to…** restores the campaign and selected record. Record URLs preserve round, analysis, plate, well and filter within the same browser. They do not transfer data to another device; use a backup for that. While an import is staged, other pages open alongside the original workspace to keep it available.
+
+Files collects backup export, saved campaigns, recovery drafts, separate-copy restoration, reports and templates. The campaign also retains these actions under **Manage campaigns & backups**.
 
 ## A short starting path
 
@@ -36,7 +48,7 @@ Assign exactly one measurements file and at most one map, register and settings 
 
 - **Long layout:** one well/time/signal observation per row. Map the time, well and signal columns. Plate and run metadata can come from mapped columns or the explicitly displayed settings.
 - **Wide layout:** one time column; every other column is a well such as A01 or H12. One plate per wide file. Choose the time column and supply the plate ID. Non-well metadata columns must be removed from this defined wide layout before import.
-- Choose seconds, minutes or milliseconds explicitly. Values are converted to seconds before fitting. Choose decimal point or comma and the separator for each CSV: comma, semicolon or tab. Thousands separators are unsupported.
+- Choose seconds, minutes or milliseconds explicitly. A small preview shows source values and their converted seconds before fitting. Choose decimal point or comma and the separator for each CSV: comma, semicolon or tab. Thousands separators are unsupported.
 - Supply the raw signal unit. It must agree with the analysis settings. No activity conversion is applied. Metadata absent from the source uses the displayed configuration, and that choice is retained with the import.
 
 A mapping preset stores format and column choices. It does not store plate-map identities. Preview its effect for each new file; column names, units and plate identity may have changed.

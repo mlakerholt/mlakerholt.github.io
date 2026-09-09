@@ -1,3 +1,16 @@
+# Evozyme 1.3.0 verification
+
+9 September 2026. Research Desk implementation checked on synthetic fixtures in headless Microsoft Edge on Windows. These checks concern software behaviour, not an experimental assay or enzyme improvement.
+
+- All 45 JavaScript tests pass. The four new tests cover record URL round-tripping, required brief answers, preserved raw traces and evidence distinctions, and source-time preview. Existing calculations, import replay, reference identity, confirmation gates and migration tests continue to pass.
+- The build generates all 14 handbook chapters, checks module syntax and validates local links, including links with query parameters.
+- Complete browser journey: new campaign, inline correction, guided steps, unsupported route, saved reload, all seven stages, worked example, candidate filters and selection, handbook search and contextual return, workflow resume, four-file CSV import, explicit units, exact-settings acknowledgement, worker analysis, retained second snapshot and backup export.
+- All stages fit 320px and 850px viewports without document overflow. Tables and plate maps scroll within their containers. Light/dark screens and 200% text enlargement were inspected. No browser console errors were recorded.
+- Backup restoration retained two analyses and original-file provenance. Visible competing-tab saves were recovered as a separate campaign while the first tab's saved edit remained intact. All five isolated storage checks pass.
+- Issue links reveal the correct brief question and focus it. Files restoration opens a usable chooser. Unavailable record links explain the fallback. Print mode shows the generated campaign report with the app shell hidden; a PDF was produced. Workflow and handbook content remain available without JavaScript.
+
+The automated checks are not a real-user pilot, screen-reader assessment or multi-browser certification. These remain useful follow-up validation. Python and analysis-engine code were unchanged in this release; the JavaScript suite retains parity checks against the saved Python fixture outputs.
+
 # Evozyme 1.2.0 verification
 
 9 September 2026. This verifies software behaviour on synthetic fixtures, not an experimental assay or enzyme improvement.

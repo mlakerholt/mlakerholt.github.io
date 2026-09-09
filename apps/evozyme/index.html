@@ -4,30 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A simple map of an enzyme directed-evolution round: plan, test, confirm, and use the evidence to decide what comes next.">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <title>The evolution workflow — Evozyme</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="overview.css">
+<script type="module" src="overview.mjs"></script>
   <script src="entry.js"></script>
 </head>
 <body class="workflow-overview">
   <a class="skip" href="#process-map">Skip to process map</a>
   <div class="sheet">
-    <header class="site-header">
-      <a class="site-title" href="/">Magnus Lian Akerholt</a>
-      <nav aria-label="Main navigation"><a href="/">Home</a><a href="/apps/" aria-current="page">Apps</a><a href="/articles/">Articles</a><a href="/art/">Art</a></nav>
-    </header>
+    <header class="desk-header"><div class="site-crumb"><a href="/">Magnus Lian Akerholt</a><span>/</span><a href="/apps/">Apps</a><span>/</span><span>Evozyme</span></div><div class="desk-masthead"><a class="wordmark" href="./">Evozyme<span>.</span></a><p>A research desk for directed evolution</p><label class="appearance">Appearance <select id="appearance"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div><nav class="destinations" aria-label="Application"><a href="./" data-destination="Workflow" aria-current="page">Workflow</a><a href="planner.html#campaign" data-destination="Campaign" >Campaign</a><a href="planner.html#screen" data-destination="Screening">Screening</a><a href="guide/index.html" data-destination="Handbook">Handbook</a><a href="files.html" data-destination="Files" >Files</a></nav></header>
     <main>
       <div class="map-heading">
-        <p class="eyebrow">Evozyme · Start here</p>
-        <h1>The evolution workflow</h1>
+        <p class="eyebrow">The workflow / An orientation</p>
+        <h1>Better enzymes, one round at a time.</h1>
         <p>One round: plan the experiment, test variants, confirm what improved.</p>
       </div>
+      <section id="resume" class="resume"><div><p class="eyebrow">Start at the beginning</p><h2>What would a useful improvement look like?</h2><p>Define your parent enzyme and the comparison you want to make.</p></div><div class="actions"><a class="button-like primary" href="planner.html#campaign">Start a campaign →</a><a href="planner.html?action=demo#screen">Explore the worked example</a></div></section>
       <p class="map-key" id="map-key">Follow the arrows. Numbered links match the app’s seven stages; laboratory work happens between them.</p>
       <figure class="process-map" id="process-map" tabindex="-1" aria-label="Directed evolution process map" aria-describedby="map-key map-caption">
         <div class="process-phases">
           <section class="process-phase" aria-labelledby="plan-title">
-            <h2 id="plan-title"><span aria-hidden="true">A</span> Plan</h2>
+            <h2 id="plan-title"><span>01</span> Plan <b aria-hidden="true">→</b></h2>
             <ol class="process-nodes">
               <li>
                 <h3>Define success</h3>
@@ -48,7 +47,7 @@
             <p class="process-check"><strong>Before screening:</strong> demonstrate a reliable assay and a working sample-tracking pilot.</p>
           </section>
           <section class="process-phase" aria-labelledby="test-title">
-            <h2 id="test-title"><span aria-hidden="true">B</span> Test</h2>
+            <h2 id="test-title"><span>02</span> Test <b aria-hidden="true">→</b></h2>
             <ol class="process-nodes">
               <li class="lab-node">
                 <h3>Make &amp; prepare variants</h3>
@@ -64,7 +63,7 @@
             <p class="process-retry"><span aria-hidden="true">↶</span> <strong>Checks fail?</strong> Revisit the <a href="planner.html#assay">assay</a> or preparation and repeat affected measurements before ranking candidates.</p>
           </section>
           <section class="process-phase" aria-labelledby="learn-title">
-            <h2 id="learn-title"><span aria-hidden="true">C</span> Learn</h2>
+            <h2 id="learn-title"><span>03</span> Learn</h2>
             <ol class="process-nodes">
               <li>
                 <h3>Confirm independently</h3>

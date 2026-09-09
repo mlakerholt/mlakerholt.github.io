@@ -1,3 +1,16 @@
+# Evozyme 1.3.0 — Research Desk
+
+9 September 2026
+
+- New Research Desk design: warm paper surfaces, forest accents, serif headings, clearer working typography and light/dark appearances. Workflow, Campaign, Screening, Handbook and Files share one navigation system.
+- Workflow home with a real saved-campaign resume action, plus the Plan → Test → Learn map and a worked-example entry point.
+- Three-part guided brief with field-level corrections, review summary and access to every complete form. The seven stages remain in the round outline.
+- Candidate comparison beside the selected measurement, with actual raw traces, fitting times, technical variation, stock identity and explicit confirmation status. Plate controls, provenance and all exports remain available.
+- Explicit source-time selection and inspectable time conversion during import. Prior analyses are retained through the same settings-review and worker pipeline.
+- Chapter-based handbook reading, chapter search, contextual return to the selected record, and a Files page for backups, recovery, reports and templates.
+- Record URLs retain campaign, round, analysis, plate, well, filter and brief position. Page navigation waits for saves; during an active import, other pages open alongside the staged workspace.
+- Existing calculation engine, record schema, migration and revision safeguards are retained. No new runtime service or dependency.
+
 # Evozyme 1.2.0 — guided setup and CSV importing
 
 9 September 2026

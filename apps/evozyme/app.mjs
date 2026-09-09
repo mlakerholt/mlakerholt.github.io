@@ -1,3 +1,4 @@
+import {readRoute,rememberContext,syncNavigation} from './desk.mjs';
 import{budget,equipmentTotal,confirmationSummary,validateAssay}from'./core.mjs';
 import{parseCSV,toCSV,download,readFile,fingerprint,saveCampaign,loadCampaign,listCampaigns,getActive,setActive,validateBackup,safeName,MAX_IMPORT_BYTES}from'./io.mjs';
 import{newCampaign,nextRound,activeRound,assayConfig,stages,uid,configurations}from'./data.mjs';
@@ -6,7 +7,7 @@ import{screenView,selectedAnalysis}from'./screen.mjs';
 import{reviewView,reportHTML,confirmationReady}from'./review.mjs';
 import{e,num,date}from'./ui.mjs';
 import{newRecipe,sourceRows,suggestColumns,transform,canonicalFiles,previewIssues,assignWells,wellID}from'./importer.mjs';
-import{setupView,setupPaths}from'./guidance.mjs';
+import{setupView,setupPaths,setupIssues}from'./guidance.mjs';
 import{SaveConflict,saveDraft,listDrafts,removeDraft,loadLegacyCampaign}from'./storage.mjs';
 import{configKey,hasReviewed,workflowIssues,analysisIssues}from'./workflow.mjs';
 import{issueList,controlProposal}from'./workflow-ui.mjs';
@@ -18,29 +19,36 @@ const draftKey=id=>id+':'+tabId;
 function saveAlert(){const p=saveProblem;$('#save-alert').innerHTML=p?`<div class="callout warning"><strong>${p.kind==='conflict'?'Newer saved version found':'Save needs attention'}</strong><p>${e(p.message)}</p>${p.draftSaved?'<p>A recovery copy of this draft is retained in this browser.</p>':''}${booting?'':`<div class="actions"><button data-action="draft-export">Export this draft</button><button data-action="save-copy">Save as separate campaign</button>${p.kind==='conflict'?'<button data-action="load-latest">Load latest saved version</button>':'<button data-action="retry-save">Retry saving</button>'}</div>`}</div>`:'';}
 window.addEventListener('evozyme-storage',({detail})=>{if(detail.kind!=='ready'){saveProblem={kind:detail.kind,message:detail.message};saveAlert();}else if(booting){saveProblem=null;saveAlert();}});
 if(channel)channel.onmessage=({data})=>{if(data.id===campaign.id&&data.revision>(revisions.get(campaign.id)??campaign.revision)){saveProblem={kind:'conflict',message:'Another tab saved changes. Keep this draft separately or load the latest saved version.'};saveAlert();}};
-const ui={pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false};
+const ui={pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false,setupStep:1,setupErrors:[]};
 const round=()=>activeRound(campaign);
 const views=[campaignView,assayView,equipmentView,libraryView,budgetView,screenView,reviewView];
 const notice=(message,kind='info')=>{$('#notice').innerHTML=message?`<div class="callout ${kind}">${e(message)}</div>`:'';};
+function remember(){if(booting)return;const r=round(),run=selectedAnalysis(r,ui);if(run){ui.analysisId=run.id;if(!run.result.quality[ui.plate])ui.plate=Object.keys(run.result.quality)[0];const wells=run.result.wells.filter(w=>w.plate_id===ui.plate);if(!wells.some(w=>w.well===ui.well))ui.well=(wells.find(w=>w.clone_id===run.result.candidates.find(x=>x.plate_id===ui.plate)?.clone_id)||wells[0])?.well;ui.clone=wells.find(w=>w.well===ui.well)?.clone_id||'';}else{ui.analysisId=null;ui.plate=null;ui.well=null;ui.clone='';}const url=rememberContext(campaign,r,ui,stages[stage].toLowerCase());history.replaceState(null,'',url);syncNavigation();}
+function restoreRoute(){const p=readRoute(location.search),r=round();for(const [key,value]of Object.entries({analysisId:p.analysis,plate:p.plate,well:p.well,filter:p.filter,search:p.search}))if(value!==undefined)ui[key]=value;ui.setupStep=[1,2,3].includes(Number(p.brief))?Number(p.brief):1;if(ui.analysisId&&!r.analyses.some(a=>a.id===ui.analysisId)){ui.analysisId=null;ui.plate=null;ui.well=null;notice('That analysis is unavailable in this campaign. Showing the latest retained analysis.','warning');}if(ui.plate){const run=selectedAnalysis(r,ui);if(run&&!run.result.quality[ui.plate]){notice('That plate is unavailable. Showing the first retained plate.','warning');ui.plate=null;ui.well=null;}else if(run&&ui.well&&!run.result.wells.some(w=>w.plate_id===ui.plate&&w.well===ui.well)){notice('That well is unavailable. Choose a retained measurement.','warning');ui.well=null;}}}
+function importFailure(err){if(!ui.pending){notice(err.message,'error');return;}ui.importError=err.message;render();const box=$('#import-error');box?.focus();box?.scrollIntoView({block:'center'});}
+function showSetupErrors(){for(const x of ui.setupErrors){const input=document.getElementById('f-'+x.path.replaceAll('.','-'));if(!input)continue;input.setAttribute('aria-invalid','true');const id=input.id+'-error';input.setAttribute('aria-describedby',[input.getAttribute('aria-describedby'),id].filter(Boolean).join(' '));input.insertAdjacentHTML('afterend',`<p class="field-error" id="${id}">${e(x.message)}</p>`);}}
 function renderSummary(){
   const r=round();let b=null;try{b=budget(r.budget);}catch{}
   const missing=workflowIssues(r);
   $('#summary').innerHTML=`<section class="panel"><h3>Campaign summary</h3><dl class="summary-list"><dt>Campaign</dt><dd>${e(campaign.name)}</dd><dt>Parent</dt><dd>${e(r.brief.parent||'Not defined')}</dd><dt>Round</dt><dd>${r.number} of ${campaign.rounds.length}</dd><dt>Primary slots</dt><dd>${num(b?.slots,0)}</dd><dt>Expected usable</dt><dd>${num(b?.usable,1)}</dd><dt>Round cost</dt><dd>${num(b?.total)} ${e(campaign.currency)}</dd><dt>Saved analyses</dt><dd>${r.analyses.length}</dd></dl></section><section class="panel"><h3>Next useful actions</h3>${issueList(r,stages[stage].toLowerCase())}<details><summary>Checks across all stages</summary>${issueList(r)}</details><small>Record completeness does not establish experimental validity.</small></section><section class="panel"><h3>Keep a second copy</h3><p>${storageOK&&!saveProblem?'Browser copy available.':'Browser save needs attention.'} Export a backup after important changes.</p><small>Last export: ${e(date(campaign.lastExportAt))}<br>Restore check: ${e(date(campaign.restorationCheckedAt))}</small><div class="actions"><button type="button" data-action="export">Export backup</button><button type="button" data-action="recovery">Recovery drafts</button></div><a href="guide/index.html">Handbook &amp; worked examples →</a></section>`;
-  if(stage===5){const run=selectedAnalysis(r,ui);if(run){const plate=ui.plate&&run.result.quality[ui.plate]?ui.plate:Object.keys(run.result.quality)[0],w=run.result.wells.find(x=>x.plate_id===plate&&x.well===ui.well)||run.result.wells.find(x=>x.plate_id===plate&&x.clone_id===run.result.candidates[0]?.clone_id);$('#summary').insertAdjacentHTML('afterbegin',`<section class="panel"><h3>Selected measurement</h3><dl class="summary-list"><dt>Plate</dt><dd>${e(plate)}</dd><dt>Well</dt><dd>${e(w?.well||'Choose a well')}</dd><dt>Clone</dt><dd>${e(w?.clone_id||w?.sample_type||'')}</dd><dt>Preparation</dt><dd class="wide">${e(w?.prep_id||'Control')}</dd><dt>Stock</dt><dd class="wide">${e(w?.stock_location||'Not applicable')}</dd></dl></section>`);}}
   $('#origin-label').textContent=campaign.origin==='synthetic'?'Synthetic teaching campaign · no laboratory experiment':'Your campaign · local browser data';
 }
 function render({focus=false}={}){
   const expansion=new Map([...document.querySelectorAll('#stage details')].map(d=>[d.querySelector('summary')?.textContent,d.open]));
   stage=Math.max(0,stages.findIndex(s=>location.hash==='#'+s.toLowerCase()));
-  $('#steps').innerHTML=stages.map((s,i)=>`<a href="#${s.toLowerCase()}" ${i===stage?'aria-current="step"':''}><span>${i+1}</span>${s}</a>`).join('');
+  $('#steps').innerHTML='<p class="eyebrow">Round outline</p>'+stages.map((s,i)=>`${i===0?'<span class="step-group">Plan</span>':i===5?'<span class="step-group">Test</span>':i===6?'<span class="step-group">Learn</span>':''}<a href="#${s.toLowerCase()}" ${i===stage?'aria-current="step"':''}><span>${i+1}</span>${s}</a>`).join('');
   document.body.classList.toggle('stage-wide',stage>=5);
+  document.title=(stage===5?'Screening':stages[stage])+' — Evozyme';
+  for(const link of document.querySelectorAll('.destinations a')){if(link.dataset.destination===(stage>=5?'Screening':'Campaign'))link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');}
+  $('#campaign-context').innerHTML=`<div><strong>${e(campaign.name)}</strong><p>Round ${round().number} · Reference <span class="code">${e(round().brief.parentCloneId)}</span> · ${e(round().brief.metric||'Metric to define')}</p></div><a href="guide/index.html#${stage===5?'screen-example':stage===6?'progression':'campaign'}">Help with this stage →</a>`;
   try{$('#stage').innerHTML=views[stage](campaign,round(),ui);}catch(err){$('#stage').innerHTML=`<h2 id="stage-title">Unable to display this record</h2><p>${e(err.message)}</p><button data-action="export">Export backup</button>`;}
-  applyGuidedView();
+  applyGuidedView();showSetupErrors();
+  if(ui.pending?.step===1&&!ui.pending.recipe.timeUnit){const input=$('#import-timeUnit'),hint=$('#import-timeUnit-hint');if(input&&hint){input.after(hint);input.setAttribute('aria-describedby',hint.id);if(ui.importError)input.setAttribute('aria-invalid','true');}}
   if(lastRenderedStage===stage)for(const d of document.querySelectorAll('#stage details')){const key=d.querySelector('summary')?.textContent;if(expansion.has(key))d.open=expansion.get(key);}
   lastRenderedStage=stage;
   $('#stage-count').textContent=`Stage ${stage+1} of 7`;$('#previous').disabled=stage===0;$('#next').disabled=stage===6;renderSummary();if(focus)$('#stage').focus();
   if(ui.analyzing||booting)document.querySelectorAll('#stage input,#stage select,#stage textarea,#stage button').forEach(input=>input.disabled=true);
-  if(booting)document.querySelectorAll('.toolbar button,.toolbar input').forEach(input=>input.disabled=true);saveAlert();
+  if(booting)document.querySelectorAll('.toolbar button,.toolbar input').forEach(input=>input.disabled=true);saveAlert();remember();
 }
 function applyGuidedView(){
   const node=$('#stage');
@@ -48,7 +56,7 @@ function applyGuidedView(){
     if(stage===0){
       node.querySelector('.stage-heading')?.remove();
       for(const path of setupPaths)node.querySelector(`[data-field="${path}"]`)?.closest('label')?.remove();
-      const more=node.innerHTML;node.innerHTML=setupView(campaign,round())+'<details><summary>More campaign details and later documentation</summary>'+more+'</details>';
+      const more=node.innerHTML;node.innerHTML=setupView(campaign,round(),ui)+'<details><summary>More campaign details and later documentation</summary>'+more+'</details>';
     }else{
       const collapse={1:['Linear-rate analysis','Minimum control and replicate counts'],3:['Sampling model'],4:['Recurring costs and time'],6:['Round history','Planned versus observed']};
       for(const group of [...node.querySelectorAll(':scope > fieldset')])if((collapse[stage]||[]).includes(group.querySelector('legend')?.textContent)){const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent=group.querySelector('legend').textContent;group.before(details);details.append(summary,group);}
@@ -86,7 +94,7 @@ async function ensureSaved(){if(!await persist())throw new Error('Keep or recove
 async function switchCampaign(c){await ensureSaved();campaign=c;revisions.set(c.id,c.revision??0);resetUI();dirty=true;editSerial++;await persist();location.hash='#campaign';render();}
 async function separateCopy(source=campaign){if(source!==campaign)await ensureSaved();const original=source.id,copy=structuredClone(source);copy.id=uid();copy.name+=' · recovered copy';copy.revision=0;copy.createdAt=new Date().toISOString();copy.updatedAt=copy.createdAt;copy.copiedFrom=original;campaign=copy;saveProblem=null;revisions.set(copy.id,0);resetUI();dirty=true;editSerial++;if(await persist()){await removeDraft(draftKey(original)).catch(()=>{});notice('Saved as a separate campaign. The earlier saved version is preserved.');}render();}
 async function acknowledge(config){validateAssay(config);const key=configKey(config);return{key,sha256:await fingerprint(key),reviewedAt:new Date().toISOString()};}
-function resetUI(){Object.assign(ui,{pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false});}
+function resetUI(){history.replaceState(null,'',location.pathname+location.hash);Object.assign(ui,{pending:null,importError:'',analysisId:null,plate:null,well:null,filter:'all',search:'',analyzing:false,setupStep:1,setupErrors:[]});}
 function showDialog(content){$('#dialog-body').innerHTML=content;if(!$('#dialog').open)$('#dialog').showModal();}
 function closeDialog(){$('#dialog').close();}
 function requireIdle(){if(booting)throw new Error('Wait for saved records to load.');if(saveProblem)throw new Error('Resolve the save message before changing records. Your draft remains available to export.');if(ui.analyzing)throw new Error('Wait for the current analysis to finish before changing campaigns or rounds.');}
@@ -103,7 +111,9 @@ async function applyField(input){
   if(path==='brief.parentCloneId'&&!round().analyses.length){if(round().assay.reference_parent_id===previous){round().assay.reference_parent_id=value;round().assay.rulesReviewed=false;round().assay.reviewRecord=null;}if(round().review.parentCloneId===previous)round().review.parentCloneId=value;}
   if(path.startsWith('assay.')){round().assay.rulesReviewed=false;round().assay.reviewRecord=null;const checkbox=document.querySelector('[data-field="assay.rulesReviewed"]');if(checkbox)checkbox.checked=false;}
   if(path.startsWith('confirmation.')||['review.parentCloneId','review.normalization','review.referenceReason'].includes(path)){for(const ev of round().evidence)if(ev.decision==='confirmed')ev.decision='pending';}
-  if(path.startsWith('evidence.')&&key!=='decision'&&parent.decision==='confirmed'&&!confirmationReady(round(),parent.clone_id))parent.decision='pending';changed();refreshDerived();
+  if(path.startsWith('evidence.')&&key!=='decision'&&parent.decision==='confirmed'&&!confirmationReady(round(),parent.clone_id))parent.decision='pending';
+  if(ui.setupErrors.some(x=>x.path===path)&&String(value||'').trim()){ui.setupErrors=ui.setupErrors.filter(x=>x.path!==path);input.removeAttribute('aria-invalid');document.getElementById(input.id+'-error')?.remove();}
+  changed();refreshDerived();
 }
 function refreshDerived(){if(![1,2,3,4,6].includes(stage))return;const container=document.createElement('div');container.innerHTML=views[stage](campaign,round(),ui);for(const id of['calculator-output','confirmation-output','equipment-output','stage-checks','criteria-output']){const existing=document.getElementById(id),fresh=container.querySelector('#'+id);if(existing&&fresh)existing.innerHTML=fresh.innerHTML;}}
 document.addEventListener('input',async event=>{if(event.target.dataset.import){try{updateImport(event.target);}catch(err){notice(err.message,'error');}return;}if(event.target.dataset.field&&event.target.type!=='checkbox'&&event.target.tagName!=='SELECT'){try{await applyField(event.target);}catch(err){notice(err.message,'error');render();}}});
@@ -121,13 +131,13 @@ document.addEventListener('change',async event=>{const t=event.target;try{
 }catch(err){notice(err.message,'error');}});
 $('#previous').onclick=()=>{if(stage>0)location.hash=stages[stage-1].toLowerCase();};$('#next').onclick=()=>{if(stage<6)location.hash=stages[stage+1].toLowerCase();};$('#close-dialog').onclick=closeDialog;
 window.addEventListener('hashchange',()=>render({focus:true}));
-document.addEventListener('click',event=>{const link=event.target.closest('[data-go-field]');if(link){event.preventDefault();location.hash=link.getAttribute('href');render();const field=document.querySelector(`[data-field="${link.dataset.goField}"]`);if(field){for(let p=field.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;field.focus();field.scrollIntoView({block:'center'});}}});window.addEventListener('beforeunload',event=>{if(dirty||ui.analyzing||!storageOK){event.preventDefault();event.returnValue='';}});
+document.addEventListener('click',event=>{const link=event.target.closest('[data-go-field]');if(link){event.preventDefault();if(setupPaths.includes(link.dataset.goField))ui.setupStep=['brief.metric','brief.units','brief.conditions'].includes(link.dataset.goField)?2:1;history.pushState(null,'',location.search+link.getAttribute('href'));render();const field=document.querySelector(`[data-field="${link.dataset.goField}"]`);if(field){for(let p=field.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;field.focus();field.scrollIntoView({block:'center'});}}});window.addEventListener('beforeunload',event=>{if(dirty||ui.analyzing||ui.pending||!storageOK){event.preventDefault();event.returnValue='';}});
 async function recordFile(file){const text=await readFile(file);return{name:file.name,text,bytes:file.size,sha256:await fingerprint(text),importedAt:new Date().toISOString()};}
 function configToAssay(cfg,base){cfg={...cfg,reference_parent_id:cfg.reference_parent_id??base.reference_parent_id};validateAssay({...cfg,signal_floor:cfg.signal_floor??null});const a={...base};for(const key of Object.keys(assayConfig(base)))if(key!=='fit_times_s'&&Object.hasOwn(cfg,key))a[key]=cfg[key];a.signal_floor=cfg.signal_floor??null;a.fit_times=cfg.fit_times_s.join(', ');a.rulesReviewed=false;a.reviewRecord=null;return a;}
 function updateImport(t){
   const p=ui.pending;if(!p)return;const parts=t.dataset.import.split('.');let parent=parts[0]==='editor'?p:p.recipe;
   for(const key of parts.slice(0,-1)){if(!Object.hasOwn(parent,key))throw new Error('Unknown mapping field.');parent=parent[key];}
-  parent[parts.at(-1)]=t.value;p.reviewRecord=null;
+  parent[parts.at(-1)]=t.value;p.reviewRecord=null;ui.importError='';
   if(parts[0]==='sources'&&['role','delimiter'].includes(parts.at(-1))){const source=p.recipe.sources[Number(parts[1])];try{const keys=Object.keys(sourceRows(p.originals.find(o=>o.name===source.name),source.delimiter)[0]||{});source.columns=suggestColumns(keys,source.role);}catch{source.columns={};}}
   if(t.tagName==='SELECT'){render();document.querySelector(`[data-import="${t.dataset.import}"]`)?.focus();}
 }
@@ -136,10 +146,11 @@ async function stageScreenFiles(fileList){
   if(files.reduce((n,f)=>n+f.size,0)>MAX_IMPORT_BYTES)throw new Error('Combined screen import exceeds 10 MB. Split it into smaller independent plate batches.');
   const names=new Set();for(const f of files){if(names.has(f.name))throw new Error('Duplicate filename: '+f.name);names.add(f.name);if(!/\.(csv|json)$/i.test(f.name))throw new Error('Choose CSV exports and optional settings JSON.');}
   const originals=await Promise.all(files.map(recordFile)),config=assayConfig(round().assay);
-  ui.pending={originals,recipe:newRecipe(originals,config),config,reviewRecord:null,step:1,mapped:null,editor:{plate:'',wells:'',sample_type:'candidate',clone_id:'',prep_id:'',stock_location:''}};ui.importError='';render();
+  ui.pending={originals,recipe:newRecipe(originals,config),config,reviewRecord:null,step:1,mapped:null,editor:{plate:'',wells:'',sample_type:'candidate',clone_id:'',prep_id:'',stock_location:''}};ui.pending.recipe.timeUnit='';ui.importError='';render();
 }
 async function previewMapping(){
   const p=ui.pending;if(!p)return;
+  if(!p.recipe.timeUnit)throw new Error('Choose the time unit used by the source file.');
   const settings=p.recipe.sources.filter(s=>s.role==='settings');if(settings.length>1)throw new Error('Assign at most one settings JSON file.');
   const config=settings.length?assayConfig(configToAssay(JSON.parse(p.originals.find(o=>o.name===settings[0].name).text),round().assay)):assayConfig(round().assay);validateAssay(config);
   const issues=analysisIssues(round(),config);if(issues.length)throw new Error(issues.map(x=>x.message).join(' '));
@@ -194,6 +205,8 @@ const exportCSV=(name,rows,headers)=>download(name,toCSV(rows,headers),'text/csv
 async function action(name,button){
   const r=round(),run=selectedAnalysis(r,ui);notice('');
   switch(name){
+    case'brief-next':{ui.setupErrors=setupIssues(campaign,r,ui.setupStep);if(!ui.setupErrors.length)ui.setupStep=Math.min(3,ui.setupStep+1);render({focus:true});if(ui.setupErrors.length)document.getElementById('f-'+ui.setupErrors[0].path.replaceAll('.','-'))?.focus();break;}
+    case'brief-back':ui.setupStep=Math.max(1,ui.setupStep-1);ui.setupErrors=[];render({focus:true});break;
     case'toggle-view':campaign.guided=!campaign.guided;changed();render();break;
     case'restore-check':restoreAsCopy=true;$('#backup-input').click();break;
     case'map-preview':await previewMapping();break;
@@ -241,8 +254,8 @@ async function action(name,button){
     case'analyze':await analyzeFiles();break;
     case'reanalyze':await analyzeFiles(true);break;
     case'cancel-import':ui.pending=null;ui.importError='';render();break;
-    case'well':ui.well=button.dataset.well;ui.plate=button.dataset.plate;render();document.querySelector('.plate .selected')?.focus();break;
-    case'clone':ui.plate=button.dataset.plate;ui.well=run.result.wells.find(w=>w.clone_id===button.dataset.clone&&w.plate_id===ui.plate)?.well;render();document.querySelector('.plate .selected')?.scrollIntoView({block:'center'});break;
+    case'well':ui.well=button.dataset.well;ui.plate=button.dataset.plate;render();$('#clone-inspector')?.focus();$('#clone-inspector')?.scrollIntoView({block:'nearest'});break;
+    case'clone':ui.plate=button.dataset.plate;ui.well=run.result.wells.find(w=>w.clone_id===button.dataset.clone&&w.plate_id===ui.plate)?.well;render();$('#clone-inspector')?.focus();$('#clone-inspector')?.scrollIntoView({block:'nearest'});break;
     case'candidates-csv':exportCSV('candidates.csv',run.result.candidates);break;
     case'wells-csv':exportCSV('well-results.csv',run.result.wells.map(w=>({...w,flags:w.flags.join(';')})),['plate_id','well','clone_id','prep_id','technical_rep','sample_type','raw_slope_per_min','r2','corrected_rate_per_min','flags','stock_location']);break;
     case'quality-json':download('quality.json',JSON.stringify({engineVersion:run.result.engineVersion,config:run.result.config,plates:run.result.quality,mappingRecipe:run.importProvenance?.recipe,originalExports:run.importProvenance?.originals.map(({text,...meta})=>meta),provenance:Object.values(run.inputFiles).map(({text,...meta})=>meta)},null,2),'application/json');break;
@@ -257,13 +270,26 @@ async function action(name,button){
     case'next-round':{requireIdle();if(!r.review.action||r.review.action==='stop'||!r.review.rationale.trim())throw new Error('Choose an action other than stop and record its rationale before starting the next round.');const clone=r.review.chosenClone.trim();if(!clone)throw new Error('Enter the selected parent clone ID.');if(clone!==r.brief.parentCloneId&&(!confirmationReady(r,clone)||r.evidence.find(e=>e.clone_id===clone)?.decision!=='confirmed'))throw new Error('Select a confirmed candidate, or the current parent to continue its lineage.');nextRound(campaign,clone);resetUI();changed();location.hash='#campaign';render();notice('Linked next round created. Enter its new run ID and review the assay rules before screening.');break;}
   }
 }
-document.addEventListener('click',event=>{const button=event.target.closest('[data-action]');if(button){event.preventDefault();action(button.dataset.action,button).catch(err=>notice(err.message,'error'));}});
+document.addEventListener('click',event=>{const button=event.target.closest('[data-action]');if(button){event.preventDefault();action(button.dataset.action,button).catch(err=>ui.pending&&['map-preview','validate-import','analyze','assign-wells','remove-map-wells','apply-preset'].includes(button.dataset.action)?importFailure(err):notice(err.message,'error'));}});
+document.addEventListener('click',event=>{
+ const focus=event.target.closest('[data-focus-field]');if(focus){event.preventDefault();document.getElementById('f-'+focus.dataset.focusField.replaceAll('.','-'))?.focus();return;}
+ const correction=event.target.closest('[data-import-focus]');if(correction){event.preventDefault();document.getElementById(correction.dataset.importFocus)?.focus();return;}
+ const link=event.target.closest('a[href]');if(!link||event.defaultPrevented||event.button||event.ctrlKey||event.metaKey||event.shiftKey||link.hasAttribute('download')||link.target==='_blank')return;
+ const url=new URL(link.href);if(url.origin!==location.origin||!url.pathname.includes('/evozyme/')||url.pathname===location.pathname)return;
+ event.preventDefault();if(ui.pending||ui.analyzing){window.open(url.href,'_blank','noopener');notice('Opened alongside this workspace. Your staged import remains here.');return;}
+ ensureSaved().then(()=>{remember();location.href=url.href;}).catch(err=>notice(err.message,'error'));
+});
+window.addEventListener('popstate',()=>{if(booting)return;restoreRoute();render({focus:true});});
 async function init(){
   render();$('#save-status').textContent='Loading saved records…';
-  try{const id=await getActive(),saved=id&&await loadCampaign(id);if(saved){campaign=validateBackup(saved);revisions.set(campaign.id,saved.revision??0);}
+  const requested=readRoute(location.search);const startupAction=new URLSearchParams(location.search).get('action');
+  try{let id=requested.campaign||await getActive(),saved=id&&await loadCampaign(id);if(requested.campaign&&!saved){notice('The linked campaign is not stored in this browser. Restore its backup or open a saved campaign.','warning');id=await getActive();saved=id&&await loadCampaign(id);}if(saved){campaign=validateBackup(saved);revisions.set(campaign.id,saved.revision??0);}
     $('#save-status').textContent=saved?'Restored from this browser':'New campaign · saves in this browser';
   }catch(err){storageOK=false;saveProblem={kind:'storage',message:err.name==='VersionError'?'This tab is older than the stored records. Export any draft and reload the application.':err.message||'Browser storage unavailable — export backups to keep your work.'};$('#save-status').textContent='Browser storage needs attention.';}
-  booting=false;document.querySelectorAll('.toolbar button,.toolbar input').forEach(input=>input.disabled=false);render();registerTools();
+  if(requested.round&&campaign.rounds.some(r=>r.id===requested.round)){if(campaign.activeRoundId!==requested.round){campaign.activeRoundId=requested.round;dirty=true;editSerial++;}}else if(requested.round)notice('The linked round is unavailable. Showing the active round.','warning');restoreRoute();
+  booting=false;document.querySelectorAll('.toolbar button,.toolbar input').forEach(input=>input.disabled=false);render();registerTools();if(dirty)await persist();if(!saveProblem&&revisions.has(campaign.id))await setActive(campaign.id);
+  if(startupAction==='restore-check'){showDialog('<h2>Check a backup</h2><p>Choose a campaign backup. Its records and fingerprints will be checked before restoring it as a separate campaign.</p><button class="primary" id="choose-backup">Choose backup file</button>');$('#choose-backup').onclick=()=>{closeDialog();action('restore-check').catch(err=>notice(err.message,'error'));};}
+  else if(['demo','export','saved','recovery','print'].includes(startupAction))await action(startupAction).catch(err=>notice(err.message,'error'));
 }
 function registerTools(){
   if(!document.modelContext?.registerTool)return;const lifecycle=new AbortController();window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});

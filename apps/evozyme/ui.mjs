@@ -5,10 +5,10 @@ export const pct=(v,d=1)=>typeof v==='number'&&Number.isFinite(v)?num(v*100,d)+'
 export const get=(obj,path)=>path.split('.').reduce((a,k)=>a?.[k],obj);
 export const field=(obj,path,label,{type='text',hint='',step='any',options=null,wide=false,placeholder='',min=null,max=null}={})=>{
   const value=get(obj,path),id='f-'+path.replaceAll('.','-');let input;
-  if(options)input=`<select id="${id}" data-field="${e(path)}">${options.map(o=>{const[v,t]=Array.isArray(o)?o:[o,o];return`<option value="${e(v)}" ${String(value)===String(v)?'selected':''}>${e(t)}</option>`;}).join('')}</select>`;
-  else if(type==='textarea')input=`<textarea id="${id}" data-field="${e(path)}" rows="3" placeholder="${e(placeholder)}">${e(value)}</textarea>`;
-  else input=`<input id="${id}" data-field="${e(path)}" type="${type}" value="${e(value)}" ${type==='number'?`step="${step}" ${min!==null?`min="${min}"`:''} ${max!==null?`max="${max}"`:''}`:''} placeholder="${e(placeholder)}">`;
-  return`<label class="field ${wide?'wide':''}" for="${id}"><span>${e(label)}</span>${input}${hint?`<small>${e(hint)}</small>`:''}</label>`;
+  if(options)input=`<select id="${id}" ${hint?`aria-describedby="${id}-hint"`:""} data-field="${e(path)}">${options.map(o=>{const[v,t]=Array.isArray(o)?o:[o,o];return`<option value="${e(v)}" ${String(value)===String(v)?'selected':''}>${e(t)}</option>`;}).join('')}</select>`;
+  else if(type==='textarea')input=`<textarea id="${id}" ${hint?`aria-describedby="${id}-hint"`:""} data-field="${e(path)}" rows="3" placeholder="${e(placeholder)}">${e(value)}</textarea>`;
+  else input=`<input id="${id}" ${hint?`aria-describedby="${id}-hint"`:""} data-field="${e(path)}" type="${type}" value="${e(value)}" ${type==='number'?`step="${step}" ${min!==null?`min="${min}"`:''} ${max!==null?`max="${max}"`:''}`:''} placeholder="${e(placeholder)}">`;
+  return`<label class="field ${wide?'wide':''}" for="${id}"><span>${e(label)}</span>${input}${hint?`<small id="${id}-hint">${e(hint)}</small>`:''}</label>`;
 };
 export const check=(obj,path,label)=>`<label class="check"><input type="checkbox" data-field="${e(path)}" ${get(obj,path)?'checked':''}><span>${e(label)}</span></label>`;
 export const heading=(n,title,text)=>`<div class="stage-heading"><p class="eyebrow">Stage ${n}</p><h2 id="stage-title">${e(title)}</h2><p>${e(text)}</p></div>`;

@@ -1,8 +1,8 @@
 # Evozyme — Directed Evolution Planner
 
-A static browser application for campaign planning, equipment and software access, library coverage, operating costs, primary-screen review, independent confirmation records, and linked rounds. Matches the website's green-and-white retro style.
+A static browser application for campaign planning, equipment and software access, library coverage, operating costs, primary-screen review, independent confirmation records, and linked rounds. Uses the Research Desk design: warm paper, forest accents, editorial serif headings and light/dark appearances.
 
-Opening `/apps/evozyme/` shows the graphical mental map: Plan → Test → Learn, with links to all seven app stages, laboratory work, quality checks, and the next-round loop. The planner is at `planner.html`; existing bookmarks such as `/#screen` continue to open that stage. The overview remains available at `overview.html`, works without JavaScript, adapts to narrow screens, and includes a landscape print layout.
+Opening `/apps/evozyme/` shows the graphical mental map: Plan → Test → Learn, with links to all seven app stages, laboratory work, quality checks, and the next-round loop. The planner is at `planner.html`; existing bookmarks such as `/#screen` continue to open that stage. The overview remains available at `overview.html`, works without JavaScript, adapts to narrow screens, and includes a print layout.
 
 Open the app through an HTTP server at `/apps/evozyme/`. The planner's ES modules and workers require HTTP(S); opening the planner file directly is not supported. Production uses the existing GitHub Pages site. There are no runtime third-party dependencies, accounts, analysis API charges, or server data uploads.
 
@@ -12,8 +12,17 @@ Use Node.js 24 or a compatible supported Node release. Run `npm install`, `npm t
 
 The build checks module syntax, generates the searchable handbook, copies its downloads, and checks generated local links. In the Evozyme workspace it reads the original handbook, templates, toolkit, workbook, and presentation from the workspace root. In a standalone checkout it uses the retained `content/` sources and existing downloads. Edit the original Markdown in the workspace, or `content/` when working from the standalone site checkout; generated guide HTML should not be edited by hand.
 
+## Research Desk navigation
+
+Workflow is the default entry point. Campaign groups the five planning stages; Screening opens measurements and links to Review. The round outline always provides all seven stages. Files collects backups, restore/recovery, report and source-file destinations. Use Appearance to follow the system or choose light/dark.
+
+Campaign, round, run, plate, well, filter, search and guided-brief position are retained in record URLs. A session context restores the selected record after reading the handbook. These URLs refer to records stored in the current browser; sharing a URL does not transfer campaign data. Internal page navigation waits for a successful save. While an import is staged or analysis is running, another page opens alongside the original workspace to preserve those inputs.
+
+The handbook displays one chapter at a time, with full-chapter search results and stable existing chapter links. Without JavaScript it displays the full text. Existing record schema and numerical methods are unchanged.
+
 ## Structure
 
+- `desk.mjs`, `overview.mjs`, `handbook.mjs`, `files.html`: shared navigation/appearance, record context, resume view, chapter reading and file utilities.
 - `core.mjs`: pure coverage, budget, fitting, screening, and confirmation calculations.
 - `io.mjs`: CSV handling, backup validation, downloads, and file fingerprints.
 - `storage.mjs`, `migration.mjs`: atomic revision saves, recovery drafts and versioned record migration.
