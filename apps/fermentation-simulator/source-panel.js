@@ -2,6 +2,11 @@
   "use strict";
 
   const BUILD_ID = "2026-09-10.6";
+  const sourceStylesheet = document.createElement("link");
+  sourceStylesheet.rel = "stylesheet";
+  sourceStylesheet.href = `source-panel.css?v=${BUILD_ID}`;
+  document.head.appendChild(sourceStylesheet);
+
   const RECORDS_URL = `sources/source-records.payload?v=${BUILD_ID}`;
   const CAPTURE_DATE = "10 September 2026";
 
