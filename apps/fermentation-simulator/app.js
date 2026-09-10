@@ -1,9 +1,11 @@
 (() => {
   "use strict";
 
+  const BUILD_ID = "2026-09-10.2";
+
   const retroStylesheet = document.createElement("link");
   retroStylesheet.rel = "stylesheet";
-  retroStylesheet.href = "retro.css";
+  retroStylesheet.href = `retro.css?v=${BUILD_ID}`;
   document.head.appendChild(retroStylesheet);
 
   const modelStatus = document.querySelector(".hero-note");
@@ -34,7 +36,7 @@
   });
 
   const loadCompressedSource = async (filename) => {
-    const response = await fetch(filename, { cache: "no-cache" });
+    const response = await fetch(`${filename}?v=${BUILD_ID}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`Could not load ${filename}.`);
 
     const binary = atob((await response.text()).trim());
@@ -45,13 +47,51 @@
     return new Response(decompressedStream).text();
   };
 
-  const executeSource = async (source) => {
+  const executeSource = async (source, { replayDomReady = false } = {}) => {
     const sourceUrl = URL.createObjectURL(new Blob([source], { type: "text/javascript" }));
+    let originalAddEventListener = null;
+
+    // Extension bundles may register DOMContentLoaded after that event has
+    // already fired. Replay only newly registered DOM-ready callbacks while
+    // the bundle is being evaluated, without dispatching the event globally.
+    if (replayDomReady && document.readyState !== "loading") {
+      originalAddEventListener = document.addEventListener;
+      document.addEventListener = function addEventListenerWithDomReplay(type, listener, options) {
+        if (type === "DOMContentLoaded") {
+          queueMicrotask(() => {
+            const event = new Event("DOMContentLoaded");
+            if (typeof listener === "function") {
+              listener.call(document, event);
+            } else if (listener && typeof listener.handleEvent === "function") {
+              listener.handleEvent(event);
+            }
+          });
+          return;
+        }
+        return originalAddEventListener.call(this, type, listener, options);
+      };
+    }
+
     try {
       await loadScript(sourceUrl);
+      await Promise.resolve();
     } finally {
+      if (originalAddEventListener) {
+        document.addEventListener = originalAddEventListener;
+      }
       URL.revokeObjectURL(sourceUrl);
     }
+  };
+
+  const hasManufacturerSelector = () => Array.from(document.querySelectorAll("label"))
+    .some((label) => label.textContent.trim() === "Manufacturer");
+
+  const waitForManufacturerSelector = async () => {
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      if (hasManufacturerSelector()) return;
+      await new Promise((resolve) => setTimeout(resolve, 25));
+    }
+    throw new Error("The manufacturer vessel selector did not initialize.");
   };
 
   const loadSimulator = async () => {
@@ -64,7 +104,7 @@
     );
 
     const parts = await Promise.all(files.map(async (file) => {
-      const response = await fetch(file, { cache: "no-cache" });
+      const response = await fetch(`${file}?v=${BUILD_ID}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`Could not load ${file}.`);
       return (await response.text()).trim();
     }));
@@ -83,7 +123,10 @@
     }
 
     await executeSource(source.replace(startupHook, immediateStartup));
-    await executeSource(await loadCompressedSource("vessel-catalog.payload"));
+    await executeSource(await loadCompressedSource("vessel-catalog.payload"), { replayDomReady: true });
+    await waitForManufacturerSelector();
+
+    document.documentElement.dataset.fermentationBuild = BUILD_ID;
   };
 
   loadSimulator().catch(showLoadError);
