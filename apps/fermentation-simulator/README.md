@@ -4,7 +4,8 @@ Browser-only beta for configuring and simulating a well-mixed bacterial stirred-
 
 ## Included in beta 0.1
 
-- Editable laboratory, single-use and stainless-steel reactor archetypes
+- Manufacturer-filtered vessel catalogue covering Sartorius, Merck, Thermo Fisher Scientific, Cytiva and custom systems
+- Editable laboratory, single-use and stainless-steel reactor configurations
 - Vessel geometry, impeller, sparger, agitation, airflow and oxygen-enrichment limits
 - E. coli BL21(DE3), MG1655, W3110 and DH5α presets
 - Bacillus subtilis, Corynebacterium glutamicum, Pseudomonas putida and custom bacterial presets
@@ -14,6 +15,13 @@ Browser-only beta for configuring and simulating a well-mixed bacterial stirred-
 - Biomass, carbon substrate, product, acetate, oxygen-transfer and approximate pH-control balances
 - Equipment-constraint warnings, final-state report, JSON scenario export and CSV time-series export
 - Local browser storage; scenario information is not uploaded
+- One local source/provenance record per vessel preset, linked directly from the vessel selector
+
+## Vessel source records
+
+The `sources/` directory contains one locally authored evidence record for every vessel option. Each record preserves the preset values, identifies which values are directly supported versus derived or estimated, and links to the original official manufacturer documentation. Complete third-party manuals and webpages are not mirrored because they remain copyrighted by their publishers.
+
+A machine-readable copy of the evidence catalogue is stored locally in the compressed `sources/source-records.payload`, and `sources/index.html` provides a browsable index and individual record pages.
 
 ## Core model
 
@@ -55,3 +63,5 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 - `simulator.css` — responsive visual design
 - `app.js` — lightweight compressed-bundle loader
 - `app.payload.*` — compressed simulation source containing presets, state management, model, charts and exports
+- `vessel-catalog.payload` — compressed manufacturer/model selector and source-link integration
+- `sources/` — local evidence records and original manufacturer links for every vessel preset
