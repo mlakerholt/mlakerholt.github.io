@@ -146,3 +146,138 @@
     margin-top: 6px;
   }
 }
+
+/* Click-through derivations for estimated and assumed values. */
+.source-status-button {
+  min-height: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0;
+  padding: 3px 7px;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: normal;
+}
+
+.source-status-button:hover,
+.source-status-button:focus-visible {
+  filter: brightness(0.96);
+  outline: 1px dotted currentColor;
+  outline-offset: 2px;
+}
+
+.source-status-button:active {
+  border-style: inset;
+}
+
+.source-derivation-row > td {
+  background: #fffdf5;
+  padding: 0 !important;
+}
+
+.source-derivation-card {
+  border-left: 5px solid #6d3a00;
+  padding: 12px 14px;
+}
+
+.source-derivation-card h4 {
+  margin: 0 0 9px;
+  color: #1f5c2e;
+  font-size: 1rem;
+}
+
+.source-derivation-summary,
+.source-derivation-inputs {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.35fr) minmax(0, 1fr);
+  margin: 0 0 10px;
+  border: 1px solid #c4c8c4;
+}
+
+.source-derivation-summary dt,
+.source-derivation-summary dd,
+.source-derivation-inputs dt,
+.source-derivation-inputs dd {
+  margin: 0;
+  border-bottom: 1px solid #d7dad7;
+  padding: 5px 7px;
+}
+
+.source-derivation-summary dt,
+.source-derivation-inputs dt {
+  background: #eeeeee;
+  font-weight: 700;
+}
+
+.source-derivation-summary code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.source-derivation-subheading {
+  margin: 10px 0 4px;
+  font-weight: 700;
+}
+
+.source-derivation-card pre {
+  margin: 0 0 9px;
+  border: 1px solid #a3aca5;
+  background: #ffffff;
+  padding: 8px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.source-derivation-card p {
+  margin: 7px 0;
+}
+
+.source-verification-note {
+  border-top: 1px dotted #6d3a00;
+  padding-top: 7px;
+}
+
+@media (max-width: 650px) {
+  .source-derivation-summary,
+  .source-derivation-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .source-derivation-summary dt,
+  .source-derivation-inputs dt {
+    border-bottom: 0;
+  }
+}
+
+.vessel-source-toggle-row {
+  margin: 9px 0 0;
+}
+
+.vessel-source-toggle {
+  min-height: 30px;
+  border: 2px outset #d7d7d7;
+  border-radius: 0;
+  background: #eeeeee;
+  color: #111111;
+  padding: 5px 9px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.86rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.vessel-source-toggle:hover {
+  background: #ffffff;
+}
+
+.vessel-source-toggle:active {
+  border-style: inset;
+}
