@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Local source and provenance records for Fermentation Simulator vessel presets.">
   <title>Fermentation Simulator — vessel source records</title>
-  <link rel="stylesheet" href="source.css?v=2026-09-10.4">
+  <link rel="stylesheet" href="source.css?v=2026-09-10.5">
 </head>
 <body>
 <main>
@@ -20,7 +20,7 @@
 
   <section id="indexView" hidden>
     <h1>Vessel source records</h1>
-    <p class="notice">There is one local evidence record for every vessel option in the simulator. Each record preserves the preset values, distinguishes source-supported data from simulator-derived assumptions, and links to the original manufacturer documentation.</p>
+    <p class="notice">There is one local evidence record and one local PDF for every vessel option in the simulator. Each record preserves the preset values, distinguishes source-supported data from simulator-derived assumptions, and identifies the original manufacturer documentation.</p>
     <p><strong id="recordCount"></strong> · compiled 10 September 2026</p>
     <div id="manufacturerIndex"></div>
   </section>
@@ -28,12 +28,15 @@
   <article id="recordView" hidden>
     <h1 id="recordTitle"></h1>
     <p><span id="recordId" class="record-id"></span><span id="sourceStatus" class="status"></span></p>
-    <p class="notice"><strong>Local evidence record.</strong> This page preserves the factual preset values, provenance notes and links used by the simulator. It is not a mirror of the vendor's copyrighted webpage or manual; the linked official document remains the authoritative source.</p>
+    <p class="notice"><strong>Local evidence record.</strong> This page preserves the factual preset values and provenance notes used by the simulator. A local PDF source record is provided for offline review; the official manufacturer URLs listed below remain the authoritative original sources.</p>
 
     <h2>Preset summary</h2>
     <dl id="summary" class="summary"></dl>
 
-    <h2>Original manufacturer documentation</h2>
+    <h2>Local PDF documentation</h2>
+    <div id="localPdf"></div>
+
+    <h2>Original manufacturer references</h2>
     <div id="officialSources"></div>
 
     <h2>Evidence basis</h2>
@@ -48,12 +51,12 @@
     </table>
   </article>
 
-  <footer>These are locally authored factual records, not copies of complete vendor manuals or webpages. Vendor names and marks belong to their respective owners.</footer>
+  <footer>Each vessel has a locally stored PDF source record. Complete vendor manuals and webpages are not republished; vendor names and marks belong to their respective owners.</footer>
 </main>
 <script>
 (() => {
   "use strict";
-  const BUILD_ID = "2026-09-10.4";
+  const BUILD_ID = "2026-09-10.5";
   const $ = (id) => document.getElementById(id);
 
   const addSummary = (term, value) => {
@@ -85,7 +88,11 @@
           link.textContent = record.label;
           const material = document.createElement("small");
           material.textContent = ` — ${record.material}`;
-          item.append(link, material);
+          const pdfLink = document.createElement("a");
+          pdfLink.href = record.localPdf || `pdfs/${encodeURIComponent(record.id)}.pdf`;
+          pdfLink.textContent = " [PDF]";
+          pdfLink.title = `Open local PDF documentation for ${record.label}`;
+          item.append(link, material, pdfLink);
           list.appendChild(item);
         });
       host.append(heading, list);
@@ -105,6 +112,20 @@
     addSummary("Nominal vessel / bag size", formatVolume(record.nominalVolume));
     addSummary("Simulation profile", record.profile);
     addSummary("Record compiled", "10 September 2026");
+
+    const pdfHost = $("localPdf");
+    pdfHost.replaceChildren();
+    const pdfParagraph = document.createElement("p");
+    const pdfLink = document.createElement("a");
+    pdfLink.href = record.localPdf || `pdfs/${encodeURIComponent(record.id)}.pdf`;
+    pdfLink.target = "_blank";
+    pdfLink.rel = "noopener noreferrer";
+    pdfLink.textContent = "Open local PDF source documentation";
+    pdfParagraph.appendChild(pdfLink);
+    const pdfNote = document.createElement("small");
+    pdfNote.textContent = "The PDF is stored inside this GitHub Pages site and contains the evidence record plus clickable official manufacturer URLs.";
+    pdfParagraph.appendChild(pdfNote);
+    pdfHost.appendChild(pdfParagraph);
 
     const sourceHost = $("officialSources");
     sourceHost.replaceChildren();

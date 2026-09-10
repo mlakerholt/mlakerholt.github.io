@@ -7,3 +7,5 @@ This directory contains the local source and provenance library used by the Ferm
 - `source.css` provides the retro presentation layer.
 
 The records preserve cited preset facts, clearly identify simulator-derived values, and link to original manufacturer documentation. They do not republish complete third-party manuals or webpages.
+
+- `pdfs/` contains one local PDF source record per vessel preset plus a checksum manifest.

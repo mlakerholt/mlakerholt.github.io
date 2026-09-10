@@ -1,0 +1,758 @@
+[
+  {
+    "id": "sartorius-ambr-15",
+    "label": "Ambr® 15 Cell Culture — 10–15 mL working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-ambr-15.pdf",
+    "bytes": 2330,
+    "sha256": "f0e7f29bc6340c10209515bf94ce312fdaf3d835cb7c453e2811d5207b80dc7f",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/ambr-multi-parallel-bioreactors"
+    ]
+  },
+  {
+    "id": "sartorius-ambr-250",
+    "label": "Ambr® 250 Modular / High Throughput — 100–250 mL working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-ambr-250.pdf",
+    "bytes": 2368,
+    "sha256": "ee9ed8ad816aa1effbf6d61e2c59bfa6467854f3535292de216ada665ebf21ee",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/ambr-multi-parallel-bioreactors"
+    ]
+  },
+  {
+    "id": "sartorius-rm-1",
+    "label": "Biostat® RM with Flexsafe® RM 1 L bag — 0.1–0.5 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-1.pdf",
+    "bytes": 2379,
+    "sha256": "5d34623e8ab4ea4f9f5eb9165072e6b81969a2b9647a05bf94f666aef898172b",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-rm-2",
+    "label": "Biostat® RM with Flexsafe® RM 2 L bag — 0.2–1 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-2.pdf",
+    "bytes": 2376,
+    "sha256": "b03a42ba8d565230759f173f6bd92ed766ac7096fa38686ee8c349a998696b9c",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-glass-1",
+    "label": "Univessel® Glass 1 L — 1 L vessel",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-glass-1.pdf",
+    "bytes": 2634,
+    "sha256": "d13c1544abf9a0b8524d0483ba79c10c146fd34c2d44dc01899a9dc663f67947",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-glass",
+      "https://shop.sartorius.com/be/c/bioreacteurs"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-su-2",
+    "label": "Univessel® SU 2 L — 0.6–2 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-su-2.pdf",
+    "bytes": 2207,
+    "sha256": "6628a057e17b606808886b4ad586f3d7e444e6c9cad7b08d8ade7d6e9cfbc935",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-su"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-glass-2",
+    "label": "Univessel® Glass 2 L — 2 L vessel",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-glass-2.pdf",
+    "bytes": 2634,
+    "sha256": "2b60372db7137bd29b5cdd9e7e792180fade484115ef8104c6dfaa188521cb03",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-glass",
+      "https://shop.sartorius.com/be/c/bioreacteurs"
+    ]
+  },
+  {
+    "id": "sartorius-cplus-5",
+    "label": "Biostat® Cplus 5 L — reusable vessel (legacy)",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-cplus-5.pdf",
+    "bytes": 2249,
+    "sha256": "b71c2a0e8ff10e1338cfff3abcb3a4b28cbf7f0d3ee9e5a6fe72755e0f26180f",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/stainless-steel-bioreactors/biostat-cplus"
+    ]
+  },
+  {
+    "id": "sartorius-rm-10",
+    "label": "Biostat® RM with Flexsafe® RM 10 L bag — 1–5 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-10.pdf",
+    "bytes": 2363,
+    "sha256": "2dacf416d8dc005ee6c2e19fd87e567d1fce49cea01dc0cf5c2a451e24132b7d",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-glass-5",
+    "label": "Univessel® Glass 5 L — 5 L vessel",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-glass-5.pdf",
+    "bytes": 2633,
+    "sha256": "e7e179d7bb8310a982fa9c0c9cbd1c0f42207220bcd515f563db4e0137970f17",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-glass",
+      "https://shop.sartorius.com/be/c/bioreacteurs"
+    ]
+  },
+  {
+    "id": "sartorius-cplus-10",
+    "label": "Biostat® Cplus 10 L — reusable vessel (legacy)",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-cplus-10.pdf",
+    "bytes": 2253,
+    "sha256": "ff942f8008141ee6dbe1ad434ec33b256bd57d7c1bcf5ea4f129f95e71002c35",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/stainless-steel-bioreactors/biostat-cplus"
+    ]
+  },
+  {
+    "id": "sartorius-rm-20",
+    "label": "Biostat® RM with Flexsafe® RM 20 L bag — 2–10 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-20.pdf",
+    "bytes": 2374,
+    "sha256": "6de303e6eda604ace7680315b40f74d33c39688e750c6a270b89afdbf509ad21",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-glass-10",
+    "label": "Univessel® Glass 10 L — 10 L vessel",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-glass-10.pdf",
+    "bytes": 2631,
+    "sha256": "69a45cc53c8c9d377f4a9b688872b41cfe9159da286803078b434f81ff52a794",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-glass",
+      "https://shop.sartorius.com/be/c/bioreacteurs"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-su-10-essential",
+    "label": "Univessel® SU 10 L Essential — 2.5–10 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-su-10-essential.pdf",
+    "bytes": 2217,
+    "sha256": "9f01e7d0839e17bc4f16ccd5ba7b381c67461070ceeaa2a75a10f8759793bc86",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-su"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-su-10-perfusion",
+    "label": "Univessel® SU 10 L Perfusion — 2.5–10 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-su-10-perfusion.pdf",
+    "bytes": 2219,
+    "sha256": "adcb5c5930b3ee0bba476ab324cd71392189ce3604e8285a8322e2cd2643f5ee",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-su"
+    ]
+  },
+  {
+    "id": "sartorius-univessel-su-10-cell-therapy",
+    "label": "Univessel® SU 10 L Cell Therapy — 4.3–10 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-univessel-su-10-cell-therapy.pdf",
+    "bytes": 2225,
+    "sha256": "00b019c2cda492984973ce08d9e8b4f9669c96d0cc8fa0d18846cabd880d62ee",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/benchtop-bioreactors/univessel-su"
+    ]
+  },
+  {
+    "id": "sartorius-cplus-15",
+    "label": "Biostat® Cplus 15 L — reusable vessel (legacy)",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-cplus-15.pdf",
+    "bytes": 2253,
+    "sha256": "ff4fdb931b260423ddf670882959e13d1a62939424a9af86703477ff9e242246",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/stainless-steel-bioreactors/biostat-cplus"
+    ]
+  },
+  {
+    "id": "sartorius-cplus-20",
+    "label": "Biostat® Cplus 20 L — reusable vessel (legacy)",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-cplus-20.pdf",
+    "bytes": 2253,
+    "sha256": "ea43ebc60736cee404642ae043045596c99ed682a4b11ba59b38ba64042fa61d",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/stainless-steel-bioreactors/biostat-cplus"
+    ]
+  },
+  {
+    "id": "sartorius-rm-50",
+    "label": "Biostat® RM with Flexsafe® RM 50 L bag — 5–25 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-50.pdf",
+    "bytes": 2376,
+    "sha256": "113d3f43aeee99f3855c4f375eabc4e63f6d7152d2348e5096e1bebd4817b97f",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-cplus-30",
+    "label": "Biostat® Cplus 30 L — reusable vessel (legacy)",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-cplus-30.pdf",
+    "bytes": 2253,
+    "sha256": "b710d4038927d0f0e4e5c1081e76842dcc87ccb4ed950bbc48e8068b1bb3c254",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/stainless-steel-bioreactors/biostat-cplus"
+    ]
+  },
+  {
+    "id": "sartorius-str-microbial-50",
+    "label": "Biostat STR® Microbial 50 L — 11–40 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-str-microbial-50.pdf",
+    "bytes": 2331,
+    "sha256": "018cdb7694b7cead2b676bb0652e9bd0750d999c6e6a44ae8797ca26594db06c",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/microbial-bioreactors/biostat-str-microbial"
+    ]
+  },
+  {
+    "id": "sartorius-str-gen3-50",
+    "label": "Biostat STR® Generation 3 50 L — 12.5–50 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-str-gen3-50.pdf",
+    "bytes": 2835,
+    "sha256": "dc6eb49d87a59774f8209d443e24a3c025c1a00185e11084efff49a1151a54f2",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-str-generation-3",
+      "https://shop.sartorius.com/ee/p/flexsafe-str-bags--mammalian--opta-sft-connector--electrochemical-ph-optical-do--50-l/FRS304383"
+    ]
+  },
+  {
+    "id": "sartorius-rm-100",
+    "label": "Biostat® RM with Flexsafe® RM 100 L bag — 10–50 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-100.pdf",
+    "bytes": 2376,
+    "sha256": "d2ce73b0fbc337190c7f3f847de575800b7143faa3a5ca7d8d26f5b70ca7dc6c",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-rm-200",
+    "label": "Biostat® RM with Flexsafe® RM 200 L bag — 20–100 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-rm-200.pdf",
+    "bytes": 2376,
+    "sha256": "2690c6235b78da6cbc5f14f4c7646216d2d71ca1f2accdfeee5a7d04dc617c40",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-rm-flexsafe-rm"
+    ]
+  },
+  {
+    "id": "sartorius-d-dcu",
+    "label": "Biostat® D-DCU — 10–200 L reusable range (legacy)",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-d-dcu.pdf",
+    "bytes": 2228,
+    "sha256": "6db5da6cfa171323df43156f43ab810747f0d349026b096196696514cd287f27",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/stainless-steel-bioreactors/biostat-d-dcu"
+    ]
+  },
+  {
+    "id": "sartorius-str-gen3-200",
+    "label": "Biostat STR® Generation 3 200 L — 50–200 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-str-gen3-200.pdf",
+    "bytes": 2796,
+    "sha256": "e7335a5f226327d0b7a5a277a7522f44ae2764d7f8369137f2b65cec2d45a3c5",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-str-generation-3",
+      "https://shop.sartorius.com/it/p/flexsafe-str-bags--mammalian--opta-sft-connector--probe-ports--200-l/FRS132671"
+    ]
+  },
+  {
+    "id": "sartorius-str-gen3-500",
+    "label": "Biostat STR® Generation 3 500 L — 125–500 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-str-gen3-500.pdf",
+    "bytes": 2839,
+    "sha256": "96b42ee40fee278dc1736e9fe8c7137e7b09e270c11611a88fbae6cfe96fed3c",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-str-generation-3",
+      "https://shop.sartorius.com/ee/p/flexsafe-str-bags--mammalian--opta-sft-connector--electrochemical-ph-optical-do--500-l/FRS304385"
+    ]
+  },
+  {
+    "id": "sartorius-str-gen3-1000",
+    "label": "Biostat STR® Generation 3 1000 L — approximately 250–1000 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-str-gen3-1000.pdf",
+    "bytes": 2475,
+    "sha256": "172c7b26ddb582c8b76d0d867b57dc81a65657a416a5e78a06db39e3a17c1fba",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-str-generation-3"
+    ]
+  },
+  {
+    "id": "sartorius-str-gen3-2000",
+    "label": "Biostat STR® Generation 3 2000 L — 500–2000 L working volume",
+    "manufacturer": "Sartorius",
+    "file": "sartorius-str-gen3-2000.pdf",
+    "bytes": 2863,
+    "sha256": "364cbe8b98a4fb7f043a7faab32e2c6191dd92215cc36e3885a8e719a37c65a9",
+    "officialUrls": [
+      "https://www.sartorius.com/en/products/fermentation-bioreactors/single-use-bioreactors/biostat-str-generation-3",
+      "https://shop.sartorius.com/in/p/flexsafe-str-bags--mammalian--opta-sft-connector--electrochemical-ph-optical-do-probe-ports--2000-l/FRS304387"
+    ]
+  },
+  {
+    "id": "merck-breez",
+    "label": "Mobius® Breez Microbioreactor — 2.155 mL working volume",
+    "manufacturer": "Merck",
+    "file": "merck-breez.pdf",
+    "bytes": 2337,
+    "sha256": "7e36bfd719bb2a2b04e92bbec8e31257afd921dcc2169467bf10afc07f45704e",
+    "officialUrls": [
+      "https://www.merckmillipore.com/DE/en/product/Mobius-Breez-Microbioreactor%2CMM_NF-C262015"
+    ]
+  },
+  {
+    "id": "merck-mobius-3",
+    "label": "Mobius® 3 L Single-use Bioreactor — 3 L vessel",
+    "manufacturer": "Merck",
+    "file": "merck-mobius-3.pdf",
+    "bytes": 2208,
+    "sha256": "42173847d17a5003c40bbd7def4c9eae5dcac592f40e31cae7168c0b79f47b0a",
+    "officialUrls": [
+      "https://www.merckmillipore.com/IL/en/product/mm/CR0003L200"
+    ]
+  },
+  {
+    "id": "merck-iflex-50",
+    "label": "Mobius® iFlex 50 L Bioreactor — 10–50 L working volume",
+    "manufacturer": "Merck",
+    "file": "merck-iflex-50.pdf",
+    "bytes": 2824,
+    "sha256": "35ce331b779b5f0afd8b3d92d1e8b12649f2ea2d99b480d54215538d2fb44a90",
+    "officialUrls": [
+      "https://www.merckmillipore.com/LT/en/products/pharma-and-biopharma-manufacturing/bioprocessing-cell-culture/single-use-bioreactors",
+      "https://www.merckmillipore.com/AR/en/20131223_191341"
+    ]
+  },
+  {
+    "id": "merck-iflex-200",
+    "label": "Mobius® iFlex 200 L Bioreactor — 40–200 L working volume",
+    "manufacturer": "Merck",
+    "file": "merck-iflex-200.pdf",
+    "bytes": 2827,
+    "sha256": "9956eac8d772b4f56fc98590cdcb1e54bb5f3a49a82ee00c009943841e7d2919",
+    "officialUrls": [
+      "https://www.merckmillipore.com/LT/en/products/pharma-and-biopharma-manufacturing/bioprocessing-cell-culture/single-use-bioreactors",
+      "https://www.merckmillipore.com/AR/en/20131223_191341"
+    ]
+  },
+  {
+    "id": "merck-iflex-1000",
+    "label": "Mobius® iFlex 1000 L Bioreactor — approximately 200–1000 L working volume",
+    "manufacturer": "Merck",
+    "file": "merck-iflex-1000.pdf",
+    "bytes": 2847,
+    "sha256": "77e976b09c62bf52170019723780b7ccba5bd7ae1d56f6cd6de64651acb67e2b",
+    "officialUrls": [
+      "https://www.merckmillipore.com/LT/en/products/pharma-and-biopharma-manufacturing/bioprocessing-cell-culture/single-use-bioreactors",
+      "https://www.merckmillipore.com/AR/en/20131223_191341"
+    ]
+  },
+  {
+    "id": "merck-iflex-2000",
+    "label": "Mobius® iFlex 2000 L Bioreactor — 400–2000 L working volume",
+    "manufacturer": "Merck",
+    "file": "merck-iflex-2000.pdf",
+    "bytes": 2827,
+    "sha256": "2c301f571833739bac702abe9c7e9afa8de6c950f7080525cb7e3f006926e323",
+    "officialUrls": [
+      "https://www.merckmillipore.com/LT/en/products/pharma-and-biopharma-manufacturing/bioprocessing-cell-culture/single-use-bioreactors",
+      "https://www.merckmillipore.com/AR/en/20131223_191341"
+    ]
+  },
+  {
+    "id": "thermo-glass-1",
+    "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 1 L",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-glass-1.pdf",
+    "bytes": 2248,
+    "sha256": "c9c81b682744ed745f1b84530eb8d44a515e88cecc0c965cd7e74206b1423c80",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/br/en/F100-2684-002"
+    ]
+  },
+  {
+    "id": "thermo-glass-3",
+    "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 3 L",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-glass-3.pdf",
+    "bytes": 2249,
+    "sha256": "4a939b142731a021a135685c3c60fe4597a6b06694df3eca51c5bc035605334c",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/br/en/F100-2684-002"
+    ]
+  },
+  {
+    "id": "thermo-dynadrive-5",
+    "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 5 L",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-dynadrive-5.pdf",
+    "bytes": 2456,
+    "sha256": "0ee650a3d1d10dbe7854d56b144949b5f875b51cfff9d5b6578a2e0c51aefc97",
+    "officialUrls": [
+      "https://www.thermofisher.com/fr/fr/home/bioprocessing/products/bioreactors/single-use-dynadrive.html"
+    ]
+  },
+  {
+    "id": "thermo-rocker-10",
+    "label": "Thermo Scientific™ HyPerforma™ Rocker with 10 L BPC — approximately 1–5 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-rocker-10.pdf",
+    "bytes": 2374,
+    "sha256": "c5012ebd52a9e4885209e7073c7de7405f3adf44161b3fd3364964bf907a73b8",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/jp/en/F100-2683-002"
+    ]
+  },
+  {
+    "id": "thermo-glass-7",
+    "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 7 L",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-glass-7.pdf",
+    "bytes": 2245,
+    "sha256": "fde92de4cc99181b12a36652d89c1524fc2697018140fe9127451c24cca84f28",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/br/en/F100-2684-002"
+    ]
+  },
+  {
+    "id": "thermo-rocker-20",
+    "label": "Thermo Scientific™ HyPerforma™ Rocker with 20 L BPC — approximately 2–10 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-rocker-20.pdf",
+    "bytes": 2374,
+    "sha256": "ccb2f82d8d1544afa6be152f73f6a0e4a2a55124d14e528be12b665e7a04a66f",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/jp/en/F100-2683-002"
+    ]
+  },
+  {
+    "id": "thermo-glass-15",
+    "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 15 L",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-glass-15.pdf",
+    "bytes": 2248,
+    "sha256": "82a94f2b874e515091df77fb48d9f41043510ab11c08a1d97e35bf2d68cddfcb",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/br/en/F100-2684-002"
+    ]
+  },
+  {
+    "id": "thermo-rocker-50",
+    "label": "Thermo Scientific™ HyPerforma™ Rocker with 50 L BPC — approximately 5–25 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-rocker-50.pdf",
+    "bytes": 2374,
+    "sha256": "fc57c14eb8d98a4f5402256c8e015f5ee9fd86297d1704bf68ac0a606098e046",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/jp/en/F100-2683-002"
+    ]
+  },
+  {
+    "id": "thermo-suf-30",
+    "label": "Thermo Scientific™ HyPerforma™ S.U.F. 30 L — 6–30 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-suf-30.pdf",
+    "bytes": 2281,
+    "sha256": "4c63f6aaa5bafecc87d444f345f1584880bce09c7790e5a7ff0fddaa3ea25a13",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/SUF0030.9003"
+    ]
+  },
+  {
+    "id": "thermo-dynadrive-50",
+    "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 50 L — 5–50 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-dynadrive-50.pdf",
+    "bytes": 2716,
+    "sha256": "e53efdc2de3363d42028962cd36ff19da335f7cad4e4b256e787d591750723ad",
+    "officialUrls": [
+      "https://www.thermofisher.com/fr/fr/home/bioprocessing/products/bioreactors/single-use-dynadrive.html",
+      "https://www.thermofisher.com/order/catalog/product/DDB0050.1021"
+    ]
+  },
+  {
+    "id": "thermo-sub-50",
+    "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 50 L — 10–50 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-sub-50.pdf",
+    "bytes": 2790,
+    "sha256": "516d63b868896d07151b393e72cf4db28e56f7744f49169783d1bc01202ad6bc",
+    "officialUrls": [
+      "https://www.thermofisher.com/es/es/home/life-science/bioproduction/single-use-bioprocessing/single-use-equipment/single-use-bioreactors.html",
+      "https://www.thermofisher.com/order/catalog/product/es/es/SUB05008400"
+    ]
+  },
+  {
+    "id": "thermo-sub-100",
+    "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 100 L — 20–100 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-sub-100.pdf",
+    "bytes": 2796,
+    "sha256": "591349f8690f7f4cdd4638b672810d41adf9d111971a45d2fb1e47eabdff2eb4",
+    "officialUrls": [
+      "https://www.thermofisher.com/es/es/home/life-science/bioproduction/single-use-bioprocessing/single-use-equipment/single-use-bioreactors.html",
+      "https://www.thermofisher.com/order/catalog/product/es/es/SUB05008400"
+    ]
+  },
+  {
+    "id": "thermo-sub-250",
+    "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 250 L — 50–250 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-sub-250.pdf",
+    "bytes": 2794,
+    "sha256": "5cc9092040d2018361c899448549cfffbbb26cb4cac90cb8fe919e60fc7f906a",
+    "officialUrls": [
+      "https://www.thermofisher.com/es/es/home/life-science/bioproduction/single-use-bioprocessing/single-use-equipment/single-use-bioreactors.html",
+      "https://www.thermofisher.com/order/catalog/product/es/es/SUB05008400"
+    ]
+  },
+  {
+    "id": "thermo-suf-300",
+    "label": "Thermo Scientific™ HyPerforma™ S.U.F. 300 L — 60–300 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-suf-300.pdf",
+    "bytes": 2284,
+    "sha256": "88c4f54fae0a92fae7eedcba38c7bcff368f2bf7cf21a48d104b4d1b277ea8fd",
+    "officialUrls": [
+      "https://www.thermofisher.com/order/catalog/product/SUF0300.9001"
+    ]
+  },
+  {
+    "id": "thermo-dynadrive-500",
+    "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 500 L — 25–500 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-dynadrive-500.pdf",
+    "bytes": 2409,
+    "sha256": "8b3f331ec18ddf1ff3e8004604cd6c6664e0892051a4630ead8949c2e10a7cf5",
+    "officialUrls": [
+      "https://www.thermofisher.com/fr/fr/home/bioprocessing/products/bioreactors/single-use-dynadrive.html"
+    ]
+  },
+  {
+    "id": "thermo-sub-500",
+    "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 500 L — 100–500 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-sub-500.pdf",
+    "bytes": 2796,
+    "sha256": "aa5417b6e1bddb419ccd9878d8a4c99726d0f0f139599129f5ba905e01c49be8",
+    "officialUrls": [
+      "https://www.thermofisher.com/es/es/home/life-science/bioproduction/single-use-bioprocessing/single-use-equipment/single-use-bioreactors.html",
+      "https://www.thermofisher.com/order/catalog/product/es/es/SUB05008400"
+    ]
+  },
+  {
+    "id": "thermo-sub-1000",
+    "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 1000 L — 200–1000 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-sub-1000.pdf",
+    "bytes": 2798,
+    "sha256": "94d799bd68937feb83177ca69b818c7918c784ff182b95cb6555569aef22aec8",
+    "officialUrls": [
+      "https://www.thermofisher.com/es/es/home/life-science/bioproduction/single-use-bioprocessing/single-use-equipment/single-use-bioreactors.html",
+      "https://www.thermofisher.com/order/catalog/product/es/es/SUB05008400"
+    ]
+  },
+  {
+    "id": "thermo-sub-2000",
+    "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 2000 L — 400–2000 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-sub-2000.pdf",
+    "bytes": 2799,
+    "sha256": "d6f0fc4b5226a74f9b69045ccf65474452abf3b14af16345c8a75819db658960",
+    "officialUrls": [
+      "https://www.thermofisher.com/es/es/home/life-science/bioproduction/single-use-bioprocessing/single-use-equipment/single-use-bioreactors.html",
+      "https://www.thermofisher.com/order/catalog/product/es/es/SUB05008400"
+    ]
+  },
+  {
+    "id": "thermo-dynadrive-3000",
+    "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 3000 L — 250–3000 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-dynadrive-3000.pdf",
+    "bytes": 2410,
+    "sha256": "dae0cdb01854df1179ce34ba13f907b7c193835d591b5395cfc3026c5c5a2aa2",
+    "officialUrls": [
+      "https://www.thermofisher.com/fr/fr/home/bioprocessing/products/bioreactors/single-use-dynadrive.html"
+    ]
+  },
+  {
+    "id": "thermo-dynadrive-5000",
+    "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 5000 L — 250–5000 L working volume",
+    "manufacturer": "Thermo Fisher Scientific",
+    "file": "thermo-dynadrive-5000.pdf",
+    "bytes": 2718,
+    "sha256": "b499bab8966bfb78a8acdef28ed90d77ec2e589c9c66f861fcbb3775eb1b9abe",
+    "officialUrls": [
+      "https://www.thermofisher.com/fr/fr/home/bioprocessing/products/bioreactors/single-use-dynadrive.html",
+      "https://www.thermofisher.com/order/catalog/product/DDB5000.1021"
+    ]
+  },
+  {
+    "id": "cytiva-xdr-10",
+    "label": "Cytiva Xcellerex™ XDR-10 — 4.5–10 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-xdr-10.pdf",
+    "bytes": 2254,
+    "sha256": "96dab0553ff1c0d7b494336851fa5c5f0b0a6c3de9e27a60dd743e8f64737c13",
+    "officialUrls": [
+      "https://www.cytivalifesciences.co.jp/catalog/1754.html"
+    ]
+  },
+  {
+    "id": "cytiva-wave-25",
+    "label": "Cytiva ReadyToProcess WAVE™ 25 — 0.3–25 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-wave-25.pdf",
+    "bytes": 2202,
+    "sha256": "0357eccab958a32d6b461c70fbb7c285e50dcdfbb90b466272cb9533f69568a8",
+    "officialUrls": [
+      "https://info.cytivalifesciences.com/KR-HW-demo-program.html"
+    ]
+  },
+  {
+    "id": "cytiva-x-platform-50",
+    "label": "Cytiva Xcellerex™ X-platform 50 L — 10–50 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-x-platform-50.pdf",
+    "bytes": 2243,
+    "sha256": "8bffb4a8c0d109f22b46433c0accd7ab30dcc4a9a760f33d78fd7daa0c1c327d",
+    "officialUrls": [
+      "https://info.cytivalifesciences.com/CY238166-nurture1.html"
+    ]
+  },
+  {
+    "id": "cytiva-xdr-50",
+    "label": "Cytiva Xcellerex™ XDR-50 — approximately 10–50 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-xdr-50.pdf",
+    "bytes": 2609,
+    "sha256": "3300c016ee440ba795d5dc30af55b705c7fe268f0ff44a0b07f8bcf3554e4a08",
+    "officialUrls": [
+      "https://www.cytivalifesciences.co.jp/catalog/1754.html",
+      "https://info.cytivalifesciences.com/bpinsights2019.html"
+    ]
+  },
+  {
+    "id": "cytiva-x-platform-200",
+    "label": "Cytiva Xcellerex™ X-platform 200 L — approximately 40–200 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-x-platform-200.pdf",
+    "bytes": 2262,
+    "sha256": "dd00cb13f3356d2a3050ebee61b05967fb05a26db94ace62b362ee5e1f6cbc7e",
+    "officialUrls": [
+      "https://info.cytivalifesciences.com/CY238166-nurture1.html"
+    ]
+  },
+  {
+    "id": "cytiva-xdr-200",
+    "label": "Cytiva Xcellerex™ XDR-200 — approximately 40–200 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-xdr-200.pdf",
+    "bytes": 2622,
+    "sha256": "0cc7c3a00190478374234263808fd7d3a4d731ce7819c3de910349bfe97ba9d1",
+    "officialUrls": [
+      "https://www.cytivalifesciences.co.jp/catalog/1754.html",
+      "https://info.cytivalifesciences.com/bpinsights2019.html"
+    ]
+  },
+  {
+    "id": "cytiva-xdr-500",
+    "label": "Cytiva Xcellerex™ XDR-500 — approximately 100–500 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-xdr-500.pdf",
+    "bytes": 2622,
+    "sha256": "c9ec097f2b2b72849594493447da617a3867cd073aa2739e5e8c66123be0cc29",
+    "officialUrls": [
+      "https://www.cytivalifesciences.co.jp/catalog/1754.html",
+      "https://info.cytivalifesciences.com/bpinsights2019.html"
+    ]
+  },
+  {
+    "id": "cytiva-xdr-1000",
+    "label": "Cytiva Xcellerex™ XDR-1000 — approximately 200–1000 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-xdr-1000.pdf",
+    "bytes": 2621,
+    "sha256": "0941ab3447a97561d2acc55cbdf2b4c89547e87b105e0ec29885d34a786360ee",
+    "officialUrls": [
+      "https://www.cytivalifesciences.co.jp/catalog/1754.html",
+      "https://info.cytivalifesciences.com/bpinsights2019.html"
+    ]
+  },
+  {
+    "id": "cytiva-xdr-2000",
+    "label": "Cytiva Xcellerex™ XDR-2000 — approximately 400–2000 L working volume",
+    "manufacturer": "Cytiva",
+    "file": "cytiva-xdr-2000.pdf",
+    "bytes": 2625,
+    "sha256": "2d65487f840a0fb15e329893e56abb8d0641ce4cbf4c6bd551081abdf85a46c1",
+    "officialUrls": [
+      "https://www.cytivalifesciences.co.jp/catalog/1754.html",
+      "https://info.cytivalifesciences.com/bpinsights2019.html"
+    ]
+  },
+  {
+    "id": "custom-single-use",
+    "label": "Custom plastic / single-use vessel — 10 L default",
+    "manufacturer": "Custom",
+    "file": "custom-single-use.pdf",
+    "bytes": 1842,
+    "sha256": "43a171468181dd0a63e757c73204d0da6901938b09774b77cd3ddb7b14347b3e",
+    "officialUrls": []
+  },
+  {
+    "id": "custom-glass",
+    "label": "Custom glass vessel — 10 L default",
+    "manufacturer": "Custom",
+    "file": "custom-glass.pdf",
+    "bytes": 1822,
+    "sha256": "700f61ad5eb6708cabc23bbea77a622a17fa78d8ca4dbcbd7773b6ef948cc2b4",
+    "officialUrls": []
+  },
+  {
+    "id": "custom-steel",
+    "label": "Custom stainless-steel vessel — 10 L default",
+    "manufacturer": "Custom",
+    "file": "custom-steel.pdf",
+    "bytes": 1841,
+    "sha256": "39dd9a25c40e81879ad9da4f8f3fedfe83d01c293d57750980353a1bbdced993",
+    "officialUrls": []
+  }
+]

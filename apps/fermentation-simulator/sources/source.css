@@ -67,3 +67,6 @@ footer { margin-top: 2rem; border-top: 1px solid #1f5c2e; padding-top: 0.8rem; c
 .index-list small { color: #4d574f; }
 .loading { color: #4d574f; font-style: italic; }
 .error { border: 1px solid #7a1111; border-left: 5px solid #7a1111; background: #ffeded; padding: 10px 12px; color: #5d1818; }
+
+#localPdf small { display: block; color: #4d574f; margin-top: 0.25rem; }
+.index-list a:last-child { white-space: nowrap; }
