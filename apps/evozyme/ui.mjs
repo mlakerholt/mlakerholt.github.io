@@ -11,7 +11,7 @@ export const field=(obj,path,label,{type='text',hint='',step='any',options=null,
   return`<label class="field ${wide?'wide':''}" for="${id}"><span>${e(label)}</span>${input}${hint?`<small id="${id}-hint">${e(hint)}</small>`:''}</label>`;
 };
 export const check=(obj,path,label)=>`<label class="check"><input type="checkbox" data-field="${e(path)}" ${get(obj,path)?'checked':''}><span>${e(label)}</span></label>`;
-export const heading=(n,title,text)=>`<div class="stage-heading"><p class="eyebrow">Stage ${n}</p><h2 id="stage-title">${e(title)}</h2><p>${e(text)}</p></div>`;
+export const heading=(n,title,text)=>`<div class="stage-heading"><p class="eyebrow">Stage ${n>=6?n-3:n}</p><h2 id="stage-title">${e(title)}</h2><p>${e(text)}</p></div>`;
 export const metric=(v,label)=>`<div class="metric"><strong>${e(v)}</strong><span>${e(label)}</span></div>`;
 export const table=(headers,rows,{caption='',className=''}={})=>`<div class="table-wrap"><table class="${className}">${caption?`<caption>${e(caption)}</caption>`:''}<thead><tr>${headers.map(h=>`<th scope="col">${e(h)}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.map(row=>`<tr>${row.map(c=>`<td>${c}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${headers.length}">No records yet.</td></tr>`}</tbody></table></div>`;
 export const callout=(text,kind='')=>`<div class="callout ${kind}">${text}</div>`;

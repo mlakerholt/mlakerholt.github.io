@@ -1,3 +1,13 @@
+# Evozyme 1.5.0 — focused campaign workflow
+
+10 September 2026
+
+- Replaced the seven-stage planner with four workspaces: Plan, Library & cost, Results, and Decide.
+- Removed lab-equipment purchasing, access checks, and software readiness from the interface and campaign action list.
+- Kept cost estimation, library coverage, plate analysis, NucB/PcIRED landscape support, confirmation evidence, backups, and linked rounds.
+- Moved detailed analysis thresholds, coverage assumptions, confirmation records, and sign-off fields into optional sections.
+- Simplified the overview, navigation, files page, and decision screen. Older stage bookmarks and saved campaign data remain compatible.
+
 # Evozyme 1.4.0 — published sequence–fitness campaigns
 
 9 September 2026

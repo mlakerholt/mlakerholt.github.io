@@ -7,7 +7,7 @@ import{sequenceWorkspace}from'./sequence-view.mjs';
 export const decisions={retest_candidate:'Nominate for retest',review_measurement:'Review measurement',below_retest_threshold:'Below retest threshold'};
 export function selectedAnalysis(r,ui){return r.analyses.find(a=>a.id===ui.analysisId)||r.analyses.at(-1);}
 export function screenView(c,r,ui){
-  const run=selectedAnalysis(r,ui);let html=heading(6,'Inspect the evidence','Compare candidates, inspect the original traces and decide what needs an independent retest.');
+  const run=selectedAnalysis(r,ui);let html=heading(6,'Results','Explore imported variants or inspect a plate screen.');
   html+=sequenceWorkspace(r,ui);
   const importer=importView(c,r,ui.pending,ui.importError);
   html+=(run&&!ui.pending?'<details class="new-import"><summary>Import another 96-well kinetic screen</summary>':'<details class="new-import"><summary>Import a 96-well kinetic screen</summary>')+importer+'</details>';

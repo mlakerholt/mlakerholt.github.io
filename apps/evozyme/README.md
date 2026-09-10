@@ -1,8 +1,8 @@
 # Evozyme — Directed Evolution Planner
 
-A static browser application for campaign planning, equipment and software access, library coverage, operating costs, 96-well primary-screen review, published sequence–fitness landscapes, independent confirmation records, and linked rounds. Uses the Research Desk design: warm paper, forest accents, editorial serif headings and light/dark appearances.
+A static browser application for planning directed-evolution campaigns, estimating library costs, reviewing results, recording confirmation evidence, and deciding the next round.
 
-Opening `/apps/evozyme/` shows the graphical mental map: Plan → Test → Learn, with links to all seven app stages, laboratory work, quality checks, and the next-round loop. The planner is at `planner.html`; existing bookmarks such as `/#screen` continue to open that stage. The overview remains available at `overview.html`, works without JavaScript, adapts to narrow screens, and includes a print layout.
+Opening `/apps/evozyme/` shows the four-part workflow: Plan → Library & cost → Results → Decide. The planner is at `planner.html`; bookmarks to the previous seven-stage interface continue to resolve to the closest new workspace.
 
 First-time setup asks for a goal, a screening-system starting point, the measurement and a final review. Literature-linked presets cover common plate, imaging, cell-sorting, droplet and growth-selection routes. They fill editable descriptive parameters but intentionally leave assay-specific detector limits, fitting windows and acceptance thresholds to pilot evidence.
 
@@ -16,7 +16,7 @@ The build checks module syntax, generates the searchable handbook, copies its do
 
 ## Research Desk navigation
 
-Workflow is the default entry point. Campaign groups the five planning stages; Screening opens measurements and links to Review. The round outline always provides all seven stages. Files collects backups, restore/recovery, report and source-file destinations. Use Appearance to follow the system or choose light/dark.
+Overview is the default entry point. Planner contains four workspaces: Plan, Library & cost, Results, and Decide. Lab-equipment purchasing and software setup are no longer part of the interface. Existing equipment records remain readable in old backups. Files collects backups, results, and templates.
 
 Campaign, round, run, plate, well, filter, search and guided-brief position are retained in record URLs. A session context restores the selected record after reading the handbook. These URLs refer to records stored in the current browser; sharing a URL does not transfer campaign data. Internal page navigation waits for a successful save. While an import is staged or analysis is running, another page opens alongside the original workspace to preserve those inputs.
 

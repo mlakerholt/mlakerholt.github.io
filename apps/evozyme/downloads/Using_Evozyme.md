@@ -2,11 +2,11 @@
 
 App workflow update · 9 September 2026 · Evozyme 1.3
 
-Start on the process overview. Follow **Plan → Test → Learn**, then open the planner at the stage you need. Laboratory work sits between the app stages; completing a form does not demonstrate an assay or enzyme improvement.
+Start on the overview, then move through **Plan → Library & cost → Results → Decide**. Laboratory work happens outside Evozyme; completing a form does not demonstrate an assay or enzyme improvement.
 
 ## Find your place in Research Desk
 
-The top navigation opens **Workflow**, **Campaign**, **Screening**, **Handbook** and **Files**. The round outline keeps all seven stages available. Workflow is the opening screen and offers a resume link when a campaign is saved. Appearance can follow your system or use light/dark colours.
+The top navigation opens **Overview**, **Planner**, **Guide** and **Files**. The planner keeps four workspaces available and the overview offers a resume link when a campaign is saved. Appearance can follow your system or use light/dark colours.
 
 Campaign setup has four short parts: goal, screening system, measurement and review. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.
 
@@ -26,7 +26,7 @@ Applying a starting point fills the detection route, sample format, signal unit,
 
 If you change the campaign parent before its first analysis, screening and confirmation references that still match the old parent follow the change. Once results exist, references are explicit historical choices. Explain any intentional difference between campaign, screen and confirmation references.
 
-The next-action list changes with the stage. Expand the list across all stages to see unresolved work. It distinguishes missing information, missing evidence, planning inconsistencies, settings review and analysis blockers. The status concerns recorded information, not biological validity.
+Detailed analysis settings, coverage assumptions, confirmation evidence and sign-off fields stay collapsed until needed. Status concerns recorded information, not biological validity.
 
 ## Before the first screen
 

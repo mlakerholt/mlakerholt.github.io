@@ -35,3 +35,20 @@ pre{max-width:100%;overflow:auto}.table-wrap table:has(th:nth-child(4)){min-widt
 .histogram-bars i{display:block;width:100%;height:var(--height);background:var(--green)}
 .histogram-axis{display:flex;justify-content:space-between;margin-top:.3rem;font-size:.85rem}
 @media(max-width:850px){.sequence-grid{grid-template-columns:1fr}.source-strip{display:block}.source-strip>div+div{margin-top:.75rem}}
+
+/* Evozyme 1.5 — four focused workspaces */
+.sheet{max-width:1180px}
+.workspace,.stage-wide .workspace{grid-template-columns:150px minmax(0,1fr);gap:40px}
+#summary{display:none}
+.steps{gap:8px}
+.steps a,.steps a:last-child{font-size:.9rem;padding:12px 10px}
+.steps a span{display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid var(--line);border-radius:50%}
+.stage-heading{margin-bottom:28px}.stage-heading h2{font-size:2.45rem}
+.campaign-context{margin-bottom:28px}.campaign-context p{font-size:.9rem}
+#campaign-tools{margin-bottom:20px}
+.template-cards{grid-template-columns:1fr 1fr}
+.template-cards button{border-radius:6px;min-height:8rem;padding:18px}
+fieldset{margin-bottom:32px}
+details{margin:24px 0}
+@media(max-width:800px){.workspace,.stage-wide .workspace{display:block}.steps{position:static;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:32px}.steps>.eyebrow{grid-column:1/-1}.steps a,.steps a:last-child{justify-content:center;border-left:0;border-bottom:3px solid transparent}.steps a[aria-current]{border-bottom-color:var(--green)}.template-cards{grid-template-columns:1fr}}
+@media(max-width:560px){.steps{grid-template-columns:1fr 1fr}.steps>.eyebrow{display:none}.stage-heading h2{font-size:2rem}}

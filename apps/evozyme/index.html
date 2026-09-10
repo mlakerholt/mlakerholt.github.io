@@ -14,79 +14,16 @@
 <body class="workflow-overview">
   <a class="skip" href="#process-map">Skip to process map</a>
   <div class="sheet">
-    <header class="desk-header"><div class="site-crumb"><a href="/">Magnus Lian Akerholt</a><span>/</span><a href="/apps/">Apps</a><span>/</span><span>Evozyme</span></div><div class="desk-masthead"><a class="wordmark" href="./">Evozyme<span>.</span></a><p>A research desk for directed evolution</p><label class="appearance">Appearance <select id="appearance"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div><nav class="destinations" aria-label="Application"><a href="./" data-destination="Workflow" aria-current="page">Workflow</a><a href="planner.html#campaign" data-destination="Campaign" >Campaign</a><a href="planner.html#screen" data-destination="Screening">Screening</a><a href="guide/index.html" data-destination="Handbook">Handbook</a><a href="files.html" data-destination="Files" >Files</a></nav></header>
+    <header class="desk-header"><div class="site-crumb"><a href="/">Magnus Lian Akerholt</a><span>/</span><a href="/apps/">Apps</a><span>/</span><span>Evozyme</span></div><div class="desk-masthead"><a class="wordmark" href="./">Evozyme<span>.</span></a><p>Directed evolution, without the clutter</p><label class="appearance">Appearance <select id="appearance"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div><nav class="destinations" aria-label="Application"><a href="./" data-destination="Overview" aria-current="page">Overview</a><a href="planner.html#plan" data-destination="Planner">Planner</a><a href="guide/index.html" data-destination="Guide">Guide</a><a href="files.html" data-destination="Files">Files</a></nav></header>
     <main>
-      <div class="map-heading">
-        <p class="eyebrow">The workflow / An orientation</p>
-        <h1>Better enzymes, one round at a time.</h1>
-        <p>One round: plan the experiment, test variants, confirm what improved.</p>
-      </div>
-      <section id="resume" class="resume"><div><p class="eyebrow">Start at the beginning</p><h2>What would a useful improvement look like?</h2><p>Define your parent enzyme and the comparison you want to make.</p></div><div class="actions"><a class="button-like primary" href="planner.html#campaign">Start a campaign →</a><a href="planner.html?action=demo#screen">Explore the worked example</a></div></section>
-      <p class="map-key" id="map-key">Follow the arrows. Numbered links match the app’s seven stages; laboratory work happens between them.</p>
-      <figure class="process-map" id="process-map" tabindex="-1" aria-label="Directed evolution process map" aria-describedby="map-key map-caption">
-        <div class="process-phases">
-          <section class="process-phase" aria-labelledby="plan-title">
-            <h2 id="plan-title"><span>01</span> Plan <b aria-hidden="true">→</b></h2>
-            <ol class="process-nodes">
-              <li>
-                <h3>Define success</h3>
-                <p>Choose the parent enzyme, target reaction and improvement to measure.</p>
-                <a class="stage-chip" href="planner.html#campaign"><span>1</span> Campaign</a>
-              </li>
-              <li>
-                <h3>Make the assay trustworthy</h3>
-                <p>Check controls, repeatability and whether the readout reflects the intended reaction.</p>
-                <a class="stage-chip" href="planner.html#assay"><span>2</span> Assay</a>
-              </li>
-              <li>
-                <h3>Fit the experiment</h3>
-                <p>Match the library to equipment, capacity and cost. Reserve room for controls and confirmation.</p>
-                <div class="stage-chips"><a class="stage-chip" href="planner.html#equipment"><span>3</span> Equipment</a><a class="stage-chip" href="planner.html#library"><span>4</span> Library</a><a class="stage-chip" href="planner.html#budget"><span>5</span> Budget</a></div>
-              </li>
-            </ol>
-            <p class="process-check"><strong>Before screening:</strong> demonstrate a reliable assay and a working sample-tracking pilot.</p>
-          </section>
-          <section class="process-phase" aria-labelledby="test-title">
-            <h2 id="test-title"><span>02</span> Test <b aria-hidden="true">→</b></h2>
-            <ol class="process-nodes">
-              <li class="lab-node">
-                <h3>Make &amp; prepare variants</h3>
-                <p>Build the library, check representative sequences, express and prepare samples.</p>
-                <span class="lab-label">Laboratory work</span>
-              </li>
-              <li>
-                <h3>Measure &amp; screen</h3>
-                <p>Measure activity, inspect raw data and nominate candidates for retesting.</p>
-                <a class="stage-chip" href="planner.html#screen"><span>6</span> Screen</a>
-              </li>
-            </ol>
-            <p class="process-retry"><span aria-hidden="true">↶</span> <strong>Checks fail?</strong> Revisit the <a href="planner.html#assay">assay</a> or preparation and repeat affected measurements before ranking candidates.</p>
-          </section>
-          <section class="process-phase" aria-labelledby="learn-title">
-            <h2 id="learn-title"><span>03</span> Learn</h2>
-            <ol class="process-nodes">
-              <li>
-                <h3>Confirm independently</h3>
-                <p>Prepare candidates again. Verify sequence, intended product and useful performance.</p>
-                <a class="stage-chip" href="planner.html#review"><span>7</span> Review</a>
-              </li>
-              <li>
-                <h3>Decide &amp; archive</h3>
-                <p>Keep stocks and evidence. Choose a supported parent, revise the approach or stop.</p>
-                <span class="decision-label">Continue · Change · Stop</span>
-              </li>
-            </ol>
-            <p class="process-check"><strong>A screen gives a shortlist.</strong> Independent confirmation supports the decision to use a new parent.</p>
-          </section>
-        </div>
-        <div class="process-loop"><span class="loop-arrow" aria-hidden="true">↑</span><p><strong>Next round: return to Plan.</strong> Use the evidence to revisit the parent, assay, library and resources.</p><span class="loop-up" aria-hidden="true">↲</span></div>
-        <figcaption id="map-caption"><strong>Track every variant throughout:</strong> link its sequence, plate position, raw data and recoverable stock.</figcaption>
-      </figure>
-      <div class="map-next">
-        <p><strong>Now explore the details.</strong> The handbook explains the decisions; the planner helps you record and review them.</p>
-        <div class="actions"><a class="button-like primary" href="guide/index.html">Read the handbook →</a><a class="button-like" href="planner.html#campaign">Open the planner →</a></div>
-        <p class="map-reading">Read by phase: <a href="guide/index.html#campaign">Plan an assay</a> · <a href="guide/index.html#libraries">Prepare a library</a> · <a href="guide/index.html#progression">Confirm and decide</a> · <a href="guide/index.html#examples">Follow a worked example</a></p>
-      </div>
+      <div class="map-heading"><p class="eyebrow">One round</p><h1>Plan. Test. Decide.</h1><p>Four focused workspaces. Everything else stays out of the way.</p></div>
+      <section id="resume" class="resume"><div><p class="eyebrow">Start here</p><h2>What should improve?</h2><p>Define the goal, estimate the round, add results, then decide what comes next.</p></div><div class="actions"><a class="button-like primary" href="planner.html#plan">Open planner →</a><a href="planner.html?action=demo#results">View example</a></div></section>
+      <ol class="simple-flow" id="process-map">
+        <li><span>01</span><h2>Plan</h2><p>Parent, goal, comparison and screening method.</p><a href="planner.html#plan">Open Plan →</a></li>
+        <li><span>02</span><h2>Library &amp; cost</h2><p>Choose the library size and estimate one round.</p><a href="planner.html#library">Open Library &amp; cost →</a></li>
+        <li><span>03</span><h2>Results</h2><p>Import a published landscape or plate screen.</p><a href="planner.html#results">Open Results →</a></li>
+        <li><span>04</span><h2>Decide</h2><p>Review evidence and choose the next parent or stop.</p><a href="planner.html#decide">Open Decide →</a></li>
+      </ol>
     </main>
   </div>
   <footer>© 2026 Magnus Lian Akerholt · <a href="planner.html">Evozyme planner</a> · <a href="guide/index.html">Handbook</a> · <a href="/apps/">All apps</a></footer>
