@@ -6,7 +6,7 @@ Start on the overview, then move through **Plan → Library & cost → Results �
 
 ## Find your place in Research Desk
 
-The top navigation opens **Overview**, **Planner**, **Guide** and **Files**. The planner keeps four workspaces available and the overview offers a resume link when a campaign is saved. Appearance can follow your system or use light/dark colours.
+The top navigation opens **Overview**, **Planner**, **Guide** and **Files**. The planner keeps four workspaces available. Appearance can follow your system or use light/dark colours.
 
 Campaign setup has four short parts: goal, screening system, measurement and review. Back retains your answers. If a required answer is missing, follow the correction link or the message beside its field. You can switch to complete forms at any time.
 

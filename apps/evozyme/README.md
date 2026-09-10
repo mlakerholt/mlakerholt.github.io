@@ -24,7 +24,7 @@ The handbook displays one chapter at a time, with full-chapter search results an
 
 ## Structure
 
-- `desk.mjs`, `overview.mjs`, `handbook.mjs`, `files.html`: shared navigation/appearance, record context, resume view, chapter reading and file utilities.
+- `desk.mjs`, `handbook.mjs`, `files.html`: shared navigation/appearance, record context, chapter reading and file utilities.
 - `core.mjs`: pure coverage, budget, fitting, screening, and confirmation calculations.
 - `io.mjs`: CSV handling, backup validation, downloads, and file fingerprints.
 - `storage.mjs`, `migration.mjs`: atomic revision saves, recovery drafts and versioned record migration.
