@@ -12,7 +12,7 @@ export function syncNavigation(){
 }
 if(typeof document!=='undefined'){
   const preference=document.querySelector('#appearance');let mode='system';try{mode=localStorage.getItem('evozyme-appearance')||mode;}catch{}
-  const apply=value=>{document.documentElement.style.colorScheme=value==='system'?'light dark':value;};
+  const apply=value=>{document.documentElement.style.colorScheme=value==='system'?'light dark':value;document.documentElement.dataset.appearance=value;};
   apply(mode);if(preference){preference.value=mode;preference.addEventListener('change',()=>{apply(preference.value);try{localStorage.setItem('evozyme-appearance',preference.value);}catch{}});}
   syncNavigation();
 }
