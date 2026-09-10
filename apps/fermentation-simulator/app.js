@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const BUILD_ID = "2026-09-10.4";
+  const BUILD_ID = "2026-09-10.5";
 
   const retroStylesheet = document.createElement("link");
   retroStylesheet.rel = "stylesheet";
