@@ -65,3 +65,7 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 - `app.payload.*` — compressed simulation source containing presets, state management, model, charts and exports
 - `vessel-catalog.payload` — compressed manufacturer/model selector and source-link integration
 - `sources/` — local evidence records and original manufacturer links for every vessel preset
+
+## Vessel source PDFs
+
+Every vessel preset links directly to a locally stored PDF source record under `sources/pdfs/`. Each PDF contains the preset evidence, parameter provenance, and clickable original manufacturer URLs. The PDFs are generated from `sources/source-records.payload` by `sources/build_pdfs.py` so the local files remain synchronized with the catalogue.
