@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Persistent source sheets for Fermentation Simulator vessel presets.">
+  <meta name="description" content="Persistent source and derivation sheets for Fermentation Simulator vessel presets.">
   <title>Fermentation Simulator — vessel sources</title>
-  <link rel="stylesheet" href="source.css?v=2026-09-10.6">
+  <link rel="stylesheet" href="source.css?v=2026-09-10.7">
 </head>
 <body>
 <main>
@@ -20,7 +20,7 @@
 
   <section id="indexView" hidden>
     <h1>Vessel sources</h1>
-    <p class="notice"><strong>Simple source archive.</strong> Each vessel has one permanent local source sheet showing the manufacturer page used, the date it was recorded, the exact values entered in the app, and which values are derived or assumed.</p>
+    <p class="notice"><strong>Persistent source archive.</strong> Each vessel has one readable source sheet showing the manufacturer page used, the exact values entered in the app, and the calculation or selection rule behind every derived or assumed number.</p>
     <p><strong id="recordCount"></strong> · source records saved 10 September 2026</p>
     <div id="manufacturerIndex"></div>
   </section>
@@ -42,7 +42,7 @@
     </section>
 
     <h2>Values used by the app</h2>
-    <p class="plain-note">Green means the value is supported by the cited manufacturer source. Amber means it was calculated or estimated from manufacturer information. Grey means it is an editable app assumption.</p>
+    <p class="plain-note">Green values are treated as source-supported. Amber and grey status labels are clickable: open them to see the exact rule, inputs, substituted calculation, result and limitation.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Parameter</th><th>Value in preset</th><th>Where it came from</th><th>Status</th></tr></thead>
@@ -60,21 +60,16 @@
     <ul id="recordNotes"></ul>
   </article>
 
-  <footer>This page is the persistent local record of the source and values used by the simulator. The linked manufacturer page remains the original publication.</footer>
+  <footer>This page is the persistent local record of the source, values and calculation rules used by the simulator. The linked manufacturer page remains the original publication.</footer>
 </main>
+<script src="../source-derivations.js?v=2026-09-10.7"></script>
 <script>
 (() => {
   "use strict";
-  const BUILD_ID = "2026-09-10.6";
+  const BUILD_ID = "2026-09-10.7";
   const CAPTURE_DATE = "10 September 2026";
   const $ = (id) => document.getElementById(id);
-
-  const formatVolume = (value) => {
-    const number = Number(value);
-    if (number < 0.001) return `${Number((number * 1_000_000).toPrecision(8))} µL`;
-    if (number < 1) return `${Number((number * 1000).toPrecision(8))} mL`;
-    return `${Number(number.toPrecision(8))} L`;
-  };
+  const derivations = window.FermentationSourceDerivations;
 
   const addSummary = (term, value) => {
     const dt = document.createElement("dt");
@@ -84,42 +79,120 @@
     $("summary").append(dt, dd);
   };
 
-  const isCustom = (record) => record.manufacturer === "Custom";
-
-  const statusFor = (record, key) => {
-    if (isCustom(record)) return "Custom template";
-    const status = String(record.status || "").toLowerCase();
-
-    if (record.sourceSupportedFields.includes(key)) return "Source-supported";
-    if (key === "material" || key === "maxVolume" || key === "nominalVolume") return "Source-supported";
-    if (key === "minVolume") {
-      return /derived|estimated|approximate|inherited/.test(status)
-        ? "Derived / estimated"
-        : "Source-supported";
+  const appendLabelValue = (list, label, value, code = false) => {
+    const term = document.createElement("dt");
+    const description = document.createElement("dd");
+    term.textContent = label;
+    if (code) {
+      const element = document.createElement("code");
+      element.textContent = value;
+      description.appendChild(element);
+    } else {
+      description.textContent = value;
     }
-    return "App assumption";
+    list.append(term, description);
   };
 
-  const statusClass = (status) => {
-    if (status === "Source-supported") return "source-supported";
-    if (status === "Derived / estimated") return "source-derived";
-    return "source-assumption";
+  const createExplanation = (explanation) => {
+    const card = document.createElement("div");
+    card.className = "derivation-card";
+
+    const title = document.createElement("h3");
+    title.textContent = explanation.title;
+    card.appendChild(title);
+
+    const summary = document.createElement("dl");
+    summary.className = "derivation-summary";
+    appendLabelValue(summary, "Classification", explanation.status);
+    appendLabelValue(summary, "Origin", explanation.origin);
+    appendLabelValue(summary, "Rule used by the app", explanation.rule, true);
+    card.appendChild(summary);
+
+    if (explanation.inputs?.length) {
+      const heading = document.createElement("p");
+      heading.className = "derivation-subheading";
+      heading.textContent = "Inputs";
+      const inputs = document.createElement("dl");
+      inputs.className = "derivation-inputs";
+      explanation.inputs.forEach(([label, value]) => appendLabelValue(inputs, label, value));
+      card.append(heading, inputs);
+    }
+
+    const calculationHeading = document.createElement("p");
+    calculationHeading.className = "derivation-subheading";
+    calculationHeading.textContent = "Calculation / selection step";
+    const calculation = document.createElement("pre");
+    calculation.textContent = explanation.calculation;
+
+    const result = document.createElement("p");
+    const resultLabel = document.createElement("strong");
+    resultLabel.textContent = "Result loaded into the preset: ";
+    result.append(resultLabel, document.createTextNode(explanation.result));
+
+    const rationale = document.createElement("p");
+    const rationaleLabel = document.createElement("strong");
+    rationaleLabel.textContent = "Rationale and limitations: ";
+    rationale.append(rationaleLabel, document.createTextNode(explanation.rationale));
+
+    const verification = document.createElement("p");
+    verification.className = "verification-note";
+    const verificationLabel = document.createElement("strong");
+    verificationLabel.textContent = "Verification status: ";
+    verification.append(verificationLabel, document.createTextNode(explanation.verification));
+
+    card.append(calculationHeading, calculation, result, rationale, verification);
+    return card;
   };
 
-  const addParameterRow = (label, valueText, basisText, statusText) => {
+  const addParameterRow = (parameter) => {
     const row = document.createElement("tr");
     const field = document.createElement("th");
     const value = document.createElement("td");
     const basis = document.createElement("td");
     const statusCell = document.createElement("td");
-    const badge = document.createElement("span");
 
     field.scope = "row";
-    field.textContent = label;
-    value.textContent = valueText;
-    basis.textContent = basisText;
-    badge.className = `source-status ${statusClass(statusText)}`;
-    badge.textContent = statusText;
+    field.textContent = parameter.label;
+    value.textContent = parameter.value;
+    basis.textContent = parameter.basis;
+
+    if (parameter.status !== "Source-supported") {
+      const button = document.createElement("button");
+      const detailRow = document.createElement("tr");
+      const detailCell = document.createElement("td");
+      const detailId = `derivation-${parameter.key}`;
+
+      button.type = "button";
+      button.className = `source-status source-status-button ${derivations.statusClass(parameter.status)}`;
+      button.textContent = `${parameter.status} — show how`;
+      button.setAttribute("aria-expanded", "false");
+      button.setAttribute("aria-controls", detailId);
+
+      detailRow.className = "derivation-row";
+      detailRow.hidden = true;
+      detailCell.id = detailId;
+      detailCell.colSpan = 4;
+      detailCell.appendChild(createExplanation(parameter.explanation));
+      detailRow.appendChild(detailCell);
+
+      button.addEventListener("click", () => {
+        const willOpen = detailRow.hidden;
+        detailRow.hidden = !willOpen;
+        button.setAttribute("aria-expanded", String(willOpen));
+        button.textContent = willOpen
+          ? `${parameter.status} — hide explanation`
+          : `${parameter.status} — show how`;
+      });
+
+      statusCell.appendChild(button);
+      row.append(field, value, basis, statusCell);
+      $("parameterRows").append(row, detailRow);
+      return;
+    }
+
+    const badge = document.createElement("span");
+    badge.className = `source-status ${derivations.statusClass(parameter.status)}`;
+    badge.textContent = parameter.status;
     statusCell.appendChild(badge);
     row.append(field, value, basis, statusCell);
     $("parameterRows").appendChild(row);
@@ -185,62 +258,17 @@
         console.error(error);
         $("copyLink").textContent = "Could not copy link";
       }
-    }, { once: true });
+    });
 
     $("parameterRows").replaceChildren();
-    addParameterRow(
-      "Minimum working volume",
-      formatVolume(record.minVolume),
-      record.volumeBasis,
-      statusFor(record, "minVolume")
-    );
-    addParameterRow(
-      "Maximum working volume",
-      formatVolume(record.maxVolume),
-      record.volumeBasis,
-      statusFor(record, "maxVolume")
-    );
-    addParameterRow(
-      "Nominal vessel / bag size",
-      formatVolume(record.nominalVolume),
-      "Named vessel or bag scale recorded for this model.",
-      statusFor(record, "nominalVolume")
-    );
-    addParameterRow(
-      "Product-contact material",
-      record.material,
-      record.materialBasis,
-      statusFor(record, "material")
-    );
-
-    const defaults = [
-      ["Height : diameter", String(record.defaults.heightDiameterRatio), "heightDiameterRatio"],
-      ["Impeller / mixing type", record.defaults.impellerType, "impellerType"],
-      ["Impeller count", String(record.defaults.impellerCount), "impellerCount"],
-      ["Power number", String(record.defaults.powerNumber), "powerNumber"],
-      ["Initial agitation", `${record.defaults.baseRpm} rpm`, "baseRpm"],
-      ["Maximum agitation", `${record.defaults.maxRpm} rpm`, "maxRpm"],
-      ["Initial aeration", `${record.defaults.baseVvm} vvm`, "baseVvm"],
-      ["Maximum aeration", `${record.defaults.maxVvm} vvm`, "maxVvm"],
-      ["Baffled", record.defaults.baffled ? "Yes" : "No", "baffled"],
-      ["Maximum pressure", `${record.defaults.maxPressure} bar(g)`, "maxPressure"],
-      ["Default operating pressure", `${record.defaults.operatingPressure} bar(g)`, "operatingPressure"]
-    ];
-
-    defaults.forEach(([label, value, key]) => {
-      const status = statusFor(record, key);
-      const basis = status === "Source-supported"
-        ? "Explicitly identified as supported by the selected manufacturer source."
-        : "Editable process-model default; not treated as a manufacturer specification.";
-      addParameterRow(label, value, basis, status);
-    });
+    derivations.allParameters(record).forEach(addParameterRow);
 
     $("summary").replaceChildren();
     addSummary("Manufacturer", record.manufacturer);
     addSummary("Full vessel name", record.label);
     addSummary("Product-contact material", record.material);
-    addSummary("Working-volume range", `${formatVolume(record.minVolume)} to ${formatVolume(record.maxVolume)}`);
-    addSummary("Nominal vessel / bag size", formatVolume(record.nominalVolume));
+    addSummary("Working-volume range", `${derivations.formatVolume(record.minVolume)} to ${derivations.formatVolume(record.maxVolume)}`);
+    addSummary("Nominal vessel / bag size", derivations.formatVolume(record.nominalVolume));
     addSummary("Source record saved", CAPTURE_DATE);
     addSummary("Evidence classification", record.status);
 
@@ -284,6 +312,7 @@
   };
 
   const loadRecords = async () => {
+    if (!derivations) throw new Error("The calculation-detail library did not load.");
     if (!("DecompressionStream" in window)) {
       throw new Error("This browser cannot open the local source catalogue.");
     }
