@@ -1,0 +1,47 @@
+name: Generate vessel source PDFs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - apps/fermentation-simulator/sources/source-records.payload
+      - apps/fermentation-simulator/sources/build_pdfs.py
+      - .github/workflows/generate-vessel-source-pdfs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate local PDF records and links
+        run: python apps/fermentation-simulator/sources/build_pdfs.py
+
+      - name: Commit generated source library
+        shell: bash
+        run: |
+          if git diff --quiet -- apps/fermentation-simulator && \
+             [ -z "$(git status --porcelain -- apps/fermentation-simulator)" ]; then
+            echo "Vessel source PDFs and links are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            apps/fermentation-simulator/vessel-catalog.payload \
+            apps/fermentation-simulator/sources/index.html \
+            apps/fermentation-simulator/sources/source.css \
+            apps/fermentation-simulator/sources/README.md \
+            apps/fermentation-simulator/sources/pdfs
+          git commit -m "Generate local vessel source PDFs"
+          git push
