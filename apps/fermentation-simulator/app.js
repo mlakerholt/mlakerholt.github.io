@@ -1,12 +1,16 @@
 (() => {
   "use strict";
 
-  const BUILD_ID = "2026-09-10.2";
+  const BUILD_ID = "2026-09-10.3";
 
   const retroStylesheet = document.createElement("link");
   retroStylesheet.rel = "stylesheet";
   retroStylesheet.href = `retro.css?v=${BUILD_ID}`;
   document.head.appendChild(retroStylesheet);
+
+  const hiddenElementStyle = document.createElement("style");
+  hiddenElementStyle.textContent = "[hidden] { display: none !important; }";
+  document.head.appendChild(hiddenElementStyle);
 
   const modelStatus = document.querySelector(".hero-note");
   if (modelStatus) {
