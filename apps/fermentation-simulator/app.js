@@ -25,6 +25,35 @@
     }
   };
 
+  const loadScript = (src) => new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error(`Could not load ${src}.`));
+    document.head.appendChild(script);
+  });
+
+  const loadCompressedSource = async (filename) => {
+    const response = await fetch(filename, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Could not load ${filename}.`);
+
+    const binary = atob((await response.text()).trim());
+    const compressedBytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+    const decompressedStream = new Blob([compressedBytes])
+      .stream()
+      .pipeThrough(new DecompressionStream("gzip"));
+    return new Response(decompressedStream).text();
+  };
+
+  const executeSource = async (source) => {
+    const sourceUrl = URL.createObjectURL(new Blob([source], { type: "text/javascript" }));
+    try {
+      await loadScript(sourceUrl);
+    } finally {
+      URL.revokeObjectURL(sourceUrl);
+    }
+  };
+
   const loadSimulator = async () => {
     if (!("DecompressionStream" in window)) {
       throw new Error("This browser does not support the compressed simulator bundle. Please use a current browser.");
@@ -53,20 +82,8 @@
       throw new Error("The simulator bundle is incompatible with this loader.");
     }
 
-    const executableSource = source.replace(startupHook, immediateStartup);
-    const sourceUrl = URL.createObjectURL(new Blob([executableSource], { type: "text/javascript" }));
-
-    try {
-      await new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = sourceUrl;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error("The simulator source could not be started."));
-        document.head.appendChild(script);
-      });
-    } finally {
-      URL.revokeObjectURL(sourceUrl);
-    }
+    await executeSource(source.replace(startupHook, immediateStartup));
+    await executeSource(await loadCompressedSource("vessel-catalog.payload"));
   };
 
   loadSimulator().catch(showLoadError);
