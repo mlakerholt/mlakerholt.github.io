@@ -3,61 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Local source and provenance records for Fermentation Simulator vessel presets.">
-  <title>Fermentation Simulator — vessel source records</title>
-  <link rel="stylesheet" href="source.css?v=2026-09-10.5">
+  <meta name="description" content="Persistent source sheets for Fermentation Simulator vessel presets.">
+  <title>Fermentation Simulator — vessel sources</title>
+  <link rel="stylesheet" href="source.css?v=2026-09-10.6">
 </head>
 <body>
 <main>
   <nav>
     <a href="../">Fermentation Simulator</a>
-    <a href="./">Source index</a>
+    <a href="./">All vessel sources</a>
     <a href="../../">Apps</a>
   </nav>
 
-  <div id="loading" class="loading">Loading vessel source records…</div>
+  <div id="loading" class="loading">Loading vessel sources…</div>
   <div id="error" class="error" hidden></div>
 
   <section id="indexView" hidden>
-    <h1>Vessel source records</h1>
-    <p class="notice">There is one local evidence record and one local PDF for every vessel option in the simulator. Each record preserves the preset values, distinguishes source-supported data from simulator-derived assumptions, and identifies the original manufacturer documentation.</p>
-    <p><strong id="recordCount"></strong> · compiled 10 September 2026</p>
+    <h1>Vessel sources</h1>
+    <p class="notice"><strong>Simple source archive.</strong> Each vessel has one permanent local source sheet showing the manufacturer page used, the date it was recorded, the exact values entered in the app, and which values are derived or assumed.</p>
+    <p><strong id="recordCount"></strong> · source records saved 10 September 2026</p>
     <div id="manufacturerIndex"></div>
   </section>
 
   <article id="recordView" hidden>
+    <p class="back-link"><a href="./">← All vessel sources</a></p>
     <h1 id="recordTitle"></h1>
     <p><span id="recordId" class="record-id"></span><span id="sourceStatus" class="status"></span></p>
-    <p class="notice"><strong>Local evidence record.</strong> This page preserves the factual preset values and provenance notes used by the simulator. A local PDF source record is provided for offline review; the official manufacturer URLs listed below remain the authoritative original sources.</p>
 
-    <h2>Preset summary</h2>
+    <section class="source-box">
+      <p class="eyebrow">SOURCE USED</p>
+      <h2 id="primarySourceTitle">Manufacturer source</h2>
+      <p id="sourceSaved"></p>
+      <p id="sourceCoverage"></p>
+      <p class="source-actions">
+        <a id="primarySourceLink" href="#" target="_blank" rel="noopener noreferrer">Open original manufacturer source</a>
+        <button id="copyLink" type="button">Copy this source-sheet link</button>
+      </p>
+    </section>
+
+    <h2>Values used by the app</h2>
+    <p class="plain-note">Green means the value is supported by the cited manufacturer source. Amber means it was calculated or estimated from manufacturer information. Grey means it is an editable app assumption.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>Value in preset</th><th>Where it came from</th><th>Status</th></tr></thead>
+        <tbody id="parameterRows"></tbody>
+      </table>
+    </div>
+
+    <h2>Recorded source details</h2>
     <dl id="summary" class="summary"></dl>
 
-    <h2>Local PDF documentation</h2>
-    <div id="localPdf"></div>
-
-    <h2>Original manufacturer references</h2>
+    <h2>Other manufacturer references</h2>
     <div id="officialSources"></div>
 
-    <h2>Evidence basis</h2>
-    <p><strong>Volume:</strong> <span id="volumeBasis"></span></p>
-    <p><strong>Material:</strong> <span id="materialBasis"></span></p>
+    <h2>Notes</h2>
     <ul id="recordNotes"></ul>
-
-    <h2>Parameter provenance</h2>
-    <table>
-      <thead><tr><th>Field</th><th>Preset value</th><th>Basis</th></tr></thead>
-      <tbody id="parameterRows"></tbody>
-    </table>
   </article>
 
-  <footer>Each vessel has a locally stored PDF source record. Complete vendor manuals and webpages are not republished; vendor names and marks belong to their respective owners.</footer>
+  <footer>This page is the persistent local record of the source and values used by the simulator. The linked manufacturer page remains the original publication.</footer>
 </main>
 <script>
 (() => {
   "use strict";
-  const BUILD_ID = "2026-09-10.5";
+  const BUILD_ID = "2026-09-10.6";
+  const CAPTURE_DATE = "10 September 2026";
   const $ = (id) => document.getElementById(id);
+
+  const formatVolume = (value) => {
+    const number = Number(value);
+    if (number < 0.001) return `${Number((number * 1_000_000).toPrecision(8))} µL`;
+    if (number < 1) return `${Number((number * 1000).toPrecision(8))} mL`;
+    return `${Number(number.toPrecision(8))} L`;
+  };
 
   const addSummary = (term, value) => {
     const dt = document.createElement("dt");
@@ -67,17 +84,59 @@
     $("summary").append(dt, dd);
   };
 
+  const isCustom = (record) => record.manufacturer === "Custom";
+
+  const statusFor = (record, key) => {
+    if (isCustom(record)) return "Custom template";
+    const status = String(record.status || "").toLowerCase();
+
+    if (record.sourceSupportedFields.includes(key)) return "Source-supported";
+    if (key === "material" || key === "maxVolume" || key === "nominalVolume") return "Source-supported";
+    if (key === "minVolume") {
+      return /derived|estimated|approximate|inherited/.test(status)
+        ? "Derived / estimated"
+        : "Source-supported";
+    }
+    return "App assumption";
+  };
+
+  const statusClass = (status) => {
+    if (status === "Source-supported") return "source-supported";
+    if (status === "Derived / estimated") return "source-derived";
+    return "source-assumption";
+  };
+
+  const addParameterRow = (label, valueText, basisText, statusText) => {
+    const row = document.createElement("tr");
+    const field = document.createElement("th");
+    const value = document.createElement("td");
+    const basis = document.createElement("td");
+    const statusCell = document.createElement("td");
+    const badge = document.createElement("span");
+
+    field.scope = "row";
+    field.textContent = label;
+    value.textContent = valueText;
+    basis.textContent = basisText;
+    badge.className = `source-status ${statusClass(statusText)}`;
+    badge.textContent = statusText;
+    statusCell.appendChild(badge);
+    row.append(field, value, basis, statusCell);
+    $("parameterRows").appendChild(row);
+  };
+
   const renderIndex = (records) => {
-    document.title = "Fermentation Simulator — vessel source records";
-    $("recordCount").textContent = `${records.length} records`;
+    document.title = "Fermentation Simulator — vessel sources";
+    $("recordCount").textContent = `${records.length} vessel source sheets`;
     const host = $("manufacturerIndex");
     host.replaceChildren();
-    const manufacturers = [...new Set(records.map((record) => record.manufacturer))];
-    manufacturers.forEach((manufacturer) => {
+
+    [...new Set(records.map((record) => record.manufacturer))].forEach((manufacturer) => {
       const heading = document.createElement("h2");
       heading.textContent = manufacturer;
       const list = document.createElement("ol");
       list.className = "index-list";
+
       records
         .filter((record) => record.manufacturer === manufacturer)
         .sort((a, b) => a.maxVolume - b.maxVolume || a.minVolume - b.minVolume || a.label.localeCompare(b.label))
@@ -86,46 +145,104 @@
           const link = document.createElement("a");
           link.href = `?id=${encodeURIComponent(record.id)}`;
           link.textContent = record.label;
-          const material = document.createElement("small");
-          material.textContent = ` — ${record.material}`;
-          const pdfLink = document.createElement("a");
-          pdfLink.href = record.localPdf || `pdfs/${encodeURIComponent(record.id)}.pdf`;
-          pdfLink.textContent = " [PDF]";
-          pdfLink.title = `Open local PDF documentation for ${record.label}`;
-          item.append(link, material, pdfLink);
+          const meta = document.createElement("small");
+          meta.textContent = `${record.material} · ${record.status}`;
+          item.append(link, meta);
           list.appendChild(item);
         });
+
       host.append(heading, list);
     });
+
     $("indexView").hidden = false;
   };
 
   const renderRecord = (record) => {
-    document.title = `Source record — ${record.label}`;
+    document.title = `Source — ${record.label}`;
     $("recordTitle").textContent = record.label;
     $("recordId").textContent = record.id;
     $("sourceStatus").textContent = record.status;
+
+    const primary = record.links[0] || null;
+    $("primarySourceTitle").textContent = primary?.title || "Custom vessel template";
+    $("sourceSaved").textContent = `Saved locally: ${CAPTURE_DATE} · Manufacturer: ${record.manufacturer}`;
+    $("sourceCoverage").textContent = primary?.supports || "No manufacturer source applies to this custom template.";
+
+    const primaryLink = $("primarySourceLink");
+    if (primary?.url) {
+      primaryLink.hidden = false;
+      primaryLink.href = primary.url;
+    } else {
+      primaryLink.hidden = true;
+      primaryLink.removeAttribute("href");
+    }
+
+    $("copyLink").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        $("copyLink").textContent = "Link copied";
+      } catch (error) {
+        console.error(error);
+        $("copyLink").textContent = "Could not copy link";
+      }
+    }, { once: true });
+
+    $("parameterRows").replaceChildren();
+    addParameterRow(
+      "Minimum working volume",
+      formatVolume(record.minVolume),
+      record.volumeBasis,
+      statusFor(record, "minVolume")
+    );
+    addParameterRow(
+      "Maximum working volume",
+      formatVolume(record.maxVolume),
+      record.volumeBasis,
+      statusFor(record, "maxVolume")
+    );
+    addParameterRow(
+      "Nominal vessel / bag size",
+      formatVolume(record.nominalVolume),
+      "Named vessel or bag scale recorded for this model.",
+      statusFor(record, "nominalVolume")
+    );
+    addParameterRow(
+      "Product-contact material",
+      record.material,
+      record.materialBasis,
+      statusFor(record, "material")
+    );
+
+    const defaults = [
+      ["Height : diameter", String(record.defaults.heightDiameterRatio), "heightDiameterRatio"],
+      ["Impeller / mixing type", record.defaults.impellerType, "impellerType"],
+      ["Impeller count", String(record.defaults.impellerCount), "impellerCount"],
+      ["Power number", String(record.defaults.powerNumber), "powerNumber"],
+      ["Initial agitation", `${record.defaults.baseRpm} rpm`, "baseRpm"],
+      ["Maximum agitation", `${record.defaults.maxRpm} rpm`, "maxRpm"],
+      ["Initial aeration", `${record.defaults.baseVvm} vvm`, "baseVvm"],
+      ["Maximum aeration", `${record.defaults.maxVvm} vvm`, "maxVvm"],
+      ["Baffled", record.defaults.baffled ? "Yes" : "No", "baffled"],
+      ["Maximum pressure", `${record.defaults.maxPressure} bar(g)`, "maxPressure"],
+      ["Default operating pressure", `${record.defaults.operatingPressure} bar(g)`, "operatingPressure"]
+    ];
+
+    defaults.forEach(([label, value, key]) => {
+      const status = statusFor(record, key);
+      const basis = status === "Source-supported"
+        ? "Explicitly identified as supported by the selected manufacturer source."
+        : "Editable process-model default; not treated as a manufacturer specification.";
+      addParameterRow(label, value, basis, status);
+    });
+
     $("summary").replaceChildren();
     addSummary("Manufacturer", record.manufacturer);
+    addSummary("Full vessel name", record.label);
     addSummary("Product-contact material", record.material);
-    addSummary("Working volume", `${formatVolume(record.minVolume)} to ${formatVolume(record.maxVolume)}`);
+    addSummary("Working-volume range", `${formatVolume(record.minVolume)} to ${formatVolume(record.maxVolume)}`);
     addSummary("Nominal vessel / bag size", formatVolume(record.nominalVolume));
-    addSummary("Simulation profile", record.profile);
-    addSummary("Record compiled", "10 September 2026");
-
-    const pdfHost = $("localPdf");
-    pdfHost.replaceChildren();
-    const pdfParagraph = document.createElement("p");
-    const pdfLink = document.createElement("a");
-    pdfLink.href = record.localPdf || `pdfs/${encodeURIComponent(record.id)}.pdf`;
-    pdfLink.target = "_blank";
-    pdfLink.rel = "noopener noreferrer";
-    pdfLink.textContent = "Open local PDF source documentation";
-    pdfParagraph.appendChild(pdfLink);
-    const pdfNote = document.createElement("small");
-    pdfNote.textContent = "The PDF is stored inside this GitHub Pages site and contains the evidence record plus clickable official manufacturer URLs.";
-    pdfParagraph.appendChild(pdfNote);
-    pdfHost.appendChild(pdfParagraph);
+    addSummary("Source record saved", CAPTURE_DATE);
+    addSummary("Evidence classification", record.status);
 
     const sourceHost = $("officialSources");
     sourceHost.replaceChildren();
@@ -140,19 +257,15 @@
         link.rel = "noopener noreferrer";
         link.textContent = source.title;
         const note = document.createElement("small");
-        note.textContent = source.supports;
+        note.textContent = `Used for: ${source.supports}`;
         item.append(link, note);
         list.appendChild(item);
       });
       sourceHost.appendChild(list);
     } else {
-      const paragraph = document.createElement("p");
-      paragraph.textContent = "No external manufacturer document applies to this custom template.";
-      sourceHost.appendChild(paragraph);
+      sourceHost.textContent = "No external manufacturer document applies to this custom template.";
     }
 
-    $("volumeBasis").textContent = record.volumeBasis;
-    $("materialBasis").textContent = record.materialBasis;
     $("recordNotes").replaceChildren();
     (record.notes.length ? record.notes : ["No additional note."]).forEach((text) => {
       const item = document.createElement("li");
@@ -160,49 +273,7 @@
       $("recordNotes").appendChild(item);
     });
 
-    $("parameterRows").replaceChildren();
-    const rows = [
-      ["Preset identifier", record.id, "Local application identifier", null],
-      ["Manufacturer", record.manufacturer, "Manufacturer catalogue grouping", null],
-      ["Full preset label", record.label, "Local label based on model and scale documentation", null],
-      ["Product-contact material", record.material, record.materialBasis, null],
-      ["Minimum working volume", formatVolume(record.minVolume), record.volumeBasis, null],
-      ["Maximum working volume", formatVolume(record.maxVolume), record.volumeBasis, null],
-      ["Nominal vessel / bag size", formatVolume(record.nominalVolume), "Official/labelled scale or stored nominal support-vessel size", null],
-      ["Simulation profile", record.profile, "Local model classification; not itself a vendor specification", null],
-      ["Height : diameter", String(record.defaults.heightDiameterRatio), null, "heightDiameterRatio"],
-      ["Impeller / mixing archetype", record.defaults.impellerType, null, "impellerType"],
-      ["Impeller count", String(record.defaults.impellerCount), null, "impellerCount"],
-      ["Power number", String(record.defaults.powerNumber), null, "powerNumber"],
-      ["Initial agitation", `${record.defaults.baseRpm} rpm`, null, "baseRpm"],
-      ["Maximum agitation", `${record.defaults.maxRpm} rpm`, null, "maxRpm"],
-      ["Initial aeration", `${record.defaults.baseVvm} vvm`, null, "baseVvm"],
-      ["Maximum aeration", `${record.defaults.maxVvm} vvm`, null, "maxVvm"],
-      ["Baffled", record.defaults.baffled ? "Yes" : "No", null, "baffled"],
-      ["Maximum pressure", `${record.defaults.maxPressure} bar(g)`, null, "maxPressure"],
-      ["Default operating pressure", `${record.defaults.operatingPressure} bar(g)`, null, "operatingPressure"]
-    ];
-    rows.forEach(([label, valueText, explicitBasis, key]) => {
-      const row = document.createElement("tr");
-      const field = document.createElement("th");
-      const value = document.createElement("td");
-      const basis = document.createElement("td");
-      field.scope = "row";
-      field.textContent = label;
-      value.textContent = valueText;
-      basis.textContent = explicitBasis || (record.sourceSupportedFields.includes(key)
-        ? "Model-specific source-supported field"
-        : "Editable simulator default derived from the selected process profile");
-      row.append(field, value, basis);
-      $("parameterRows").appendChild(row);
-    });
     $("recordView").hidden = false;
-  };
-
-  const formatVolume = (value) => {
-    if (value < 0.001) return `${Number((value * 1000000).toPrecision(8))} µL`;
-    if (value < 1) return `${Number((value * 1000).toPrecision(8))} mL`;
-    return `${Number(value.toPrecision(8))} L`;
   };
 
   const fail = (error) => {
@@ -214,11 +285,10 @@
 
   const loadRecords = async () => {
     if (!("DecompressionStream" in window)) {
-      throw new Error("This browser cannot open the compressed local source catalogue.");
+      throw new Error("This browser cannot open the local source catalogue.");
     }
-    const filename = "source-records.payload";
-    const response = await fetch(`${filename}?v=${BUILD_ID}`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`${filename}: HTTP ${response.status}`);
+    const response = await fetch(`source-records.payload?v=${BUILD_ID}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`source-records.payload: HTTP ${response.status}`);
     const binary = atob((await response.text()).trim());
     const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
     const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));

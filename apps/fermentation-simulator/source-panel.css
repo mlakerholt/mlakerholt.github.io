@@ -1,0 +1,139 @@
+/* Persistent, human-readable vessel source summary. */
+.vessel-source-panel {
+  margin-top: 12px;
+  border: 1px solid #1f5c2e;
+  border-left: 5px solid #1f5c2e;
+  background: #f7faf7;
+  padding: 12px;
+}
+
+.vessel-source-panel__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.vessel-source-panel__heading .eyebrow {
+  margin: 0 0 2px;
+}
+
+.vessel-source-panel h3 {
+  margin: 0;
+  color: #1f5c2e;
+  font-size: 1.08rem;
+}
+
+.vessel-source-meta,
+.vessel-source-footnote {
+  color: #4d574f;
+  font-size: 0.84rem;
+}
+
+.vessel-source-meta {
+  margin: 0 0 6px;
+}
+
+.vessel-source-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 9px 0;
+}
+
+.vessel-source-table-wrap {
+  overflow-x: auto;
+}
+
+.vessel-source-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.vessel-source-table th,
+.vessel-source-table td {
+  border: 1px solid #a3aca5;
+  padding: 6px 7px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.vessel-source-table thead th {
+  background: #eeeeee;
+  color: #222222;
+  font-size: 0.78rem;
+}
+
+.vessel-source-table tbody th {
+  width: 18%;
+  background: #f7f7f7;
+}
+
+.source-status {
+  display: inline-block;
+  border: 1px solid #526057;
+  background: #ffffff;
+  padding: 2px 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.source-supported {
+  border-color: #1f5c2e;
+  background: #edf7ef;
+  color: #1f5c2e;
+}
+
+.source-derived {
+  border-color: #6d3a00;
+  background: #fff2d6;
+  color: #6d3a00;
+}
+
+.source-assumption,
+.source-custom {
+  border-color: #526057;
+  background: #eeeeee;
+  color: #333333;
+}
+
+.vessel-source-footnote {
+  margin: 8px 0 0;
+}
+
+.vessel-source-panel,
+.vessel-source-table-wrap {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.vessel-source-panel {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  contain: inline-size;
+}
+
+.vessel-source-table-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+@media (max-width: 650px) {
+  .vessel-source-panel {
+    padding: 9px;
+  }
+
+  .vessel-source-panel__heading {
+    display: block;
+  }
+
+  .vessel-source-panel__heading .source-status {
+    margin-top: 6px;
+  }
+}
