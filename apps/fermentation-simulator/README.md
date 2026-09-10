@@ -16,12 +16,13 @@ Browser-only beta for configuring and simulating a well-mixed bacterial stirred-
 - Equipment-constraint warnings, final-state report, JSON scenario export and CSV time-series export
 - Local browser storage; scenario information is not uploaded
 - A persistent source panel beside every vessel preset, with a one-click readable source sheet
+- Clickable explanations for every derived or assumed vessel value, showing the exact rule, inputs, substituted calculation, result and limitation
 
 ## Vessel source records
 
 Every vessel selection displays a source panel directly in the app. It shows the manufacturer source title, source URL, saved date, working-volume and material values, and whether each value is source-supported or derived.
 
-The `sources/` directory contains one permanent, readable source sheet for every vessel option. The source sheets preserve the exact values used by the app and clearly separate manufacturer-supported fields from editable simulator assumptions. The records are stored locally in `sources/source-records.payload`; `sources/index.html` renders them as ordinary browser pages.
+The `sources/` directory contains one permanent, readable source sheet for every vessel option. The source sheets preserve the exact values used by the app, clearly separate manufacturer-supported fields from editable simulator assumptions, and make every estimate or assumption expandable so its complete derivation can be reviewed. The records are stored locally in `sources/source-records.payload`; `sources/index.html` renders them as ordinary browser pages.
 
 ## Core model
 
@@ -64,5 +65,6 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 - `app.js` — lightweight compressed-bundle loader
 - `app.payload.*` — compressed simulation source containing presets, state management, model, charts and exports
 - `vessel-catalog.payload` — compressed manufacturer/model selector and source-link integration
+- `source-derivations.js` — shared parameter-status, formula and derivation logic
 - `source-panel.js` — persistent source summary displayed below the vessel selector
 - `sources/` — readable local source sheets and original manufacturer links for every vessel preset
