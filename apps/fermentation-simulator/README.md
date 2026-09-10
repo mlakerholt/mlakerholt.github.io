@@ -15,13 +15,13 @@ Browser-only beta for configuring and simulating a well-mixed bacterial stirred-
 - Biomass, carbon substrate, product, acetate, oxygen-transfer and approximate pH-control balances
 - Equipment-constraint warnings, final-state report, JSON scenario export and CSV time-series export
 - Local browser storage; scenario information is not uploaded
-- One local source/provenance record per vessel preset, linked directly from the vessel selector
+- A persistent source panel beside every vessel preset, with a one-click readable source sheet
 
 ## Vessel source records
 
-The `sources/` directory contains one locally authored evidence record for every vessel option. Each record preserves the preset values, identifies which values are directly supported versus derived or estimated, and links to the original official manufacturer documentation. Complete third-party manuals and webpages are not mirrored because they remain copyrighted by their publishers.
+Every vessel selection displays a source panel directly in the app. It shows the manufacturer source title, source URL, saved date, working-volume and material values, and whether each value is source-supported or derived.
 
-A machine-readable copy of the evidence catalogue is stored locally in the compressed `sources/source-records.payload`, and `sources/index.html` provides a browsable index and individual record pages.
+The `sources/` directory contains one permanent, readable source sheet for every vessel option. The source sheets preserve the exact values used by the app and clearly separate manufacturer-supported fields from editable simulator assumptions. The records are stored locally in `sources/source-records.payload`; `sources/index.html` renders them as ordinary browser pages.
 
 ## Core model
 
@@ -64,8 +64,5 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 - `app.js` — lightweight compressed-bundle loader
 - `app.payload.*` — compressed simulation source containing presets, state management, model, charts and exports
 - `vessel-catalog.payload` — compressed manufacturer/model selector and source-link integration
-- `sources/` — local evidence records and original manufacturer links for every vessel preset
-
-## Vessel source PDFs
-
-Every vessel preset links directly to a locally stored PDF source record under `sources/pdfs/`. Each PDF contains the preset evidence, parameter provenance, and clickable original manufacturer URLs. The PDFs are generated from `sources/source-records.payload` by `sources/build_pdfs.py` so the local files remain synchronized with the catalogue.
+- `source-panel.js` — persistent source summary displayed below the vessel selector
+- `sources/` — readable local source sheets and original manufacturer links for every vessel preset
