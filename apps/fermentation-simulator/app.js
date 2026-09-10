@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const BUILD_ID = "2026-09-10.6";
+  const BUILD_ID = "2026-09-10.7";
 
   const retroStylesheet = document.createElement("link");
   retroStylesheet.rel = "stylesheet";
@@ -129,6 +129,7 @@
     await executeSource(source.replace(startupHook, immediateStartup));
     await executeSource(await loadCompressedSource("vessel-catalog.payload"), { replayDomReady: true });
     await waitForManufacturerSelector();
+    await loadScript(`source-derivations.js?v=${BUILD_ID}`);
     await loadScript(`source-panel.js?v=${BUILD_ID}`);
 
     document.documentElement.dataset.fermentationBuild = BUILD_ID;
