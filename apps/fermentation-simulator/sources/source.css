@@ -178,3 +178,118 @@ footer {
   .source-actions a,
   .source-actions button { display: block; margin: 8px 0; }
 }
+
+.source-custom {
+  border-color: #526057;
+  background: #eeeeee;
+  color: #333333;
+}
+
+.source-status-button {
+  min-height: 0;
+  margin: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0;
+  padding: 4px 7px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: normal;
+}
+
+.source-status-button:hover,
+.source-status-button:focus-visible {
+  filter: brightness(0.96);
+  outline: 1px dotted currentColor;
+  outline-offset: 2px;
+}
+
+.source-status-button:active {
+  border-style: inset;
+}
+
+.derivation-row > td {
+  padding: 0;
+  background: #fffdf5;
+}
+
+.derivation-card {
+  border-left: 6px solid #6d3a00;
+  padding: 14px 16px;
+}
+
+.derivation-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.derivation-summary,
+.derivation-inputs {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.34fr) minmax(0, 1fr);
+  margin: 0 0 11px;
+  border: 1px solid #b9c0ba;
+}
+
+.derivation-summary dt,
+.derivation-summary dd,
+.derivation-inputs dt,
+.derivation-inputs dd {
+  margin: 0;
+  border-bottom: 1px solid #d5d9d6;
+  padding: 6px 8px;
+}
+
+.derivation-summary dt,
+.derivation-inputs dt {
+  background: #eeeeee;
+  font-weight: bold;
+}
+
+.derivation-summary code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.derivation-subheading {
+  margin: 11px 0 4px;
+  font-weight: bold;
+}
+
+.derivation-card pre {
+  margin: 0 0 10px;
+  border: 1px solid #9aa59c;
+  background: #ffffff;
+  padding: 9px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.derivation-card p {
+  margin: 8px 0;
+}
+
+.verification-note {
+  border-top: 1px dotted #6d3a00;
+  padding-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .derivation-summary,
+  .derivation-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .derivation-summary dt,
+  .derivation-inputs dt {
+    border-bottom: 0;
+  }
+}
