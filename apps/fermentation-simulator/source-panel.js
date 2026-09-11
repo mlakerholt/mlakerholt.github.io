@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const BUILD_ID = "2026-09-10.7";
+  const BUILD_ID = "2026-09-11.1";
   const sourceStylesheet = document.createElement("link");
   sourceStylesheet.rel = "stylesheet";
   sourceStylesheet.href = `source-panel.css?v=${BUILD_ID}`;
@@ -132,36 +132,45 @@
   };
 
   const createPanel = () => {
-    const section = document.createElement("section");
-    section.id = "vesselSourcePanel";
-    section.className = "vessel-source-panel";
-    section.setAttribute("aria-live", "polite");
-    section.innerHTML = `
-      <div class="vessel-source-panel__heading">
-        <div>
-          <p class="eyebrow">SOURCE USED FOR THIS PRESET</p>
-          <h3 id="vesselSourceTitle">Loading source record…</h3>
+    const panel = document.createElement("details");
+    panel.id = "vesselSourcePanel";
+    panel.className = "vessel-source-panel";
+    panel.open = false;
+    panel.innerHTML = `
+      <summary class="vessel-source-panel__summary">
+        <span class="vessel-source-panel__summary-copy">
+          <span class="eyebrow">SOURCE USED FOR THIS PRESET</span>
+          <strong id="vesselSourceTitle" class="vessel-source-panel__title" aria-live="polite">Loading source record…</strong>
+        </span>
+        <span class="vessel-source-panel__summary-right">
+          <span id="vesselSourceOverallStatus" class="source-status source-assumption">Loading</span>
+          <span class="vessel-source-panel__toggle-label" aria-hidden="true">
+            <span class="vessel-source-panel__closed-label">Open</span>
+            <span class="vessel-source-panel__open-label">Close</span>
+          </span>
+          <span class="vessel-source-panel__toggle-symbol" aria-hidden="true"></span>
+        </span>
+      </summary>
+      <div class="vessel-source-panel__content">
+        <p id="vesselSourceMeta" class="vessel-source-meta"></p>
+        <p id="vesselSourceCoverage"></p>
+        <div class="vessel-source-actions">
+          <a id="vesselSourceSheet" href="sources/" target="_blank" rel="noopener noreferrer">Open full source and derivation sheet</a>
+          <a id="vesselOriginalSource" href="#" target="_blank" rel="noopener noreferrer" hidden>Open original manufacturer source</a>
         </div>
-        <span id="vesselSourceOverallStatus" class="source-status source-assumption">Loading</span>
+        <div class="vessel-source-table-wrap">
+          <table class="vessel-source-table">
+            <thead>
+              <tr><th>Parameter</th><th>Value used</th><th>Recorded basis</th><th>Status</th></tr>
+            </thead>
+            <tbody id="vesselSourceRows"></tbody>
+          </table>
+        </div>
+        <p class="vessel-source-toggle-row"><button id="vesselSourceToggleAll" class="vessel-source-toggle" type="button" aria-expanded="false">Show all preset parameters and calculations</button></p>
+        <p class="vessel-source-footnote">Amber and grey status labels are buttons. Open them to see the precise rule, inputs, calculation and limitation. The full source sheet preserves the same information on a separate permanent page.</p>
       </div>
-      <p id="vesselSourceMeta" class="vessel-source-meta"></p>
-      <p id="vesselSourceCoverage"></p>
-      <div class="vessel-source-actions">
-        <a id="vesselSourceSheet" href="sources/" target="_blank" rel="noopener noreferrer">Open full source and derivation sheet</a>
-        <a id="vesselOriginalSource" href="#" target="_blank" rel="noopener noreferrer" hidden>Open original manufacturer source</a>
-      </div>
-      <div class="vessel-source-table-wrap">
-        <table class="vessel-source-table">
-          <thead>
-            <tr><th>Parameter</th><th>Value used</th><th>Recorded basis</th><th>Status</th></tr>
-          </thead>
-          <tbody id="vesselSourceRows"></tbody>
-        </table>
-      </div>
-      <p class="vessel-source-toggle-row"><button id="vesselSourceToggleAll" class="vessel-source-toggle" type="button" aria-expanded="false">Show all preset parameters and calculations</button></p>
-      <p class="vessel-source-footnote">Amber and grey status labels are buttons. Open them to see the precise rule, inputs, calculation and limitation. The full source sheet preserves the same information on a separate permanent page.</p>
     `;
-    return section;
+    return panel;
   };
 
   const init = async () => {
