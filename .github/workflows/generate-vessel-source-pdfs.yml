@@ -13,7 +13,8 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    # Historical record hashes and gzip payloads use the authoring runtime exactly.
+    runs-on: windows-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -21,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "24.14.0"
 
       - name: Check the simulator and reviewed source sheets
         working-directory: apps/fermentation-simulator
