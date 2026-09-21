@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Biology databank</title>
+  <link rel="stylesheet" href="../databank.css?v=2026-09-12.1">
+</head><body><main>
+  <nav><a href="../../">← Simulator</a> · <a href="./">Biology derivation sheets</a> · <a href="generalized.html">Generalized profiles</a> · <a href="../databank.html">Reactor databank</a></nav>
+  <h1>Production organism databank</h1>
+  <p>Compare the animal-cell and microbial values loaded by the simulator. Select any value to open its full derivation sheet. Published support applies only to the cited strain, clone and culture conditions.</p>
+  <form id="filters">
+    <label>Search organisms<input id="search" type="search" placeholder="Species, strain, clone or product"></label>
+    <label>Culture category<select id="category"><option value="">All categories</option><option>Animal cell culture</option><option>Microbial fermentation</option></select></label>
+    <label>Compare parameter<select id="parameter"><option value="">All parameters</option></select></label>
+    <label>Evidence for selected parameter<select id="evidence" disabled><option value="">All evidence statuses</option><option>Published</option><option>Derived / literature-informed</option><option>App assumption</option></select></label>
+    <label>Order<select id="order"><option value="name">Organism / cell line</option><option value="category">Culture category</option><option value="value">Selected parameter: low to high</option></select></label>
+    <div class="actions"><button type="reset">Reset filters</button></div>
+  </form>
+  <p class="notice">Animal-cell presets use approximate dry-biomass equivalents. The current model omits viable-cell death, lactate/ammonia balances and glycosylation; fungal morphology and yeast ethanol overflow are also outside scope.</p>
+  <p id="result" role="status" aria-live="polite"></p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Biology preset comparison table"><table id="comparison"><caption>Biology preset comparison — editable model inputs</caption><thead></thead><tbody></tbody></table></div>
+</main>
+<script src="biology-data.js?v=2026-09-13.2"></script>
+<script src="biology-databank.js?v=2026-09-12.1"></script>
+</body></html>

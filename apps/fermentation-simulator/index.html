@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A browser-based bacterial fermentation simulator for batch, fed-batch and continuous stirred-tank processes.">
+  <meta name="description" content="A browser-based microbial fermentation and animal-cell culture simulator for batch, fed-batch and continuous stirred-tank processes.">
   <title>Fermentation Simulator</title>
   <link rel="stylesheet" href="simulator.css">
 </head>
 <body>
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-title" href="/">Magnus Lian Akerholt</a>
+      <a class="site-title" href="./">Fermentation Simulator</a>
       <nav aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="/apps/" aria-current="page">Apps</a>
-        <a href="/articles/">Articles</a>
-        <a href="/art/">Art</a>
+        <a href="./" aria-current="page">Simulator</a>
+        <a href="sources/">Vessel sources</a>
+        <a href="sources/biology/">Biology sources</a>
+        <a href="https://mlakerholt.github.io/">Author’s website</a>
       </nav>
     </div>
   </header>
@@ -23,9 +23,8 @@
   <main class="page-shell">
     <section class="hero">
       <div>
-        <div class="eyebrow">Browser-based process model <span class="badge">Beta 0.1</span></div>
         <h1>Fermentation Simulator</h1>
-        <p class="lede">Configure a stirred-tank bacterial process and estimate biomass, substrate, product, oxygen transfer, feed use and final mass balance.</p>
+        <p class="lede">Configure a stirred-tank microbial or animal-cell process and estimate biomass, substrate, product, oxygen transfer, feed use and final mass balance.</p>
       </div>
       <div class="hero-note">
         <strong>Model status</strong>
@@ -45,7 +44,7 @@
 
     <nav class="stepper" aria-label="Simulation stages">
       <button type="button" class="step is-active" data-step="0"><span>1</span>Reactor</button>
-      <button type="button" class="step" data-step="1"><span>2</span>Strain & product</button>
+      <button type="button" class="step" data-step="1"><span>2</span>Biology & product</button>
       <button type="button" class="step" data-step="2"><span>3</span>Process</button>
       <button type="button" class="step" data-step="3"><span>4</span>Medium</button>
       <button type="button" class="step" data-step="4"><span>5</span>Feed</button>
@@ -63,10 +62,6 @@
                 <h2>Reactor and gas system</h2>
               </div>
               <p>Select an equipment archetype, then edit every value to match the vessel you want to examine.</p>
-            </div>
-
-            <div class="callout information">
-              Manufacturer-style presets reproduce broad equipment classes rather than certified vendor specifications. Confirm geometry and limits against the actual equipment manual.
             </div>
 
             <fieldset>
@@ -154,6 +149,8 @@
                   <input id="maxRpm" type="number" min="10" step="10">
                 </div>
               </div>
+              <div class="field"><label for="gassedPowerFraction">Gassed / ungassed power ratio</label><input id="gassedPowerFraction" type="number" min="0.05" max="1" step="0.05" value="1"><small>1 uses calculated shaft power as a proxy. Use a measured ratio when available.</small></div>
+              <div class="field"><label for="measuredKla">Measured kLa override <span>h⁻¹, optional</span></label><input id="measuredKla" type="number" min="0" max="1500" step="0.1"><small>Leave blank for the Van’t Riet coalescing-liquid correlation. A fixed override is valid only for your measured operating conditions.</small></div>
               <div class="derived-strip" id="agitationDerived"></div>
             </fieldset>
 
@@ -178,16 +175,22 @@
                   <input id="maxVvm" type="number" min="0" step="0.05">
                 </div>
                 <div class="field">
-                  <label for="maxOxygenFraction">Maximum inlet O₂ <span>%</span></label>
+                  <label for="oxygenSupplyMode">Inlet oxygen mode</label>
+                  <select id="oxygenSupplyMode">
+                    <option value="fixed">Fixed gas composition (default)</option>
+                    <option value="adaptive">Adaptive enrichment (DO cascade)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="fixedOxygenFraction">Fixed inlet O₂ <span>%</span></label>
+                  <input id="fixedOxygenFraction" type="number" min="21" max="100" step="1" value="100">
+                </div>
+                <div class="field" hidden>
+                  <label for="maxOxygenFraction">Maximum adaptive inlet O₂ <span>%</span></label>
                   <input id="maxOxygenFraction" type="number" min="21" max="100" step="1">
                 </div>
-                <div class="field checkbox-field">
-                  <label><input id="allowNitrogen" type="checkbox"> Nitrogen available</label>
-                </div>
-                <div class="field checkbox-field">
-                  <label><input id="allowCo2" type="checkbox"> CO₂ available</label>
-                </div>
               </div>
+              <p class="field-note">Inlet O₂ is the oxygen fraction of the gas entering the vessel: 21% is air and 100% is pure oxygen. Fixed mode holds this composition; adaptive mode starts at 21% and enriches it through the DO cascade. This is separate from dissolved oxygen (% air saturation).</p>
             </fieldset>
           </section>
 
@@ -195,22 +198,29 @@
             <div class="stage-heading">
               <div>
                 <p class="stage-number">Stage 2</p>
-                <h2>Strain and product</h2>
+                <h2>Production organism and product</h2>
               </div>
               <p>Choose a biological archetype and explicitly define the product model. All kinetic values remain editable.</p>
             </div>
 
             <fieldset>
-              <legend>Strain</legend>
+              <legend>Organism / cell line</legend>
               <div class="field wide">
-                <label for="strainPreset">Strain preset</label>
+                <label for="strainPreset">Production organism / cell-line preset</label>
                 <select id="strainPreset"></select>
                 <small id="strainPresetNote"></small>
+                <label for="presetApplyMode">When switching organism</label>
+                <select id="presetApplyMode"><option value="complete">Apply biology, process, medium and feed defaults</option><option value="biology-only">Change biology only; keep my process settings</option></select>
+                <small><a id="strainPresetSource" href="#" target="_blank" rel="noopener noreferrer" hidden>Open published growth-data basis ↗</a></small>
+                <div class="biology-resource-links">
+                  <a href="sources/biology/databank.html" target="_blank" rel="noopener noreferrer">Biology databank ↗</a>
+                  <a id="strainDerivationSheet" href="sources/biology/" target="_blank" rel="noopener noreferrer">Preset derivation sheet ↗</a>
+                </div>
               </div>
               <div class="form-grid four">
                 <div class="field">
                   <label for="muMax">Maximum growth rate, μ<sub>max</sub> <span>h⁻¹</span></label>
-                  <input id="muMax" type="number" min="0.01" max="2" step="0.01">
+                  <input id="muMax" type="number" min="0.001" max="2" step="0.001">
                 </div>
                 <div class="field">
                   <label for="ks">Monod K<sub>S</sub> <span>g/L</span></label>
@@ -220,13 +230,16 @@
                   <label for="yxS">Biomass yield, Y<sub>X/S</sub> <span>g/g</span></label>
                   <input id="yxS" type="number" min="0.01" max="1" step="0.01">
                 </div>
+                <div class="field"><label for="yieldBasis">Yield definition</label><select id="yieldBasis"><option value="true">Growth yield, maintenance excluded</option><option value="observed">Observed yield, maintenance included</option></select></div>
+                <div class="field"><label for="yieldReferenceGrowthRate">Growth rate of observed yield <span>h⁻¹</span></label><input id="yieldReferenceGrowthRate" type="number" min="0.0001" step="0.001"></div>
+                <div class="field"><label for="substrateThreshold">Growth substrate threshold <span>g/L</span></label><input id="substrateThreshold" type="number" min="0" step="0.001"></div>
                 <div class="field">
                   <label for="maintenance">Maintenance, m<sub>S</sub> <span>g/g/h</span></label>
                   <input id="maintenance" type="number" min="0" max="1" step="0.005">
                 </div>
                 <div class="field">
-                  <label for="qO2Max">Maximum qO₂ <span>mmol/g/h</span></label>
-                  <input id="qO2Max" type="number" min="0.1" max="50" step="0.1">
+                  <label for="qO2Max">Respiratory capacity, qO₂ max <span>mmol/g/h</span></label>
+                  <input id="qO2Max" type="number" min="0" max="50" step="0.001">
                 </div>
                 <div class="field">
                   <label for="optimalTemperature">Optimal temperature <span>°C</span></label>
@@ -234,7 +247,7 @@
                 </div>
                 <div class="field">
                   <label for="optimalPh">Optimal pH</label>
-                  <input id="optimalPh" type="number" min="3" max="10" step="0.1">
+                  <input id="optimalPh" type="number" min="0" max="14" step="0.1">
                 </div>
                 <div class="field">
                   <label for="overflowThreshold">Overflow threshold q<sub>S</sub> <span>g/g/h</span></label>
@@ -253,6 +266,7 @@
                   <label for="productType">Product archetype</label>
                   <select id="productType">
                     <option value="biomass">Biomass</option>
+                    <option value="mab">Monoclonal antibody (secreted)</option>
                     <option value="recombinant">Intracellular recombinant protein</option>
                     <option value="secreted">Secreted protein</option>
                     <option value="plasmid">Plasmid DNA</option>
@@ -281,6 +295,7 @@
                   <label for="productDegradation">Product degradation <span>h⁻¹</span></label>
                   <input id="productDegradation" type="number" min="0" max="2" step="0.001">
                 </div>
+                <div class="field"><label for="productSubstrateYield">Product yield on substrate <span>g/g</span></label><input id="productSubstrateYield" type="number" min="0.001" max="0.761" step="0.01"><small>Default 0.5 is a screening assumption, not a published product-specific yield.</small></div>
                 <div class="field">
                   <label for="inductionTime">Induction time <span>h</span></label>
                   <input id="inductionTime" type="number" min="0" step="0.1">
@@ -294,6 +309,7 @@
                   <input id="burdenFactor" type="number" min="0" max="100" step="1">
                 </div>
               </div>
+              <p id="productControlNote" class="field-note"></p>
             </fieldset>
           </section>
 
@@ -305,6 +321,14 @@
               </div>
               <p>Define the operating mode, initial state, environmental controls and simulation resolution.</p>
             </div>
+
+            <p class="field-note"><a id="simulationModelLink" href="sources/simulation.html" target="_blank" rel="noopener">How the simulation works: equations, time steps, controls and limitations ↗</a></p>
+            <p class="field-note"><a href="sources/failure-modes.html" target="_blank" rel="noopener">Culture and batch failure rules ↗</a></p>
+            <fieldset>
+              <legend>Simulation rules</legend>
+              <label><input id="strictFailures" type="checkbox" checked> Apply strict culture and batch failure rules</label>
+              <label><input id="aerobicFailureRules" type="checkbox" checked> Include low-oxygen exposure rules</label>
+            </fieldset>
 
             <fieldset>
               <legend>Operating mode</legend>
@@ -323,13 +347,16 @@
                   <label for="initialBiomass">Initial biomass <span>gDCW/L</span></label>
                   <input id="initialBiomass" type="number" min="0.001" step="0.01">
                 </div>
+                <div class="field"><label for="inoculumUnit">Inoculum input</label><select id="inoculumUnit"><option value="dcw">Dry biomass concentration (gDCW/L)</option><option value="od">OD600 with my calibration</option></select></div>
+                <div class="field"><label for="initialOd">Initial OD600</label><input id="initialOd" type="number" min="0" step="0.01"></div>
+                <div class="field"><label for="odToDcw">Measured OD-to-DCW conversion <span>gDCW/L per OD600</span></label><input id="odToDcw" type="number" min="0.0001" step="0.001"><small>No universal conversion is assumed. Supply your strain/instrument calibration.</small></div>
                 <div class="field">
                   <label for="duration">Simulation duration <span>h</span></label>
                   <input id="duration" type="number" min="0.1" max="1000" step="0.5">
                 </div>
                 <div class="field">
-                  <label for="timeStep">Integration step <span>h</span></label>
-                  <input id="timeStep" type="number" min="0.002" max="0.1" step="0.002">
+                  <label for="timeStep">Maximum integration interval <span>h</span></label>
+                  <input id="timeStep" type="number" min="0.0001" max="0.1" step="0.0001"><small>The coupled solver caps intervals at 0.001 h (3.6 s) and splits at process events. Smaller values can test convergence.</small>
                 </div>
                 <div class="field">
                   <label for="initialDo">Initial dissolved oxygen <span>% air sat.</span></label>
@@ -347,26 +374,19 @@
                 </div>
                 <div class="field">
                   <label for="phSetpoint">pH setpoint</label>
-                  <input id="phSetpoint" type="number" min="3" max="10" step="0.1">
+                  <input id="phSetpoint" type="number" min="0" max="14" step="0.1">
                 </div>
+                <div class="field"><label for="initialPh">Initial pH <span>optional</span></label><input id="initialPh" type="number" min="0" max="14" step="0.1"><small>Leave blank to start at the setpoint. Base raises pH; acid lowers pH, subject to dosing capacity.</small></div>
                 <div class="field">
                   <label for="doSetpoint">DO cascade setpoint <span>% air sat.</span></label>
-                  <input id="doSetpoint" type="number" min="0" max="100" step="1">
+                  <input id="doSetpoint" type="number" min="1" max="200" step="1">
                 </div>
-                <div class="field">
+                <div class="field ph-mode-field">
                   <label for="phMode">pH model</label>
                   <select id="phMode">
-                    <option value="controlled">Controlled pH with base dosing</option>
+                    <option value="controlled">Controlled pH with acid/base dosing</option>
                     <option value="uncontrolled">Uncontrolled pH drift</option>
                   </select>
-                </div>
-                <div class="field">
-                  <label for="baseNormality">Base concentration <span>mol/L</span></label>
-                  <input id="baseNormality" type="number" min="0.01" max="20" step="0.1">
-                </div>
-                <div class="field">
-                  <label for="maxBaseRate">Maximum base-pump rate <span>mL/min</span></label>
-                  <input id="maxBaseRate" type="number" min="0" step="0.1">
                 </div>
                 <div class="field">
                   <label for="bufferCapacity">Buffer capacity <span>mmol/L/pH</span></label>
@@ -377,10 +397,36 @@
                   <select id="harvestCondition">
                     <option value="duration">At process duration</option>
                     <option value="substrate">When substrate is exhausted</option>
-                    <option value="volume">At maximum working volume</option>
                   </select>
                 </div>
+                <div class="field">
+                  <label for="baseNormality">Base neutralizing concentration <span>equivalents/L</span></label>
+                  <input id="baseNormality" type="number" min="0.01" max="20" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="maxBaseRate">Maximum base-pump rate <span>mL/min</span></label>
+                  <input id="maxBaseRate" type="number" min="0" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="acidNormality">Acid neutralizing concentration <span>equivalents/L</span></label>
+                  <input id="acidNormality" type="number" min="0.01" max="20" step="0.1">
+                </div>
+                <div class="field">
+                  <label for="maxAcidRate">Maximum acid-pump rate <span>mL/min</span></label>
+                  <input id="maxAcidRate" type="number" min="0" step="0.1">
+                  <small>Set to 0 to disable acid dosing.</small>
+                </div>
               </div>
+              <details>
+                <summary>DO controller tuning</summary>
+                <p>PI control retains the output needed to hold the setpoint. It increases agitation, then airflow; optional adaptive mode adds oxygen enrichment as a final stage. Fixed mode holds the selected inlet gas composition. Defaults are engineering assumptions, not vessel-specific calibration.</p>
+                <div class="form-grid four">
+                  <div class="field"><label for="doKp">Proportional gain <span>output / DO fraction</span></label><input id="doKp" type="number" min="0.01" max="10" step="0.01" value="0.5"></div>
+                  <div class="field"><label for="doIntegralTimeSeconds">Integral time <span>s</span></label><input id="doIntegralTimeSeconds" type="number" min="30" max="3600" step="1" value="120"></div>
+                  <div class="field"><label for="doSensorTimeSeconds">Sensor time constant <span>s</span></label><input id="doSensorTimeSeconds" type="number" min="5" max="600" step="1" value="15"></div>
+                  <div class="field"><label for="doActuatorTimeSeconds">Actuator time constant <span>s</span></label><input id="doActuatorTimeSeconds" type="number" min="5" max="600" step="1" value="10"></div>
+                </div>
+              </details>
             </fieldset>
           </section>
 
@@ -489,33 +535,45 @@
                 </div>
                 <div class="field">
                   <label for="feedStart">Feed start <span>h</span></label>
-                  <input id="feedStart" type="number" min="0" step="0.1">
+                  <input id="feedStart" type="number" min="0" step="any">
                 </div>
                 <div class="field">
                   <label for="initialFeedRate">Initial feed rate <span>mL/min</span></label>
-                  <input id="initialFeedRate" type="number" min="0" step="0.1">
+                  <input id="initialFeedRate" type="number" min="0" step="any">
                 </div>
                 <div class="field">
-                  <label for="maxFeedRate">Pump maximum <span>mL/min</span></label>
-                  <input id="maxFeedRate" type="number" min="0" step="0.1">
+                  <label for="maxFeedRate">Pump maximum <span>mL/min, optional</span></label>
+                  <input id="maxFeedRate" type="number" min="0" step="0.1" placeholder="Unlimited">
+                  <small>Leave blank for unlimited pump capacity. Volume excess is reported without stopping the run.</small>
                 </div>
                 <div class="field feed-option linear-option">
                   <label for="linearFeedSlope">Linear slope <span>mL/min/h</span></label>
-                  <input id="linearFeedSlope" type="number" min="0" step="0.1">
+                  <input id="linearFeedSlope" type="number" min="0" step="any">
                 </div>
                 <div class="field feed-option exponential-option">
-                  <label for="targetGrowthRate">Target μ <span>h⁻¹</span></label>
-                  <input id="targetGrowthRate" type="number" min="0.001" max="2" step="0.01">
+                  <label for="targetGrowthRate">Target specific growth rate, μ<sub>set</sub> <span>h⁻¹</span></label>
+                  <input id="targetGrowthRate" type="number" min="0.001" max="2" step="any" aria-describedby="feedGrowthWarning">
+                  <small id="feedGrowthWarning" class="feed-growth-warning" role="status" hidden></small>
                 </div>
                 <div class="field continuous-option">
                   <label for="dilutionRate">Dilution rate, D <span>h⁻¹</span></label>
-                  <input id="dilutionRate" type="number" min="0.001" max="2" step="0.01">
+                  <input id="dilutionRate" type="number" min="0.001" max="2" step="any" aria-describedby="dilutionGrowthReadout dilutionGrowthWarning">
+                  <small id="dilutionGrowthReadout" aria-live="polite"></small>
+                  <small id="dilutionGrowthWarning" class="feed-growth-warning" role="status" hidden></small>
                 </div>
                 <div class="field do-stat-option">
                   <label for="doStatThreshold">DO-stat trigger <span>%</span></label>
                   <input id="doStatThreshold" type="number" min="0" max="100" step="1">
                 </div>
               </div>
+              <section id="feedDerivation" class="feed-derivation" aria-labelledby="feedDerivationTitle">
+                <div class="feed-derivation-heading">
+                  <h3 id="feedDerivationTitle">How the feed parameters are derived</h3>
+                  <button type="button" id="applyDerivedFeedBtn" disabled>Apply derived values</button>
+                </div>
+                <p id="feedDerivationStatus" role="status" aria-live="polite">Preparing scenario-specific recommendations…</p>
+                <div id="feedDerivationBody"></div>
+              </section>
             </fieldset>
           </section>
 
@@ -534,7 +592,7 @@
             <div class="run-panel">
               <div>
                 <h3>Ready to calculate</h3>
-                <p>The model integrates volume, biomass, carbon substrate, product, acetate, oxygen and approximate pH-control demand over time.</p>
+                <p>The model couples volume, biomass, glucose-equivalent substrate, product, acetate, oxygen and accumulated acidity. Run the simulation to view process outcomes.</p>
               </div>
               <button type="button" id="runSimulationBtn" class="primary large">Run simulation</button>
             </div>
@@ -565,14 +623,33 @@
                 <div class="section-title-row">
                   <div>
                     <h3>Process warnings</h3>
-                    <p>Warnings identify model limits or equipment constraints encountered during the run.</p>
+                    <p>Select a category to view its warnings. Counters include failure events and run notices.</p>
                   </div>
                 </div>
-                <div id="warningList"></div>
+                <div id="warningCategoryButtons" class="warning-category-buttons" role="group" aria-label="Process warning categories"></div>
+                <section id="warningCategoryPanel" class="warning-category-panel" aria-labelledby="warningCategoryTitle" hidden>
+                  <div class="warning-category-heading"><h4 id="warningCategoryTitle"></h4><button id="warningCategoryClose" type="button">Hide warnings</button></div>
+                  <div id="warningList"></div>
+                </section>
+                <dialog id="failureDialog" aria-labelledby="failureDialogTitle" aria-describedby="failureDialogQuip">
+                  <div class="failure-dialog-heading"><h3 id="failureDialogTitle">Process warning</h3><button id="failureDialogClose" type="button" autofocus>Close</button></div>
+                  <p id="failureDialogQuip" class="failure-quip"></p>
+                  <div class="failure-dialog-grid">
+                    <figure><img id="failureDialogImage" width="1536" height="1024" alt=""><figcaption>AI-generated lab illustration, not simulation output.</figcaption></figure>
+                    <div><p id="failureDialogStatus"></p><dl id="failureDialogData"></dl><p id="failureDialogPenalty"></p></div>
+                  </div>
+                  <div class="failure-dialog-footer"><button id="failureDialogPrevious" type="button">Previous event</button><span id="failureDialogPosition"></span><button id="failureDialogNext" type="button">Next event</button></div>
+                  <p><a href="sources/failure-modes.html" target="_blank" rel="noopener">Rule definitions and model limitations ↗</a></p>
+                </dialog>
               </section>
 
               <section class="result-section">
                 <h3>Time profiles</h3>
+                <div class="result-tabs" role="tablist" aria-label="Simulation result graphs">
+                  <button type="button" id="processProfilesTab" role="tab" data-result-tab="process" aria-selected="true" aria-controls="processProfilesPanel">Process profiles</button>
+                  <button type="button" id="reactorParametersTab" role="tab" data-result-tab="reactor" aria-selected="false" aria-controls="reactorParametersPanel" tabindex="-1">Reactor parameters</button>
+                </div>
+                <div id="processProfilesPanel" role="tabpanel" aria-labelledby="processProfilesTab" tabindex="0">
                 <div class="chart-grid">
                   <figure class="chart-card">
                     <figcaption>Biomass and product concentration</figcaption>
@@ -591,9 +668,67 @@
                     <canvas id="volumeChart" aria-label="Volume and feed chart"></canvas>
                   </figure>
                   <figure class="chart-card wide-chart">
+                    <figcaption>Specific growth rate, μ</figcaption>
+                    <canvas id="growthRateChart" role="img" aria-label="Modeled specific growth rate in inverse hours over time"></canvas>
+                  </figure>
+                  <figure class="chart-card wide-chart">
                     <figcaption>Dissolved oxygen and pH</figcaption>
                     <canvas id="controlChart" aria-label="Dissolved oxygen and pH chart"></canvas>
                   </figure>
+                </div>
+                </div>
+                <div id="reactorParametersPanel" role="tabpanel" aria-labelledby="reactorParametersTab" tabindex="0" hidden>
+                  <p class="reactor-chart-note">Actual modeled settings and delivered additions throughout the run. Dashed lines show configured limits. Feed pump speed is shown as liquid flow, not motor RPM. Base flow is the average over each saved interval (normally 0.1 h), as is acid flow; other rates are sampled, so brief pump pulses may not appear.</p>
+                  <div class="chart-grid">
+                    <figure class="chart-card">
+                      <figcaption>Stirrer speed</figcaption>
+                      <canvas id="agitationChart" role="img" aria-label="Stirrer speed in rpm over time, with configured maximum"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Aeration</figcaption>
+                      <canvas id="aerationChart" role="img" aria-label="Aeration in vvm over time, with configured maximum"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Inlet gas oxygen concentration</figcaption>
+                      <canvas id="inletOxygenChart" role="img" aria-label="Oxygen percentage in the inlet gas over time; adaptive maximum shown when enabled"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Oxygen-transfer coefficient, kLa</figcaption>
+                      <canvas id="klaChart" role="img" aria-label="Volumetric oxygen-transfer coefficient in inverse hours over time"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Feed pump flow</figcaption>
+                      <canvas id="feedPumpChart" role="img" aria-label="Delivered feed flow in millilitres per minute over time"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Cumulative feed added</figcaption>
+                      <canvas id="feedAddedChart" role="img" aria-label="Cumulative nutrient feed added in litres over time"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Base pump flow · interval average</figcaption>
+                      <canvas id="basePumpChart" role="img" aria-label="Average delivered base flow in millilitres per minute over each saved interval"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Cumulative base added</figcaption>
+                      <canvas id="baseAddedChart" role="img" aria-label="Cumulative base solution added in millilitres over time"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Acid pump flow · interval average</figcaption>
+                      <canvas id="acidPumpChart" role="img" aria-label="Average delivered acid flow in millilitres per minute over each saved interval"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Cumulative acid added</figcaption>
+                      <canvas id="acidAddedChart" role="img" aria-label="Cumulative acid solution added in millilitres over time"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>Working volume</figcaption>
+                      <canvas id="reactorVolumeChart" role="img" aria-label="Liquid working volume in litres over time, with configured maximum"></canvas>
+                    </figure>
+                    <figure class="chart-card">
+                      <figcaption>DO-controller cascade output</figcaption>
+                      <canvas id="cascadeOutputChart" role="img" aria-label="DO-controller output from zero to one hundred percent over time"></canvas>
+                    </figure>
+                  </div>
                 </div>
               </section>
 
@@ -639,14 +774,14 @@
         <section class="equation-card">
           <h2>Core growth model</h2>
           <p class="equation">μ = μ<sub>max</sub> · S/(K<sub>S</sub>+S) · O₂/(K<sub>O₂</sub>+O₂) · f(pH,T)</p>
-          <p>Product formation uses the Luedeking–Piret form q<sub>P</sub> = αμ + β.</p>
+          <p>Substrate and oxygen jointly limit growth, maintenance and product. The adapted product law is q<sub>P</sub> = αμ + βf<sub>S</sub>f<sub>O</sub>, with substrate allocation and a respiratory-capacity limit.</p>
         </section>
       </aside>
     </div>
   </main>
 
   <footer>
-    <p>© 2026 Magnus Lian Akerholt · <a href="/apps/">Back to apps</a></p>
+    <p>© 2026 Magnus Lian Akerholt · <a href="https://mlakerholt.github.io/apps/">More apps</a></p>
   </footer>
 
   <script src="app.js" defer></script>

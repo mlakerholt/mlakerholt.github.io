@@ -1,0 +1,3797 @@
+{
+  "date": "2026-09-11",
+  "presets": 71,
+  "counts": {
+    "Source-supported": 535,
+    "Derived / estimated": 218,
+    "App assumption": 675,
+    "Custom template": 63
+  },
+  "changes": [
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "totalVolume",
+      "before": 0.015,
+      "after": 0.018,
+      "status": "Source-supported",
+      "reason": "User-supplied screenshot excerpt from Scribd; Sartorius Ambr 15 Cell Culture Generation 2 Technical Specification. Revision, publication date and page number unknown; not a complete original PDF."
+    },
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Polycarbonate / polyethylene",
+      "status": "Source-supported",
+      "reason": "User-supplied screenshot excerpt from Scribd; Sartorius Ambr 15 Cell Culture Generation 2 Technical Specification. Revision, publication date and page number unknown; not a complete original PDF."
+    },
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "impellerDiameter",
+      "before": 0.007001177158450564,
+      "after": 0.0114,
+      "status": "Source-supported",
+      "reason": "User-supplied screenshot excerpt from Scribd; Sartorius Ambr 15 Cell Culture Generation 2 Technical Specification. Revision, publication date and page number unknown; not a complete original PDF."
+    },
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "powerNumber",
+      "before": 1.3,
+      "after": 2.15,
+      "status": "Source-supported",
+      "reason": "User-supplied screenshot excerpt from Scribd; Sartorius Ambr 15 Cell Culture Generation 2 Technical Specification. Revision, publication date and page number unknown; not a complete original PDF."
+    },
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "maxRpm",
+      "before": 3000,
+      "after": 2500,
+      "status": "Source-supported",
+      "reason": "User-supplied screenshot excerpt from Scribd; Sartorius Ambr 15 Cell Culture Generation 2 Technical Specification. Revision, publication date and page number unknown; not a complete original PDF. Conflicts with archived brochure PDF p. 10 (150-2000 rpm). Technical-specification excerpt selected by user; edition chronology and installed-hardware applicability unresolved."
+    },
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "baseVvm",
+      "before": 0.3,
+      "after": 0.05,
+      "status": "App assumption",
+      "reason": "Selected starting aeration below the conservative constant ceiling; not a manufacturer setpoint."
+    },
+    {
+      "id": "sartorius-ambr-15",
+      "parameter": "maxVvm",
+      "before": 1,
+      "after": 0.06666666666666667,
+      "status": "App assumption",
+      "reason": "Published maximum total gas flow is 1 mL/min. Constant simulator ceiling selected at 15 mL: 1/15 vvm. At 10 mL the physical flow limit corresponds to 0.1 vvm; the app does not enforce a volume-dependent absolute-flow cap. User-supplied screenshot excerpt from Scribd; Sartorius Ambr 15 Cell Culture Generation 2 Technical Specification. Revision, publication date and page number unknown; not a complete original PDF."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "minVolume",
+      "before": 0.4,
+      "after": 0.35,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "totalVolume",
+      "before": 1,
+      "after": 1.6,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "initialVolume",
+      "before": 0.4,
+      "after": 0.35,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / AISI 316L stainless steel / EPDM",
+      "status": "Source-supported",
+      "reason": "Major wetted parts, not just the glass vessel shell."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "heightDiameterRatio",
+      "before": 2.2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "vesselDiameter",
+      "before": 0.08333532739297071,
+      "after": 0.11,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "liquidHeight",
+      "before": 0.18333772026453557,
+      "after": 0.11,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "parameter": "impellerDiameter",
+      "before": 0.027500658039680336,
+      "after": 0.048,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "totalVolume",
+      "before": 2,
+      "after": 2.6,
+      "status": "Source-supported",
+      "reason": "Diameter is the inner top diameter; wall has 1.5 degree slope. Maximum operating pressure is 0.5 bar(g). Do not substitute the heating-jacket rating."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Polycarbonate vessel; silicone / C-Flex tubing; EPDM seal",
+      "status": "Source-supported",
+      "reason": "Diameter is the inner top diameter; wall has 1.5 degree slope. Maximum operating pressure is 0.5 bar(g). Do not substitute the heating-jacket rating."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.159071046641022,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "vesselDiameter",
+      "before": 0.1083852140278578,
+      "after": 0.13,
+      "status": "Source-supported",
+      "reason": "Diameter is the inner top diameter; wall has 1.5 degree slope. Maximum operating pressure is 0.5 bar(g). Do not substitute the heating-jacket rating."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "liquidHeight",
+      "before": 0.2167704280557156,
+      "after": 0.15067923606333286,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Actual hardware: two 3-blade segment impellers, 30 degrees, downflow. Pitched-blade is a model approximation."
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "parameter": "impellerDiameter",
+      "before": 0.03576712062919308,
+      "after": 0.054,
+      "status": "Source-supported",
+      "reason": "Diameter is the inner top diameter; wall has 1.5 degree slope. Maximum operating pressure is 0.5 bar(g). Do not substitute the heating-jacket rating."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "minVolume",
+      "before": 0.6,
+      "after": 0.4,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "totalVolume",
+      "before": 2,
+      "after": 3,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "initialVolume",
+      "before": 0.6,
+      "after": 0.4,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / AISI 316L stainless steel / EPDM",
+      "status": "Source-supported",
+      "reason": "Major wetted parts, not just the glass vessel shell."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "heightDiameterRatio",
+      "before": 2.2,
+      "after": 1.4,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "vesselDiameter",
+      "before": 0.10499593318228465,
+      "after": 0.13,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "liquidHeight",
+      "before": 0.23099105300102624,
+      "after": 0.18,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "parameter": "impellerDiameter",
+      "before": 0.034648657950153934,
+      "after": 0.054,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "minVolume",
+      "before": 1,
+      "after": 1.6,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "totalVolume",
+      "before": 5,
+      "after": 6.8,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "initialVolume",
+      "before": 1,
+      "after": 1.6,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "material",
+      "before": "Stainless steel",
+      "after": "316L stainless steel / borosilicate glass / EPDM",
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "heightDiameterRatio",
+      "before": 3,
+      "after": 2,
+      "status": "App assumption",
+      "reason": "Published ratio is vessel H/D, not liquid H/D. Using it for the liquid cylinder remains a model assumption."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "vesselDiameter",
+      "before": 0.12850488069380328,
+      "after": 0.1471013671678133,
+      "status": "Derived / estimated",
+      "reason": "The estimate treats the liquid volume as a straight-sided cylinder and does not include heads, cones, internals or manufacturer-specific dimensions."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "liquidHeight",
+      "before": 0.38551464208140984,
+      "after": 0.2942027343356266,
+      "status": "Derived / estimated",
+      "reason": "This is linked to the same ideal-cylinder approximation used for the diameter."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "impellerDiameter",
+      "before": 0.04240661062895509,
+      "after": 0.05884054686712532,
+      "status": "Derived / estimated",
+      "reason": "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "maxRpm",
+      "before": 500,
+      "after": 1500,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "parameter": "maxVvm",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "Published maximum total gas rate for microbial application."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "minVolume",
+      "before": 1.5,
+      "after": 0.6,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "totalVolume",
+      "before": 5,
+      "after": 7,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "initialVolume",
+      "before": 1.5,
+      "after": 0.6,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / AISI 316L stainless steel / EPDM",
+      "status": "Source-supported",
+      "reason": "Major wetted parts, not just the glass vessel shell."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "heightDiameterRatio",
+      "before": 2.2,
+      "after": 1.8,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "vesselDiameter",
+      "before": 0.14250140535040756,
+      "after": 0.16,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "liquidHeight",
+      "before": 0.31350309177089664,
+      "after": 0.28,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "parameter": "impellerDiameter",
+      "before": 0.0470254637656345,
+      "after": 0.07,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "minVolume",
+      "before": 2,
+      "after": 3.5,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "totalVolume",
+      "before": 10,
+      "after": 15,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "initialVolume",
+      "before": 2,
+      "after": 3.5,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "material",
+      "before": "Stainless steel",
+      "after": "316L stainless steel / borosilicate glass / EPDM",
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "impellerDiameter",
+      "before": 0.05342898138611618,
+      "after": 0.06476240168014083,
+      "status": "Derived / estimated",
+      "reason": "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "maxRpm",
+      "before": 500,
+      "after": 1500,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "parameter": "maxVvm",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "Published maximum total gas rate for microbial application."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "minVolume",
+      "before": 3,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "totalVolume",
+      "before": 10,
+      "after": 13,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "initialVolume",
+      "before": 3,
+      "after": 1.5,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / AISI 316L stainless steel / EPDM",
+      "status": "Source-supported",
+      "reason": "Major wetted parts, not just the glass vessel shell."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "heightDiameterRatio",
+      "before": 2.2,
+      "after": 1.9,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "vesselDiameter",
+      "before": 0.1795405202405804,
+      "after": 0.19,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "liquidHeight",
+      "before": 0.3949891445292769,
+      "after": 0.36,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "parameter": "impellerDiameter",
+      "before": 0.05924837167939154,
+      "after": 0.078,
+      "status": "Source-supported",
+      "reason": "Selected 3-blade segment-impeller configuration. Published liquid H/D is rounded; direct dimensions take precedence over recomputation. Millimetres converted to metres."
+    },
+    {
+      "id": "sartorius-univessel-su-10-essential",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Actual hardware: two 3-blade segment impellers. Pitched-blade is a simulation approximation."
+    },
+    {
+      "id": "sartorius-univessel-su-10-perfusion",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Actual hardware: two 3-blade segment impellers. Pitched-blade is a simulation approximation."
+    },
+    {
+      "id": "sartorius-univessel-su-10-cell-therapy",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Count is design-specific."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "minVolume",
+      "before": 3,
+      "after": 4.5,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "totalVolume",
+      "before": 15,
+      "after": 22,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "initialVolume",
+      "before": 3,
+      "after": 4.5,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "material",
+      "before": "Stainless steel",
+      "after": "316L stainless steel / borosilicate glass / EPDM",
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "impellerDiameter",
+      "before": 0.06116091595780405,
+      "after": 0.07413444358521702,
+      "status": "Derived / estimated",
+      "reason": "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "maxRpm",
+      "before": 500,
+      "after": 1000,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "parameter": "maxVvm",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "Published maximum total gas rate for microbial application."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "minVolume",
+      "before": 4,
+      "after": 5.5,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "totalVolume",
+      "before": 20,
+      "after": 30,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "initialVolume",
+      "before": 4,
+      "after": 5.5,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "material",
+      "before": "Stainless steel",
+      "after": "316L stainless steel / borosilicate glass / EPDM",
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "impellerDiameter",
+      "before": 0.06731629832280912,
+      "after": 0.08159551311855652,
+      "status": "Derived / estimated",
+      "reason": "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "maxRpm",
+      "before": 500,
+      "after": 1000,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "parameter": "maxVvm",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "Published maximum total gas rate for microbial application."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "minVolume",
+      "before": 6,
+      "after": 7,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "totalVolume",
+      "before": 30,
+      "after": 42,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "initialVolume",
+      "before": 6,
+      "after": 7,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "material",
+      "before": "Stainless steel",
+      "after": "316L stainless steel / borosilicate glass / EPDM",
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "impellerDiameter",
+      "before": 0.07705792544608857,
+      "after": 0.09340354599525888,
+      "status": "Derived / estimated",
+      "reason": "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "maxRpm",
+      "before": 500,
+      "after": 600,
+      "status": "Source-supported",
+      "reason": "Model and aspect-ratio column selected explicitly. Operating minimum differs from minimum fill for full sterilization (50% of maximum working volume)."
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "parameter": "maxVvm",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "Published maximum total gas rate for microbial application."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "totalVolume",
+      "before": 50,
+      "after": 68,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.3,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "vesselDiameter",
+      "before": 0.3169202883774542,
+      "after": 0.37,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "liquidHeight",
+      "before": 0.6338405767549083,
+      "after": 0.48,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "impellerDiameter",
+      "before": 0.10458369516455988,
+      "after": 0.143,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "maxRpm",
+      "before": 250,
+      "after": 240,
+      "status": "Source-supported",
+      "reason": "Valid for dual 3-blade configuration; mixed-impeller limits may be lower depending on fill."
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "parameter": "maxVvm",
+      "before": 0.3,
+      "after": 0.2,
+      "status": "Source-supported",
+      "reason": "Total gassing limit. Micro-sparger-only limit is 0.1 vvm."
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "parameter": "minVolume",
+      "before": 10,
+      "after": 41,
+      "status": "Source-supported",
+      "reason": "Replaces the invalid 10-200 L family envelope with one actual 200 L configuration. Family model sizes are not the turndown range of one vessel."
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "parameter": "totalVolume",
+      "before": 200,
+      "after": 323,
+      "status": "Source-supported",
+      "reason": "Replaces the invalid 10-200 L family envelope with one actual 200 L configuration. Family model sizes are not the turndown range of one vessel."
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "parameter": "initialVolume",
+      "before": 10,
+      "after": 41,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "parameter": "material",
+      "before": "Stainless steel",
+      "after": "316L stainless steel / borosilicate glass / EPDM",
+      "status": "Source-supported",
+      "reason": "Replaces the invalid 10-200 L family envelope with one actual 200 L configuration. Family model sizes are not the turndown range of one vessel."
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "parameter": "impellerDiameter",
+      "before": 0.14502856831119512,
+      "after": 0.17579220401356985,
+      "status": "Derived / estimated",
+      "reason": "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured."
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "parameter": "maxRpm",
+      "before": 400,
+      "after": 570,
+      "status": "Source-supported",
+      "reason": "Replaces the invalid 10-200 L family envelope with one actual 200 L configuration. Family model sizes are not the turndown range of one vessel."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "totalVolume",
+      "before": 200,
+      "after": 280,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.34,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "vesselDiameter",
+      "before": 0.5030795991604359,
+      "after": 0.585,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "liquidHeight",
+      "before": 1.0061591983208718,
+      "after": 0.783,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "impellerDiameter",
+      "before": 0.16601626772294384,
+      "after": 0.225,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 150,
+      "status": "Source-supported",
+      "reason": "Valid for dual 3-blade configuration; mixed-impeller limits may be lower depending on fill."
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "parameter": "maxVvm",
+      "before": 0.3,
+      "after": 0.2,
+      "status": "Source-supported",
+      "reason": "Total gassing limit. Micro-sparger-only limit is 0.1 vvm."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "totalVolume",
+      "before": 500,
+      "after": 700,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.23,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "vesselDiameter",
+      "before": 0.6827840632552957,
+      "after": 0.815,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "liquidHeight",
+      "before": 1.3655681265105915,
+      "after": 1.005,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "impellerDiameter",
+      "before": 0.2253187408742476,
+      "after": 0.31,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 110,
+      "status": "Source-supported",
+      "reason": "Valid for dual 3-blade configuration; mixed-impeller limits may be lower depending on fill."
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "parameter": "maxVvm",
+      "before": 0.3,
+      "after": 0.2,
+      "status": "Source-supported",
+      "reason": "Total gassing limit. Micro-sparger-only limit is 0.1 vvm."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "totalVolume",
+      "before": 1000,
+      "after": 1300,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.36,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "vesselDiameter",
+      "before": 0.8602540138280996,
+      "after": 0.997,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "liquidHeight",
+      "before": 1.7205080276561993,
+      "after": 1.36,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 2,
+      "status": "Source-supported",
+      "reason": "Selected 2 x 3-blade impellers, not mixed 3/6-blade configuration."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "impellerDiameter",
+      "before": 0.2838838245632729,
+      "after": 0.379,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 70,
+      "status": "Source-supported",
+      "reason": "At maximum filling level, 1000 L is limited to 70 rpm. The table also lists 90 rpm at other fills; this constant-ceiling simulator conservatively uses 70 rpm."
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "parameter": "maxVvm",
+      "before": 0.3,
+      "after": 0.2,
+      "status": "Source-supported",
+      "reason": "Total gassing limit. Micro-sparger-only limit is 0.1 vvm."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "totalVolume",
+      "before": 2000,
+      "after": 2800,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.29,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "vesselDiameter",
+      "before": 1.0838521402785781,
+      "after": 1.295,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "liquidHeight",
+      "before": 2.1677042805571562,
+      "after": 1.67,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 2,
+      "status": "Source-supported",
+      "reason": "Selected 2 x 3-blade impellers, not mixed 3/6-blade configuration."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "impellerDiameter",
+      "before": 0.3576712062919308,
+      "after": 0.492,
+      "status": "Source-supported",
+      "reason": "Flexsafe STR geometry. Direct dimensions take precedence over rounded ratios; bag configuration can affect immersion volumes."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 70,
+      "status": "Source-supported",
+      "reason": "Valid for dual 3-blade configuration; mixed-impeller limits may be lower depending on fill."
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "parameter": "maxVvm",
+      "before": 0.3,
+      "after": 0.2,
+      "status": "Source-supported",
+      "reason": "Total gassing limit. Micro-sparger-only limit is 0.1 vvm."
+    },
+    {
+      "id": "merck-breez",
+      "parameter": "nominalVolume",
+      "before": 0.002155,
+      "after": 0.002,
+      "status": "Source-supported",
+      "reason": "Named 2 mL platform, distinguished from the exact 2.155 mL working volume. Total capacity remains unverified."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "minVolume",
+      "before": 0.75,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "May 2023 dedicated specification, now archived locally. Overall height 244 mm is NOT liquid height. Working range is 1-2.4 L, distinct from nominal 3 L capacity."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "maxVolume",
+      "before": 3,
+      "after": 2.4,
+      "status": "Source-supported",
+      "reason": "May 2023 dedicated specification, now archived locally. Overall height 244 mm is NOT liquid height. Working range is 1-2.4 L, distinct from nominal 3 L capacity."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "initialVolume",
+      "before": 0.75,
+      "after": 1,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Polycarbonate vessel/shaft; HDPE headplate/impeller; silicone seals",
+      "status": "Source-supported",
+      "reason": "May 2023 dedicated specification, now archived locally. Overall height 244 mm is NOT liquid height. Working range is 1-2.4 L, distinct from nominal 3 L capacity."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.2419955930963327,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "vesselDiameter",
+      "before": 0.12407009817988,
+      "after": 0.135,
+      "status": "Source-supported",
+      "reason": "May 2023 dedicated specification, now archived locally. Overall height 244 mm is NOT liquid height. Working range is 1-2.4 L, distinct from nominal 3 L capacity. Conflict retained: AN12431EN (July 2023), Table 1, gives 137 mm; its cited SP2345000 Rev. B (August 2010) also explicitly gives 137 mm inner diameter. Selected 135 mm from the newer dedicated May 2023 datasheet. No manufacturer correction or revision explanation found; not resolved by averaging."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "liquidHeight",
+      "before": 0.24814019635976,
+      "after": 0.16766940506800493,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "marine",
+      "status": "Source-supported",
+      "reason": "May 2023 dedicated specification, now archived locally. Overall height 244 mm is NOT liquid height. Working range is 1-2.4 L, distinct from nominal 3 L capacity."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "One shaft-mounted impeller is depicted/described in Table 1 and Figure 1. Replaces generic two-impeller scaling; count is a design interpretation, not an explicit numeric count specification."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "impellerDiameter",
+      "before": 0.040943132399360406,
+      "after": 0.0762,
+      "status": "Source-supported",
+      "reason": "May 2023 dedicated specification, now archived locally. Overall height 244 mm is NOT liquid height. Working range is 1-2.4 L, distinct from nominal 3 L capacity."
+    },
+    {
+      "id": "merck-mobius-3",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 0.3,
+      "status": "Source-supported",
+      "reason": "Published characterization value for the up-pumping, three-blade marine design; replaces generic 0.4. Not a universal value for other impellers or flow regimes."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "minVolume",
+      "before": 10,
+      "after": 15,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "initialVolume",
+      "before": 10,
+      "after": 15,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.6197327813138134,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "vesselDiameter",
+      "before": 0.3169202883774542,
+      "after": 0.34,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "liquidHeight",
+      "before": 0.6338405767549083,
+      "after": 0.5507091456466966,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "Single bottom-mounted design interpreted from Table 1 and Figure 1; not an explicitly tabulated impeller count. Development-design qualification applies."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "impellerDiameter",
+      "before": 0.10458369516455988,
+      "after": 0.117,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Direct absolute dimension from March 2024 guide; preferred to multiplying rounded di:D ratios from the application note."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 3.6,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-50",
+      "parameter": "baffled",
+      "before": false,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "totalVolume",
+      "before": 200,
+      "after": 240,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultimus single-use film",
+      "status": "Source-supported",
+      "reason": "Film brand confirmed; woven nylon reinforcement and Irgafos 168-free contact layer described. This does not identify all contact-layer polymers. Page 7 stainless steel is support hardware, not the bag film."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5644517960277264,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "vesselDiameter",
+      "before": 0.5030795991604359,
+      "after": 0.546,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "liquidHeight",
+      "before": 1.0061591983208718,
+      "after": 0.8541906806311387,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Mixer is used with a single-use impeller; single bottom-mounted design also described on pages 5 and 7."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "impellerDiameter",
+      "before": 0.16601626772294384,
+      "after": 0.21,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 3.6,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 144,
+      "status": "Source-supported",
+      "reason": "Published process range 0-144 rpm, not the wider instrument range. The app stores the maximum only; the lower limit is retained here."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "baffled",
+      "before": false,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03447378646584,
+      "status": "Source-supported",
+      "reason": "0.5 psi above atmospheric pressure, converted using 1 psi = 0.06894757293168 bar. Used as the simulator warning ceiling. This is the published process/interlock limit, NOT a vessel design-pressure rating or the 0-6 psi sensor span. Detection tolerance is +/-0.05 psi."
+    },
+    {
+      "id": "merck-iflex-200",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting point replaces the legacy 0.05 bar setting, which exceeds the documented process/interlock limit. Zero is not a manufacturer-recommended culture setpoint."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.6404522157703514,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "vesselDiameter",
+      "before": 0.8602540138280996,
+      "after": 0.919,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "liquidHeight",
+      "before": 1.7205080276561993,
+      "after": 1.507575586292953,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "Single bottom-mounted design interpreted from Table 1 and Figure 1; not an explicitly tabulated impeller count. Development-design qualification applies."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "impellerDiameter",
+      "before": 0.2838838245632729,
+      "after": 0.311,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Direct absolute dimension from March 2024 guide; preferred to multiplying rounded di:D ratios from the application note."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 3.6,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-1000",
+      "parameter": "baffled",
+      "before": false,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "DEVELOPMENT DESIGN: source table marks this size in development. These are manufacturer characterization-design values, not confirmed released-equipment specifications. No transfer from the older non-iFlex Mobius family. Four-blade down-pumping pitched impeller; X-baffle; bottom mounted 15 degrees from centre."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "totalVolume",
+      "before": 2000,
+      "after": 2400,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultimus single-use film",
+      "status": "Source-supported",
+      "reason": "Film brand confirmed; woven nylon reinforcement and Irgafos 168-free contact layer described. This does not identify all contact-layer polymers. Page 7 stainless steel is support hardware, not the bag film."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.639888937289564,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "vesselDiameter",
+      "before": 1.0838521402785781,
+      "after": 1.158,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "liquidHeight",
+      "before": 2.1677042805571562,
+      "after": 1.898991389381315,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Mixer is used with a single-use impeller; single bottom-mounted design also described on pages 5 and 7."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "impellerDiameter",
+      "before": 0.3576712062919308,
+      "after": 0.406,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 3.7,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 102,
+      "status": "Source-supported",
+      "reason": "Published process range 27-102 rpm, not the wider instrument range. The app stores the maximum only; the lower limit is retained here."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "baffled",
+      "before": false,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "Locally archived MK_DS12340EN Ver. 4.0, March 2025 confirms previously gathered values. Four-blade down-pumping pitched impeller, bottom mounted 15 degrees from centre; X-baffle. Metric dimensions take precedence over rounded inch equivalents."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.027579029172672,
+      "status": "Source-supported",
+      "reason": "0.4 psi above atmospheric pressure, converted using 1 psi = 0.06894757293168 bar. Used as the simulator warning ceiling. This is the published process/interlock limit, NOT a vessel design-pressure rating or the 0-6 psi sensor span. Detection tolerance is +/-0.05 psi."
+    },
+    {
+      "id": "merck-iflex-2000",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting point replaces the legacy 0.05 bar setting, which exceeds the documented process/interlock limit. Zero is not a manufacturer-recommended culture setpoint."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "minVolume",
+      "before": 0.4,
+      "after": 0.3,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "maxVolume",
+      "before": 1,
+      "after": 0.97,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "totalVolume",
+      "before": 1,
+      "after": 1.42,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "initialVolume",
+      "before": 0.4,
+      "after": 0.3,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / 316L stainless steel / silicone",
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "vesselDiameter",
+      "before": 0.08333532739297071,
+      "after": 0.08249349885367108,
+      "status": "Derived / estimated",
+      "reason": "The estimate treats the liquid volume as a straight-sided cylinder and does not include heads, cones, internals or manufacturer-specific dimensions."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "liquidHeight",
+      "before": 0.18333772026453557,
+      "after": 0.18148569747807639,
+      "status": "Derived / estimated",
+      "reason": "This is linked to the same ideal-cylinder approximation used for the diameter."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "impellerDiameter",
+      "before": 0.027500658039680336,
+      "after": 0.027222854621711458,
+      "status": "Derived / estimated",
+      "reason": "A one-third tank-diameter impeller is used only as a generic starting geometry when no model-specific impeller diameter is stored."
+    },
+    {
+      "id": "thermo-glass-1",
+      "parameter": "maxRpm",
+      "before": 1200,
+      "after": 1250,
+      "status": "Source-supported",
+      "reason": "Published default configured speed; TruBio can configure lower values. Not a universal process-specific safe speed."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "minVolume",
+      "before": 0.8,
+      "after": 1.2,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "maxVolume",
+      "before": 3,
+      "after": 2.96,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "totalVolume",
+      "before": 3,
+      "after": 3.03,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "initialVolume",
+      "before": 0.8,
+      "after": 1.2,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / 316L stainless steel / silicone",
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "vesselDiameter",
+      "before": 0.12019034012393921,
+      "after": 0.11965376896030891,
+      "status": "Derived / estimated",
+      "reason": "The estimate treats the liquid volume as a straight-sided cylinder and does not include heads, cones, internals or manufacturer-specific dimensions."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "liquidHeight",
+      "before": 0.2644187482726663,
+      "after": 0.2632382917126796,
+      "status": "Derived / estimated",
+      "reason": "This is linked to the same ideal-cylinder approximation used for the diameter."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "impellerDiameter",
+      "before": 0.039662812240899945,
+      "after": 0.03948574375690194,
+      "status": "Derived / estimated",
+      "reason": "A one-third tank-diameter impeller is used only as a generic starting geometry when no model-specific impeller diameter is stored."
+    },
+    {
+      "id": "thermo-glass-3",
+      "parameter": "maxRpm",
+      "before": 1200,
+      "after": 1250,
+      "status": "Source-supported",
+      "reason": "Published default configured speed; TruBio can configure lower values. Not a universal process-specific safe speed."
+    },
+    {
+      "id": "thermo-dynadrive-5",
+      "parameter": "minVolume",
+      "before": 0.5,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Direct 1-5 L range; replaces the unsupported 0.5 L minimum."
+    },
+    {
+      "id": "thermo-dynadrive-5",
+      "parameter": "initialVolume",
+      "before": 0.5,
+      "after": 1,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "minVolume",
+      "before": 2,
+      "after": 2.8,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "maxVolume",
+      "before": 7,
+      "after": 6.83,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "totalVolume",
+      "before": 7,
+      "after": 7.22,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "initialVolume",
+      "before": 2,
+      "after": 2.8,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / 316L stainless steel / silicone",
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "vesselDiameter",
+      "before": 0.15941474639655975,
+      "after": 0.15811365588735404,
+      "status": "Derived / estimated",
+      "reason": "The estimate treats the liquid volume as a straight-sided cylinder and does not include heads, cones, internals or manufacturer-specific dimensions."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "liquidHeight",
+      "before": 0.35071244207243146,
+      "after": 0.3478500429521789,
+      "status": "Derived / estimated",
+      "reason": "This is linked to the same ideal-cylinder approximation used for the diameter."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "impellerDiameter",
+      "before": 0.05260686631086472,
+      "after": 0.052177506442826836,
+      "status": "Derived / estimated",
+      "reason": "A one-third tank-diameter impeller is used only as a generic starting geometry when no model-specific impeller diameter is stored."
+    },
+    {
+      "id": "thermo-glass-7",
+      "parameter": "maxRpm",
+      "before": 1200,
+      "after": 1250,
+      "status": "Source-supported",
+      "reason": "Published default configured speed; TruBio can configure lower values. Not a universal process-specific safe speed."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "minVolume",
+      "before": 4,
+      "after": 6,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "maxVolume",
+      "before": 15,
+      "after": 14.66,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "totalVolume",
+      "before": 15,
+      "after": 16.8,
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "initialVolume",
+      "before": 4,
+      "after": 6,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "material",
+      "before": "Glass",
+      "after": "Borosilicate glass / 316L stainless steel / silicone",
+      "status": "Source-supported",
+      "reason": "Loaded working volume and total loaded volume are distinct from the named vessel size."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "vesselDiameter",
+      "before": 0.20552259063482714,
+      "after": 0.2039578707209375,
+      "status": "Derived / estimated",
+      "reason": "The estimate treats the liquid volume as a straight-sided cylinder and does not include heads, cones, internals or manufacturer-specific dimensions."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "liquidHeight",
+      "before": 0.45214969939661975,
+      "after": 0.4487073155860625,
+      "status": "Derived / estimated",
+      "reason": "This is linked to the same ideal-cylinder approximation used for the diameter."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "impellerDiameter",
+      "before": 0.06782245490949296,
+      "after": 0.06730609733790938,
+      "status": "Derived / estimated",
+      "reason": "A one-third tank-diameter impeller is used only as a generic starting geometry when no model-specific impeller diameter is stored."
+    },
+    {
+      "id": "thermo-glass-15",
+      "parameter": "maxRpm",
+      "before": 1200,
+      "after": 1250,
+      "status": "Source-supported",
+      "reason": "Published default configured speed; TruBio can configure lower values. Not a universal process-specific safe speed."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "totalVolume",
+      "before": 30,
+      "after": 43,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "heightDiameterRatio",
+      "before": 3,
+      "after": 2,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "vesselDiameter",
+      "before": 0.23350886498814719,
+      "after": 0.266,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "liquidHeight",
+      "before": 0.7005265949644416,
+      "after": 0.571,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "impellerDiameter",
+      "before": 0.07705792544608857,
+      "after": 0.0889,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "maxRpm",
+      "before": 600,
+      "after": 275,
+      "status": "App assumption",
+      "reason": "This simulator has one constant speed ceiling. Conservatively selected the published limit at minimum working volume; it does not implement the full fill-dependent envelope. At full volume the rated ceiling is 596 rpm."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Manufacturer prints 0.03 bar (0.5 psi). Use the explicit bar limit; the parenthetical conversion is rounded. BPC operating limit, not jacket pressure or vessel design rating."
+    },
+    {
+      "id": "thermo-suf-30",
+      "parameter": "operatingPressure",
+      "before": 0.1,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value replaces 0.1 bar, which exceeds the published BPC limit. Not a manufacturer process setpoint."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "totalVolume",
+      "before": 50,
+      "after": 65.5,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 2.5,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "vesselDiameter",
+      "before": 0.3169202883774542,
+      "after": 0.294,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "liquidHeight",
+      "before": 0.6338405767549083,
+      "after": 0.74,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 4,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "impellerDiameter",
+      "before": 0.10458369516455988,
+      "after": 0.1085,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "baseRpm",
+      "before": 100,
+      "after": 125,
+      "status": "App assumption",
+      "reason": "App-selected starting point above the manufacturer recommended >120 rpm minimum; 125 itself is not a published specification."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "maxRpm",
+      "before": 250,
+      "after": 200,
+      "status": "App assumption",
+      "reason": "Conflict: table 4.1 lists VFD range 30-250 rpm, while motor specification on PDF p. 81 lists 90-200 rpm. Simulator ceiling conservatively set to 200 pending manufacturer clarification; NOT claimed as a resolved rating."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "App assumption",
+      "reason": "Conflict: PDF p. 6 states 34 mbar, while p. 8 states 30 mbar; both print 0.5 psi. The simulator selects the lower 0.030 bar ceiling pending clarification. This is a conservative choice, not a resolved manufacturer rating. Inlet and jacket limits are distinct."
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value replaces 0.05 bar, above both published BPC limits. Not a manufacturer process setpoint."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "totalVolume",
+      "before": 50,
+      "after": 65.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "vesselDiameter",
+      "before": 0.3169202883774542,
+      "after": 0.349,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "liquidHeight",
+      "before": 0.6338405767549083,
+      "after": 0.521,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "impellerDiameter",
+      "before": 0.10458369516455988,
+      "after": 0.1111,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 2.1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "maxRpm",
+      "before": 250,
+      "after": 107,
+      "status": "App assumption",
+      "reason": "The app has one constant ceiling, but PDF p. 119 limits 20-50% fill to 20 W/m3. Select the published 20%-fill nominal RPM across the range, rather than misrepresenting the motor maximum as valid at every fill. Full fill allows higher RPM. Published RPM values are rounded and assume water-like fluid."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Explicit 0.03 bar (0.5 psi) BPC pressure ceiling. Bar value retained; not water-jacket or sparger-inlet pressure."
+    },
+    {
+      "id": "thermo-sub-50",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value; replaces a default above the published BPC limit. Not a manufacturer culture setpoint."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "totalVolume",
+      "before": 100,
+      "after": 120,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "vesselDiameter",
+      "before": 0.39929454246550805,
+      "after": 0.438,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "liquidHeight",
+      "before": 0.7985890849310161,
+      "after": 0.66,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "impellerDiameter",
+      "before": 0.13176719901361766,
+      "after": 0.146,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 2.1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 85,
+      "status": "App assumption",
+      "reason": "The app has one constant ceiling, but PDF p. 119 limits 20-50% fill to 20 W/m3. Select the published 20%-fill nominal RPM across the range, rather than misrepresenting the motor maximum as valid at every fill. Full fill allows higher RPM. Published RPM values are rounded and assume water-like fluid."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Explicit 0.03 bar (0.5 psi) BPC pressure ceiling. Bar value retained; not water-jacket or sparger-inlet pressure."
+    },
+    {
+      "id": "thermo-sub-100",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value; replaces a default above the published BPC limit. Not a manufacturer culture setpoint."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "totalVolume",
+      "before": 250,
+      "after": 316,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "vesselDiameter",
+      "before": 0.5419260701392891,
+      "after": 0.597,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "liquidHeight",
+      "before": 1.0838521402785781,
+      "after": 0.914,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "impellerDiameter",
+      "before": 0.1788356031459654,
+      "after": 0.2,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 2.1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "baseRpm",
+      "before": 80,
+      "after": 69,
+      "status": "App assumption",
+      "reason": "Starting RPM lowered to the selected constant low-fill ceiling; not a separately sourced process setpoint."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 69,
+      "status": "App assumption",
+      "reason": "The app has one constant ceiling, but PDF p. 119 limits 20-50% fill to 20 W/m3. Select the published 20%-fill nominal RPM across the range, rather than misrepresenting the motor maximum as valid at every fill. Full fill allows higher RPM. Published RPM values are rounded and assume water-like fluid."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Explicit 0.03 bar (0.5 psi) BPC pressure ceiling. Bar value retained; not water-jacket or sparger-inlet pressure."
+    },
+    {
+      "id": "thermo-sub-250",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value; replaces a default above the published BPC limit. Not a manufacturer culture setpoint."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "totalVolume",
+      "before": 300,
+      "after": 435,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "heightDiameterRatio",
+      "before": 3,
+      "after": 2,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "vesselDiameter",
+      "before": 0.5030795991604359,
+      "after": 0.572,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "liquidHeight",
+      "before": 1.5092387974813075,
+      "after": 1.232,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "impellerDiameter",
+      "before": 0.16601626772294384,
+      "after": 0.1879,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "powerNumber",
+      "before": 5,
+      "after": 4.1,
+      "status": "Source-supported",
+      "reason": "Published vessel diameter (not separate BPC chamber diameter), liquid height, three 6-blade Rushton turbines and four baffles. Power number is an average over 20-100% RPM."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "maxRpm",
+      "before": 375,
+      "after": 120,
+      "status": "App assumption",
+      "reason": "This simulator has one constant speed ceiling. Conservatively selected the published limit at minimum working volume; it does not implement the full fill-dependent envelope. At full volume the rated ceiling is 375 rpm."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Manufacturer prints 0.03 bar (0.5 psi). Use the explicit bar limit; the parenthetical conversion is rounded. BPC operating limit, not jacket pressure or vessel design rating."
+    },
+    {
+      "id": "thermo-suf-300",
+      "parameter": "operatingPressure",
+      "before": 0.1,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value replaces 0.1 bar, which exceeds the published BPC limit. Not a manufacturer process setpoint."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "totalVolume",
+      "before": 500,
+      "after": 586,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 2.5,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "vesselDiameter",
+      "before": 0.6827840632552957,
+      "after": 0.634,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "liquidHeight",
+      "before": 1.3655681265105915,
+      "after": 1.5875,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 4,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "impellerDiameter",
+      "before": 0.2253187408742476,
+      "after": 0.229,
+      "status": "Source-supported",
+      "reason": "Chamber diameter and liquid height copied directly. Arrangement is three modified pitched-blade plus one sweep impeller; generic single-type modelling cannot reproduce this exactly."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 120,
+      "status": "Source-supported",
+      "reason": "35-120 rpm; recommended minimum for culture is above 50 rpm."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "App assumption",
+      "reason": "Conflict: PDF p. 6 states 34 mbar, while p. 8 states 30 mbar; both print 0.5 psi. The simulator selects the lower 0.030 bar ceiling pending clarification. This is a conservative choice, not a resolved manufacturer rating. Inlet and jacket limits are distinct."
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value replaces 0.05 bar, above both published BPC limits. Not a manufacturer process setpoint."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "totalVolume",
+      "before": 500,
+      "after": 660,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "vesselDiameter",
+      "before": 0.6827840632552957,
+      "after": 0.7556,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "liquidHeight",
+      "before": 1.3655681265105915,
+      "after": 1.1336,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "impellerDiameter",
+      "before": 0.2253187408742476,
+      "after": 0.251,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 2.1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "baseRpm",
+      "before": 80,
+      "after": 59,
+      "status": "App assumption",
+      "reason": "Starting RPM lowered to the selected constant low-fill ceiling; not a separately sourced process setpoint."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 59,
+      "status": "App assumption",
+      "reason": "The app has one constant ceiling, but PDF p. 119 limits 20-50% fill to 20 W/m3. Select the published 20%-fill nominal RPM across the range, rather than misrepresenting the motor maximum as valid at every fill. Full fill allows higher RPM. Published RPM values are rounded and assume water-like fluid."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Explicit 0.03 bar (0.5 psi) BPC pressure ceiling. Bar value retained; not water-jacket or sparger-inlet pressure."
+    },
+    {
+      "id": "thermo-sub-500",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value; replaces a default above the published BPC limit. Not a manufacturer culture setpoint."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "totalVolume",
+      "before": 1000,
+      "after": 1320,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "vesselDiameter",
+      "before": 0.8602540138280996,
+      "after": 0.959,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "liquidHeight",
+      "before": 1.7205080276561993,
+      "after": 1.422,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "impellerDiameter",
+      "before": 0.2838838245632729,
+      "after": 0.321,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 2.1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "baseRpm",
+      "before": 55,
+      "after": 50,
+      "status": "App assumption",
+      "reason": "Starting RPM lowered to the selected constant low-fill ceiling; not a separately sourced process setpoint."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 50,
+      "status": "App assumption",
+      "reason": "The app has one constant ceiling, but PDF p. 119 limits 20-50% fill to 20 W/m3. Select the published 20%-fill nominal RPM across the range, rather than misrepresenting the motor maximum as valid at every fill. Full fill allows higher RPM. Published RPM values are rounded and assume water-like fluid."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Explicit 0.03 bar (0.5 psi) BPC pressure ceiling. Bar value retained; not water-jacket or sparger-inlet pressure."
+    },
+    {
+      "id": "thermo-sub-1000",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value; replaces a default above the published BPC limit. Not a manufacturer culture setpoint."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "totalVolume",
+      "before": 2000,
+      "after": 2575,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.5,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "vesselDiameter",
+      "before": 1.0838521402785781,
+      "after": 1.194,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "liquidHeight",
+      "before": 2.1677042805571562,
+      "after": 1.787,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "impellerDiameter",
+      "before": 0.3576712062919308,
+      "after": 0.397,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "powerNumber",
+      "before": 0.4,
+      "after": 2.1,
+      "status": "Source-supported",
+      "reason": "DOC0022 Rev. H (February 2021). Direct BPC chamber diameter and rated-volume liquid height. One three-blade 45-degree down-pumping impeller. Np 2.1 is manufacturer-calculated, not an independent measured power coefficient. Absolute dimensions take precedence over rounded ratios; 1.5 is the rounded fluid H/D."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "baseRpm",
+      "before": 55,
+      "after": 44,
+      "status": "App assumption",
+      "reason": "Starting RPM lowered to the selected constant low-fill ceiling; not a separately sourced process setpoint."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 44,
+      "status": "App assumption",
+      "reason": "The app has one constant ceiling, but PDF p. 119 limits 20-50% fill to 20 W/m3. Select the published 20%-fill nominal RPM across the range, rather than misrepresenting the motor maximum as valid at every fill. Full fill allows higher RPM. Published RPM values are rounded and assume water-like fluid."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.03,
+      "status": "Source-supported",
+      "reason": "Explicit 0.03 bar (0.5 psi) BPC pressure ceiling. Bar value retained; not water-jacket or sparger-inlet pressure."
+    },
+    {
+      "id": "thermo-sub-2000",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value; replaces a default above the published BPC limit. Not a manufacturer culture setpoint."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "totalVolume",
+      "before": 3000,
+      "after": 3730,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 1.4963503649635035,
+      "status": "Derived / estimated",
+      "reason": "Published fluid ratios 1.7/2.9 do not match the absolute dimensions. Keep direct heights/diameter, calculate their quotient, and preserve the inconsistency."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "vesselDiameter",
+      "before": 1.2407009817988,
+      "after": 1.37,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "liquidHeight",
+      "before": 2.4814019635976,
+      "after": 2.05,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Mixed modified pitched-blade plus sweep arrangement cannot be represented exactly by the generic single-type simulator. Generic Np remains unverified."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "impellerDiameter",
+      "before": 0.409431323993604,
+      "after": 0.49,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 85,
+      "status": "App assumption",
+      "reason": "Table 4.1 gives VFD range 0-85 rpm; Table 4.2 on p. 49 gives motor speed 0-90 rpm. Lower ceiling chosen pending clarification. Recommended culture minimum is >30 rpm, not a guaranteed safe range for all conditions."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.034,
+      "status": "Source-supported",
+      "reason": "Direct maximum bag pressure 34 mbar (0.5 psi), converted to 0.034 bar; not condenser TCU or jacket pressure."
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value replaces 0.05 bar, above the published bag limit; not a recommended culture setpoint."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "totalVolume",
+      "before": 5000,
+      "after": 5585,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "heightDiameterRatio",
+      "before": 2,
+      "after": 2.4963503649635035,
+      "status": "Derived / estimated",
+      "reason": "Published fluid ratios 1.7/2.9 do not match the absolute dimensions. Keep direct heights/diameter, calculate their quotient, and preserve the inconsistency."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "vesselDiameter",
+      "before": 1.471013671678133,
+      "after": 1.37,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "liquidHeight",
+      "before": 2.942027343356266,
+      "after": 3.42,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Mixed modified pitched-blade plus sweep arrangement cannot be represented exactly by the generic single-type simulator. Generic Np remains unverified."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 5,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "impellerDiameter",
+      "before": 0.48543451165378393,
+      "after": 0.49,
+      "status": "Source-supported",
+      "reason": "DOC0176ES Rev. A, February 2022. Spanish original. Direct metric dimensions; 137 cm chamber and 49 cm impeller span both columns. Hardware combines modified two-blade impellers with one two-blade sweep impeller; count totals the assemblies, not blades."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "maxRpm",
+      "before": 150,
+      "after": 85,
+      "status": "App assumption",
+      "reason": "Table 4.1 gives VFD range 0-85 rpm; Table 4.2 on p. 49 gives motor speed 0-90 rpm. Lower ceiling chosen pending clarification. Recommended culture minimum is >30 rpm, not a guaranteed safe range for all conditions."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "maxPressure",
+      "before": 0.5,
+      "after": 0.034,
+      "status": "Source-supported",
+      "reason": "Direct maximum bag pressure 34 mbar (0.5 psi), converted to 0.034 bar; not condenser TCU or jacket pressure."
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "parameter": "operatingPressure",
+      "before": 0.05,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric app starting value replaces 0.05 bar, above the published bag limit; not a recommended culture setpoint."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "minVolume",
+      "before": 0.3,
+      "after": 2,
+      "status": "Source-supported",
+      "reason": "Manufacturer application note explicitly calls 2 L and 10 L the minimal and maximal levels of the 20 L bag. Selected this documented bag configuration, replacing the mixed 0.3-25 L platform envelope."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "maxVolume",
+      "before": 25,
+      "after": 10,
+      "status": "Source-supported",
+      "reason": "Manufacturer application note explicitly calls 2 L and 10 L the minimal and maximal levels of the 20 L bag. Selected this documented bag configuration, replacing the mixed 0.3-25 L platform envelope."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "nominalVolume",
+      "before": 25,
+      "after": 20,
+      "status": "Source-supported",
+      "reason": "Manufacturer application note explicitly calls 2 L and 10 L the minimal and maximal levels of the 20 L bag. Selected this documented bag configuration, replacing the mixed 0.3-25 L platform envelope."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "totalVolume",
+      "before": 25,
+      "after": 20,
+      "status": "Source-supported",
+      "reason": "Manufacturer application note explicitly calls 2 L and 10 L the minimal and maximal levels of the 20 L bag. Selected this documented bag configuration, replacing the mixed 0.3-25 L platform envelope."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "initialVolume",
+      "before": 0.3,
+      "after": 2,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "vesselDiameter",
+      "before": 0.3569308030546842,
+      "after": 0.26298886425769297,
+      "status": "Derived / estimated",
+      "reason": "The estimate treats the liquid volume as a straight-sided cylinder and does not include heads, cones, internals or manufacturer-specific dimensions."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "liquidHeight",
+      "before": 0.24985156213827894,
+      "after": 0.18409220498038506,
+      "status": "Derived / estimated",
+      "reason": "This is linked to the same ideal-cylinder approximation used for the diameter."
+    },
+    {
+      "id": "cytiva-wave-25",
+      "parameter": "impellerDiameter",
+      "before": 0.1177871650080458,
+      "after": 0.08678632520503868,
+      "status": "Derived / estimated",
+      "reason": "A one-third tank-diameter impeller is used only as a generic starting geometry when no model-specific impeller diameter is stored."
+    },
+    {
+      "id": "cytiva-x-platform-50",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "ReadyKleer single-use film",
+      "status": "Source-supported",
+      "reason": "Film brand documented; specific contact-layer polymer not established here."
+    },
+    {
+      "id": "cytiva-x-platform-50",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Manufacturer designation is 6B-R50 (PDF p. 5). Pitched-blade is an unvalidated simulation approximation; generic power number is not manufacturer-confirmed."
+    },
+    {
+      "id": "cytiva-x-platform-50",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-centred drive and impeller; baffles described."
+    },
+    {
+      "id": "cytiva-x-platform-50",
+      "parameter": "maxRpm",
+      "before": 250,
+      "after": 285,
+      "status": "Source-supported",
+      "reason": "Direct working range and downflow agitation ceiling. X-200 upflow ceiling is instead 215 rpm."
+    },
+    {
+      "id": "cytiva-x-platform-50",
+      "parameter": "baffled",
+      "before": false,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "Single bottom-centred drive and impeller; baffles described."
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "parameter": "minVolume",
+      "before": 10,
+      "after": 25,
+      "status": "Source-supported",
+      "reason": "Model-specific working range; XDR-50 minimum is 25 L, not a family 20% assumption."
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "parameter": "totalVolume",
+      "before": 50,
+      "after": 67.16,
+      "status": "Derived / estimated",
+      "reason": "Total calculated by adding the published headspace to maximum working volume."
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "parameter": "initialVolume",
+      "before": 10,
+      "after": 25,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultra-low-density polyethylene (ULDPE) contact layer",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-x-platform-200",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "ReadyKleer single-use film",
+      "status": "Source-supported",
+      "reason": "Film brand documented; specific contact-layer polymer not established here."
+    },
+    {
+      "id": "cytiva-x-platform-200",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "App assumption",
+      "reason": "Manufacturer designation is 6B-R50 (PDF p. 5). Pitched-blade is an unvalidated simulation approximation; generic power number is not manufacturer-confirmed."
+    },
+    {
+      "id": "cytiva-x-platform-200",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-centred drive and impeller; baffles described."
+    },
+    {
+      "id": "cytiva-x-platform-200",
+      "parameter": "maxRpm",
+      "before": 200,
+      "after": 185,
+      "status": "Source-supported",
+      "reason": "Direct working range and downflow agitation ceiling. X-200 upflow ceiling is instead 215 rpm."
+    },
+    {
+      "id": "cytiva-x-platform-200",
+      "parameter": "baffled",
+      "before": false,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "Single bottom-centred drive and impeller; baffles described."
+    },
+    {
+      "id": "cytiva-xdr-200",
+      "parameter": "totalVolume",
+      "before": 200,
+      "after": 295.47,
+      "status": "Derived / estimated",
+      "reason": "Total calculated by adding the published headspace to maximum working volume."
+    },
+    {
+      "id": "cytiva-xdr-200",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultra-low-density polyethylene (ULDPE) contact layer",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-200",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-200",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-500",
+      "parameter": "totalVolume",
+      "before": 500,
+      "after": 675.9,
+      "status": "Derived / estimated",
+      "reason": "Total calculated by adding the published headspace to maximum working volume."
+    },
+    {
+      "id": "cytiva-xdr-500",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultra-low-density polyethylene (ULDPE) contact layer",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-500",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-500",
+      "parameter": "impellerCount",
+      "before": 2,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-1000",
+      "parameter": "totalVolume",
+      "before": 1000,
+      "after": 1369.17,
+      "status": "Derived / estimated",
+      "reason": "Total calculated by adding the published headspace to maximum working volume."
+    },
+    {
+      "id": "cytiva-xdr-1000",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultra-low-density polyethylene (ULDPE) contact layer",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-1000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-1000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-2000",
+      "parameter": "totalVolume",
+      "before": 2000,
+      "after": 2970.33,
+      "status": "Derived / estimated",
+      "reason": "Total calculated by adding the published headspace to maximum working volume."
+    },
+    {
+      "id": "cytiva-xdr-2000",
+      "parameter": "material",
+      "before": "Plastic / single-use",
+      "after": "Ultra-low-density polyethylene (ULDPE) contact layer",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-2000",
+      "parameter": "impellerType",
+      "before": "hydrofoil",
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "cytiva-xdr-2000",
+      "parameter": "impellerCount",
+      "before": 3,
+      "after": 1,
+      "status": "Source-supported",
+      "reason": "Single bottom-mounted pitched impeller. The stainless-steel support vessel is not the product-contact layer."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "minVolume",
+      "before": null,
+      "after": 10,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "maxVolume",
+      "before": null,
+      "after": 50,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "nominalVolume",
+      "before": null,
+      "after": 50,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "totalVolume",
+      "before": null,
+      "after": 60,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "initialVolume",
+      "before": null,
+      "after": 10,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "material",
+      "before": null,
+      "after": "PureFlex bag film; polypropylene impeller",
+      "status": "Source-supported",
+      "reason": "Bag film and main impeller material; 304L steel describes support hardware, not the product-contact bag. Other wetted components are listed separately in the original table."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "heightDiameterRatio",
+      "before": null,
+      "after": 1.6197327813138134,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "vesselDiameter",
+      "before": null,
+      "after": 0.34,
+      "status": "Source-supported",
+      "reason": "The manufacturer row says Diameter; inside/outside convention is not explicit. Used as the model chamber diameter provisionally. This is not the external skid width on page 3."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "liquidHeight",
+      "before": null,
+      "after": 0.5507091456466966,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "impellerType",
+      "before": null,
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "impellerCount",
+      "before": null,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. The count is used by the vessel diagram and represents a generic configuration unless source-supported."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "impellerDiameter",
+      "before": null,
+      "after": 0.1085,
+      "status": "Source-supported",
+      "reason": "Absolute tabulated dimension converted from cm to m. Prefer this over the rounded 0.3 impeller/vessel ratio, which does not reproduce all listed dimensions."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "powerNumber",
+      "before": null,
+      "after": 3.2,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "baseRpm",
+      "before": null,
+      "after": 50,
+      "status": "App assumption",
+      "reason": "Editable app starting point within the manufacturer operating range; not a published process setpoint."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "maxRpm",
+      "before": null,
+      "after": 300,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "baseVvm",
+      "before": null,
+      "after": 0.05,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the initial gas rate loaded into the form."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "maxVvm",
+      "before": null,
+      "after": 0.3,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the gas-rate ceiling available to the generic DO-control cascade."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "baffled",
+      "before": null,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "maxPressure",
+      "before": null,
+      "after": 0.017,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "operatingPressure",
+      "before": null,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric starting pressure selected by the app; below the documented 0.017 bar maximum."
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "parameter": "maxOxygenFraction",
+      "before": null,
+      "after": 100,
+      "status": "App assumption",
+      "reason": "This describes the simulator's permitted gas-mixture range, not proof that the selected hardware is certified for pure oxygen service."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "minVolume",
+      "before": null,
+      "after": 40,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "maxVolume",
+      "before": null,
+      "after": 200,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "nominalVolume",
+      "before": null,
+      "after": 200,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "totalVolume",
+      "before": null,
+      "after": 250,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "initialVolume",
+      "before": null,
+      "after": 40,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "material",
+      "before": null,
+      "after": "PureFlex bag film; polypropylene impeller",
+      "status": "Source-supported",
+      "reason": "Bag film and main impeller material; 304L steel describes support hardware, not the product-contact bag. Other wetted components are listed separately in the original table."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "heightDiameterRatio",
+      "before": null,
+      "after": 1.6171817618441833,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "vesselDiameter",
+      "before": null,
+      "after": 0.54,
+      "status": "Source-supported",
+      "reason": "The manufacturer row says Diameter; inside/outside convention is not explicit. Used as the model chamber diameter provisionally. This is not the external skid width on page 3."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "liquidHeight",
+      "before": null,
+      "after": 0.8732781513958591,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "impellerType",
+      "before": null,
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "impellerCount",
+      "before": null,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "The simulator adds a third generic impeller at 1000 L and above. This is an internal geometry heuristic, not a manufacturer configuration. The count is used by the vessel diagram and represents a generic configuration unless source-supported."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "impellerDiameter",
+      "before": null,
+      "after": 0.1828,
+      "status": "Source-supported",
+      "reason": "Absolute tabulated dimension converted from cm to m. Prefer this over the rounded 0.3 impeller/vessel ratio, which does not reproduce all listed dimensions."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "powerNumber",
+      "before": null,
+      "after": 4,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "baseRpm",
+      "before": null,
+      "after": 50,
+      "status": "App assumption",
+      "reason": "Editable app starting point within the manufacturer operating range; not a published process setpoint."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "maxRpm",
+      "before": null,
+      "after": 140,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "baseVvm",
+      "before": null,
+      "after": 0.05,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the initial gas rate loaded into the form."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "maxVvm",
+      "before": null,
+      "after": 0.3,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the gas-rate ceiling available to the generic DO-control cascade."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "baffled",
+      "before": null,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "maxPressure",
+      "before": null,
+      "after": 0.017,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "operatingPressure",
+      "before": null,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric starting pressure selected by the app; below the documented 0.017 bar maximum."
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "parameter": "maxOxygenFraction",
+      "before": null,
+      "after": 100,
+      "status": "App assumption",
+      "reason": "This describes the simulator's permitted gas-mixture range, not proof that the selected hardware is certified for pure oxygen service."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "minVolume",
+      "before": null,
+      "after": 200,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "maxVolume",
+      "before": null,
+      "after": 1000,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "nominalVolume",
+      "before": null,
+      "after": 1000,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "totalVolume",
+      "before": null,
+      "after": 1250,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "initialVolume",
+      "before": null,
+      "after": 200,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "material",
+      "before": null,
+      "after": "PureFlex Plus bag film; polypropylene impeller",
+      "status": "Source-supported",
+      "reason": "Bag film and main impeller material; 304L steel describes support hardware, not the product-contact bag. Other wetted components are listed separately in the original table."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "heightDiameterRatio",
+      "before": null,
+      "after": 1.6351087274173515,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "vesselDiameter",
+      "before": null,
+      "after": 0.92,
+      "status": "Source-supported",
+      "reason": "The manufacturer row says Diameter; inside/outside convention is not explicit. Used as the model chamber diameter provisionally. This is not the external skid width on page 3."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "liquidHeight",
+      "before": null,
+      "after": 1.5043000292239634,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "impellerType",
+      "before": null,
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "impellerCount",
+      "before": null,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "The simulator adds a third generic impeller at 1000 L and above. This is an internal geometry heuristic, not a manufacturer configuration. The count is used by the vessel diagram and represents a generic configuration unless source-supported."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "impellerDiameter",
+      "before": null,
+      "after": 0.2794,
+      "status": "Source-supported",
+      "reason": "Absolute tabulated dimension converted from cm to m. Prefer this over the rounded 0.3 impeller/vessel ratio, which does not reproduce all listed dimensions."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "powerNumber",
+      "before": null,
+      "after": 3.5,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "baseRpm",
+      "before": null,
+      "after": 40,
+      "status": "App assumption",
+      "reason": "Editable app starting point within the manufacturer operating range; not a published process setpoint."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "maxRpm",
+      "before": null,
+      "after": 100,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "baseVvm",
+      "before": null,
+      "after": 0.05,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the initial gas rate loaded into the form."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "maxVvm",
+      "before": null,
+      "after": 0.3,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the gas-rate ceiling available to the generic DO-control cascade."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "baffled",
+      "before": null,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "maxPressure",
+      "before": null,
+      "after": 0.017,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "operatingPressure",
+      "before": null,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric starting pressure selected by the app; below the documented 0.017 bar maximum."
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "parameter": "maxOxygenFraction",
+      "before": null,
+      "after": 100,
+      "status": "App assumption",
+      "reason": "This describes the simulator's permitted gas-mixture range, not proof that the selected hardware is certified for pure oxygen service."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "minVolume",
+      "before": null,
+      "after": 400,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "maxVolume",
+      "before": null,
+      "after": 2000,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "nominalVolume",
+      "before": null,
+      "after": 2000,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "totalVolume",
+      "before": null,
+      "after": 2500,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "initialVolume",
+      "before": null,
+      "after": 400,
+      "status": "Derived / estimated",
+      "reason": "The preset starts the process at the lower end of its configured working range."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "material",
+      "before": null,
+      "after": "PureFlex Plus bag film; polypropylene impeller",
+      "status": "Source-supported",
+      "reason": "Bag film and main impeller material; 304L steel describes support hardware, not the product-contact bag. Other wetted components are listed separately in the original table."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "heightDiameterRatio",
+      "before": null,
+      "after": 1.6314213691817556,
+      "status": "Derived / estimated",
+      "reason": "Derived liquid aspect ratio. Does not reuse an overall vessel ratio or generic profile ratio as if it described the liquid."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "vesselDiameter",
+      "before": null,
+      "after": 1.16,
+      "status": "Source-supported",
+      "reason": "The manufacturer row says Diameter; inside/outside convention is not explicit. Used as the model chamber diameter provisionally. This is not the external skid width on page 3."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "liquidHeight",
+      "before": null,
+      "after": 1.8924487882508365,
+      "status": "Derived / estimated",
+      "reason": "Ideal-cylinder estimate from published diameter and working volume. Ignores tapered walls, curved bottoms and internals; not a manufacturer liquid-height specification."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "impellerType",
+      "before": null,
+      "after": "pitched",
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "impellerCount",
+      "before": null,
+      "after": 1,
+      "status": "App assumption",
+      "reason": "The simulator adds a third generic impeller at 1000 L and above. This is an internal geometry heuristic, not a manufacturer configuration. The count is used by the vessel diagram and represents a generic configuration unless source-supported."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "impellerDiameter",
+      "before": null,
+      "after": 0.3302,
+      "status": "Source-supported",
+      "reason": "Absolute tabulated dimension converted from cm to m. Prefer this over the rounded 0.3 impeller/vessel ratio, which does not reproduce all listed dimensions."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "powerNumber",
+      "before": null,
+      "after": 3.3,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "baseRpm",
+      "before": null,
+      "after": 40,
+      "status": "App assumption",
+      "reason": "Editable app starting point within the manufacturer operating range; not a published process setpoint."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "maxRpm",
+      "before": null,
+      "after": 90,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "baseVvm",
+      "before": null,
+      "after": 0.05,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the initial gas rate loaded into the form."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "maxVvm",
+      "before": null,
+      "after": 0.3,
+      "status": "App assumption",
+      "reason": "No model-specific value is stored for this parameter, so the simulator uses its editable mammalian stirred-tank starting profile. This is the gas-rate ceiling available to the generic DO-control cascade."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "baffled",
+      "before": null,
+      "after": true,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "maxPressure",
+      "before": null,
+      "after": 0.017,
+      "status": "Source-supported",
+      "reason": "SP1237EN00 Ver. 4.0, October 2021. Four blades at 13 degree pitch; bottom mounting 15 degrees from centre; X-baffle. Maximum pressure converted from 17 mbar to 0.017 bar. These values do not apply to iFlex."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "operatingPressure",
+      "before": null,
+      "after": 0,
+      "status": "App assumption",
+      "reason": "Atmospheric starting pressure selected by the app; below the documented 0.017 bar maximum."
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "parameter": "maxOxygenFraction",
+      "before": null,
+      "after": 100,
+      "status": "App assumption",
+      "reason": "This describes the simulator's permitted gas-mixture range, not proof that the selected hardware is certified for pure oxygen service."
+    }
+  ],
+  "unresolved": []
+}

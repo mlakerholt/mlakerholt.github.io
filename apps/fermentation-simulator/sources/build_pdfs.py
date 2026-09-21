@@ -421,4 +421,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # Retired legacy generator: it rewrote the index and could restore stale claims.
+    import runpy
+    runpy.run_path(str(SOURCES_DIR / "build_audited_pdfs.py"), run_name="__main__")

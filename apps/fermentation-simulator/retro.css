@@ -565,6 +565,32 @@ button:focus-visible,
   gap: 8px;
 }
 
+.result-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--green);
+}
+
+.result-tabs [aria-selected="true"] {
+  background: var(--green);
+  color: #ffffff;
+  border-style: inset;
+}
+
+.reactor-chart-note {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.field.ph-mode-field { grid-column: span 2; }
+@media (max-width: 650px) {
+  .field.ph-mode-field { grid-column: auto; }
+}
+
 .chart-card {
   border: 1px solid #1f5c2e;
   background: #ffffff;
@@ -702,4 +728,31 @@ footer {
     background: #ffffff;
     padding: 0;
   }
+}
+
+.feed-derivation { margin-top: 22px; border-top: 1px solid var(--green); padding-top: 14px; }
+.feed-derivation-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.feed-derivation-heading h3 { margin: 0; color: var(--green); }
+.feed-derivation-context { color: var(--green); }
+.feed-derivation-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.feed-derivation-table th, .feed-derivation-table td { border: 1px solid #bac9bc; padding: 9px; vertical-align: top; overflow-wrap: anywhere; }
+.feed-derivation-table thead { background: var(--green-pale); }
+.feed-derivation-table th:first-child { width: 20%; }
+.feed-derivation-table th:last-child { width: 24%; }
+.feed-derivation-table small { display: block; margin-top: 5px; color: var(--muted); }
+.feed-derivation-warnings { color: var(--warning); }
+.field .feed-growth-warning { color: var(--warning); border-left: 3px solid var(--warning); padding-left: 8px; }
+.feed-derivation details { margin-top: 12px; }
+.feed-derivation summary { cursor: pointer; color: var(--green); }
+@media (max-width: 600px) {
+  .feed-derivation-table { min-width: 580px; }
+  .feed-derivation-heading button { width: 100%; }
+}
+
+.biology-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 8px;
+  font-size: 0.875rem;
 }

@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const BUILD_ID = "2026-09-11.1";
+  const BUILD_ID = "2026-09-21.2";
 
   const retroStylesheet = document.createElement("link");
   retroStylesheet.rel = "stylesheet";
@@ -103,7 +103,7 @@
       throw new Error("This browser does not support the compressed simulator bundle. Please use a current browser.");
     }
 
-    const files = Array.from({ length: 7 }, (_, index) =>
+    const files = Array.from({ length: 8 }, (_, index) =>
       `app.payload.${String(index).padStart(2, "0")}`
     );
 
@@ -126,6 +126,12 @@
       throw new Error("The simulator bundle is incompatible with this loader.");
     }
 
+    await loadScript(`simulation-core.js?v=${BUILD_ID}`);
+    const failureStyle=document.createElement('link');failureStyle.rel='stylesheet';
+    failureStyle.href=`failure-results.css?v=${BUILD_ID}`;document.head.appendChild(failureStyle);
+    await loadScript(`failure-results.js?v=${BUILD_ID}`);
+    await loadScript(`feed-derivation.js?v=${BUILD_ID}`);
+    await loadScript(`feed-derivation-ui.js?v=${BUILD_ID}`);
     await executeSource(source.replace(startupHook, immediateStartup));
     await executeSource(await loadCompressedSource("vessel-catalog.payload"), { replayDomReady: true });
     await waitForManufacturerSelector();

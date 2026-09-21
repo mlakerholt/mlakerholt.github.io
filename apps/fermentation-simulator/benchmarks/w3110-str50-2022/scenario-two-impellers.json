@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "fermentation-simulator/v0.2",
+  "reactor": {
+    "preset": "custom",
+    "catalogId": "sartorius-str-microbial-50",
+    "manufacturer": "Sartorius",
+    "name": "Biostat STR® Microbial 50 L — 11–40 L working volume",
+    "sourcePage": "sources/?id=sartorius-str-microbial-50",
+    "totalVolume": 50,
+    "initialVolume": 24,
+    "maxWorkingVolume": 40,
+    "diameter": 0.257,
+    "liquidHeight": 0.771,
+    "heightDiameterRatio": 3,
+    "impellerType": "rushton",
+    "impellerCount": 2,
+    "powerNumber": 5,
+    "baseRpm": 250,
+    "maxRpm": 500,
+    "baseVvm": 1.25,
+    "maxVvm": 2.5,
+    "baffled": true,
+    "maxPressure": 0.5,
+    "operatingPressure": 0,
+    "impellerDiameter": 0.0848,
+    "spargerType": "ring",
+    "maxOxygenFraction": 1
+  },
+  "biology": {
+    "preset": "ecoli-w3110",
+    "category": "Microbial fermentation",
+    "name": "Escherichia coli W3110",
+    "muMax": 0.6,
+    "ks": 0.05,
+    "yxS": 0.49,
+    "maintenance": 0.022,
+    "qO2Max": 12.5,
+    "optimalTemperature": 37,
+    "optimalPh": 7,
+    "overflowThreshold": 0.72,
+    "enableOverflow": true,
+    "yieldBasis": "true",
+    "yieldReferenceGrowthRate": 0.15,
+    "substrateThreshold": 0
+  },
+  "product": {
+    "type": "biomass",
+    "name": "Biomass (non-product-forming source culture)",
+    "alpha": 0,
+    "beta": 0,
+    "degradation": 0,
+    "inductionTime": 0,
+    "postInductionTemperature": 37,
+    "burdenFactor": 1,
+    "recoverableFraction": 1,
+    "substrateYield": 0.5
+  },
+  "process": {
+    "type": "fed-batch",
+    "initialBiomass": 0.3,
+    "inoculumMode": "od",
+    "initialOd": 1,
+    "odToDcw": 0.3,
+    "duration": 19,
+    "timeStep": 0.005,
+    "initialDo": 100,
+    "temperature": 37,
+    "phSetpoint": 6.8,
+    "initialPh": 6.8,
+    "doSetpoint": 35,
+    "phMode": "controlled",
+    "baseNormality": 11,
+    "maxBaseRate": 100,
+    "bufferCapacity": 50,
+    "harvestCondition": "duration"
+  },
+  "medium": {
+    "preset": "custom",
+    "name": "Reported initial glucose only (incomplete medium recipe)",
+    "components": [
+      {
+        "name": "Glucose",
+        "concentration": 20,
+        "unit": "g/L",
+        "role": "carbon"
+      }
+    ],
+    "effectiveCarbon": 20
+  },
+  "feed": {
+    "preset": "custom",
+    "name": "Reported feed 1 glucose (second feed not represented)",
+    "components": [
+      {
+        "name": "Glucose",
+        "concentration": 655.3,
+        "unit": "g/L",
+        "role": "carbon"
+      }
+    ],
+    "effectiveCarbon": 655.3,
+    "strategy": "exponential",
+    "start": 5.3,
+    "initialRateMlMin": 2.2157647372478277,
+    "maxRateMlMin": 100,
+    "linearSlopeMlMinH": 0,
+    "targetGrowthRate": 0.15,
+    "dilutionRate": 0,
+    "doStatThreshold": 45
+  },
+  "modelVersion": "2026-09-13.2",
+  "inputModelVersion": "2026-09-13.2",
+  "benchmark": {
+    "name": "W3110 / STR Microbial 50 L literature reconstruction",
+    "source": "https://www.sartorius.co.kr/wp-content/uploads/2023/07/evaluation-biostat-str-microbial-bioreactor-application-note-1-data.pdf",
+    "qualification": "Partial glucose-only reconstruction, uncalibrated biology; see README.md and evidence.json"
+  }
+}

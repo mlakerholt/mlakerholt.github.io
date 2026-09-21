@@ -1,0 +1,622 @@
+{
+  "sourceBuild": "2026-09-12.6",
+  "cases": [
+    {
+      "name": "reference",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.811631089481159,
+        "finalBiomassConcentration": 43.51974230155911,
+        "totalBiomass": 78.84171815971281,
+        "finalSubstrateConcentration": 0,
+        "finalAcetateConcentration": 3.5301368872585803e-9,
+        "finalProductTiter": 2.584010649830995,
+        "recoverableProduct": 4.681274028784243,
+        "productYield": 0.027192922436947733,
+        "biomassYieldObserved": 0.45754579722526034,
+        "cumulativeFeed": 0.29930091430140476,
+        "cumulativeBase": 0.012330175179786141,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 149.65045715070508,
+        "substrateConsumed": 172.15045715070602,
+        "residualSubstrate": 0,
+        "substrateOut": 0,
+        "balanceClosure": 100.00000000000055,
+        "oxygenConsumedMmol": 2934.0751885803006,
+        "cumulativeGasL": 2307.811759742407,
+        "cumulativeInletOxygenMol": 20.193352897746088,
+        "carbonDioxideG": 163.54293429316925,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.5562898913798614,
+        "peakOur": 98.82829494815307,
+        "peakOtr": 98.82418188731805,
+        "peakFeedRate": 0.25
+      },
+      "recordCount": 362,
+      "recordsHash": "6021c37a41e0ae01077e0336568d92196d3da880bec1a78748d527a99bada4c1",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        }
+      ]
+    },
+    {
+      "name": "batch",
+      "summary": {
+        "stoppedReason": "Substrate exhaustion condition reached",
+        "finalTime": 13.199999999999807,
+        "finalVolume": 1.50465442702649,
+        "finalBiomassConcentration": 6.954062604187562,
+        "totalBiomass": 10.463461083210177,
+        "finalSubstrateConcentration": 0.007987967373079254,
+        "finalAcetateConcentration": 0.5140642814141121,
+        "finalProductTiter": 0.15770524418193962,
+        "recoverableProduct": 0.2372918938236491,
+        "productYield": 0.010551943066848476,
+        "biomassYieldObserved": 0.46195615086485525,
+        "cumulativeFeed": 0,
+        "cumulativeBase": 0.004654427026490256,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 0,
+        "substrateConsumed": 22.48798086952913,
+        "residualSubstrate": 0.012019130470846861,
+        "substrateOut": 0,
+        "balanceClosure": 99.9999999999999,
+        "oxygenConsumedMmol": 263.90558952783175,
+        "cumulativeGasL": 594.9137498947662,
+        "cumulativeInletOxygenMol": 5.2054953115792,
+        "carbonDioxideG": 21.363581826052688,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 0,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.5569630196780315,
+        "peakOur": 30.2614536380853,
+        "peakOtr": 40.02899834561336,
+        "peakFeedRate": 0
+      },
+      "recordCount": 134,
+      "recordsHash": "6b05d0be64ad67bd912e96c543f90b028e56c3d9ad93e812aa8660c0c86be89a",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        }
+      ]
+    },
+    {
+      "name": "lowPh",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.7993009143013774,
+        "finalBiomassConcentration": 0.04168285559215631,
+        "totalBiomass": 0.07500000017765912,
+        "finalSubstrateConcentration": 95.64634634559361,
+        "finalAcetateConcentration": 0,
+        "finalProductTiter": 0.004075070142152085,
+        "recoverableProduct": 0.007332277432616492,
+        "productYield": 0.13603805859330415,
+        "biomassYieldObserved": 3.2961655624385267e-9,
+        "cumulativeFeed": 0.29930091430140476,
+        "cumulativeBase": 1.9986487515628278e-14,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 149.65045715070508,
+        "substrateConsumed": 0.05389872149334973,
+        "residualSubstrate": 172.0965584292128,
+        "substrateOut": 0,
+        "balanceClosure": 100.00000000000063,
+        "oxygenConsumedMmol": 3.888000008992598,
+        "cumulativeGasL": 1714.8482311765742,
+        "cumulativeInletOxygenMol": 15.004922022795068,
+        "carbonDioxideG": 0.05120378541868221,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 0,
+        "peakAcetate": 0,
+        "peakOur": 0.07200000017909934,
+        "peakOtr": 3.131353158259736,
+        "peakFeedRate": 0.25
+      },
+      "recordCount": 362,
+      "recordsHash": "14f443f8bfeaa2830e5eca66a18d0682af79f4e0940158dc542ca9eebc28e0e9",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        }
+      ]
+    },
+    {
+      "name": "oxygenLimited",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.8035832200839468,
+        "finalBiomassConcentration": 9.698468369958402,
+        "totalBiomass": 17.491994812571882,
+        "finalSubstrateConcentration": 71.44885106790692,
+        "finalAcetateConcentration": 0.3093614425088286,
+        "finalProductTiter": 0.7950098715386968,
+        "recoverableProduct": 1.4338664641082877,
+        "productYield": 0.033125020275438476,
+        "biomassYieldObserved": 0.4023654369114802,
+        "cumulativeFeed": 0.29930091430140476,
+        "cumulativeBase": 0.004282305782567068,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 149.65045715070508,
+        "substrateConsumed": 43.28650827035026,
+        "residualSubstrate": 128.8639488803539,
+        "substrateOut": 0,
+        "balanceClosure": 99.99999999999946,
+        "oxygenConsumedMmol": 839.486220716342,
+        "cumulativeGasL": 1718.1608697516872,
+        "cumulativeInletOxygenMol": 15.033907610327294,
+        "carbonDioxideG": 41.12218285683275,
+        "oxygenLimitedHours": 23.199999999999594,
+        "cascadeLimitedHours": 27.15999999999951,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.37061740351624917,
+        "peakOur": 39.28338110743471,
+        "peakOtr": 15.172746671358585,
+        "peakFeedRate": 0.25
+      },
+      "recordCount": 362,
+      "recordsHash": "82c0eb0ed41728e0762658137884f5d96eba35c03ca3a647da65cc7454461866",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "high",
+          "title": "Oxygen limitation",
+          "message": "Dissolved oxygen remained below half the setpoint for 23.2 h."
+        },
+        {
+          "severity": "high",
+          "title": "DO cascade exhausted",
+          "message": "Agitation, airflow and oxygen enrichment were simultaneously at their configured limits for 27.16 h."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        }
+      ]
+    },
+    {
+      "name": "highFeed",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 3.021106088258018,
+        "finalBiomassConcentration": 62.11904895867243,
+        "totalBiomass": 187.66823700584317,
+        "finalSubstrateConcentration": 114.1875581690072,
+        "finalAcetateConcentration": 0.2780591121422758,
+        "finalProductTiter": 3.0468823763468094,
+        "recoverableProduct": 9.204954897387404,
+        "productYield": 0.021619062522384463,
+        "biomassYieldObserved": 0.4405877013864444,
+        "cumulativeFeed": 1.4965045715070204,
+        "cumulativeBase": 0.02460151675095358,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 748.2522857535098,
+        "substrateConsumed": 425.7795585658054,
+        "residualSubstrate": 344.9727271877042,
+        "substrateOut": 0,
+        "balanceClosure": 99.99999999999997,
+        "oxygenConsumedMmol": 6120.500838131518,
+        "cumulativeGasL": 3505.6302598904417,
+        "cumulativeInletOxygenMol": 30.717368901305644,
+        "carbonDioxideG": 404.4905806375151,
+        "oxygenLimitedHours": 8.119999999999916,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.5533390475557496,
+        "peakOur": 302.8154374925532,
+        "peakOtr": 137.6947404169315,
+        "peakFeedRate": 1.25
+      },
+      "recordCount": 362,
+      "recordsHash": "b0a788221dac4cecf45248a65946d2407892cb9e32cf7e9b7000c0b394c8fedb",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "high",
+          "title": "Oxygen limitation",
+          "message": "Dissolved oxygen remained below half the setpoint for 8.12 h."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        }
+      ]
+    },
+    {
+      "name": "volumeStop",
+      "summary": {
+        "stoppedReason": "Maximum working volume condition reached",
+        "finalTime": 9.639999999999883,
+        "finalVolume": 1.510002244919488,
+        "finalBiomassConcentration": 3.7949533324956906,
+        "totalBiomass": 5.730388051433185,
+        "finalSubstrateConcentration": 8.821835297823997,
+        "finalAcetateConcentration": 0.5551101670262729,
+        "finalProductTiter": 0.03594887679384244,
+        "recoverableProduct": 0.05428288466103618,
+        "productYield": 0.004479827037865747,
+        "biomassYieldObserved": 0.4667246492266583,
+        "cumulativeFeed": 0.00587634849148306,
+        "cumulativeBase": 0.0041258964280064874,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 2.93817424574153,
+        "substrateConsumed": 12.117183141717302,
+        "residualSubstrate": 13.320991104024216,
+        "substrateOut": 0,
+        "balanceClosure": 99.99999999999996,
+        "oxygenConsumedMmol": 132.82730574188287,
+        "cumulativeGasL": 434.53825828682955,
+        "cumulativeInletOxygenMol": 3.802209760009762,
+        "carbonDioxideG": 11.511323984631439,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 0,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.5562898913798614,
+        "peakOur": 29.074810447818685,
+        "peakOtr": 39.98297335323933,
+        "peakFeedRate": 0.0356922034277072
+      },
+      "recordCount": 99,
+      "recordsHash": "150e1c9453e6abcff92af2af0834fde19fd719bf072d6c9ab5bc0e045075e604",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "medium",
+          "title": "Working-volume limit",
+          "message": "Nutrient feed was reduced or stopped when the maximum working volume was reached."
+        }
+      ]
+    },
+    {
+      "name": "continuous",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.5069022916755175,
+        "finalBiomassConcentration": 5.735797643058687,
+        "totalBiomass": 8.643286612912167,
+        "finalSubstrateConcentration": 481.7603794253945,
+        "finalAcetateConcentration": 0.006385908280961163,
+        "finalProductTiter": 0.2040800097802219,
+        "recoverableProduct": 1.0173529065277223,
+        "productYield": 0.014507341421101508,
+        "biomassYieldObserved": 0.4581341923780504,
+        "cumulativeFeed": 6.76745387094414,
+        "cumulativeBase": 0.006902291675518343,
+        "cumulativeOutflow": 6.76745387094414,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 3383.726935472068,
+        "substrateConsumed": 70.12676389127658,
+        "residualSubstrate": 725.9658197945938,
+        "substrateOut": 2610.134351786196,
+        "balanceClosure": 99.99999999999994,
+        "oxygenConsumedMmol": 846.9051487032941,
+        "cumulativeGasL": 1624.483397404292,
+        "cumulativeInletOxygenMol": 14.21422972728756,
+        "carbonDioxideG": 66.62042569671283,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 0,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.4281670232937792,
+        "peakOur": 28.689128049047113,
+        "peakOtr": 31.10933537366039,
+        "peakFeedRate": 3.7672466965158318
+      },
+      "recordCount": 362,
+      "recordsHash": "30c31f275ad07d7beff078fc7a277cf2c1ffd531a4d1c06ad35664a6c22b6ad5",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        }
+      ]
+    },
+    {
+      "name": "uncontrolled",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.7993009143013774,
+        "finalBiomassConcentration": 43.20671970755266,
+        "totalBiomass": 77.74189027376283,
+        "finalSubstrateConcentration": 0,
+        "finalAcetateConcentration": 4.1492760300168227e-7,
+        "finalProductTiter": 2.563455609259858,
+        "recoverableProduct": 4.612428021512257,
+        "productYield": 0.02679300478112818,
+        "biomassYieldObserved": 0.45115703762419257,
+        "cumulativeFeed": 0.29930091430140476,
+        "cumulativeBase": 0,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 149.65045715070508,
+        "substrateConsumed": 172.1504571507056,
+        "residualSubstrate": 0,
+        "substrateOut": 0,
+        "balanceClosure": 100.00000000000028,
+        "oxygenConsumedMmol": 2890.8182175333077,
+        "cumulativeGasL": 2286.3923056263725,
+        "cumulativeInletOxygenMol": 20.005932674230667,
+        "carbonDioxideG": 163.54293429316937,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 27.339999999999506,
+        "peakAcetate": 0.5168204257328957,
+        "peakOur": 97.46520764270969,
+        "peakOtr": 97.46136895606831,
+        "peakFeedRate": 0.25
+      },
+      "recordCount": 362,
+      "recordsHash": "cb35597483b6cca0332ad6a988c71638ba53d7acb04f3be2983ae99f72b2f69a",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        },
+        {
+          "severity": "medium",
+          "title": "pH control insufficient",
+          "message": "pH deviated by more than 0.2 units for 27.34 h."
+        }
+      ]
+    },
+    {
+      "name": "baseLimited",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.7993009143013774,
+        "finalBiomassConcentration": 8.113126838635228,
+        "totalBiomass": 14.59795653859941,
+        "finalSubstrateConcentration": 76.06127740086184,
+        "finalAcetateConcentration": 0.10435729749268806,
+        "finalProductTiter": 0.5866965931563272,
+        "recoverableProduct": 1.0556437164836827,
+        "productYield": 0.029910571804279387,
+        "biomassYieldObserved": 0.4114929379820933,
+        "cumulativeFeed": 0.29930091430140476,
+        "cumulativeBase": 0,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 149.65045715070508,
+        "substrateConsumed": 35.293331180403875,
+        "residualSubstrate": 136.8571259703014,
+        "substrateOut": 0,
+        "balanceClosure": 100.00000000000011,
+        "oxygenConsumedMmol": 642.1136553992633,
+        "cumulativeGasL": 1714.8482311765742,
+        "cumulativeInletOxygenMol": 15.004922022795068,
+        "carbonDioxideG": 33.52866462138362,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 32.69999999999951,
+        "peakAcetate": 0.12514508217105216,
+        "peakOur": 15.089595102410307,
+        "peakOtr": 18.598451477198267,
+        "peakFeedRate": 0.25
+      },
+      "recordCount": 362,
+      "recordsHash": "468ab0284420cb5afa3d779dc963706368ab43ad3d7db322bd03940a803e43f8",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        },
+        {
+          "severity": "medium",
+          "title": "pH control insufficient",
+          "message": "pH deviated by more than 0.2 units for 32.7 h."
+        }
+      ]
+    },
+    {
+      "name": "doStat",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.5047042745457428,
+        "finalBiomassConcentration": 7.077836660682527,
+        "totalBiomass": 10.650051077865564,
+        "finalSubstrateConcentration": 0,
+        "finalAcetateConcentration": 2.7575155184446673e-19,
+        "finalProductTiter": 0.7064456710518265,
+        "recoverableProduct": 1.0629918209660192,
+        "productYield": 0.04719374094148554,
+        "biomassYieldObserved": 0.469501468560894,
+        "cumulativeFeed": 0.000047999999999999994,
+        "cumulativeBase": 0.004656274545743041,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 0.023999999999999997,
+        "substrateConsumed": 22.523999999999976,
+        "residualSubstrate": 0,
+        "substrateOut": 0,
+        "balanceClosure": 99.99999999999989,
+        "oxygenConsumedMmol": 613.6378877892805,
+        "cumulativeGasL": 1624.13141455666,
+        "cumulativeInletOxygenMol": 14.211149877370191,
+        "carbonDioxideG": 21.39779999999999,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 0,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.5569630196780315,
+        "peakOur": 30.2614536380853,
+        "peakOtr": 40.02899834561336,
+        "peakFeedRate": 0.02
+      },
+      "recordCount": 362,
+      "recordsHash": "16cc60f2a9cadddb4bc82ebc92a9c1aeaecee006b3bb4d0fed69d657b2de2cdd",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        }
+      ]
+    },
+    {
+      "name": "fractionalEnd",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 12.011,
+        "finalVolume": 1.516563259394224,
+        "finalBiomassConcentration": 5.714425649986332,
+        "totalBiomass": 8.666287989309229,
+        "finalSubstrateConcentration": 6.583792886916785,
+        "finalAcetateConcentration": 0.55270862800812,
+        "finalProductTiter": 0.1095441565581513,
+        "recoverableProduct": 0.16613064311742112,
+        "productYield": 0.008946763099512657,
+        "biomassYieldObserved": 0.46267333297271646,
+        "cumulativeFeed": 0.012107074223209906,
+        "cumulativeBase": 0.0044561851710175375,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 6.053537111604957,
+        "substrateConsumed": 18.568798711845908,
+        "residualSubstrate": 9.984738399759028,
+        "substrateOut": 0,
+        "balanceClosure": 99.99999999999993,
+        "oxygenConsumedMmol": 213.4851697172666,
+        "cumulativeGasL": 542.5744124412793,
+        "cumulativeInletOxygenMol": 4.7475261088612,
+        "carbonDioxideG": 17.640358776253635,
+        "oxygenLimitedHours": 0,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 0,
+        "phDeviationHours": 0,
+        "peakAcetate": 0.5562898913798614,
+        "peakOur": 29.074810447818685,
+        "peakOtr": 39.98297335323933,
+        "peakFeedRate": 0.05223392946846096
+      },
+      "recordCount": 122,
+      "recordsHash": "b14d617ae9cabd7d4ae43e83e48905ba3a9915eccedfd2519d302f31e0983042",
+      "warnings": [
+        {
+          "severity": "low",
+          "title": "Input assumption",
+          "message": "Product coefficients are generic assumptions unless replaced with construct- or process-specific data."
+        }
+      ]
+    },
+    {
+      "name": "biomass",
+      "summary": {
+        "stoppedReason": "Process duration reached",
+        "finalTime": 36,
+        "finalVolume": 1.8160696942058225,
+        "finalBiomassConcentration": 44.846356645339476,
+        "totalBiomass": 81.44410919914692,
+        "finalSubstrateConcentration": 0,
+        "finalAcetateConcentration": 1.435517008910662e-10,
+        "finalProductTiter": 44.846356645339476,
+        "recoverableProduct": 81.44410919914692,
+        "productYield": 0.4730984195287274,
+        "biomassYieldObserved": 0.47266275411580116,
+        "cumulativeFeed": 0.29930091430140476,
+        "cumulativeBase": 0.01676877990444447,
+        "cumulativeOutflow": 0,
+        "initialSubstrate": 22.5,
+        "substrateInFeed": 149.65045715070508,
+        "substrateConsumed": 172.15045715070602,
+        "residualSubstrate": 0,
+        "substrateOut": 0,
+        "balanceClosure": 100.00000000000055,
+        "oxygenConsumedMmol": 3063.63920402892,
+        "cumulativeGasL": 2851.1761843271547,
+        "cumulativeInletOxygenMol": 24.947791612862627,
+        "carbonDioxideG": 163.54293429316925,
+        "oxygenLimitedHours": 5.919999999999962,
+        "cascadeLimitedHours": 0,
+        "pumpLimitedHours": 14.199999999999786,
+        "phDeviationHours": 0,
+        "peakAcetate": 1.2130279950239116,
+        "peakOur": 101.7791775749792,
+        "peakOtr": 101.76580936202579,
+        "peakFeedRate": 0.25
+      },
+      "recordCount": 362,
+      "recordsHash": "412aff696f685a33d24354ca055d751a88474a16f123c2a73e048d6e0196dab6",
+      "warnings": [
+        {
+          "severity": "high",
+          "title": "Oxygen limitation",
+          "message": "Dissolved oxygen remained below half the setpoint for 5.92 h."
+        },
+        {
+          "severity": "medium",
+          "title": "Feed pump limited",
+          "message": "The requested feed exceeded the pump maximum for 14.2 h."
+        }
+      ]
+    }
+  ]
+}

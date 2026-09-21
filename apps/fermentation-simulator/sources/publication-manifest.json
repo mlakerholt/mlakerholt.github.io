@@ -1,0 +1,1020 @@
+{
+  "version": "2026-09-21",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 45,
+      "sha256": "ced447a891638bf2cc804146c15fd5b0d6f511be94c9d2369e4be0e6d8abf09e"
+    },
+    {
+      "path": "MODEL-REVIEW.md",
+      "bytes": 11595,
+      "sha256": "2dff0819766ea866477a4d65343ad2b16d6099bfba8178be557ea5cdb7da0276"
+    },
+    {
+      "path": "PUBLICATION.md",
+      "bytes": 1015,
+      "sha256": "6f2b96948329659b204cc8c3aef466d293e4bc1a6b0e86fa227426b1b653aab6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 13661,
+      "sha256": "607b0bbae9957bc4a0dc24407c6d2db551b767c8fc3ab6f0e658192f9ffe51fc"
+    },
+    {
+      "path": "Start-Simulator.ps1",
+      "bytes": 1129,
+      "sha256": "22b6f7f3e7b37fcf0750db659dace8aea6a33e54f6edc79eb376a5fd2e1fba15"
+    },
+    {
+      "path": "app.js",
+      "bytes": 5827,
+      "sha256": "389154c75a30dd8818b320b29b9cd318d294733484924479c495eeba96ddc1e4"
+    },
+    {
+      "path": "app.payload.00",
+      "bytes": 3554,
+      "sha256": "bf4004c7eb9fbc6c8e1780672a517db32bb548cfe7d5bda043a51ea04d1ea0e8"
+    },
+    {
+      "path": "app.payload.01",
+      "bytes": 3554,
+      "sha256": "401e897e1609d1622492e8a8851be8b131eb0f04ca6b5e47b7d6de691e6e5f35"
+    },
+    {
+      "path": "app.payload.02",
+      "bytes": 3554,
+      "sha256": "6f0915a858fa4d210ba9b9cb557abf69ee65a93932eafe2f335b015ac43cdee8"
+    },
+    {
+      "path": "app.payload.03",
+      "bytes": 3554,
+      "sha256": "d1d859b06e1af991e8e454ef3219b4c4716465cb0ac5e7c8403f66c3bc3cecae"
+    },
+    {
+      "path": "app.payload.04",
+      "bytes": 3554,
+      "sha256": "8186370a50cb9555b6b616c00ac2dd83c4be2dd433fbe94a0e26fc5be173a82a"
+    },
+    {
+      "path": "app.payload.05",
+      "bytes": 3554,
+      "sha256": "8289d19b5ce9c54b14490034845b438c063265b0028006362f5efb8deece1fac"
+    },
+    {
+      "path": "app.payload.06",
+      "bytes": 3554,
+      "sha256": "27dfd95d89748c5ee5edce14a40f748a0d542dc5388462c2c542dc5bac75349b"
+    },
+    {
+      "path": "app.payload.07",
+      "bytes": 3550,
+      "sha256": "2be5771b558470d9a5a6adf2b8315115b0d4490faef59eb10373b23961d9165a"
+    },
+    {
+      "path": "assets/failures/PROMPTS.md",
+      "bytes": 23636,
+      "sha256": "f1a9a9a3b5c55ed13cdb8a4d65e06b68ba8fb1b59c4c9bd5bf930621f6dd4bb1"
+    },
+    {
+      "path": "assets/failures/acetate.png",
+      "bytes": 2828913,
+      "sha256": "31a17e8bf349ad0c6fba3c380471679f2285dff81560a3ca73db4cb330522096"
+    },
+    {
+      "path": "assets/failures/hyperoxia.png",
+      "bytes": 2919023,
+      "sha256": "e1746a66131c19ee5219c8aaa12e77edd86329b36573c16c5140623b35f0596b"
+    },
+    {
+      "path": "assets/failures/oxygen.png",
+      "bytes": 2723255,
+      "sha256": "7dc1ce3b09ada38fac3a8eab30dc8ca10ed7533fe724a19740a28460c104c46b"
+    },
+    {
+      "path": "assets/failures/ph.png",
+      "bytes": 2715967,
+      "sha256": "00dd511a67a8a537d44d82a34a237610492fb19493c6829e1ac5b0e503ed84fb"
+    },
+    {
+      "path": "assets/failures/shear.png",
+      "bytes": 2812238,
+      "sha256": "ea7c5019cec81b12152a4a70013592ae6a0e7f21d7a87eedc0af334451efeabf"
+    },
+    {
+      "path": "assets/failures/starvation.png",
+      "bytes": 2733675,
+      "sha256": "8ce8f549dace0f412ebb89f609ce9bc617f496e569a8f3ac5a105a372061cfa8"
+    },
+    {
+      "path": "assets/failures/substrate.png",
+      "bytes": 2939346,
+      "sha256": "719309bb3335dceb8b068466efb38ca85f1763bc1c479d399625b61f3c3ad74e"
+    },
+    {
+      "path": "assets/failures/volume.png",
+      "bytes": 2950452,
+      "sha256": "e67edaa88e849c79b82c77c417dc97c5d8fd1df196a36cd3edacadc3b6d02c49"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/README.md",
+      "bytes": 8027,
+      "sha256": "476458e46c01ccc6a69311e7cf55178640f09d35867de2db4fbdd1a3809ee854"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/results.json",
+      "bytes": 57184,
+      "sha256": "03e318a832b10874f60ed85ff90299f0e7c94cbc054442d1340008da6231bdbd"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/run.cjs",
+      "bytes": 5071,
+      "sha256": "67a46073383b92c41695c1fa19604ae90945ffb2a6b2ec275eca669b228b3354"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/trajectory-both.json",
+      "bytes": 215204,
+      "sha256": "00c3117f829622b7f16524ff928b9588273518a1b683253c7a72aafab4f3e93b"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/trajectory-controllerOnly.json",
+      "bytes": 212414,
+      "sha256": "e57e0cfa52de06efaf31aa87c3730b7c6bab327479af355279fe443236db55a2"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/trajectory-original.json",
+      "bytes": 190711,
+      "sha256": "2f1253b1201ecdcc5fcb0b14c2ad70287242a337c6ed42b4d502fca63594e2df"
+    },
+    {
+      "path": "benchmarks/oxygen-revision-2026-09-16/trajectory-transferOnly.json",
+      "bytes": 192336,
+      "sha256": "e84f84158b0b36fb1a0700382f74676adb5f2feccec5880fa128b35143193026"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/README.md",
+      "bytes": 8535,
+      "sha256": "0684a96ad97da097789cd27f7b94cce14bba68448bfee34655f9d05feabfacd1"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/diagnostic-traces.json",
+      "bytes": 69849,
+      "sha256": "2f34af011ea07e6080ef1df12e0ce2e72afba878dd53f289f3b01aa6a2f54c5b"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/evidence.json",
+      "bytes": 3936,
+      "sha256": "b6c51748d639c2a5f8b8e27cde4845225386cf433d0213cba203288d458b8de5"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/results.json",
+      "bytes": 189843,
+      "sha256": "e3c014d9597a103d2464f649d714d50c5ee84a600e63cb2ebe36eac9538f33d3"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/run.cjs",
+      "bytes": 13551,
+      "sha256": "b0e1ed3bd265cc4ffa3c7ea5d254ae116d26ca7da8e72974d398a6c36a378852"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/scenario-measured-kla.json",
+      "bytes": 3182,
+      "sha256": "f228671fb5445ff9a121fe25c7b6c5133338cb488ad3a1e9c3d6f9daeabcbf28"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/scenario-preset.json",
+      "bytes": 3158,
+      "sha256": "a808b9cc333d9328e97fa7e25ca982d02fcaaefe40c5807c7265e84eabd6de78"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/scenario-two-impellers.json",
+      "bytes": 3158,
+      "sha256": "a25fb4fec5d0361fcb0a160e5cf4415899c9974a93835d6cd97edff876a48d45"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/trajectory-measured-kla.json",
+      "bytes": 188414,
+      "sha256": "957f68ed77a3d7791eccbb51979da29a6f908605090e1003bda5d7acf5c22243"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/trajectory-preset.json",
+      "bytes": 191089,
+      "sha256": "606c40b36545b3292ff88cd1e78e21e81836ccd8300ac49a66a1df51ca43512f"
+    },
+    {
+      "path": "benchmarks/w3110-str50-2022/trajectory-two-impellers.json",
+      "bytes": 190990,
+      "sha256": "19d029ad72ce6575ff261c19092234c4725f63584b2c7f9821628bdb5a308a1a"
+    },
+    {
+      "path": "failure-results.css",
+      "bytes": 3616,
+      "sha256": "7e20c10862fd915c82b5945db8a8d4353fe34f06b4549eb921cf24d9c3502302"
+    },
+    {
+      "path": "failure-results.js",
+      "bytes": 12009,
+      "sha256": "a04b5220f0426ca7744ac54bfd80a4990d23473bd2956a9d9b16f3928525f983"
+    },
+    {
+      "path": "feed-derivation-ui.js",
+      "bytes": 12100,
+      "sha256": "f874ecee84299c21693ec4806c80c783fdbed2a40962062835c38514a4424a81"
+    },
+    {
+      "path": "feed-derivation-worker.js",
+      "bytes": 349,
+      "sha256": "01244e083e6e411564d2cfe1d4af2817201919d01a7190ee5ff32c066d2d605a"
+    },
+    {
+      "path": "feed-derivation.js",
+      "bytes": 12264,
+      "sha256": "8db65267ded75ef65bee8f693e94d56a142318f137dff252d8aef241842c7e0b"
+    },
+    {
+      "path": "index.html",
+      "bytes": 46061,
+      "sha256": "0562f13d9a4d759cca916d3cb55c6098f8c583c1fc9e5963823349b19466fb8f"
+    },
+    {
+      "path": "local-server.cjs",
+      "bytes": 1974,
+      "sha256": "9ad97c81fb6de1d29172a4f2facdfd13c2231e3b198cff5dd13e0e26fee2cff6"
+    },
+    {
+      "path": "retro.css",
+      "bytes": 12246,
+      "sha256": "6c400eeea791e3794886e8778b99c43c9c504af37e6b18207ff07c9e2f0f86c1"
+    },
+    {
+      "path": "simulation-core.js",
+      "bytes": 49311,
+      "sha256": "751e0285d183a97bbc0f04f5e942522a2d302fbf16b709ad318906b6dcb37b51"
+    },
+    {
+      "path": "simulator.css",
+      "bytes": 15883,
+      "sha256": "d43607bf4c189dec210ee31a78ab37128deebb33c6d45016ad71a45322006b8f"
+    },
+    {
+      "path": "source-derivations.js",
+      "bytes": 30921,
+      "sha256": "4ae80aa0b79348729bf69d85566b549b0a5b7b80423361a3584d5d8b593fb162"
+    },
+    {
+      "path": "source-panel.css",
+      "bytes": 312,
+      "sha256": "16d43bdacdf0c0e217f40c903fb637612fb706ef52d3f4f14a711db38ec1dd42"
+    },
+    {
+      "path": "source-panel.js",
+      "bytes": 1743,
+      "sha256": "2f985aa42bb451898ef79336fc38a36aed9934b83249759e5111dc4a575bcfc5"
+    },
+    {
+      "path": "sources/AMBR15-EXCERPT-REVIEW.md",
+      "bytes": 2378,
+      "sha256": "bfd2f818d73f34274bd9ba6d8b77c6d36c74b555eaf76db0a466bac8dae00143"
+    },
+    {
+      "path": "sources/AN12431-ARITHMETIC-CHECK.json",
+      "bytes": 11729,
+      "sha256": "9f8b5245d8af4a629cdf5e4a00aeba463c739ed6dafb0f996c8ab9c3ec366e10"
+    },
+    {
+      "path": "sources/AN12431-REVIEW.md",
+      "bytes": 7033,
+      "sha256": "2ed8977a79a462f5ff516007b80af0ff4ae21d5b8e4d93898a979909b2c94e75"
+    },
+    {
+      "path": "sources/ARCHIVE-README.md",
+      "bytes": 2283,
+      "sha256": "32d6d88b056be93c95eff176186616ef18238f159a705ea5cbf39ab3e0025004"
+    },
+    {
+      "path": "sources/AUDIT-REPORT.md",
+      "bytes": 4163,
+      "sha256": "548910d547291c72f0da089280e99523c59f8e3cf02ad0132bb1f9ed083e0322"
+    },
+    {
+      "path": "sources/CULTURE-FAILURE-RESEARCH.md",
+      "bytes": 20298,
+      "sha256": "437ecec8327eec1e95deb83cea28bf23793cde5e49fa88511a35689cd52aae59"
+    },
+    {
+      "path": "sources/DEWILDE-2014-REVIEW.md",
+      "bytes": 2745,
+      "sha256": "f222a77d4706b2445a1df9c0b357c99490278de56e368aaeac44e9f0cea91f84"
+    },
+    {
+      "path": "sources/FEED-DERIVATION.md",
+      "bytes": 6125,
+      "sha256": "00d04bff01a24f9747396bcb060e2f5269a83f7096693462018dcbd8318b4af3"
+    },
+    {
+      "path": "sources/IFLEX-2025-COMPARISON.md",
+      "bytes": 2560,
+      "sha256": "461b139b11f4dc059e2ebf113ceeba23c247dbd08315a34dee729127059b58b2"
+    },
+    {
+      "path": "sources/MODEL-REPAIRS.md",
+      "bytes": 6672,
+      "sha256": "4f834c0cf63839e400ed7e4037f77ce6df6ef0199450bb16010d42f4419f3119"
+    },
+    {
+      "path": "sources/README.md",
+      "bytes": 6550,
+      "sha256": "4e8fcedc540758b1799f31ed5f2022a8bb4f5d632c413cbb9cfc92a46a09d088"
+    },
+    {
+      "path": "sources/THERMO-GAP-REVIEW.json",
+      "bytes": 13986,
+      "sha256": "c9cffdae20dea2d7a7e450b506a455afe42307465ff9ed308e6f05ba8bf66f51"
+    },
+    {
+      "path": "sources/THERMO-GAP-REVIEW.md",
+      "bytes": 11247,
+      "sha256": "0a30b7319322535a56a518e870837497131ba9f14f546b79b63a0ff42acc98fe"
+    },
+    {
+      "path": "sources/archive-selection.json",
+      "bytes": 7735,
+      "sha256": "48d16efd5596ccc59a18af22d53a9d2d722e5cb57903807f78514d7f42e13613"
+    },
+    {
+      "path": "sources/archive-template.html",
+      "bytes": 4659,
+      "sha256": "802a8636b460561e2ac5af913c87b85b774cb856b251109221ff4632f99276f2"
+    },
+    {
+      "path": "sources/archive_sources.py",
+      "bytes": 5141,
+      "sha256": "cbbc9971c4fe0bdfb1d3386a18a37afb88de12cbec88397b44cd322729f497ed"
+    },
+    {
+      "path": "sources/assess-an12431.cjs",
+      "bytes": 2567,
+      "sha256": "2d423813b66747429c147a9ac2ce308caa7c861c9c65f71c9035819d196413d5"
+    },
+    {
+      "path": "sources/audit-results.json",
+      "bytes": 168851,
+      "sha256": "47e7dac2be18bfce78faa1de08391d82b11e9c6b51089973ab96c0fc04330f93"
+    },
+    {
+      "path": "sources/audit-vessels.cjs",
+      "bytes": 45950,
+      "sha256": "2d4e5111c8b630498946d18ae918f18ac3468ca71de370837e57343ae4d6061d"
+    },
+    {
+      "path": "sources/audited-sheets.json",
+      "bytes": 2782179,
+      "sha256": "5607e6a4837086fa38f165fb7e8f23b6934b7342d6344b160761ba0266ba8366"
+    },
+    {
+      "path": "sources/biology/biology-data.js",
+      "bytes": 23566,
+      "sha256": "7dd136d472b5d47a83b5409d96581a48a460a65c6d270b90b37402d03dd7b640"
+    },
+    {
+      "path": "sources/biology/biology-databank.js",
+      "bytes": 4346,
+      "sha256": "5fcb36ba03bb6c774cb9b49a6a23b592029fa505b005bc469b51a059c2023b23"
+    },
+    {
+      "path": "sources/biology/biology-sheets.js",
+      "bytes": 5422,
+      "sha256": "95f8fbd584d5801de2e94f6f09bf126d7d5676a5e69d0d42309408ff9827a38c"
+    },
+    {
+      "path": "sources/biology/databank.html",
+      "bytes": 2345,
+      "sha256": "dd04f249c1baae394b658a6e9c78df0a8d98495f9e368df7b7030647598023ba"
+    },
+    {
+      "path": "sources/biology/generalized-data.js",
+      "bytes": 19023,
+      "sha256": "2c65f57a56bb8e796e1b6ea4da497345ad577af4c2c8f0c0448cc19359460d7f"
+    },
+    {
+      "path": "sources/biology/generalized.html",
+      "bytes": 3026,
+      "sha256": "5020f42206abd6a6b94291646464e155905c67bf180e4b2f771ed3b0161c8e37"
+    },
+    {
+      "path": "sources/biology/generalized.js",
+      "bytes": 3475,
+      "sha256": "e9a67c9b42b745bf6c3a929fdac0c4a331a817f8ef117545f58eb06bf2f852a3"
+    },
+    {
+      "path": "sources/biology/index.html",
+      "bytes": 2711,
+      "sha256": "526e203016330e1cadf7b5677b35058a10aba6b86454b140487278e380b11928"
+    },
+    {
+      "path": "sources/build-app.cjs",
+      "bytes": 1005,
+      "sha256": "5b4198832b76d75688606b8f5fd7dbea030c1e8ec369831b6472e3c76226c458"
+    },
+    {
+      "path": "sources/build-thermo-gap-review.cjs",
+      "bytes": 6514,
+      "sha256": "2ae2b5f8ef2d284ccb781a41df2bd7da36ccf638406b9688840f1a3f2e81d61c"
+    },
+    {
+      "path": "sources/build_archive_index.py",
+      "bytes": 2745,
+      "sha256": "96b280b9cfba8bfd63752fa69485285d2cf27f39eb3c021cc12772eafac1668f"
+    },
+    {
+      "path": "sources/build_audited_pdfs.py",
+      "bytes": 6690,
+      "sha256": "14db1e4fc30633236ee646dd8813235a4818f0b38200ece8e27822556e054e37"
+    },
+    {
+      "path": "sources/build_pdfs.py",
+      "bytes": 17375,
+      "sha256": "60ab4a75f8690cc4541c59f4b1e0a4d4bc11df034add9000efd3fafcd661476c"
+    },
+    {
+      "path": "sources/databank.css",
+      "bytes": 1762,
+      "sha256": "af47705dca7ef15f9987e0e90590006281181e6730252a3140562a3cd2d17841"
+    },
+    {
+      "path": "sources/databank.html",
+      "bytes": 2867,
+      "sha256": "d8e4514bdcdf6e587b62fc59ff22d462d83e245d2387547463e16869bd088add"
+    },
+    {
+      "path": "sources/databank.js",
+      "bytes": 4633,
+      "sha256": "b2f6c34eb40136e1f7c321bdd2d833e738ec661070dcb1ff6fce87e2f04e2341"
+    },
+    {
+      "path": "sources/failure-modes.html",
+      "bytes": 10990,
+      "sha256": "eeef1a46f1f048541be67cba65cbf492f44cd66e7fc453549e076ead9589bf6a"
+    },
+    {
+      "path": "sources/fixtures/model-baseline-2026-09-12.json",
+      "bytes": 24171,
+      "sha256": "342c85e7697823732db8905d396a2776e1ad0fd8971054693cef6391ac9c5f21"
+    },
+    {
+      "path": "sources/fixtures/simulation-core-2026-09-13.1.cjs",
+      "bytes": 30440,
+      "sha256": "060fdc0ca7e04326eb58c71000a6d9f768ba5c91be9a64410841f09b5d4a8733"
+    },
+    {
+      "path": "sources/fixtures/simulation-core-2026-09-13.2.cjs",
+      "bytes": 33370,
+      "sha256": "d99069661566acadbcd1cfef3aa2c8f09415bbe9f578797316e724b895c1162a"
+    },
+    {
+      "path": "sources/index.html",
+      "bytes": 15188,
+      "sha256": "0c13ee4b81ce6c983a2d024251c8e33a931281c9a850e7ec60b9f578771c146a"
+    },
+    {
+      "path": "sources/model-test-scenarios.cjs",
+      "bytes": 1127,
+      "sha256": "996c080c898f592f625b657e8ab1578801a4952ef448bda41def4bde534f93f3"
+    },
+    {
+      "path": "sources/originals/index.html",
+      "bytes": 16142,
+      "sha256": "77fd306338f99199885c7e0351d8ddf6ed3c8a22bc0b85c428b34e106174dc00"
+    },
+    {
+      "path": "sources/pdfs/README.md",
+      "bytes": 545,
+      "sha256": "ac8801357707c12a58831c565122f2139611d2bc3d85d410d141727826beea12"
+    },
+    {
+      "path": "sources/pdfs/custom-glass.pdf",
+      "bytes": 9538,
+      "sha256": "4d0bfd734395d6d18d474fa427d07efe4d26b57bd4c38db3b2a31d179f997e5a"
+    },
+    {
+      "path": "sources/pdfs/custom-single-use.pdf",
+      "bytes": 9588,
+      "sha256": "7721d76497052de065de942cb1236618f425af0bbd120a84b342478875987452"
+    },
+    {
+      "path": "sources/pdfs/custom-steel.pdf",
+      "bytes": 9613,
+      "sha256": "8fc9ce87fea5c98941dfae92423dcece7553f09292f00158301d1e3f2a294d80"
+    },
+    {
+      "path": "sources/pdfs/cytiva-wave-25.pdf",
+      "bytes": 12967,
+      "sha256": "7159078c25befe7a67bc5aea44a6afb386963a2a2d51dd438944845eee17540d"
+    },
+    {
+      "path": "sources/pdfs/cytiva-x-platform-200.pdf",
+      "bytes": 14745,
+      "sha256": "7e2293310bd88e22ecf7ceacb9f610a2a83fcae4612b9e5c29a7419758d0b607"
+    },
+    {
+      "path": "sources/pdfs/cytiva-x-platform-50.pdf",
+      "bytes": 14587,
+      "sha256": "8ad6be77d4fa411c8e0fa82d126993904b97adff03b3d9888c4b48883c3899e9"
+    },
+    {
+      "path": "sources/pdfs/cytiva-xdr-10.pdf",
+      "bytes": 11957,
+      "sha256": "de0fbbe935754ad71e5d407ce65094754376252b0b5e5304e918f3a88f6a0c80"
+    },
+    {
+      "path": "sources/pdfs/cytiva-xdr-1000.pdf",
+      "bytes": 13967,
+      "sha256": "1c4d7f16636bae645528804f86ee4a3cb79e11b59ecc1ce908519a57504317b2"
+    },
+    {
+      "path": "sources/pdfs/cytiva-xdr-200.pdf",
+      "bytes": 13965,
+      "sha256": "e90eeece2f12446b0004a2c5db8127a09d3533221497deb5ed8d6b524e5bc427"
+    },
+    {
+      "path": "sources/pdfs/cytiva-xdr-2000.pdf",
+      "bytes": 13962,
+      "sha256": "242ca867aa4fd8cdac952ca9b8d2c62faf67f67387f250ff85a62898b7522d99"
+    },
+    {
+      "path": "sources/pdfs/cytiva-xdr-50.pdf",
+      "bytes": 13773,
+      "sha256": "8a7bfc751428bbf390336a25c7f5afea707ceded7823d104f8e484e2bb70ccd2"
+    },
+    {
+      "path": "sources/pdfs/cytiva-xdr-500.pdf",
+      "bytes": 13959,
+      "sha256": "ed64da57129c298b4ce1759564cd90a9f811e6a168533b1b5e71ba2d55c78f24"
+    },
+    {
+      "path": "sources/pdfs/manifest.json",
+      "bytes": 24622,
+      "sha256": "e0eedee01c4dc25da821940f49e36e872661ce59725309bd5f4577cb6721ed2e"
+    },
+    {
+      "path": "sources/pdfs/merck-breez.pdf",
+      "bytes": 11754,
+      "sha256": "724bfccc0f07c5720ac5c9a16bc5c86968148265cc10057257c66d0c3d20d2b5"
+    },
+    {
+      "path": "sources/pdfs/merck-iflex-1000.pdf",
+      "bytes": 16114,
+      "sha256": "4d6b70d262b13b7c177a3ac65982bf853274ab99e4c01bab0f27f044fd34dcee"
+    },
+    {
+      "path": "sources/pdfs/merck-iflex-200.pdf",
+      "bytes": 15749,
+      "sha256": "59944672b523ef131746d7a1074957f930cf782c72f1c90c4dd7562c2571aaa0"
+    },
+    {
+      "path": "sources/pdfs/merck-iflex-2000.pdf",
+      "bytes": 15745,
+      "sha256": "8b56df879247c2e775c6d07678c1192e1df60cccdbd48fb8672893f615987b44"
+    },
+    {
+      "path": "sources/pdfs/merck-iflex-50.pdf",
+      "bytes": 15924,
+      "sha256": "b55b9ef0f50d99eb57ca0d1e792d590984008c61f8db876dc61b13261db875e9"
+    },
+    {
+      "path": "sources/pdfs/merck-mobius-2021-1000.pdf",
+      "bytes": 14686,
+      "sha256": "419ae00ec4a16125820a67c00960f760e29544fe4ea20c101387b046d7c456f8"
+    },
+    {
+      "path": "sources/pdfs/merck-mobius-2021-200.pdf",
+      "bytes": 14662,
+      "sha256": "dd3dcf7f246ca0b448de186bb91041145ea866d2f19b7f9df34f3c498c5f523a"
+    },
+    {
+      "path": "sources/pdfs/merck-mobius-2021-2000.pdf",
+      "bytes": 14673,
+      "sha256": "d0a02415547076beaa256456389baf67daa31d0d28a9fcff32c93f69ade35690"
+    },
+    {
+      "path": "sources/pdfs/merck-mobius-2021-50.pdf",
+      "bytes": 14691,
+      "sha256": "b75a57f23bc214a90e0e983d1e593ea699cf7b46549ef575189ada466e5cef5f"
+    },
+    {
+      "path": "sources/pdfs/merck-mobius-3.pdf",
+      "bytes": 18185,
+      "sha256": "48d77655573d3c584baf398f153828273a0465a0291b2c2c3707a6be4d441f44"
+    },
+    {
+      "path": "sources/pdfs/sartorius-ambr-15.pdf",
+      "bytes": 21482,
+      "sha256": "3a60cd506042c6541739f62b8c475ef0c526c0866e13d3b902052396cfd871e4"
+    },
+    {
+      "path": "sources/pdfs/sartorius-ambr-250.pdf",
+      "bytes": 14148,
+      "sha256": "c300a8e4dea94e1304b84fc2bea21c1e37fea92b96ff66c4285a02e9cf2e3841"
+    },
+    {
+      "path": "sources/pdfs/sartorius-cplus-10.pdf",
+      "bytes": 16042,
+      "sha256": "48b337910198ceb69ac7d426bd4dfc1f051d1f25dca63fe7562f209ffded50f5"
+    },
+    {
+      "path": "sources/pdfs/sartorius-cplus-15.pdf",
+      "bytes": 16041,
+      "sha256": "8af01bdefa593622061c475b67e43da326f5cc75549a7043a9f0e6741cd7bf1d"
+    },
+    {
+      "path": "sources/pdfs/sartorius-cplus-20.pdf",
+      "bytes": 16042,
+      "sha256": "b57ae152099e2bcf920adfceec1ad64a39afd122e6bc08fdae0dfdd39786c4fb"
+    },
+    {
+      "path": "sources/pdfs/sartorius-cplus-30.pdf",
+      "bytes": 16036,
+      "sha256": "f5323ac14d8ed14adb376c27ebd7f4ee4e5607e32ec07797fda2800f08cb29fa"
+    },
+    {
+      "path": "sources/pdfs/sartorius-cplus-5.pdf",
+      "bytes": 16045,
+      "sha256": "efe607a4d479ab130cd740f2e55ffc42205213360bf9050f3a13293f35829607"
+    },
+    {
+      "path": "sources/pdfs/sartorius-d-dcu.pdf",
+      "bytes": 15482,
+      "sha256": "fedacf52f63706b242e8d3aa5d178ad0061239a6fcb569a45ad752e9bfebfb68"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-1.pdf",
+      "bytes": 12879,
+      "sha256": "84794c8bb1cdc0f59e4891e5df856061d4779519e9344688d998f419e74754c4"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-10.pdf",
+      "bytes": 12857,
+      "sha256": "11a7325710471ff5587b99b9ea48e1577d1ede47cbca60d5b43dd615a05e1169"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-100.pdf",
+      "bytes": 12878,
+      "sha256": "e5328fb1d6dd8325c8ab457dac7a6677a6fa5d98db482718a331d468b2631c67"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-2.pdf",
+      "bytes": 12876,
+      "sha256": "099159d10ae8ab32862b3da9288087d9d62c325e5285ff4bf86464d3cf980d7f"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-20.pdf",
+      "bytes": 12872,
+      "sha256": "bed11f33c7569f00b5df652d9caad5cb1ea0612c3f4e674f4e874c4d042f98b0"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-200.pdf",
+      "bytes": 12877,
+      "sha256": "fd4385323e88d66a9c084682b28b514ad4cb806d00f396dabeb44cdd599acfe4"
+    },
+    {
+      "path": "sources/pdfs/sartorius-rm-50.pdf",
+      "bytes": 12874,
+      "sha256": "25e82a177e75f2479cf11aff445a3cd1498e4677d6269fbb36b519418f091200"
+    },
+    {
+      "path": "sources/pdfs/sartorius-str-gen3-1000.pdf",
+      "bytes": 18259,
+      "sha256": "5df72dd3e94ccca01e1777ec0c3c34ebbc34fb9efafd415be38ca9f761be842a"
+    },
+    {
+      "path": "sources/pdfs/sartorius-str-gen3-200.pdf",
+      "bytes": 18222,
+      "sha256": "31d7ac2df00ffce94caf76e0b9ab499b2dbdcd297b05ee52bf32edfbf269fadc"
+    },
+    {
+      "path": "sources/pdfs/sartorius-str-gen3-2000.pdf",
+      "bytes": 18215,
+      "sha256": "e9cb6696f035b694a6c9b1420bebd20a1205d98176b874af748c69ecb3e31e6e"
+    },
+    {
+      "path": "sources/pdfs/sartorius-str-gen3-50.pdf",
+      "bytes": 18060,
+      "sha256": "1429e9f5206a360151deee02f280105e30f3411027d72ec69154811f737aceab"
+    },
+    {
+      "path": "sources/pdfs/sartorius-str-gen3-500.pdf",
+      "bytes": 18214,
+      "sha256": "0250ad1939d796d4b2035a5f7f5948fe2e7ba6920e34d6e5d53872364f2e2987"
+    },
+    {
+      "path": "sources/pdfs/sartorius-str-microbial-50.pdf",
+      "bytes": 11838,
+      "sha256": "a553f02c6d84f0008d92dcefcda72e21df52a636d9462a35efadb371f9cc11a8"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-glass-1.pdf",
+      "bytes": 15260,
+      "sha256": "87edc081a5ff3de1f12c428f9bf047a48c9cd9b269b66956a2c98ae0d253925e"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-glass-10.pdf",
+      "bytes": 15277,
+      "sha256": "3d5be55e06614b59624846926f6cfc7443191d4501056bf43e701cea071d9a67"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-glass-2.pdf",
+      "bytes": 15275,
+      "sha256": "f0cd34d3ef7efb6be7ef74a66f62ac16837b2b5ac774cb7194486cae2229be48"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-glass-5.pdf",
+      "bytes": 15270,
+      "sha256": "301650ff0112235bb779969e274ce10dddab883121bec1b7643e99bebf90f8ad"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-su-10-cell-therapy.pdf",
+      "bytes": 12670,
+      "sha256": "903e11e8f438265955556673e7044edad5e6bd21e4d1d56e62a7f773f475916d"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-su-10-essential.pdf",
+      "bytes": 13108,
+      "sha256": "9c89e99a0e1eef85d95bba2457bc5f0e5ddd4f929e27a404e09523dbea519440"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-su-10-perfusion.pdf",
+      "bytes": 13108,
+      "sha256": "c4c225111b8a595c41409e74ecc942193e43192b590784edbc839b127fb2f3d0"
+    },
+    {
+      "path": "sources/pdfs/sartorius-univessel-su-2.pdf",
+      "bytes": 18190,
+      "sha256": "4ad9023287a7079860af06150601b435e5aab02a17f478c8bcae3db5572bbdb5"
+    },
+    {
+      "path": "sources/pdfs/thermo-dynadrive-3000.pdf",
+      "bytes": 19082,
+      "sha256": "ad10fe9358e2c177fa5f9e410379007f43e0da3ae7d3efefefd3b4007f052676"
+    },
+    {
+      "path": "sources/pdfs/thermo-dynadrive-5.pdf",
+      "bytes": 11804,
+      "sha256": "1085f1e85978f6bfebe00d79babe4ea1aa6d1c522b5661e52a56b9713a8ced00"
+    },
+    {
+      "path": "sources/pdfs/thermo-dynadrive-50.pdf",
+      "bytes": 17854,
+      "sha256": "ffe92852c7460a3e84475b36ad91ed240d75f79ee1474d99887f1fa51ed1e050"
+    },
+    {
+      "path": "sources/pdfs/thermo-dynadrive-500.pdf",
+      "bytes": 17330,
+      "sha256": "956b8f625ed969a51e270a8440c7433b8d276acd18b3c00e1e9d55ffca7041cf"
+    },
+    {
+      "path": "sources/pdfs/thermo-dynadrive-5000.pdf",
+      "bytes": 19076,
+      "sha256": "6befa92cec18e135ec97d06364176397b9ecb15e815228b9a7e08d8aed2dcdf1"
+    },
+    {
+      "path": "sources/pdfs/thermo-glass-1.pdf",
+      "bytes": 13511,
+      "sha256": "581fb4ab9853056dcae5efac97a8bbbabda08a87674d25ec8ef36c0a0cc9f96d"
+    },
+    {
+      "path": "sources/pdfs/thermo-glass-15.pdf",
+      "bytes": 13518,
+      "sha256": "e296a77609705215bd85753d8ef9d40f82a6801286020167ca3e94892070abc3"
+    },
+    {
+      "path": "sources/pdfs/thermo-glass-3.pdf",
+      "bytes": 13518,
+      "sha256": "d5b2f22555fa08f16efb0b87360dfae37acb2fbc7fccdc9a990a3648e932ed5e"
+    },
+    {
+      "path": "sources/pdfs/thermo-glass-7.pdf",
+      "bytes": 13515,
+      "sha256": "d4180bba0480c31dd9a0492b525272e6a469c9b93335806c37d08a8470aedd0d"
+    },
+    {
+      "path": "sources/pdfs/thermo-rocker-10.pdf",
+      "bytes": 12863,
+      "sha256": "1e19e8768e4b15055f77b1c5f277dad90872cc58ad43fff8e0bf7a3c1a68e377"
+    },
+    {
+      "path": "sources/pdfs/thermo-rocker-20.pdf",
+      "bytes": 12857,
+      "sha256": "ffdbc5ccefe9e62327571dc076ec4ac75730a8f02a47ada29b71bb81fd610ada"
+    },
+    {
+      "path": "sources/pdfs/thermo-rocker-50.pdf",
+      "bytes": 12863,
+      "sha256": "cf548bf6d0bf046071a76457638c20aaa43a7beb98de219f5ccafdb21f4c2ac7"
+    },
+    {
+      "path": "sources/pdfs/thermo-sub-100.pdf",
+      "bytes": 20214,
+      "sha256": "e71408be41088caadae59dba6eb9d6e8421b3a4fbc898421d6877489de0ddad0"
+    },
+    {
+      "path": "sources/pdfs/thermo-sub-1000.pdf",
+      "bytes": 20250,
+      "sha256": "18bd587dc9e76f41342ca16fc84132917c5c6e043baae7af222dde29e03d4a51"
+    },
+    {
+      "path": "sources/pdfs/thermo-sub-2000.pdf",
+      "bytes": 20255,
+      "sha256": "3ae597a58f8d8ad6863ec21d0d1599f1bde831c0d7dd5087c1a921659e86eab3"
+    },
+    {
+      "path": "sources/pdfs/thermo-sub-250.pdf",
+      "bytes": 20238,
+      "sha256": "4a8a62833cf30a001fc3a0f47ce6051199fe99b64e2f7f6ba1468d5b5abd7797"
+    },
+    {
+      "path": "sources/pdfs/thermo-sub-50.pdf",
+      "bytes": 20259,
+      "sha256": "e5c4925cba61f4735bae3e2d4b19547a941d4c4643aa6b26e5e66e46d8888559"
+    },
+    {
+      "path": "sources/pdfs/thermo-sub-500.pdf",
+      "bytes": 20243,
+      "sha256": "3dd3918bdbfc59bae133849267e7f405e70710bebb7d4a9282f866bb57c4ffe2"
+    },
+    {
+      "path": "sources/pdfs/thermo-suf-30.pdf",
+      "bytes": 19574,
+      "sha256": "6fd78776cf09176aa906ebd23d56586011d5189387de32e75515ad52e1ba772f"
+    },
+    {
+      "path": "sources/pdfs/thermo-suf-300.pdf",
+      "bytes": 19542,
+      "sha256": "7aacb21efba75e65bf33397296efb1581e3b84552ec34f2dca760e3beec10030"
+    },
+    {
+      "path": "sources/prepare-publication.cjs",
+      "bytes": 7893,
+      "sha256": "b6454c7e10987407214a07f18857f844ca4db173260709fc4a96a42510261d16"
+    },
+    {
+      "path": "sources/simulation-example.js",
+      "bytes": 2554,
+      "sha256": "604e69b9b7de5879d474feb37c4068c5808604ef9453b46d1d5c3d67b07e4680"
+    },
+    {
+      "path": "sources/simulation-map.css",
+      "bytes": 6579,
+      "sha256": "0d5643113049130e9f4671bf0b54ff81a9d27703ffce33abcb6e82971dacde37"
+    },
+    {
+      "path": "sources/simulation-map.js",
+      "bytes": 39816,
+      "sha256": "ecf3cd9af3f98fd9f4d75b0344b40bf066485f67743391aa102439492aec2fdb"
+    },
+    {
+      "path": "sources/simulation-worker.js",
+      "bytes": 458,
+      "sha256": "7d1e6c908619cffbdef84ce3ba2b7ca775b7e66c56deec531e9d9a83cd436828"
+    },
+    {
+      "path": "sources/simulation.css",
+      "bytes": 2177,
+      "sha256": "28f8b72cb4777e41713550d8d314d28f322108f118dc2fcaf1558fd1d460f463"
+    },
+    {
+      "path": "sources/simulation.html",
+      "bytes": 38560,
+      "sha256": "05cf367abf71b1e88104c7568cb5ddc35bc630a3635bcf346c3640f6020a1777"
+    },
+    {
+      "path": "sources/source-records.payload",
+      "bytes": 44985,
+      "sha256": "af5b4573b256b00f5937bf778d7384ea2fd77d95266f78e6a2264744c129a9ea"
+    },
+    {
+      "path": "sources/source.css",
+      "bytes": 5158,
+      "sha256": "b42a44c9b74bb766e000614faa1b4a0c041fad7526c43d3bb1923ac5246f7172"
+    },
+    {
+      "path": "sources/test-acid-control.cjs",
+      "bytes": 8954,
+      "sha256": "b7bf7329bab8240d8674b96de7a9bc88d1a878422a0b55a5c43d21741b958643"
+    },
+    {
+      "path": "sources/test-audit.cjs",
+      "bytes": 8244,
+      "sha256": "34f0edd967bcd733a66901408b28ecdfcf54cf0d304cc19a289bdd0d329879f0"
+    },
+    {
+      "path": "sources/test-biology-databank.cjs",
+      "bytes": 1205,
+      "sha256": "2793dd920ef1d1e8c11cd21de3fc198f38f3a9058bf886f60d6f656f5b7ffb9c"
+    },
+    {
+      "path": "sources/test-biology-presets.cjs",
+      "bytes": 3687,
+      "sha256": "814209ed70fb521454ffae882b40c2af9ac6db7a8d5ac142ed94c54369eae356"
+    },
+    {
+      "path": "sources/test-databank.cjs",
+      "bytes": 1857,
+      "sha256": "2f6835ece5b24114914ae13b1faf9e24fe70b7409febaaea6452ad1dd220cb30"
+    },
+    {
+      "path": "sources/test-failure-modes.cjs",
+      "bytes": 10260,
+      "sha256": "147872f5726930c7581d5476ce51b1b6dcc7b7544d9bea3d903042862dd1f62f"
+    },
+    {
+      "path": "sources/test-failure-results.cjs",
+      "bytes": 9328,
+      "sha256": "464a0d9a25bc592fb02afda48148bee7987ad1be62a744f1c98b560e6d033d48"
+    },
+    {
+      "path": "sources/test-feed-derivation.cjs",
+      "bytes": 11293,
+      "sha256": "7e1cd6f407e77417aecd0a4fea2625a6eb0ca71b731fb0f5c3c5dbcb41afb34c"
+    },
+    {
+      "path": "sources/test-feed-limits.cjs",
+      "bytes": 6232,
+      "sha256": "e39b4b5174d6eb419a3f40446e4b7ee2ee79de8e2a2a4619c4af81bc15f80d1b"
+    },
+    {
+      "path": "sources/test-generalized-biology.cjs",
+      "bytes": 1307,
+      "sha256": "895afcf9044a8f34e2e71c7808acd5fd84c31b2b032244133a8ea31153253216"
+    },
+    {
+      "path": "sources/test-model-baseline.cjs",
+      "bytes": 1165,
+      "sha256": "62978f8f6e690c8e55e52cbb12dbfadd01882f9b0c2694a2c56c948c9aae8540"
+    },
+    {
+      "path": "sources/test-model-repairs.cjs",
+      "bytes": 15206,
+      "sha256": "67d15f5215bcdc91659bef1dbe3ce94df4d8c69ba4a8046cae96e636051afcd0"
+    },
+    {
+      "path": "sources/test-oxygen-revision.cjs",
+      "bytes": 7028,
+      "sha256": "d9ded1a05e89e28ec2e46941623066d8e2f45a07bdc7eee57869c2c8b3b18ba8"
+    },
+    {
+      "path": "sources/test-oxygen-supply.cjs",
+      "bytes": 4027,
+      "sha256": "3751a9952e98535d06df07b01493756cf9f2f3fc9d6bcea6fec86b037b403760"
+    },
+    {
+      "path": "sources/test-reactor-results.cjs",
+      "bytes": 12426,
+      "sha256": "095c601b56cb1c2db5da19320d148acab4b47dcf17c9646ba1ac08604086c388"
+    },
+    {
+      "path": "sources/test-simulation-guide.cjs",
+      "bytes": 4932,
+      "sha256": "2425b5b87d44fef9594e2542d72b7d634c9e1d1ed4e9286bfed4e73406100b79"
+    },
+    {
+      "path": "sources/test-simulation-map.cjs",
+      "bytes": 6226,
+      "sha256": "a81a3f967925e62ecf3d57d88bcf659a0d6d566624b8c481c1d4f71ddf7f8f48"
+    },
+    {
+      "path": "sources/test-source-shortcut.cjs",
+      "bytes": 2013,
+      "sha256": "674dab4f7490713e53998df5f4b7a53183a8252bc56eecb831f2db3b280f5573"
+    },
+    {
+      "path": "sources/test-volume-warning.cjs",
+      "bytes": 5005,
+      "sha256": "4b0413c5f85fed772ac431a1fb2436597bef5ff1c7310402fe2aa7fb95df1d59"
+    },
+    {
+      "path": "sources/vessel-records.json",
+      "bytes": 710469,
+      "sha256": "f39e0873068b4666c5cba2c889ecb43658441981dc5d28a70e24ad1e54b39b98"
+    },
+    {
+      "path": "tmp/app-source.js",
+      "bytes": 92299,
+      "sha256": "d9e4921ff94fcd5c89fde4f8cc2188896c1b0cd5355e57d14969e0b67e910b0f"
+    },
+    {
+      "path": "tmp/review-fed-batch.cjs",
+      "bytes": 9617,
+      "sha256": "8d83e564a90027338755562df5a4842a1895c2be2e012f80fbc971cb1d5a1da0"
+    },
+    {
+      "path": "tmp/vessel-catalog-source.js",
+      "bytes": 631866,
+      "sha256": "a610a309389cd43609793e872f9ae2894b72b571fc2a91d0a4ba129ae08df748"
+    },
+    {
+      "path": "vessel-catalog.payload",
+      "bytes": 52149,
+      "sha256": "70265b0b3907e461d85350bd612265d07fac99442403046c4f4b0c73da0fcd57"
+    }
+  ]
+}

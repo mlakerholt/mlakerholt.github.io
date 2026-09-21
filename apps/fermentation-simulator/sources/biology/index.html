@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Source and derivation sheets for Fermentation Simulator biology presets.">
+  <title>Fermentation Simulator — biology sources</title>
+  <link rel="stylesheet" href="../source.css?v=2026-09-12.1">
+</head>
+<body><main>
+  <nav>
+    <a href="../../">Fermentation Simulator</a>
+    <a href="./">All biology sheets</a>
+    <a href="databank.html">Biology databank</a>
+    <a href="generalized.html">Generalized profiles</a>
+    <a href="../">Vessel sources</a>
+  </nav>
+
+  <section id="indexView" hidden>
+    <h1>Biology source and derivation sheets</h1>
+    <p class="notice"><strong>Field-level provenance.</strong> Each sheet distinguishes published measurements and culture conditions from unit conversions, literature-informed starting points and application assumptions.</p>
+    <p><a href="generalized.html"><strong>Open generalized multi-study species profiles →</strong></a></p>
+    <p><strong id="recordCount"></strong> · reviewed 12 September 2026</p>
+    <div id="recordIndex"></div>
+  </section>
+
+  <article id="recordView" hidden>
+    <p class="back-link"><a href="./">← All biology sheets</a></p>
+    <h1 id="recordTitle"></h1>
+    <p><span id="recordId" class="record-id"></span><span id="recordStatus" class="status"></span></p>
+
+    <section class="source-box">
+      <p class="eyebrow">REFERENCES USED ON THIS SHEET</p>
+      <h2 id="sourceTitle"></h2>
+      <p id="sourceCoverage"></p>
+      <ol id="sourceList" class="source-list"></ol>
+      <p class="source-actions">
+        <button id="copyLink" type="button">Copy this sheet link</button>
+      </p>
+    </section>
+
+    <h2>Values used by the app</h2>
+    <p class="plain-note">Open any status to see how that value was selected. A published value applies only to the cited strain, clone and culture conditions; it is not a universal constant for the species.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Parameter</th><th>Preset value</th><th>Recorded basis</th><th>Status</th></tr></thead>
+      <tbody id="parameterRows"></tbody>
+    </table></div>
+
+    <h2>Preset summary</h2>
+    <dl id="summary" class="summary"></dl>
+    <h2>Limitations and notes</h2>
+    <ul id="recordNotes"></ul>
+  </article>
+
+  <div id="error" class="error" hidden></div>
+  <footer>These records document simulator inputs. They do not validate a production process or replace strain-, clone- and process-specific experiments.</footer>
+</main>
+<script src="biology-data.js?v=2026-09-13.2"></script>
+<script src="biology-sheets.js?v=2026-09-12.2"></script>
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Generalized multi-study biology profiles for Fermentation Simulator.">
+  <title>Fermentation Simulator — generalized biology profiles</title>
+  <link rel="stylesheet" href="../source.css?v=2026-09-12.2">
+</head>
+<body><main>
+  <nav>
+    <a href="../../">Fermentation Simulator</a>
+    <a href="./">Strain derivation sheets</a>
+    <a href="databank.html">Strain databank</a>
+    <a href="generalized.html">Generalized profiles</a>
+  </nav>
+
+  <section id="indexView" hidden>
+    <h1>Generalized species and host profiles</h1>
+    <p class="notice"><strong>Multi-study synthesis.</strong> These profiles combine comparable measurements from several publications. They preserve reported ranges and show “Calibrate” wherever a defensible cross-study value cannot be calculated.</p>
+    <p><strong id="recordCount"></strong> · literature synthesis reviewed 12 September 2026</p>
+    <div id="profileIndex"></div>
+  </section>
+
+  <article id="profileView" hidden>
+    <p class="back-link"><a href="generalized.html">← All generalized profiles</a></p>
+    <h1 id="profileTitle"></h1>
+    <p><span id="profileCategory" class="record-id"></span><span id="sourceCount" class="status"></span></p>
+    <p id="profileScope" class="notice"></p>
+
+    <h2>Generalized parameter envelope</h2>
+    <p class="plain-note">Representative values are engineering starting points, not universal biological constants. The range column reflects only comparable values found in the selected studies.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Parameter</th><th>Representative value</th><th>Selected-study range</th><th>Confidence</th><th>Synthesis basis</th></tr></thead>
+      <tbody id="parameterRows"></tbody>
+    </table></div>
+
+    <h2>Recommended use</h2>
+    <p class="notice">Repaired-engine interpretation (2026-09-13.2): qO₂ is used as a respiratory-capacity cap, not proof of a measured maximum. C. glutamicum's yield is treated as observed and maintenance-corrected at 0.40 h⁻¹; other generalized yields remain maintenance-excluding growth-yield assumptions that require calibration. Carbon/electron composition and product substrate yield are generic assumptions. See the <a href="../simulation.html#yield-definitions">model reference</a> before interpreting the reported source values as model parameters.</p>
+    <p id="recommendation" class="notice"></p>
+    <h2>Publications included</h2>
+    <ol id="sourceList" class="source-list"></ol>
+  </article>
+
+  <div id="error" class="error" hidden></div>
+  <footer>Generalized profiles support early simulation and comparison. Calibrate against the selected strain, clone, construct, medium and operating regime before process interpretation.</footer>
+</main>
+<script src="generalized-data.js?v=2026-09-12.1"></script>
+<script src="generalized.js?v=2026-09-12.1"></script>
+</body></html>

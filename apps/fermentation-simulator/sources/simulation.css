@@ -1,0 +1,59 @@
+/* Local additions to the shared source-sheet style. No external dependencies. */
+html { scroll-behavior: auto; }
+main { max-width: 1050px; }
+.model-intro { max-width: 78ch; }
+.contents {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 24px;
+  padding: 14px 0;
+  border-top: 1px solid #9aa59c;
+  border-bottom: 1px solid #9aa59c;
+}
+.contents a { margin: 0; }
+.section-label { font-size: 0.9rem; color: #4d574f; }
+.equation {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #f7f7f7;
+  border: 1px solid #9aa59c;
+  padding: 12px;
+  font: 0.9rem/1.6 Consolas, "Courier New", monospace;
+}
+code { font-family: Consolas, "Courier New", monospace; overflow-wrap: anywhere; }
+details {
+  border: 1px solid #9aa59c;
+  margin: 12px 0;
+  padding: 10px 14px;
+}
+summary { cursor: pointer; color: #1f5c2e; font-weight: bold; }
+summary:focus-visible, a:focus-visible { outline: 2px solid #1f5c2e; outline-offset: 3px; }
+details[open] summary { margin-bottom: 10px; }
+.table-wrap { max-width: 100%; }
+table { min-width: 580px; }
+.compact-table { min-width: 0; max-width: 680px; }
+caption { text-align: left; font-weight: bold; margin-bottom: 6px; }
+.step-order { padding-left: 1.7rem; }
+.step-order > li { padding: 0 0 12px 8px; }
+.step-order > li::marker { color: #1f5c2e; font-weight: bold; }
+.step-order p { margin: 4px 0 0; }
+.limitation { border-left: 4px solid #6d3a00; background: #fff8e8; padding: 10px 14px; }
+.back-to-top { text-align: right; font-size: 0.9rem; }
+.table-wrap:focus-visible { outline: 2px solid #1f5c2e; outline-offset: 2px; }
+@media (max-width: 600px) {
+  main { margin: 8px; padding: 14px; }
+  h1 { font-size: 1.8rem; }
+  .contents { grid-template-columns: 1fr; }
+  .equation { font-size: 0.82rem; padding: 9px; }
+  details { padding: 10px; }
+  .compact-table th, .compact-table td { padding: 6px; }
+}
+@media print {
+  body { background: #fff; }
+  main { max-width: none; margin: 0; padding: 0; border: 0; }
+  nav, .back-to-top { display: none; }
+  .table-wrap { overflow: visible; }
+  table { min-width: 0; font-size: 0.85rem; }
+  h2, h3, summary { break-after: avoid; }
+  tr, .equation { break-inside: avoid; }
+}

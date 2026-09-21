@@ -114,11 +114,11 @@
     initialVolume: "Initial working volume loaded into the form",
     material: "Product-contact material",
     heightDiameterRatio: "Height : diameter",
-    vesselDiameter: "Estimated internal diameter",
-    liquidHeight: "Estimated liquid height",
+    vesselDiameter: "Internal / chamber diameter",
+    liquidHeight: "Liquid height at maximum working volume",
     impellerType: "Impeller / mixing type",
     impellerCount: "Impeller count",
-    impellerDiameter: "Estimated impeller diameter",
+    impellerDiameter: "Impeller diameter",
     powerNumber: "Power number",
     baseRpm: "Initial agitation",
     maxRpm: "Maximum agitation",
@@ -167,9 +167,9 @@
     const maxVolume = Math.max(Number(record?.maxVolume) || 0, 0.001);
     const ratio = Math.max(Number(record?.defaults?.heightDiameterRatio) || 2, 0.5);
     const volumeM3 = maxVolume / 1000;
-    const diameter = Math.cbrt((4 * volumeM3) / (Math.PI * ratio));
-    const liquidHeight = diameter * ratio;
-    const impellerDiameter = Math.max(diameter * 0.33, 0.001);
+    const diameter = record.vesselDiameter ?? Math.cbrt((4 * volumeM3) / (Math.PI * ratio));
+    const liquidHeight = record.liquidHeight ?? diameter * ratio;
+    const impellerDiameter = record.impellerDiameter ?? Math.max(diameter * (record.impellerRatio ?? 0.33), 0.001);
     return {
       maxVolume,
       ratio,
@@ -177,7 +177,7 @@
       diameter,
       liquidHeight,
       impellerDiameter,
-      totalVolume: Math.max(Number(record?.nominalVolume) || 0, maxVolume),
+      totalVolume: Math.max(Number(record?.totalVolume ?? record?.nominalVolume) || 0, maxVolume),
       initialVolume: Math.min(Number(record?.minVolume) || 0, maxVolume)
     };
   };
@@ -203,8 +203,8 @@
   const displayValue = (record, key) => {
     const value = valueFor(record, key);
     switch (key) {
-      case "workingRange": return `${formatVolume(value[0])} to ${formatVolume(value[1])}`;
-      case "minVolume":
+      case "workingRange": return `${record.evidence?.minVolume?.approximate ? "~" : ""}${formatVolume(value[0])} to ${formatVolume(value[1])}`;
+      case "minVolume": return `${record.evidence?.minVolume?.approximate ? "~" : ""}${formatVolume(value)}`;
       case "maxVolume":
       case "nominalVolume":
       case "totalVolume":
@@ -213,7 +213,7 @@
       case "vesselDiameter":
       case "liquidHeight":
       case "impellerDiameter": return `${formatInputNumber(Number(value))} m`;
-      case "heightDiameterRatio":
+      case "heightDiameterRatio": return formatInputNumber(Number(value));
       case "impellerCount":
       case "powerNumber": return formatNumber(Number(value));
       case "impellerType": return displayImpellerType(value);
@@ -231,6 +231,12 @@
 
   const statusFor = (record, key) => {
     if (isCustom(record)) return "Custom template";
+    if (record.audit) {
+      if (key === "workingRange") return ["minVolume", "maxVolume"].every(k => record.evidence?.[k]?.status === "Source-supported") ? "Source-supported" : "Mixed / unverified";
+      if (record.evidence?.[key]) return record.evidence[key].status;
+      if (["totalVolume", "initialVolume", "vesselDiameter", "liquidHeight", "impellerDiameter"].includes(key)) return "Derived / estimated";
+      return "App assumption";
+    }
     if (key === "workingRange") return isMinimumDerived(record) ? "Derived / estimated" : "Source-supported";
     if (record?.sourceSupportedFields?.includes(key)) return "Source-supported";
     if (["material", "maxVolume", "nominalVolume"].includes(key)) return "Source-supported";
@@ -429,6 +435,26 @@
           : "Not manufacturer-confirmed. Change the value or replace it with a verified specification when available."
     };
 
+    const evidence = record.evidence?.[key];
+    if (evidence) return {
+      ...common,
+      origin: evidence.document ? `${evidence.document.title}${evidence.page ? ` - PDF page ${evidence.page}` : ''}; ${evidence.locator}` : "Unverified legacy preset",
+      rule: evidence.rule || (evidence.status === "Source-supported" ? "Direct manufacturer specification; no reverse calculation." : "Retained or selected modelling value; not a verified hardware limit."),
+      calculation: evidence.calculation || `Selected value: ${displayValue(record, key)}. ${evidence.approximate ? "The manufacturer prints an approximate value (~); this is not an app-derived estimate." : ""}`,
+      result: displayValue(record, key),
+      rationale: evidence.note,
+      inputs: [],
+      citations: evidence.document ? [{...evidence.document, page: evidence.page}] : [],
+      verification: evidence.status === "Source-supported" ? "Checked against the specified manufacturer document and model/configuration. Other parameters are classified independently." : common.verification
+    };
+    if (record.audit && key === "workingRange") {
+      const parts = [explain(record, "minVolume"), explain(record, "maxVolume")];
+      return {...common, origin: "Separate minimum and maximum evidence", rule: "Use each endpoint's independently reviewed specification.", calculation: parts.map(p => `${p.result}: ${p.origin}`).join("\n"), result: displayValue(record, key), rationale: record.volumeBasis, inputs: [], citations: parts.flatMap(p => p.citations || [])};
+    }
+    if (record.audit && ["minVolume", "maxVolume", "nominalVolume", "material"].includes(key)) return {
+      ...common, origin: "Unverified legacy preset", rule: "Value retained pending a model-specific primary source.", calculation: "No verified manufacturer derivation is available.", result: displayValue(record, key), rationale: record.audit.gap, inputs: []
+    };
+
     if (key === "workingRange") {
       if (!isMinimumDerived(record)) {
         return {
@@ -514,6 +540,7 @@
     }
 
     if (key === "impellerDiameter") {
+      if (record.impellerRatio) return {...common, origin: "Manufacturer diameter ratio applied to model geometry", rule: `impeller diameter = vessel diameter × ${record.impellerRatio}`, inputs: [["Model vessel diameter", `${formatNumber(geometry.diameter)} m`]], calculation: `${formatNumber(geometry.diameter)} × ${record.impellerRatio} = ${formatNumber(geometry.impellerDiameter)} m`, result: displayValue(record, key), rationale: "The ratio is published, but the vessel diameter is estimated. The resulting impeller diameter is therefore derived, not measured.", citations: record.ratioCitation ? [record.ratioCitation] : []};
       return {
         ...common,
         origin: "Generic impeller-to-tank ratio",
@@ -581,6 +608,11 @@
   };
 
   const shortBasis = (record, key) => {
+    if (record.evidence?.[key]) {
+      const e = record.evidence[key];
+      return e.document ? `${e.document.title}${e.page ? `, PDF p. ${e.page}` : ''}. ${e.note}` : e.note;
+    }
+    if (record.audit && ["minVolume", "maxVolume", "nominalVolume", "material"].includes(key)) return "Not confirmed by a matching primary-source specification; retained as an editable assumption.";
     const status = statusFor(record, key);
     if (key === "workingRange" || key === "minVolume" || key === "maxVolume") return record.volumeBasis;
     if (key === "nominalVolume") return "Named vessel or bag scale recorded for this model.";

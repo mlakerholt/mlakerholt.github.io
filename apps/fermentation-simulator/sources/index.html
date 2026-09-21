@@ -12,7 +12,10 @@
   <nav>
     <a href="../">Fermentation Simulator</a>
     <a href="./">All vessel sources</a>
-    <a href="../../">Apps</a>
+    <a href="databank.html">Reactor databank</a>
+    <a href="biology/">Biology sources</a>
+    <a href="originals/">Manufacturer source references</a>
+    <a href="https://mlakerholt.github.io/apps/">More apps</a>
   </nav>
 
   <div id="loading" class="loading">Loading vessel sources…</div>
@@ -21,7 +24,7 @@
   <section id="indexView" hidden>
     <h1>Vessel sources</h1>
     <p class="notice"><strong>Persistent source archive.</strong> Each vessel has one readable source sheet showing the manufacturer page used, the exact values entered in the app, and the calculation or selection rule behind every derived or assumed number.</p>
-    <p><strong id="recordCount"></strong> · source records saved 10 September 2026</p>
+    <p><strong id="recordCount"></strong> · field-level audit 11 September 2026</p>
     <div id="manufacturerIndex"></div>
   </section>
 
@@ -36,13 +39,14 @@
       <p id="sourceSaved"></p>
       <p id="sourceCoverage"></p>
       <p class="source-actions">
+        <a id="localPdfLink" href="#" target="_blank" rel="noopener noreferrer">Open reviewed PDF stat sheet</a>
         <a id="primarySourceLink" href="#" target="_blank" rel="noopener noreferrer">Open original manufacturer source</a>
         <button id="copyLink" type="button">Copy this source-sheet link</button>
       </p>
     </section>
 
     <h2>Values used by the app</h2>
-    <p class="plain-note">Green values are treated as source-supported. Amber and grey status labels are clickable: open them to see the exact rule, inputs, substituted calculation, result and limitation.</p>
+    <p class="plain-note">Every status label is clickable: open it for the source citation and PDF page, the calculation, or the unresolved assumption. Green verifies only that parameter and its stated configuration. These simulation presets are not equipment operating instructions.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Parameter</th><th>Value in preset</th><th>Where it came from</th><th>Status</th></tr></thead>
@@ -62,12 +66,12 @@
 
   <footer>This page is the persistent local record of the source, values and calculation rules used by the simulator. The linked manufacturer page remains the original publication.</footer>
 </main>
-<script src="../source-derivations.js?v=2026-09-10.7"></script>
+<script src="../source-derivations.js?v=2026-09-11.2"></script>
 <script>
 (() => {
   "use strict";
-  const BUILD_ID = "2026-09-10.7";
-  const CAPTURE_DATE = "10 September 2026";
+  const BUILD_ID = "2026-09-11.8";
+  const CAPTURE_DATE = "11 September 2026";
   const $ = (id) => document.getElementById(id);
   const derivations = window.FermentationSourceDerivations;
 
@@ -141,6 +145,15 @@
     verification.append(verificationLabel, document.createTextNode(explanation.verification));
 
     card.append(calculationHeading, calculation, result, rationale, verification);
+    (explanation.citations || []).forEach(source => {
+      const p = document.createElement("p"), local = document.createElement("a"), online = document.createElement("a");
+      const hasOnlineSource = /^https?:\/\//i.test(source.url || '');
+      if (hasOnlineSource) local.href = source.url; else local.removeAttribute('href');
+      local.textContent = `${source.title}${source.page ? ` - PDF page ${source.page}` : ''} (${hasOnlineSource ? 'manufacturer publication' : 'original retained in local archive; public URL unavailable'})`;
+      online.href = source.url; online.textContent = "Manufacturer publication";
+      [local, online].forEach(a => {a.target = "_blank"; a.rel = "noopener noreferrer";});
+      p.append(local); if(hasOnlineSource) p.append(document.createTextNode(" | "), online); card.append(p);
+    });
     return card;
   };
 
@@ -156,7 +169,7 @@
     value.textContent = parameter.value;
     basis.textContent = parameter.basis;
 
-    if (parameter.status !== "Source-supported") {
+    if (true) {
       const button = document.createElement("button");
       const detailRow = document.createElement("tr");
       const detailCell = document.createElement("td");
@@ -234,15 +247,16 @@
     document.title = `Source — ${record.label}`;
     $("recordTitle").textContent = record.label;
     $("recordId").textContent = record.id;
+    $("localPdfLink").href = `pdfs/${record.id}.pdf`;
     $("sourceStatus").textContent = record.status;
 
-    const primary = record.links[0] || null;
+    const primary = Object.values(record.evidence || {}).find(e => e.document)?.document || record.links[0] || null;
     $("primarySourceTitle").textContent = primary?.title || "Custom vessel template";
     $("sourceSaved").textContent = `Saved locally: ${CAPTURE_DATE} · Manufacturer: ${record.manufacturer}`;
-    $("sourceCoverage").textContent = primary?.supports || "No manufacturer source applies to this custom template.";
+    $("sourceCoverage").textContent = record.audit ? "Field-level review: use the citations and qualifications beside each parameter; document relevance alone does not verify a value." : primary?.supports || "No manufacturer source applies to this custom template.";
 
     const primaryLink = $("primarySourceLink");
-    if (primary?.url) {
+    if (/^https?:\/\//i.test(primary?.url || '')) {
       primaryLink.hidden = false;
       primaryLink.href = primary.url;
     } else {
@@ -291,7 +305,7 @@
       });
       sourceHost.appendChild(list);
     } else {
-      sourceHost.textContent = "No external manufacturer document applies to this custom template.";
+      sourceHost.textContent = record.manufacturer === "Custom" ? "No external manufacturer document applies to this custom template." : "Primary evidence is linked beside each parameter. No additional online references recorded.";
     }
 
     $("recordNotes").replaceChildren();

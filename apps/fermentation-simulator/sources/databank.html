@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reactor databank</title><link rel="stylesheet" href="databank.css"></head>
+<body><main>
+<nav><a href="../">← Simulator</a> · <a href="./">Derivation sheets</a> · <a href="originals/">Source archive</a></nav>
+<h1>Reactor databank</h1>
+<p>Compare the values used by the simulator. Each value includes its evidence status; select it to read the derivation sheet. Source-supported does not mean the whole reactor is verified.</p>
+<form id="filters">
+<label>Search reactors<input id="search" type="search" placeholder="Name, manufacturer or configuration"></label>
+<label>Manufacturer<select id="manufacturer"><option value="">All manufacturers</option></select></label>
+<label>Volume basis<select id="volumeBasis"><option value="maxVolume">Maximum working volume</option><option value="minVolume">Minimum working volume</option><option value="totalVolume">Total vessel volume</option><option value="overlap">Working range overlaps</option></select></label>
+<label>From (L)<input id="min" type="number" min="0" step="any" placeholder="No minimum"></label>
+<label>To (L)<input id="max" type="number" min="0" step="any" placeholder="No maximum"></label>
+<label>Compare parameter<select id="parameter"><option value="">All parameters</option></select></label>
+<label>Evidence for selected parameter<select id="evidence" disabled><option value="">All evidence statuses</option><option>Source-supported</option><option>Derived / estimated</option><option>App assumption</option><option>Custom template</option></select></label>
+<label>Order<select id="order"><option value="name">Reactor name</option><option value="volume">Working volume: low to high</option><option value="value">Selected parameter: low to high</option></select></label>
+<label class="check"><input type="checkbox" id="custom">Include custom templates</label>
+<div class="actions"><button type="button" id="example">Example: power numbers, 0–2 L</button><button type="reset">Reset filters</button></div>
+</form>
+<p class="notice">Volume filters use litres and include both endpoints. “Working range overlaps” includes reactors whose operating range intersects your range. Geometry and mixing fields for rocking and other non-stirred systems may be compatibility placeholders—check their evidence.</p>
+<p id="result" role="status" aria-live="polite">Loading reactor data…</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Reactor comparison table; scroll horizontally for more parameters"><table id="comparison"><caption>Reactor comparison — model values, not operating instructions</caption><thead></thead><tbody></tbody></table></div>
+</main><script src="../source-derivations.js"></script><script src="databank.js"></script></body></html>

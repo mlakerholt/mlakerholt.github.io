@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="How Fermentation Simulator calculates growth, feeding, oxygen, pH, product and final results at each time step, with equations and limitations.">
+  <meta name="model-build" content="2026-09-21.2">
+  <meta name="model-engine-version" content="2026-09-21.1">
+  <meta name="model-core-sha256" content="751e0285d183a97bbc0f04f5e942522a2d302fbf16b709ad318906b6dcb37b51">
+  <title>How the simulation works — Fermentation Simulator</title>
+  <link rel="stylesheet" href="source.css?v=2026-09-12.1">
+  <link rel="stylesheet" href="simulation.css?v=2026-09-12.1">
+  <link rel="stylesheet" href="simulation-map.css?v=2026-09-16.2">
+</head>
+<body>
+<main id="top">
+  <nav aria-label="Reference navigation">
+    <a href="../">Fermentation Simulator</a>
+    <a href="biology/databank.html">Biology databank</a>
+    <a href="databank.html">Reactor databank</a>
+    <a href="failure-modes.html">Culture and batch failure rules</a>
+  </nav>
+  <header class="model-intro">
+    <p class="eyebrow">STEP 3 · PROCESS AND CONTROLS · MODEL REFERENCE</p>
+    <h1>How the simulation works</h1>
+    <p>From the starting inoculum to the final harvest: the equations, the exact calculation sequence, the control responses, and what happens when conditions restrict growth.</p>
+    <p class="section-label">Documents UI build 2026-09-21.2 and engine 2026-09-21.1 · reviewed on 21 September 2026. Includes strict culture/batch failure rules, viable/nonviable biomass, collapsed warning-category icons with counters and click-to-open details, uncapped volume, bidirectional acid/base control and process/reactor graphs.</p>
+  </header>
+  <div class="reference-tabs" role="tablist" aria-label="Simulation guide view" hidden>
+    <button id="reference-tab" type="button" role="tab" aria-controls="model-reference" aria-selected="true">Model reference</button>
+    <button id="map-tab" type="button" role="tab" aria-controls="calculation-map" aria-selected="false" tabindex="-1">Interactive calculation map</button>
+  </div>
+  <p class="notice"><strong>This describes the current implementation, not a validated fermentation process.</strong> Preset data and general biological equations do not validate the combined simulator. Fixed coefficients, simplified controls and known numerical limitations are identified below. This page does not change the model or apply settings to your run.</p>
+  <div id="model-reference" role="tabpanel" aria-labelledby="reference-tab">
+  <nav class="contents" aria-label="On this page">
+    <a href="#overview">A. Overview and equations</a>
+    <a href="#time-step">B. Each time step and final results</a>
+    <a href="#controls">C. DO, pH and temperature controls</a>
+    <a href="#restrictions">D. Restrictions, warnings and omissions</a>
+  </nav>
+
+  <section id="overview" aria-labelledby="overview-heading">
+    <h2 id="overview-heading">A. General overview and equations</h2>
+    <p>This is a perfectly mixed, aerobic, glucose-equivalent <strong>screening model</strong>. It conserves its assumed carbon, oxygen and acid-equivalent inventories; that does not validate the biology or the equipment correlation. It has no spatial gradients or independent nitrogen/phosphate balance. Optional <a href="failure-modes.html">strict failure rules</a> add timed stress and abrupt death, not mechanistic survival kinetics. The equations below describe unstressed potential rates; reaction amounts use viable biomass (total MX minus nonviable biomass).</p>
+    <p>State variables are liquid volume V (L); total biomass MX, nonviable biomass, substrate MS, acetate MA, raw product MP and degraded product MD (g); dissolved oxygen C (mmol/L); and excess acid H (mmol relative to the pH target). Concentrations are mass divided by V. Controller history, cumulative flows, exposure/recovery timers, irreversible failure flags, gas consumption and harvested material also carry forward. Nonviable biomass starts at zero.</p>
+    <h3 id="initialization">Starting state and medium</h3>
+    <pre class="equation">V = initial working volume
+MX = initial biomass concentration × V
+MS = effective medium substrate concentration × V
+MA = MP = MD = 0
+H = (pH target − initial pH) × buffer capacity × V
+C = C_air(initial temperature, pressure) × initial DO / 100</pre>
+    <p>Initial pH defaults to the selected target but can be entered separately. Inoculum can be entered as gDCW/L or OD600. <strong>OD requires your own measured gDCW/L-per-OD calibration</strong>; it is not automatically treated as dry biomass.</p>
+    <p>Carbon components contribute their converted g/L concentration; complex nutrients contribute an assumed 35%. g/L and mg/L are supported. mmol/L (or mM in imported scenarios) is converted using a known or supplied molecular weight; unidentified carbon molecular weights are rejected. Other nutrient roles do not contribute. These masses are then treated as glucose equivalents: glycerol, sucrose and other carbon identities do not select different metabolic pathways.</p>
+    <h3 id="growth-equations">Resource-dependent reaction rates</h3>
+    <p>Specific rates below are per g starting biomass per hour. S and C are the <strong>solved end-of-reaction</strong> substrate and oxygen concentrations, not values from before the interval. A and pH are evaluated after feed mixing and before reactions. A configured substrate threshold Smin reduces growth but not maintenance.</p>
+    <pre class="equation">fS = S / (max(Ks, 10⁻¹²) + S)
+gS = max(0, S − Smin) / (max(Ks, 10⁻¹²) + max(0, S − Smin))
+fO = C / (0.006 + C)
+fT = exp(−((T − Topt) / 11)²)
+fpH = exp(−((pH − pHopt) / 0.85)²)
+fA = 1 / (1 + A / 8)
+burden = retained growth fraction when induced; otherwise 1
+
+μpotential = μmax × gS × fO × fT × fpH × fA × burden
+qGrowthSub = μpotential / Ytrue
+qMaintenance = mS × fS × fO
+
+qAcetate = min(0.55 × qGrowthSub,
+               0.34 × max(0, qGrowthSub + qMaintenance − overflow threshold))
+μ = (qGrowthSub − qAcetate) × Ytrue
+qP = α × μ + β × fS × fO
+qS = qGrowthSub + qMaintenance + qP / Yproduct</pre>
+    <p>qAcetate is zero when overflow is disabled. qP is zero in biomass mode or before recombinant/secreted induction. The β term cannot produce material from an empty substrate or oxygen pool. Product competes for substrate and oxygen through the shared solve. These are empirical Monod/Luedeking–Piret adaptations, not a mechanistic cell-metabolism model. Active strict stress multiplies qGrowthSub, qAcetate, μ, qP and qReuse by 0.25 once before recalculating total substrate/carbon/oxygen demand; maintenance is unchanged. Respiratory-capacity scaling then applies as usual. After culture death all cellular rates are zero; physical gas transfer and product degradation continue.</p>
+    <pre class="equation">When acetate overflow/reuse is enabled:
+qReuse = min(MA / (MX × Δt),
+             0.08 × A/(0.3 + A) × 0.25/(0.25 + S) × fO)
+Biomass from acetate = 0.22 × qReuse × MX × Δt</pre>
+    <p>Acetate formation diverts substrate away from biomass; reuse draws from the existing acetate pool. Formation and reuse are calculated together, with empirical coefficients. The engine does not model yeast ethanol or animal-cell lactate by relabeling acetate.</p>
+    <h3 id="yield-definitions">Yield definitions and preset adaptations</h3>
+    <pre class="equation">True growth yield entered: Ytrue = entered YX/S
+Observed yield entered:    Ytrue = 1 / (1/Yobserved − mS/μreference)</pre>
+    <p>The observed-yield conversion is a Pirt-type maintenance correction at the entered reference growth rate; it avoids counting maintenance twice at that reference condition. It is not an experimental refit. CHO, HEK293 and the C. glutamicum observed-yield presets expose this basis explicitly. The source-derived CHO threshold of 0.58 g/L is applied here to instantaneous substrate; this is an adaptation of the reported threshold model, not an exact reproduction of that study.</p>
+    <h3 id="carbon-electron-budget">Carbon allocation and oxygen demand</h3>
+    <p>Explicit screening assumptions: substrate and acetate are 40% carbon by mass; biomass and product are 50% carbon. Degrees of reduction are 4 electron equivalents per carbon mole for substrate/acetate and 4.2 for biomass/product. Product substrate yield defaults to 0.5 g/g and is editable. These are <strong>assumed compositions, not measured values for each species or product</strong>.</p>
+    <pre class="equation">qXtotal = μ + 0.22 × qReuse
+qCarbonGas = 0.4 × (qS + qReuse) − 0.5 × (qXtotal + qP) − 0.4 × qAcetate
+qO2 = [4 × 0.4 × (qS + qReuse − qAcetate)
+       − 4.2 × 0.5 × (qXtotal + qP)] / (4 × 12.011) × 1000
+CO₂ formed = qCarbonGas × MX × Δt × 44.0095 / 12.011
+
+capacity scale = min(1, qO2Max / qO2), when qO2 &gt; 0
+Scale all reaction rates by this factor.</pre>
+    <p>qCarbonGas is g carbon/(gDCW·h); qO2 is mmol/(gDCW·h). <strong>qO2Max now means a respiratory capacity limit</strong>, replacing the old demand formula. Negative carbon/electron budgets are rejected. Ytrue and Yproduct cannot exceed 0.7619 g/g under these assumptions. Carbon closure alone cannot establish an ATP balance or feasible cellular physiology. Degraded product transfers into the inert MD pool rather than disappearing.</p>
+    <h3 id="feeding-equations">Feed and volume</h3>
+    <pre class="equation">Batch: F = 0
+Before feed start: F = 0
+Continuous: requested F = dilution rate × V
+Fed-batch requested r (mL/min), τ = time − feed start:
+  constant: initial rate
+  linear: initial rate + slope × τ
+  exponential: initial rate × exp(μset × τ)
+  DO-stat: initial rate if raw DO ≥ threshold AND S &lt; 0.7 g/L; else zero
+
+Without a specified pump maximum: F = max(0, requested F) [L/h]
+With a specified maximum: F = min(max(0, requested F), maximum × 0.06) [L/h]
+Working-volume excess = max(0, V − maximum working volume); no volume cap on F</pre>
+    <p>The exponential growth target is a <strong>feed-schedule exponent</strong>, not a feedback controller that guarantees cell growth. Feed-pump capacity defaults to unlimited: leave the optional maximum blank in the main app or map. A specified capacity applies to both fed-batch and continuous culture. Unlimited capacity does not force an infinite flow; the feed schedule still determines the request. Working-volume limits are warning thresholds, not dosing caps. Scenario JSON uses null (or an omitted maximum) for unlimited; saved numerical pump limits are retained. Acid and base pumps have their own finite capacities. Continuous nutrient-feed outflow is removed first, then feed is mixed in. Every dissolved/material pool, including oxygen and acid inventory, follows dilution and outflow. Feed, acid and base solutions are assumed oxygen-free; feed has zero excess acid relative to the selected pH reference.</p>
+    <h3 id="feed-planning">Feed recommendations and organism μmax</h3>
+    <p>Step 5 labels this control <strong>Target specific growth rate, μset</strong>. The derivation panel shows organism μmax, the current μset, and the recommended rate, percentage of μmax and limiting constraint. The planner starts from the organism preset target or, when absent, a disclosed heuristic of 60% of the current μmax. There is no generic 0.16 h⁻¹ recommendation ceiling. Environmental kinetics, respiration, overflow, oxygen transfer, pump capacity and vessel headroom can lower the recommendation.</p>
+    <p>The no-feed preview estimates the carbon-low feed-start state using this same engine. The planning feed rate uses F₀ = (μset/YX/S + mS + qP/YP/S) × biomass mass at feed start / feed carbon concentration. The panel substitutes scenario values and converts L/h to mL/min. Its 80% kinetic/oxygen allowances and 10% headroom reserve are planning assumptions, not biological or manufacturer constants. <a href="FEED-DERIVATION.md">Complete planning equations, assumptions and sources</a>.</p>
+    <p>Advisory warnings distinguish targets above μmax, above the condition-adjusted kinetic upper bound, and above the more conservative planning recommendation. Manual and imported values are not overwritten; <strong>Apply derived values</strong> is required to adopt recommendations. The full simulation still determines actual growth from resources and conditions.</p>
+    <h3 id="oxygen-equations">Transfer and the coupled numerical solve</h3>
+    <pre class="equation">Power P = Np × 1000 × (rpm/60)³ × impeller diameter⁵ × impeller count
+P is shaft power in W (assumed density 1000 kg/m³).
+Vm³ = V / 1000
+Pg = P × gassed/ungassed power ratio (default 1)
+Gas flow Q = vvm × Vm³ / 60 [m³/s]
+Superficial gas velocity Ug = Q / (π × tank diameter² / 4) [m/s]
+kLa = 3600 × 0.026 × (Pg/Vm³)^0.4 × Ug^0.5 [h⁻¹]
+C_air = 0.28 × exp(−0.025 × (T − 25)) × (1 + gauge pressure)
+C* = C_air × inlet O₂ fraction / 0.21
+Inlet O₂ = vvm × V × 60 × Δt × inlet O₂ fraction / 24 × 1000 [mmol]
+
+Solve simultaneously:
+S1 = S0 − qS(S1, C1) × MX × Δt / V
+C1 = C0 + (transfer − qO2(S1, C1) × MX × Δt) / V
+transfer = min(kLa × (C* − C1) × V × Δt, inlet O₂)</pre>
+    <p>The solver brackets nonnegative S1 and C1 and uses nested bisections (32 substrate and 34 oxygen iterations). MX, V, pH and actuator settings are frozen during this reaction solve. The accepted rates then update all masses. This semi-implicit, first-order scheme prevents oxygen-demand clipping from creating unfunded biomass. Transfer is limited by both kLa and inlet oxygen. Negative transfer represents stripping.</p>
+    <p>The <a href="https://doi.org/10.1021/i260071a001" target="_blank" rel="noopener">Van’t Riet (1979) coalescing-liquid correlation</a> uses gassed power in W/m³ and superficial gas velocity in m/s; multiplying by 3600 converts s⁻¹ to h⁻¹. These coefficients are also documented in <a href="https://biosteam.readthedocs.io/en/latest/_modules/biosteam/units/design_tools/aeration.html#kLa_stirred_Riet" target="_blank" rel="noopener">BioSTEAM’s explicit Van’t Riet coefficient set</a>. For 40 W gassed power, 40 L broth, 0.257 m tank diameter and 1.5 vvm, it gives 205.97 h⁻¹.</p>
+    <p>This is a low-viscosity, coalescing stirred-tank estimate, not a universal broth correlation. The default power ratio of 1 substitutes calculated shaft power for unmeasured gassed power; it is not a measured equipment property. Enter a measured ratio when available. No arbitrary impeller/sparger/baffle multiplier or 1500 h⁻¹ correlation ceiling is applied. Impeller dimensions, count and power number still affect power. Sparger selection does not independently change this correlation; unbaffled vessels, electrolyte broths, antifoam and fungal rheology require calibration. Do not switch correlation merely to match a desired biomass result.</p>
+    <p>Calculated kLa is zero at zero agitation or aeration. An optional measured kLa (0–1500 h⁻¹) overrides it with a fixed value, valid only for the characterized conditions; that override does not vary with the cascade. Inlet gas still limits oxygen delivery. Pressure retains the approximate (1 + gauge pressure) convention; gas volume uses 24 L/mol. There is no off-gas composition or carbonate equilibrium model.</p>
+  </section>
+
+  <section id="time-step" aria-labelledby="time-step-heading">
+    <h2 id="time-step-heading">B. Calculation order for each interval</h2>
+    <p>The requested maximum time step is capped internally at <strong>0.001 h (3.6 s)</strong> to resolve the faster DO loop. Smaller requests are honored. Intervals split exactly at feed start, recombinant/secreted induction and final duration, so off-grid events and fractional end times are not skipped. This cap is not an adaptive accuracy guarantee: compare smaller steps for your scenario, especially after changing controller tuning.</p>
+    <ol class="step-list">
+      <li id="step-environment"><strong>Environment.</strong> Read the starting pools; select temperature/induction and compute the air reference and raw DO.</li>
+      <li id="step-controller"><strong>DO sensor and actuators.</strong> Smooth DO, update the PI integral with anti-windup, request cascade settings, then apply actuator lag.</li>
+      <li id="step-feed"><strong>Feed request.</strong> Evaluate the schedule using starting raw DO/substrate; apply the specified pump limit, without a working-volume cap.</li>
+      <li id="step-flows"><strong>Flow mixing.</strong> Remove continuous broth, add feed, conserve oxygen/acid amounts and recalculate concentrations.</li>
+      <li id="step-growth"><strong>Coupled resource/reaction solve.</strong> Find end-interval substrate and oxygen with growth, maintenance, acetate, product and respiratory capacity included. This step determines the funded increments for nodes below.</li>
+      <li id="step-biomass"><strong>Biomass and substrate.</strong> Add μ × starting MX × Δt; subtract the solved total substrate use, including product substrate.</li>
+      <li id="step-acetate"><strong>Acetate.</strong> Apply already solved formation, reuse and acetate-derived biomass increments.</li>
+      <li id="step-product"><strong>Product.</strong> Add qP × starting MX × Δt. Apply exponential degradation: MPafter = (MPbefore + formed) × exp(−kd × Δt). Move the lost mass into MD.</li>
+      <li id="step-ph"><strong>Acid and base.</strong> Add net metabolic acid equivalents to the retained signed inventory. Positive inventory requests base; negative inventory requests acid. Limit each by its pump, not by remaining volume. Update volume and pH. Continuous level control removes mixed broth equal to the delivered acid/base volume.</li>
+      <li id="step-oxygen"><strong>Oxygen readout.</strong> Carry the oxygen balance already solved in step 5 through acid/base dilution/outflow. OUR and OTR report actual interval uptake/transfer divided by reaction volume and Δt; oxygen is not solved a second time.</li>
+      <li id="step-record"><strong>Accumulate, evaluate failure rules and record.</strong> Add delivered feed, acid and base, actual consumed oxygen, gas input, carbon-derived CO₂ and harvested pools. Update warning durations and peaks. If strict rules are enabled, evaluate endpoint values and exposure timers; apply irreversible death/rejection and the stress multiplier for the next interval. Death moves remaining biomass into the nonviable pool without deleting carbon. Store records approximately every 0.1 h, plus each trigger and the exact final state.</li>
+      <li id="step-stop"><strong>Stop check.</strong> Stop at duration, or at batch substrate below 0.01 g/L after 0.5 h if selected. Exceeding volume or triggering strict failure never stops the run. Numerical validity checks remain enforced; legacy runs with strict rules off also stop outside pH 0–14. Final rates retain the last interval, except growth/uptake are immediately zeroed at a death endpoint.</li>
+    </ol>
+    <h3 id="final-results">Final pools and reporting</h3>
+    <p>With strict rules enabled, sustained volume &gt;110% of working capacity for 5 minutes rejects the batch; V ≥ total vessel capacity rejects it immediately and labels subsequent calculations invalid physical extrapolations. Other biological and mechanical rules are listed on the <a href="failure-modes.html">failure reference page</a>. None cap dosing. Total DCW includes viable and nonviable biomass; process graphs show these separately. Accepted product is zero after any batch or culture failure, separately from physically recoverable material. Reports retain every triggered event and its timing/value/penalty. New scenarios enable strict rules; imported scenarios with no flag retain legacy kinetics.</p>
+    <p>When working volume is exceeded, a red Process warning reports the configured limit, peak volume, maximum excess in litres and percent, and the first exceeded interval endpoint. Peak detection runs at every integration interval, not only saved plot points; initial overfill is flagged at t = 0. Total-vessel-volume excess gets a separate red warning. These limits do not cap feed, acid or base and do not trigger harvest. Beyond-limit calculations are extrapolations: physical overflow/spillage, loss of mixing validity and vessel failure are not modeled. CSV records include instantaneous working-volume excess; report summaries include peak volume, maximum excess and first exceedance time. Feed recommendations still use available headroom as a planning constraint.</p>
+    <p>The Process profiles tab includes specific growth rate μ (h⁻¹) versus time, using the engine's recorded <code>growthRate</code>. This is the resource-limited substrate-based growth rate, not the feed exponent or μmax. Separate biomass formation from acetate reuse and dilution/outflow are not included in this μ. The initial record is zero before the first integration interval; subsequent values are from the last completed interval.</p>
+    <p>Stage 7 separates process profiles from reactor-parameter graphs. The reactor tab plots recorded agitation, aeration, inlet oxygen, kLa, delivered feed flow, cumulative feed/acid/base additions, working volume and DO-controller output. Each acid/base flow is derived as Δ(cumulative addition in L)/(0.06 × Δtime in h), an interval-average mL/min value, drawn across the preceding saved interval. Records are normally 0.1 h apart, with an exact final point; other rates are samples of the last integration interval and may miss brief pulses. Pump flow is liquid delivery, not motor RPM. Dashed limits come from the completed run's scenario, not subsequently edited inputs. Cumulative acid is included in CSV records and report summaries.</p>
+    <p>Carry forward V, MX, MS, MA, MP, MD, C, H, filtered DO, PI integral, controller output and actuator settings. Concentrations and pH are derived from these pools. The interactive map exposes both interval endpoints and intermediate reaction/flow values.</p>
+    <pre class="equation">Total biomass in vessel = MX; biomass concentration = MX/V
+Recoverable output = (raw product in vessel + raw product in collected outflow) × recovery fraction
+Biomass-product mode uses biomass, including harvested biomass, instead of MP.
+
+Substrate closure = (remaining + removed + consumed substrate) / supplied substrate × 100%
+Carbon closure = (all remaining/removed pool carbon + CO₂ carbon) / input carbon × 100%
+O₂ residual = initial + net transferred − consumed − removed − remaining O₂
+Acid residual = initial + metabolically generated + acid dosed − base neutralized − removed − remaining acid</pre>
+    <p>Carbon input includes the starting inoculum. Degraded product carbon stays in MD or its outflow. Reports include model version, assumptions, actual applied peak feed, internal interval and balance checks. Editing settings invalidates the displayed/exportable result; run again to obtain matching results. Good closure verifies bookkeeping under the assumptions, not biological validity or numerical convergence.</p>
+  </section>
+
+  <section id="controls" aria-labelledby="controls-heading">
+    <h2 id="controls-heading">C. DO, pH and temperature controls</h2>
+    <h3 id="do-control">DO: stateful PI control with a sequential cascade</h3>
+    <pre class="equation">Δts = Δt × 3600 [s]
+Filtered DO += (raw DO − filtered DO) × (1 − exp(−Δts/τsensor))
+e = (setpoint − filtered DO) / 100
+Before integration: uRaw = I + Kp × e
+Hold I if (uRaw ≥ 1 and e &gt; 0) or (uRaw ≤ 0 and e &lt; 0).
+Otherwise: I = clamp(I + Kp × e × Δts / Ti, 0, 1)
+u = clamp(I + Kp × e, 0, 1)
+
+Fixed gas composition (default): agitation → airflow
+Adaptive enrichment (optional): agitation → airflow → O₂ enrichment
+Remove stages whose base equals maximum. Let n = available stage count.
+Stage fraction j (zero-based) = clamp(n × u − j, 0, 1)
+Requested setting = base + (maximum − base) × stage fraction
+Each actuator += (requested − actuator) × (1 − exp(−Δts/τactuator))</pre>
+    <p><strong>Inlet oxygen is the O₂ fraction of the gas mixture entering the vessel</strong>, not the dissolved-oxygen reading or the purity of an oxygen stock bottle before mixing. New scenarios default to fixed 100% O₂ (pure oxygen), editable from 21–100%; it is applied from the initial state and does not change with controller output. Adaptive mode starts at 21% (air) and enriches up to the configured maximum. Older saved scenarios without a mode retain adaptive behavior. Fixed supply uses its own selected fraction for transfer, inlet oxygen inventory and feed-planning capacity; the adaptive maximum is inactive.</p>
+    <p>Initial integral and output are zero. Defaults are Kp = 0.5, Ti = 120 s, sensor time constant 15 s and actuator time constant 10 s. These editable engineering assumptions are checked for control stability, not fitted to the literature biomass endpoint. The integral holds the needed output at zero error instead of resetting to minimum. Conditional integration prevents accumulation against output limits and allows recovery when the error reverses. There is no derivative term.</p>
+    <p>In fixed mode with two adjustable stages, agitation reaches maximum at output ½ and airflow at 1. In adaptive mode with all three stages available, agitation reaches maximum at output ⅓, airflow at ⅔, then enrichment increases to maximum at output 1. These are <strong>controller-output thresholds, not low-DO thresholds</strong>. For example, in adaptive mode at zero error an integral of 0.8 retains output 0.8 and 40% of the enrichment range. Zero-range stages are skipped. Setpoint tracking is not guaranteed if equipment capacity is insufficient, minimum aeration is already excessive, or tuning is unsuitable. Fixed pure oxygen can therefore drive DO above the setpoint at low demand. DO remains percent of the air-saturation reference even when inlet gas is enriched, and can exceed 100%. DO-stat feeding still uses raw DO, not the filtered signal.</p>
+    <p>Inert-gas dosing, oxygen displacement and CO₂-based pH control are not modeled.</p>
+    <h3 id="ph-control">pH: retained acid inventory with physical acid/base delivery</h3>
+    <pre class="equation">ΔH = 0.45 × total new biomass
+     + (acetate formed − acetate reused) × 1000/60.05 [mmol]
+H += ΔH
+Controlled mode with positive titrant normality:
+  required base = max(0, H) / (1000 × base normality) [L]
+  required acid = max(0, −H) / (1000 × acid normality) [L]
+  each delivery = min(required, its pump maximum × 0.06 × Δt)
+H += delivered acid × 1000 × acid normality − delivered base × 1000 × base normality
+V += delivered base + delivered acid
+pH = target − H / (buffer capacity × V)</pre>
+    <p>H is signed: positive means excess acidity (pH below target), negative means alkalinity (pH above target). Both requests use the same inventory, so only one pump delivers per interval, up to the amount needed to reach the target. Any unmet correction remains in H. Buffer capacity is fixed in mmol/(L·pH unit); acid/base concentration is neutralizing normality (equivalents/L), not necessarily molarity. Uncontrolled mode delivers neither acid nor base. In continuous mode, outflow after titrant mixing restores V and removes every pool proportionally. Added solutions contain no modeled substrate or dissolved oxygen.</p>
+    <p>Feed is mixed before acid/base control, but working volume does not restrict either addition. Pump capacity can still prevent full pH correction. Acetate reuse removes acid equivalents and may require acid dosing. New demo/complete organism setups use editable acid defaults of 4 equivalents/L and 1 mL/min, engineering placeholders rather than organism-specific measurements. Imported scenarios missing acid settings use 4 equivalents/L and a disabled 0 mL/min acid pump to preserve base-only behavior. Set either pump rate to zero to disable it. The model remains a simplified inventory correction, not a pH PID or an evolving buffer, carbonate or feed-pH chemistry model.</p>
+    <p>For a pH optimum of 7, pH 6 retains about 25.06% of the growth factor and pH 3 about 0.0000000241%. The same fixed symmetric pH curve is used for every species. The chosen pH target is not automatically a biologically suitable target.</p>
+    <h3 id="temperature-control">Temperature and induction</h3>
+    <p>Temperature is imposed without a heat balance. Only recombinant and secreted product modes use the induction-time temperature and burden switch; irrelevant induction controls are disabled for other modes. For μmax = 0.55 h⁻¹, Topt = 37 °C, a switch to 28 °C and 72% retained growth gives about 0.203 h⁻¹ before other restrictions. This is not a construct-specific prediction.</p>
+  </section>
+
+  <section id="restrictions" aria-labelledby="restrictions-heading">
+    <h2 id="restrictions-heading">D. Restrictions, warnings and omissions</h2>
+    <ul>
+      <li><strong>Low oxygen:</strong> the coupled solver reduces reactions to the available oxygen and inlet transfer. No oxygen means no aerobic growth, maintenance or product. DO can rise and support limited reaction within an interval that started at zero oxygen.</li>
+      <li><strong>Substrate depletion:</strong> growth, maintenance and product draw from one finite pool. Below the growth threshold there can still be maintenance/product consumption while substrate remains. There is no starvation death.</li>
+      <li><strong>Overfeeding:</strong> excess substrate accumulates; enabled empirical acetate overflow diverts substrate and acetate inhibits growth. There is no osmotic/high-substrate toxicity or general automatic feed cut. DO-stat is the only DO-dependent feed rule.</li>
+      <li><strong>pH/temperature:</strong> deviation from biological optima suppresses growth. Notices are shown only after running; invalid input errors still block a run. Strict pH failure uses the organism-group operating range, separate from the optimum or control target. No heat-transfer model is added.</li>
+      <li><strong>Equipment:</strong> configured feed, acid and base pump capacities cap actual additions. Working and total vessel volumes are reporting thresholds; exceeding them produces red warnings without capping or stopping. Continuous level control still includes acid/base dosing. Pressure cannot exceed the configured rating. Generic kLa remains uncalibrated; manufacturer geometry is not a performance guarantee.</li>
+      <li><strong>Warnings:</strong> oxygen limitation is counted below half the DO target (warning after 0.2 h). Cascade exhaustion is counted below target with all actuators at least 98% of maximum (warning after 0.1 h). Feed pump restriction warns after 0.1 h, pH deviation greater than 0.2 warns after 0.1 h, and acetate above 4 g/L warns. Warnings generally do not stop or change control actions.</li>
+      <li><strong>Preset switching:</strong> default mode applies a complete compatible biology/product/media/feed/process preset, including pH. “Biology only” deliberately preserves process settings and warns about conflicts. Generalized profiles are still assumed point estimates, not strain-specific calibration or uncertainty distributions.</li>
+      <li><strong>Validation:</strong> missing/nonfinite numeric inputs, invalid units and inconsistent carbon totals, unsupported choices, incompatible geometry and impossible yields are rejected. At most 500,000 nominal internal intervals are allowed. A continuous interval that would replace the entire vessel is rejected; reduce the step.</li>
+    </ul>
+    <h3 id="scope-limits">What remains outside this model</h3>
+    <p>Independent nitrogen, phosphate, amino-acid and ATP balances; mechanistic species-specific viability/death, lactate/ammonia and glycosylation; yeast ethanol/Crabtree and diauxic physiology; fungal pellets/rheology; and strain/clone uncertainty remain unimplemented. Abrupt optional teaching-rule death is not a substitute for those mechanisms. Fixed inhibition curves, acid demand, molecular composition, yield correction, product demand and kLa require calibration before process design.</p>
+    <p class="notice"><strong>Interpretation:</strong> distinguish total gDCW, gDCW/L and recoverable product. Check the actual inoculum unit, pH, temperature, supply history, remaining substrate and DO. Test smaller intervals. Conservative bookkeeping repairs impossible material creation; it does not turn these predictions into experimentally validated yields.</p>
+  </section>
+  <p class="back-to-top"><a href="#top">Back to top ↑</a></p>
+  </div>
+  <section id="calculation-map" role="tabpanel" aria-labelledby="map-tab" hidden>
+    <h2>One time step, made visible</h2>
+    <p>Reset preset: <strong>E. coli BL21(DE3) · 10 L Rushton vessel · 1.5 L starting broth · 36 h fed-batch</strong>. Defaults: 0.05 gDCW/L initial biomass (not OD), 15 g/L glucose and a 500 g/L glucose feed with a generic recombinant product. The controls below show your current example settings. Geometry and kinetics are illustrative.</p>
+    <p>Move a slider to replay the example from time zero through the selected interval. Readouts show the <strong>actual shared-engine calculation</strong>. No settings are saved to or changed in your main simulator. Click a node to see substituted equations and highlighted dependencies.</p>
+    <p class="plain-note">Readouts are rounded for readability; calculations keep full precision. Intervals split at feed, induction and duration boundaries; the inspector selects the actual interval containing the chosen time.</p>
+    <div class="time-controls">
+      <label for="inspect-time">Inspect interval starting at <output id="inspect-time-label" for="inspect-time">12.00 h</output></label>
+      <div class="time-inputs">
+        <button id="previous-step" type="button" aria-label="Previous time step">← Step</button>
+        <input id="inspect-time" type="range" min="0" max="35.995" step="0.005" value="12">
+        <input id="inspect-time-number" type="number" min="0" max="35.995" step="0.005" value="12" aria-label="Interval start time in hours">
+        <button id="next-step" type="button" aria-label="Next time step">Step →</button>
+      </div>
+      <div class="time-actions">
+        <span id="interval-caption">Δt ≤ 0.001 h (3.6 s)</span>
+        <button id="reset-example" type="button">Reset example</button>
+      </div>
+    </div>
+    <p id="map-status" role="status" aria-live="polite">Preparing the example…</p>
+    <p id="map-error" class="error" role="alert" hidden></p>
+    <div class="explorer-layout">
+      <aside class="explorer-controls" aria-label="Example process parameters">
+        <h3>Adjust the example</h3>
+        <div id="parameter-controls"></div>
+        <details class="map-options">
+          <summary>Model switches and numerical step</summary>
+          <label for="example-feed-strategy">Feed strategy</label>
+          <select id="example-feed-strategy"><option value="exponential">Exponential</option><option value="constant">Constant</option><option value="linear">Linear</option><option value="do-stat">DO-stat</option></select>
+          <label for="example-ph-mode">pH mode</label>
+          <select id="example-ph-mode"><option value="controlled">Controlled</option><option value="uncontrolled">Uncontrolled</option></select>
+          <label for="example-oxygen-mode">Inlet oxygen mode</label>
+          <select id="example-oxygen-mode"><option value="fixed">Fixed gas composition (default)</option><option value="adaptive">Adaptive enrichment (DO cascade)</option></select>
+          <label for="example-overflow"><input id="example-overflow" type="checkbox" checked> Enable acetate overflow / reuse</label>
+          <label for="example-dt">Requested maximum interval</label>
+          <select id="example-dt"><option value="0.02" selected>0.02 h requested · capped at 3.6 s</option><option value="0.001">0.001 h · 3.6 s</option><option value="0.0005">0.0005 h · 1.8 s</option><option value="0.00025">0.00025 h · 0.9 s</option></select>
+          <p class="plain-note">The engine caps intervals at 0.001 h. Smaller requests test refinement; convergence is not guaranteed for every scenario.</p>
+        </details>
+        <p class="plain-note">Optima remain 37 °C and pH 7. Feed, gas, acid and base reservoir depletion is not modeled. Nitrogen and phosphate are not separate resource pools.</p>
+      </aside>
+      <div class="map-content">
+        <p class="map-legend"><span class="sequence-key" aria-hidden="true">↓</span> Solid: execution order. <span class="dependency-key" aria-hidden="true">⇢</span> Dashed: selected node's data dependencies. <span class="limit-key">Limit</span> Modeled restriction, not an automatic stop.</p>
+        <div id="flow-surface" aria-busy="true">
+          <svg id="dependency-lines" aria-hidden="true"></svg>
+          <ol id="flow-nodes" aria-label="Calculation order and live readouts"></ol>
+        </div>
+        <p class="limitation"><strong>Within-step coupling:</strong> node 5 solves substrate, oxygen and all reaction rates together. Later nodes apply those funded increments and acid/base dilution. Final pools and controller history become the next interval’s initial state. pH effects use the post-feed, pre-reaction value.</p>
+      </div>
+    </div>
+    <noscript><p>The written model reference works without JavaScript. The interactive map requires JavaScript.</p></noscript>
+  </section>
+  <footer>
+    <p>Implementation basis: the shipped simulator's growth, feeding, controller and integration functions. The accompanying documentation check fingerprints those functions so that later model changes require this page to be reviewed. Biology input evidence is available in the <a href="biology/">biology derivation sheets</a>; equipment evidence is in the <a href="./">vessel derivation sheets</a>. Evidence for an input does not validate the whole model.</p>
+    <p><a href="../">Return to Fermentation Simulator</a> · This reference opens separately from Step 3 so your scenario remains in its original tab.</p>
+  </footer>
+</main>
+<script src="../simulation-core.js?v=2026-09-21.1" defer></script>
+<script src="simulation-example.js?v=2026-09-21.1" defer></script>
+<script src="simulation-map.js?v=2026-09-21.1" defer></script>
+</body>
+</html>

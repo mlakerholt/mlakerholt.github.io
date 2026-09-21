@@ -139,6 +139,11 @@ dl.summary dt {
 }
 
 .source-list li { margin-bottom: 0.9rem; }
+.parameter-references {
+  margin: 0.55rem 0 0;
+  padding-left: 1.2rem;
+}
+.parameter-references li { margin: 0.3rem 0; }
 .source-list small,
 .index-list small {
   display: block;

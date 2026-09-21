@@ -1,0 +1,552 @@
+{
+  "date": "2026-09-11",
+  "changedPresets": [
+    "thermo-dynadrive-3000",
+    "thermo-dynadrive-50",
+    "thermo-dynadrive-500",
+    "thermo-dynadrive-5000",
+    "thermo-sub-100",
+    "thermo-sub-1000",
+    "thermo-sub-2000",
+    "thermo-sub-250",
+    "thermo-sub-50",
+    "thermo-sub-500",
+    "thermo-suf-30",
+    "thermo-suf-300"
+  ],
+  "unchangedPresets": 59,
+  "stirredPresets": 56,
+  "gaps": [
+    {
+      "id": "sartorius-ambr-15",
+      "label": "Ambr 15 Cell Culture Generation 2 - 10-15 mL working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-ambr-250",
+      "label": "Ambr 250 Modular - microbial dual-Rushton vessel, 100-250 mL",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-glass-1",
+      "label": "Univessel® Glass 1 L — 1 L vessel",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-su-2",
+      "label": "Univessel® SU 2 L — 0.6–2 L working volume",
+      "missingDirect": [
+        "liquidHeight",
+        "powerNumber",
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-glass-2",
+      "label": "Univessel® Glass 2 L — 2 L vessel",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-cplus-5",
+      "label": "Biostat Cplus 5 L - 2:1 vessel, 6-blade disc configuration (legacy)",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-glass-5",
+      "label": "Univessel® Glass 5 L — 5 L vessel",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-cplus-10",
+      "label": "Biostat Cplus 10 L - 3:1 vessel, 6-blade disc configuration (legacy)",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-glass-10",
+      "label": "Univessel® Glass 10 L — 10 L vessel",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-su-10-essential",
+      "label": "Univessel® SU 10 L Essential — 2.5–10 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-su-10-perfusion",
+      "label": "Univessel® SU 10 L Perfusion — 2.5–10 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-univessel-su-10-cell-therapy",
+      "label": "Univessel® SU 10 L Cell Therapy — 4.3–10 L working volume",
+      "missingDirect": [
+        "minVolume",
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-cplus-15",
+      "label": "Biostat Cplus 15 L - 3:1 vessel, 6-blade disc configuration (legacy)",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-cplus-20",
+      "label": "Biostat Cplus 20 L - 3:1 vessel, 6-blade disc configuration (legacy)",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-cplus-30",
+      "label": "Biostat Cplus 30 L - 3:1 vessel, 6-blade disc configuration (legacy)",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-str-microbial-50",
+      "label": "Biostat STR® Microbial 50 L — 11–40 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-str-gen3-50",
+      "label": "Biostat STR Generation 3 50 L - DeltaV, dual 3-blade configuration",
+      "missingDirect": [
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-d-dcu",
+      "label": "Biostat D-DCU 200 L - 3:1 microbial vessel (legacy)",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-str-gen3-200",
+      "label": "Biostat STR Generation 3 200 L - DeltaV, dual 3-blade configuration",
+      "missingDirect": [
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-str-gen3-500",
+      "label": "Biostat STR Generation 3 500 L - DeltaV, dual 3-blade configuration",
+      "missingDirect": [
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-str-gen3-1000",
+      "label": "Biostat STR Generation 3 1000 L - DeltaV, dual 3-blade configuration",
+      "missingDirect": [
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "sartorius-str-gen3-2000",
+      "label": "Biostat STR Generation 3 2000 L - DeltaV, dual 3-blade configuration",
+      "missingDirect": [
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "merck-mobius-3",
+      "label": "Mobius® 3 L Single-use Bioreactor — 3 L vessel",
+      "missingDirect": [
+        "liquidHeight",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "merck-iflex-50",
+      "label": "Mobius iFlex 50 L - development design (2023/2024 evidence)",
+      "missingDirect": [
+        "liquidHeight",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "merck-iflex-200",
+      "label": "Mobius® iFlex 200 L Bioreactor — 40–200 L working volume",
+      "missingDirect": [
+        "liquidHeight"
+      ]
+    },
+    {
+      "id": "merck-iflex-1000",
+      "label": "Mobius iFlex 1000 L - development design (2023/2024 evidence)",
+      "missingDirect": [
+        "liquidHeight",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "merck-iflex-2000",
+      "label": "Mobius® iFlex 2000 L Bioreactor — 400–2000 L working volume",
+      "missingDirect": [
+        "liquidHeight"
+      ]
+    },
+    {
+      "id": "thermo-glass-1",
+      "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 1 L",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-glass-3",
+      "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 3 L",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-dynadrive-5",
+      "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 5 L",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-glass-7",
+      "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 7 L",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-glass-15",
+      "label": "Thermo Scientific™ HyPerforma™ Glass Bioreactor 15 L",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-suf-30",
+      "label": "Thermo Scientific™ HyPerforma™ S.U.F. 30 L — 6–30 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-dynadrive-50",
+      "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 50 L — 5–50 L working volume",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-sub-50",
+      "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 50 L — 10–50 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-sub-100",
+      "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 100 L — 20–100 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-sub-250",
+      "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 250 L — 50–250 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-suf-300",
+      "label": "Thermo Scientific™ HyPerforma™ S.U.F. 300 L — 60–300 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-dynadrive-500",
+      "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 500 L — 25–500 L working volume",
+      "missingDirect": [
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "thermo-sub-500",
+      "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 500 L — 100–500 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-sub-1000",
+      "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 1000 L — 200–1000 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-sub-2000",
+      "label": "Thermo Scientific™ HyPerforma™ 5:1 S.U.B. 2000 L — 400–2000 L working volume",
+      "missingDirect": [
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-dynadrive-3000",
+      "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 3000 L — 250–3000 L working volume",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "thermo-dynadrive-5000",
+      "label": "Thermo Scientific™ DynaDrive™ Single-use Bioreactor 5000 L — 250–5000 L working volume",
+      "missingDirect": [
+        "powerNumber",
+        "maxRpm"
+      ]
+    },
+    {
+      "id": "cytiva-xdr-10",
+      "label": "Cytiva Xcellerex™ XDR-10 — 4.5–10 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-x-platform-50",
+      "label": "Cytiva Xcellerex X-platform 50 L - downflow configuration",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-xdr-50",
+      "label": "Cytiva Xcellerex XDR-50 - 25-50 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-x-platform-200",
+      "label": "Cytiva Xcellerex X-platform 200 L - downflow configuration",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-xdr-200",
+      "label": "Cytiva Xcellerex XDR-200 - 40-200 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-xdr-500",
+      "label": "Cytiva Xcellerex XDR-500 - 100-500 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-xdr-1000",
+      "label": "Cytiva Xcellerex XDR-1000 - 200-1000 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "cytiva-xdr-2000",
+      "label": "Cytiva Xcellerex XDR-2000 - 400-2000 L working volume",
+      "missingDirect": [
+        "vesselDiameter",
+        "liquidHeight",
+        "impellerDiameter",
+        "powerNumber",
+        "maxRpm",
+        "maxPressure"
+      ]
+    },
+    {
+      "id": "merck-mobius-2021-50",
+      "label": "Mobius 50 L - 2021 specification (NOT iFlex)",
+      "missingDirect": [
+        "liquidHeight"
+      ]
+    },
+    {
+      "id": "merck-mobius-2021-200",
+      "label": "Mobius 200 L - 2021 specification (NOT iFlex)",
+      "missingDirect": [
+        "liquidHeight"
+      ]
+    },
+    {
+      "id": "merck-mobius-2021-1000",
+      "label": "Mobius 1000 L - 2021 specification (NOT iFlex)",
+      "missingDirect": [
+        "liquidHeight"
+      ]
+    },
+    {
+      "id": "merck-mobius-2021-2000",
+      "label": "Mobius 2000 L - 2021 specification (NOT iFlex)",
+      "missingDirect": [
+        "liquidHeight"
+      ]
+    }
+  ]
+}

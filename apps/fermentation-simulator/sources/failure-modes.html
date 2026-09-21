@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Culture and batch failure rules — Fermentation Simulator</title>
+  <link rel="stylesheet" href="source.css?v=2026-09-12.1">
+  <link rel="stylesheet" href="simulation.css?v=2026-09-12.1">
+</head>
+<body><main id="top">
+  <nav aria-label="Reference navigation"><a href="../">Fermentation Simulator</a> <a href="simulation.html">How the simulation works</a> <a href="biology/databank.html">Biology databank</a></nav>
+  <header class="model-intro"><p class="eyebrow">STEP 3 · PROCESS · MODEL REFERENCE</p><h1>Culture and batch failure rules</h1>
+    <p>Rigid operating envelopes, timed exposure and deliberately severe penalties for teaching process operation.</p>
+    <p class="section-label">Engine 2026-09-21.1 · reviewed 21 September 2026</p></header>
+  <p class="notice">These are <strong>chosen teaching rules, not validated lethal limits</strong>. They intentionally exaggerate consequences. Species, strains, clones, media and vessels can behave differently. A tip-speed rule is not a local shear or cell-damage calculation; broth substrate is glucose equivalent, not an osmolality model. The lab pictures are AI-generated jokes, not predicted physical scenes.</p>
+  <section><h2>When rules are enabled</h2>
+    <p>New app scenarios enable strict rules by default. Step 3 has a neutral on/off control. Imported scenarios that omit <code>process.strictFailures</code> retain legacy kinetics (rules off); explicitly saved true/false settings are preserved. Low-oxygen exposure rules have a separate switch. Turn that switch off for an intentionally oxygen-depleted exercise; this does <strong>not</strong> introduce anaerobic metabolism. The reaction model remains aerobic. Mammalian hyperoxia rules remain active.</p>
+    <p>No failure prediction, modal or process-warning list appears before a run. Invalid input values still require correction. After a completed run, Stage 7 shows only category icons with counters under Process warnings: oxygen, pH, feed/nutrients, metabolites, agitation, volume, growth and model notes. Click a category to reveal its warnings; click it again or choose Hide warnings to collapse it. Zero-count categories are disabled; unrecognized notices appear under Other. Each counter counts the individual failure events and run notices in that category, including recovered stress episodes. Detailed illustrated failure dialogs open only when you click an event, and their navigation stays within that category. No dialog opens automatically. A new run resets every category to collapsed. The report exports unchanged event data; CSV exports live/dead biomass, stress multiplier, failure flags and accepted product.</p>
+  </section>
+  <section><h2>Operating profiles</h2>
+    <div class="table-scroll"><table><thead><tr><th>Organism group</th><th>Allowed pH</th><th>Broth substrate ceiling</th><th>Tip-speed ceiling</th></tr></thead><tbody>
+      <tr><td>Mammalian: CHO, hybridoma, HEK293 and other animal-cell presets</td><td>6.6–7.6</td><td>10 g/L glucose equivalent</td><td>3 m/s</td></tr>
+      <tr><td>E. coli / general bacterial (also fallback for unidentified custom presets)</td><td>5.5–8.0</td><td>50 g/L glucose equivalent</td><td>10 m/s</td></tr>
+      <tr><td>S. cerevisiae / yeast</td><td>3.0–6.5</td><td>250 g/L glucose equivalent</td><td>10 m/s</td></tr>
+      <tr><td>A. niger / filamentous fungi</td><td>1.5–6.0</td><td>250 g/L glucose equivalent</td><td>3 m/s</td></tr>
+    </tbody></table></div>
+    <p>The profile is selected from organism category, preset ID and name, including generalized profiles. The event panel and exported report name the profile actually used. pH ranges include both endpoints.</p>
+  </section>
+  <section><h2>Triggers and penalties</h2>
+    <div class="table-scroll"><table><thead><tr><th>Mode</th><th>Condition and exposure</th><th>Penalty</th><th>Applies to</th></tr></thead><tbody>
+      <tr><td>Low dissolved oxygen</td><td>DO &lt;5% air saturation for 30 min</td><td>Severe stress</td><td>All, if low-oxygen rules enabled</td></tr>
+      <tr><td>Near anoxia</td><td>DO &lt;1% for 2 h</td><td>Culture failure: mammalian/fungal; batch failure: bacterial/yeast</td><td>Low-oxygen rules enabled</td></tr>
+      <tr><td>Hyperoxia</td><td>DO &gt;200% for 1 h</td><td>Severe stress</td><td>Mammalian only</td></tr>
+      <tr><td>Prolonged hyperoxia</td><td>DO &gt;300% for 6 h</td><td>Culture failure</td><td>Mammalian only</td></tr>
+      <tr><td>pH excursion</td><td>Outside profile range for 30 min / 2 h</td><td>Severe stress / culture failure</td><td>All</td></tr>
+      <tr><td>High broth substrate</td><td>Above profile ceiling for 1 h</td><td>Severe stress</td><td>All</td></tr>
+      <tr><td>Extreme broth substrate</td><td>Above twice the ceiling for 1 h</td><td>Batch failure</td><td>All</td></tr>
+      <tr><td>Acetate accumulation</td><td>&gt;5 g/L for 1 h / &gt;10 g/L for 2 h</td><td>Severe stress / culture failure</td><td>Bacterial profile with overflow/reuse enabled only</td></tr>
+      <tr><td>Carbon starvation</td><td>S &lt;0.02 g/L, no usable acetate and no growth-supporting uptake; 4 h mammalian / 8 h microbial</td><td>Culture failure / batch failure</td><td>All; see guard below</td></tr>
+      <tr><td>High tip speed</td><td>Above profile ceiling for 30 min</td><td>Severe stress</td><td>All</td></tr>
+      <tr><td>Extreme tip speed</td><td>Above 1.5 × ceiling for 30 min</td><td>Batch failure</td><td>All</td></tr>
+      <tr><td>Working-volume excess</td><td>V &gt; maximum working volume</td><td>Immediate red process warning; no rate penalty</td><td>All</td></tr>
+      <tr><td>Sustained overfilling</td><td>V &gt;110% of maximum working volume for 5 min</td><td>Batch failure</td><td>All</td></tr>
+      <tr><td>Total capacity reached</td><td>V ≥ total vessel volume</td><td>Immediate batch failure; subsequent results marked invalid physical extrapolation</td><td>All</td></tr>
+    </tbody></table></div>
+    <p><strong>Starvation guard:</strong> a substrate-based growth rate ≥0.001 h⁻¹ with positive substrate uptake counts as growth-supporting consumption, even when residual S is nearly zero. This avoids classifying sustained substrate-limited feeding as starvation. Acetate ≥0.02 g/L counts as usable only when acetate reuse is enabled. These cutoffs are operational heuristics, not starvation physiology.</p>
+    <p>DO uses the model's actual, unfiltered concentration relative to air saturation at the current temperature and pressure—not inlet oxygen percentage or percentage of the enriched-gas equilibrium. Tip speed = π × impeller diameter × rpm / 60. The volume includes feed, acid and base.</p>
+  </section>
+  <section><h2>What each penalty does</h2>
+    <ul>
+      <li><strong>Severe stress:</strong> multiply growth-associated substrate demand, biomass formation, acetate formation/reuse and new-product formation potentials by 0.25 once, before the coupled resource solve. Maintenance is unchanged. Multiple stresses do not stack. Actual rates still depend on substrate, oxygen and respiratory capacity; the final rate need not be exactly a quarter of a separate unstressed run.</li>
+      <li><strong>Culture failure:</strong> transfer all remaining viable biomass into a nonviable pool without removing its mass or carbon. No subsequent growth, maintenance uptake, respiration, acetate turnover or new-product formation. Existing product can still degrade according to its configured degradation rate. Continuous outflow removes live and dead biomass proportionally.</li>
+      <li><strong>Batch failure:</strong> accepted product is zero for the entire run, including collected outflow. Physical recoverable product is reported separately and is not destroyed. Culture failure also rejects the batch. A batch-only failure does not kill cells.</li>
+    </ul>
+    <p>Feed, acid/base dosing, gas transfer and DO controllers keep running after either kind of failure. Volume is never clamped and no pump is automatically disabled. The requested duration or explicitly selected substrate-harvest condition still ends the run. Numerical input/solver checks remain enforced. With strict rules enabled, an extreme pH does not terminate the calculation; the timed pH-failure rule applies.</p>
+  </section>
+  <section><h2>Time-step order, recovery and event data</h2>
+    <ol>
+      <li>At initialization, check immediate volume rules. Start all timed exposures at zero.</li>
+      <li>Use the previous endpoint's stress multiplier and viable biomass in the next interval's coupled reaction solve. Apply flows, reactions, product degradation, acid/base additions and oxygen dilution as in the <a href="simulation.html#time-step">simulation reference</a>.</li>
+      <li>At each interval endpoint (at most 0.001 h apart), evaluate the actual state and actuator tip speed. Add that interval's duration to each out-of-range exposure. Threshold crossing is resolved to one integration interval, not interpolated.</li>
+      <li>When exposure reaches a rule's delay, record its value, boundary, deviation, time and penalty. Death moves biomass into the nonviable pool immediately at that endpoint; the next interval has no cellular reactions. Stress changes apply from the next interval. Save an extra time-series record at each trigger.</li>
+      <li>One full minute back within that rule's limits clears unfinished exposure and active stress. Shorter safe gaps pause exposure but do not erase it. An escalated failure never clears. A new stress episode after recovery produces a new event.</li>
+    </ol>
+    <p>The results panel distinguishes value/exposure <em>at the trigger</em> from worst value and accumulated out-of-range exposure over that episode. pH deviations are reported in pH units, not misleading percentages. Volume excess is shown in litres and percent. A recovered condition does not reverse a failed batch or revive dead cells. Only a new run resets the failure state.</p>
+    <pre class="equation">Total DCW = viable biomass + nonviable biomass
+Accepted product = batch failed ? 0 : physical recoverable product
+Culture failure: nonviable biomass = total biomass; viable biomass = 0
+Severe-stress multiplier = any active stress ? 0.25 : 1 (no stacking)</pre>
+  </section>
+  <section><h2>Scope</h2><p>No nitrogen or phosphorus accounting has been added. Pressure buildup, heat accumulation, foam, contamination, lactate/ammonia, osmolality, local shear and species-specific survival curves are not simulated. Existing temperature and pH inhibition still operate alongside these rules. <a href="CULTURE-FAILURE-RESEARCH.md">Earlier literature research</a> provides background, not validation of the chosen thresholds. The interactive calculation map keeps its legacy example with strict failures off; the main simulator can run with either setting.</p></section>
+</main></body></html>
