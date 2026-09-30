@@ -30,7 +30,7 @@ The warning system detects deviation from the chosen pH setpoint, not whether th
 
 Recommended correction: provide consistent recommended settings for every preset and explicitly offer to apply compatible process/media/feed defaults when changing species. Preserve deliberate custom settings only with a visible compatibility warning. Report each growth-limiting factor separately.
 
-Code: [preset switching](<tmp/app-source.js#L799>), [generalized fungal defaults](<tmp/app-source.js#L445>), [growth calculation](<tmp/app-source.js#L1484>).
+Code: [preset switching](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:799>), [generalized fungal defaults](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:445>), [growth calculation](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1484>).
 
 ## 2. High priority: oxygen/growth integration is time-step dependent
 
@@ -52,7 +52,7 @@ All these runs report 100% substrate balance closure. That check verifies bookke
 
 Recommended correction: integrate growth, uptake, and oxygen together with adaptive or validated substepping; enforce consistent oxygen availability; add time-step convergence tests for oxygen-limited conditions. Do not increase growth parameters just to compensate for this error.
 
-Code: [time-step limit](<tmp/app-source.js#L1332>), [oxygen update](<tmp/app-source.js#L1549>).
+Code: [time-step limit](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1332>), [oxygen update](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1549>).
 
 ## 3. Input units and validation need strengthening
 
@@ -64,7 +64,7 @@ Additionally, an empty numerical field is converted to zero because `Number('')`
 
 Recommended correction: explicit OD600/gDCW/L input selection with an editable, sourced calibration; mandatory finite values and range checks; distinguish total gDCW, gDCW/L, and product mass throughout the results.
 
-Code: [input label](<index.html:331>), [numeric conversion](<tmp/app-source.js#L771>), [validation](<tmp/app-source.js#L1230>).
+Code: [input label](<C:/Users/wizar/Desktop/Fermentation simulator/index.html:331>), [numeric conversion](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:771>), [validation](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1230>).
 
 ## 4. Feed settings are not a biomass growth controller
 
@@ -76,7 +76,7 @@ A substrate-limited feed calculation should relate substrate demand to biomass m
 
 Recommended correction: distinguish an arbitrary exponential pump schedule from a biomass-based growth-target schedule, explain pump clipping, and show cumulative carbon supplied and the corresponding yield-based biomass budget.
 
-Code: [feed calculation](<tmp/app-source.js#L1292>).
+Code: [feed calculation](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1292>).
 
 ## 5. Physiological balances remain illustrative
 
@@ -89,7 +89,7 @@ Code: [feed calculation](<tmp/app-source.js#L1292>).
 - The DO controller needs a persistent setpoint error to increase actuation. At a 30% DO setpoint its oxygen-enrichment stage starts only below about 11.4% measured DO. This is not an integral controller holding DO at the setpoint.
 - Default recombinant induction at 8 h changes temperature to 28 °C and applies a 0.72 burden factor. Together these reduce the modeled maximum growth rate to about 0.203 h⁻¹ before other limitations. This is a generic assumption, not a strain/construct-specific measured response, and does not explain the matching 0.15 g case.
 
-Code: [substrate and product balances](<tmp/app-source.js#L1493>), [carbon pool](<tmp/app-source.js#L991>), [kLa estimate](<tmp/app-source.js#L1261>), [DO controller](<tmp/app-source.js#L1278>).
+Code: [substrate and product balances](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1493>), [carbon pool](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:991>), [kLa estimate](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1261>), [DO controller](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/app-source.js:1278>).
 
 ## Recommended order of work
 
@@ -104,4 +104,4 @@ The basic use of biomass and substrate masses, volume-dependent concentrations, 
 
 The diagnostic script reads and decompresses the actual eight shipped payload files and asserts exact equality with the readable source before running tests. It also exercises the original preset-change handler with only rendering disabled. The existing biology-preset and generalized-profile checks pass, but they do not test numerical simulation accuracy.
 
-Diagnostics: [review-fed-batch.cjs](<tmp/review-fed-batch.cjs>). Run from the project folder with `node tmp/review-fed-batch.cjs`. Diagnostic substep changes exist only in memory. No live scenario or production model was modified.
+Diagnostics: [review-fed-batch.cjs](<C:/Users/wizar/Desktop/Fermentation simulator/tmp/review-fed-batch.cjs>). Run from the project folder with `node tmp/review-fed-batch.cjs`. Diagnostic substep changes exist only in memory. No live scenario or production model was modified.

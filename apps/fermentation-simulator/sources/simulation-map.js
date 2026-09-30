@@ -6,9 +6,9 @@
   if (!model || !window.FermentationExample) return;
   let scenario = window.FermentationExample.create();
   let displayedScenario = structuredClone(scenario);
-  let selectedTime = 12, selectedNode = null, current = null;
+  let selectedTime = 12, current = null;
   let revision = 0, timer = null, worker = null, busy = false, pending = null, started = false;
-  const fields = [], invalid = new Map(), nodeElements = new Map();
+  const fields = [], invalid = new Map();
   const status = $('map-status'), errorBox = $('map-error'), surface = $('flow-surface');
   const fmt = value => {
     if (typeof value !== 'number') return String(value);
@@ -18,6 +18,7 @@
     return Number(value.toPrecision(5)).toString();
   };
   const val = (number, unit = '') => `${fmt(number)}${unit ? ' ' + unit : ''}`;
+  const timeText = time => `${Number(time.toFixed(8))} h`;
   const metric = (label, value, unit) => [label, val(value, unit)];
   const percent = (label, value) => metric(label, value * 100, '%');
   const get = path => path.split('.').reduce((object, key) => object[key], scenario);
@@ -147,7 +148,7 @@
   const switches = [
     ['example-feed-strategy', 'feed.strategy'], ['example-ph-mode', 'process.phMode'],
     ['example-oxygen-mode', 'reactor.oxygenSupplyMode'],
-    ['example-overflow', 'biology.enableOverflow'],
+    ['example-overflow', 'biology.enableOverflow'], ['example-strict-failures', 'process.strictFailures'],
     ['example-dt', 'process.timeStep']
   ];
   switches.forEach(([id, path]) => $(id).addEventListener('change', () => {
@@ -159,6 +160,7 @@
   function updateOxygenFields() {
     const fixed = scenario.reactor.oxygenSupplyMode === 'fixed';
     for (const {path, range, number} of fields) {
+      if (path.startsWith('feed.')) { number.disabled = scenario.process.type === 'batch'; if (range) range.disabled = number.disabled; }
       if (!['reactor.fixedOxygenFraction', 'reactor.maxOxygenFraction'].includes(path)) continue;
       const active = path === 'reactor.fixedOxygenFraction' ? fixed : !fixed;
       number.closest('.parameter-field').hidden = !active;
@@ -170,9 +172,9 @@
     const dt = model.integrationStep(scenario), maximum = scenario.process.duration - dt;
     selectedTime = Math.max(0, Math.min(maximum, Math.round(time / dt) * dt));
     for (const id of ['inspect-time', 'inspect-time-number']) {
-      $(id).step = dt; $(id).max = fmt(maximum); $(id).value = fmt(selectedTime);
+      $(id).step = dt; $(id).max = Number(maximum.toFixed(8)); $(id).value = Number(selectedTime.toFixed(8));
     }
-    $('inspect-time-label').textContent = val(selectedTime, 'h');
+    $('inspect-time-label').textContent = timeText(selectedTime);
     $('interval-caption').textContent = `Δt = ${val(dt, 'h')} (${val(dt * 3600, 's')}) · all changes replay from t = 0`;
     invalid.delete('time'); $('inspect-time-number').removeAttribute('aria-invalid');
   }
@@ -190,8 +192,11 @@
   $('next-step').addEventListener('click', () => {
     updateTime(current?.trace.after.time ?? selectedTime + model.integrationStep(scenario)); schedule();
   });
-  $('reset-example').addEventListener('click', () => {
-    scenario = window.FermentationExample.create(); invalid.clear(); current = null;
+  function resetExample() {
+    scenario = window.FermentationExample.create();
+    scenario.process.strictFailures = false;
+    if ($('example-process').value === 'batch') { scenario.process.type = 'batch'; scenario.process.duration = 18; }
+    invalid.clear(); current = null;
     fields.forEach(({path, range, number, scale}) => {
       number.value = get(path) == null ? '' : fmt(get(path) * scale);
       if (range) range.value = number.value;
@@ -201,7 +206,9 @@
       if ($(id).type === 'checkbox') $(id).checked = get(path); else $(id).value = get(path);
     });
     updateOxygenFields(); updateTime(12); schedule();
-  });
+  }
+  $('reset-example').addEventListener('click', resetExample);
+  $('example-process').addEventListener('change', resetExample);
 
   function fail(message) {
     errorBox.textContent = message; errorBox.hidden = false;
@@ -264,38 +271,14 @@
     ['totals', 'Accumulate, record & check stop', 'step-record'],
     ['final', 'Final state / resource pool', 'final-results']
   ];
-  // Data dependencies, not just execution adjacency. Old-state feedback enters via initial.
-  const edges = [
-    ['initial','environment'], ['initial','controller'], ['initial','feed'], ['initial','flows'],
-    ['initial','growth'], ['initial','ph'], ['initial','oxygen'], ['initial','totals'],
-    ['environment','controller'], ['environment','feed'], ['environment','growth'], ['environment','acetate'],
-    ['environment','product'], ['environment','oxygen'], ['controller','oxygen'], ['controller','growth'],
-    ['feed','flows'], ['feed','totals'], ['flows','growth'], ['flows','acetate'], ['flows','ph'], ['flows','oxygen'],
-    ['growth','biomass'], ['growth','acetate'], ['growth','product'], ['growth','oxygen'],
-    ['biomass','acetate'], ['biomass','ph'], ['biomass','totals'],
-    ['acetate','product'], ['acetate','ph'], ['ph','oxygen'],
-    ['ph','totals'], ['oxygen','totals'], ['biomass','final'], ['acetate','final'], ['product','final'],
-    ['ph','final'], ['oxygen','final'], ['controller','final'], ['totals','final']
-  ];
-  definitions.forEach(([id, title, anchor], index) => {
-    const node = create('li', 'flow-node'); node.id = `map-node-${id}`;
-    const button = create('button', 'node-select'); button.type = 'button';
-    button.setAttribute('aria-expanded', 'false'); button.setAttribute('aria-controls', `map-detail-${id}`);
-    button.append(create('span', 'node-number', index === 0 ? 'START' : `${index}`), create('span', 'node-title', title));
-    const action = create('span', 'node-action', 'Equations & connections');
-    const dependency = create('span', 'dependency-label'); button.append(action, dependency);
-    const readouts = create('div', 'node-readouts'), values = create('dl', 'node-values');
-    const limit = create('span', 'node-limit'); limit.hidden = true;
-    readouts.append(values, limit);
-    const detail = create('div', 'node-detail'); detail.id = `map-detail-${id}`; detail.hidden = true;
-    button.addEventListener('click', () => selectNode(selectedNode === id ? null : id));
-    node.append(button, readouts, detail); $('flow-nodes').append(node);
-    nodeElements.set(id, {node, button, values, limit, detail, action, dependency, anchor, title, previous: new Map()});
+  const explorer = window.FermentationExplorer.mount($('process-explorer'), {
+    titles: Object.fromEntries([...definitions.map(([id,title]) => [id,title]), ['failures','Strict failure rules']]),
+    anchors: Object.fromEntries([...definitions.map(([id,,anchor]) => [id,anchor]), ['failures','restrictions']])
   });
   function poolMetrics(state) {
-    return [metric('Time', state.time, 'h'), metric('Broth volume V', state.volume, 'L'),
+    return [['Time', timeText(state.time)], metric('Broth volume V', state.volume, 'L'),
       metric('Working-volume excess', state.workingVolumeExcess, 'L'),
-      metric('Biomass MX', state.biomassMass, 'gDCW'), metric('Biomass X', state.biomassConcentration, 'gDCW/L'),
+      metric('Biomass MX', state.biomassMass, 'gDCW'), metric('Viable biomass', state.viableBiomassMass, 'gDCW'), metric('Nonviable biomass', state.nonviableBiomassMass, 'gDCW'), metric('Biomass X', state.biomassConcentration, 'gDCW/L'),
       metric('Substrate MS', state.substrateMass, 'g'), metric('Substrate S', state.substrateConcentration, 'g/L'),
       metric('Acetate MA', state.acetateMass, 'g'), metric('Acetate A', state.acetateConcentration, 'g/L'),
       metric('Raw product MP', state.productMass, 'g'), metric('Raw product P', state.productConcentration, 'g/L'),
@@ -306,6 +289,7 @@
     const n = t.nodes, e = n.environment, c = n.controller, f = n.feed, l = n.flows, g = n.growth,
       b = n.biomass, a = n.acetate, p = n.product, h = n.ph, o = n.oxygen, z = n.totals;
     return {
+      failures: [metric('Rules enabled', n.failures.enabled ? 'Yes' : 'No'), metric('Viable biomass', n.failures.viableBiomassMass, 'gDCW'), metric('Nonviable biomass', n.failures.nonviableBiomassMass, 'gDCW'), metric('Stress multiplier next interval', n.failures.nextStressMultiplier), metric('Culture failed', n.failures.cultureFailed ? 'Yes' : 'No'), metric('Batch rejected', n.failures.batchFailed ? 'Yes' : 'No')],
       initial: poolMetrics(t.before),
       environment: [metric('Temperature used', e.actualTemperature, '°C'), metric('Induction active', e.induced ? 'Yes' : 'No'),
         metric('Air reference Cair', e.oxygenReference, 'mmol/L'), metric('Starting DO (raw)', e.doPercent, '%')],
@@ -352,7 +336,7 @@
       final: [...poolMetrics(t.after), metric('Filtered DO carried forward', t.after.filteredDo, '%'),
         metric('Agitation carried forward', t.after.rpm, 'rpm'), metric('Aeration carried forward', t.after.vvm, 'vvm'),
         percent('Inlet O₂ carried forward', t.after.oxygenFraction),
-        metric('Recoverable product in broth', t.after.productMass * scenario.product.recoverableFraction, 'g')]
+        metric('Recoverable product in broth', t.after.batchFailed ? 0 : t.after.productMass * scenario.product.recoverableFraction, 'g')]
     };
   }
   function restrictions(t) {
@@ -377,29 +361,23 @@
     current = result;
     displayedScenario = structuredClone(scenario);
     const readouts = allReadouts(result.trace), limits = restrictions(result.trace);
-    for (const [id, item] of nodeElements) {
-      const fragment = document.createDocumentFragment();
-      for (const [label, value] of readouts[id]) {
-        const pair = create('div', 'node-metric'), dt = create('dt', '', label), dd = create('dd', '', value);
-        if (item.previous.has(label) && item.previous.get(label) !== value) dd.classList.add('is-changed');
-        item.previous.set(label, value); pair.append(dt, dd); fragment.append(pair);
-      }
-      item.values.replaceChildren(fragment);
-      item.limit.textContent = limits[id] || ''; item.limit.hidden = !limits[id];
-    }
+    explorer.update({trace:result.trace, scenario:displayedScenario, readouts, limits, detail:equationDetail});
     surface.classList.remove('is-stale'); surface.setAttribute('aria-busy', 'false'); errorBox.hidden = true;
     const t = result.trace;
-    $('inspect-time-label').textContent = `${val(t.before.time, 'h')} → ${val(t.after.time, 'h')}`;
-    status.textContent = `${result.clamped ? `The example stopped before the requested ${val(selectedTime, 'h')}; showing its final available interval. ` : ''}Step ${result.actualStep + 1}: ${val(t.before.time, 'h')} → ${val(t.after.time, 'h')}. ${t.stopReason || 'Updated oxygen and pH feed into the next step.'}`;
+    $('inspect-time-label').textContent = `${timeText(t.before.time)} → ${timeText(t.after.time)}`;
+    status.textContent = `${result.clamped ? `The example stopped before the requested ${timeText(selectedTime)}; showing its final available interval. ` : ''}Step ${result.actualStep + 1}: ${timeText(t.before.time)} → ${timeText(t.after.time)}. ${t.stopReason || 'Updated oxygen and pH feed into the next step.'}`;
     $('previous-step').disabled = result.actualStep <= 0;
     $('next-step').disabled = Boolean(t.stopReason);
-    selectNode(selectedNode);
+    explorer.draw();
   }
 
   function equationDetail(id) {
     const t=current.trace,n=t.nodes,s=displayedScenario,f=fmt;
     const g=n.growth,b=n.biomass,a=n.acetate,p=n.product,h=n.ph,o=n.oxygen,l=n.flows,c=n.controller;
     const details={
+      failures:["Strict rules evaluate endpoint conditions and exposure timers. Their stress multiplier applies to the next interval; death transfers remaining biomass to the nonviable pool.",
+        "Rules enabled = "+n.failures.enabled+"; current stress = "+f(n.failures.appliedStressMultiplier)+"; next stress = "+f(n.failures.nextStressMultiplier)+".\n"+
+        "Culture failed = "+n.failures.cultureFailed+"; batch rejected = "+n.failures.batchFailed+".\nNew events: "+JSON.stringify(n.failures.newEvents)],
       initial:["Read the complete resource and controller state from the preceding interval.",
         "At inoculation: MX = X0 V0 = "+f(current.initialState.biomassMass)+" g; MS = S0 V0 = "+f(current.initialState.substrateMass)+" g.\n"+
         "Interval starts at "+f(t.before.time)+" h; Δt = "+f(t.dt)+" h.\nAcid inventory = "+f(t.before.acidExcessMmol)+" mmol."],
@@ -414,11 +392,11 @@
         "Filtered DO = "+f(c.filteredDo)+"%; applied rpm = "+f(c.rpm)+"; vvm = "+f(c.vvm)+"; O2 fraction = "+f(c.oxygenFraction)+"."],
       feed:["Calculate requested feed and apply a pump limit only when specified. Volume does not cap delivery; excess is reported.",
         "Pump capacity = "+(n.feed.pumpMaximumMlMin == null ? "unlimited" : f(n.feed.pumpMaximumMlMin)+" mL/min")+".\n"+
-        "Exponential request = F0 exp(μfeed × elapsed).\nRequested = "+f(n.feed.requestedMlMin)+" mL/min; delivered = "+f(n.feed.appliedMlMin)+" mL/min.\n"+
+        (s.process.type === 'batch' ? "Batch: no feed.\n" : s.feed.strategy === 'exponential' ? "Exponential request = F0 exp(μfeed × elapsed).\n" : s.feed.strategy === 'linear' ? "Linear request = F0 + slope × elapsed.\n" : s.feed.strategy === 'do-stat' ? "DO-stat request depends on starting raw DO and residual substrate.\n" : "Constant request = F0.\n")+"Requested = "+f(n.feed.requestedMlMin)+" mL/min; delivered = "+f(n.feed.appliedMlMin)+" mL/min.\n"+
         "ΔVfeed = F Δt = "+f(l.inflowVolume)+" L; ΔMSfeed = ΔVfeed Sfeed = "+f(l.substrateAdded)+" g."],
       flows:["Apply feed and any continuous outflow to every material inventory. Feed is assumed oxygen-free and at the pH reference.",
         "V after feed = "+f(l.volume)+" L; MX = "+f(l.biomassMass)+" g; MS = "+f(l.substrateMass)+" g.\n"+
-        "X = MX/V = "+f(l.X)+" g/L. All reaction rates use this frozen biomass mass."],
+        "X = MX/V = "+f(l.X)+" g/L. Reactions use the viable part of this frozen biomass mass."],
       growth:["Solve substrate, oxygen, growth and product allocation together before applying any reaction increment.",
         "S1 + qS(S1,C1) MX Δt/V = S0\nC1 = C0 + (O2 transferred - O2 consumed)/V\n"+
         "Growth substrate = max(0,S1 - threshold); fS = growth substrate/(KS + growth substrate).\nfO = C1/(0.006 + C1).\n"+
@@ -430,7 +408,7 @@
         "ΔMX = μ MX0 Δt = "+f(b.biomassGrowth)+" g.\nΔMS = qS MX0 Δt = "+f(b.substrateUse)+" g (growth + maintenance + product allocation).\n"+
         "MX = "+f(b.biomassMass)+" g; remaining MS = "+f(b.substrateMass)+" g."],
       acetate:["Overflow diverts part of growth substrate into acetate; reuse also consumes oxygen and allocates carbon to biomass and CO2.",
-        "qA = min(0.55 qGrowthSubstrate, 0.34 max(0,qGrowthSubstrate+qMaintenance-threshold)).\n"+
+        (a.enabled ? "Acetate reactions enabled.\n" : "Acetate reactions disabled: formation and reuse are zero.\n")+"qA = min(0.55 qGrowthSubstrate, 0.34 max(0,qGrowthSubstrate+qMaintenance-threshold)).\n"+
         "qReuse = min(MA/(MX Δt), 0.08[A/(0.3+A)][0.25/(0.25+S1)] fO).\n"+
         "Apply respiratory capacity scale to both.\nAcetate formed = "+f(a.acetateProduced)+" g; reused = "+f(a.acetateUsed)+" g.\n"+
         "Biomass from reuse = 0.22 × reused = "+f(a.acetateBiomass)+" g; MA = "+f(a.acetateMass)+" g."],
@@ -441,7 +419,7 @@
         "MP1 = (MP0 + ΔMP) exp(-kdeg Δt) = "+f(p.productMass)+" g.\nDegraded product = "+f(p.productDegraded)+" g."],
       ph:["Carry signed acid inventory between intervals. Base corrects positive H (low pH); acid corrects negative H (high pH). Only one pump doses per interval.",
         "ΔH = 0.45 ΔMXtotal + 1000(acetate formed - reused)/60.05 = "+f(h.acidEquivalentMmol)+" mmol.\n"+
-        "Base request = max(0,H)/(1000 Nbase); acid request = max(0,-H)/(1000 Nacid).\n"+
+        (s.process.phMode === "controlled" ? "Controlled mode: base request = max(0,H)/(1000 Nbase); acid request = max(0,-H)/(1000 Nacid). Zero normality disables that titrant.\n" : "Uncontrolled mode: both titrant requests and deliveries are zero.\n")+
         "Each delivery = min(request, its pump capacity); no working-volume cap.\n"+
         "Base delivered = "+f(h.baseDelivered)+" L; acid delivered = "+f(h.acidDelivered)+" L; residual H = "+f(h.acidUnmet)+" mmol.\n"+
         "pH = setpoint - H/(buffer capacity × V) = "+f(h.phAfter)+".\nContinuous acid/base-matching outflow = "+f(h.baseOutflow+h.acidOutflow)+" L."],
@@ -464,62 +442,10 @@
         "C = "+f(t.after.oxygen)+" mmol/L; H = "+f(t.after.acidExcessMmol)+" mmol; pH = "+f(t.after.ph)+".\n"+
         "Fixed kinetic, feed and equipment parameters remain those in the controls."]
     };
-    return [...details[id],"Glucose-equivalent screening assumptions: biomass/product 50% carbon and reduction degree 4.2. This example has strict failure rules off. Nutrient co-limitation, mechanistic survival kinetics, ATP and detailed species metabolism remain outside the model. See the reference for the complete equations."];
+    return [...details[id],"Glucose-equivalent screening assumptions: biomass/product 50% carbon and reduction degree 4.2. Strict failure rules are optional teaching rules. Nutrient co-limitation, mechanistic survival kinetics, ATP and detailed species metabolism remain outside the model. See the reference for the complete equations."];
   }
-  function selectNode(id) {
-    selectedNode = id;
-    const incoming = edges.filter(edge => edge[1] === id).map(edge => edge[0]);
-    const outgoing = edges.filter(edge => edge[0] === id).map(edge => edge[1]);
-    for (const [key, item] of nodeElements) {
-      const selected = key === id;
-      item.node.classList.toggle('is-selected', selected);
-      item.node.classList.toggle('is-input', incoming.includes(key));
-      item.node.classList.toggle('is-output', outgoing.includes(key));
-      item.button.setAttribute('aria-expanded', String(selected)); item.detail.hidden = !selected;
-      item.action.textContent = selected ? 'Hide equations & connections' : 'Equations & connections';
-      item.dependency.textContent = incoming.includes(key) ? 'Supplies the selected node' : outgoing.includes(key) ? 'Uses the selected node' : '';
-      if (selected && current) {
-        const [description, equations, caveat] = equationDetail(key);
-        item.detail.replaceChildren(create('h4', '', 'This interval’s calculation'), create('p', '', description), create('pre', '', equations), create('p', '', caveat));
-        [['Inputs from', incoming], ['Outputs used by', outgoing]].forEach(([title, nodes]) => {
-          const links = create('p', 'dependency-links', `${title}: `);
-          if (!nodes.length) links.append(document.createTextNode(key === 'final' ? 'the next interval’s initial state.' : 'the configured example and previous state.'));
-          nodes.forEach((nodeId, i) => {
-            if (i) links.append(document.createTextNode(' · '));
-            const link = create('a', '', nodeElements.get(nodeId).title); link.href = `#map-node-${nodeId}`;
-            link.addEventListener('click', event => { event.preventDefault(); selectNode(nodeId); nodeElements.get(nodeId).button.focus(); });
-            links.append(link);
-          });
-          item.detail.append(links);
-        });
-        const link = create('a', '', 'Read the full model reference ↗'); link.href = '#' + item.anchor; item.detail.append(link);
-      }
-    }
-    requestAnimationFrame(drawEdges);
-  }
-  function drawEdges() {
-    const svg = $('dependency-lines'); svg.replaceChildren();
-    if (!selectedNode || $('calculation-map').hidden) return;
-    const bounds = surface.getBoundingClientRect(), ns = 'http://www.w3.org/2000/svg';
-    svg.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
-    const definitions = document.createElementNS(ns, 'defs'), marker = document.createElementNS(ns, 'marker');
-    marker.id = 'dependency-arrow'; marker.setAttribute('viewBox', '0 0 10 10');
-    marker.setAttribute('refX', '9'); marker.setAttribute('refY', '5'); marker.setAttribute('markerWidth', '5'); marker.setAttribute('markerHeight', '5'); marker.setAttribute('orient', 'auto');
-    const arrow = document.createElementNS(ns, 'polygon'); arrow.setAttribute('points', '0,0 10,5 0,10'); arrow.setAttribute('fill', '#295c7a');
-    marker.append(arrow); definitions.append(marker); svg.append(definitions);
-    const relevant = edges.filter(edge => edge.includes(selectedNode));
-    relevant.forEach(([from, to], index) => {
-      const a = nodeElements.get(from).button.getBoundingClientRect(), b = nodeElements.get(to).button.getBoundingClientRect();
-      const left = a.left - bounds.left, gutter = Math.max(3, left - 7 - (index % 5) * Math.max(1, (left - 12) / 5));
-      const y1 = a.top - bounds.top + a.height / 2, y2 = b.top - bounds.top + b.height / 2;
-      const path = document.createElementNS(ns, 'path');
-      path.setAttribute('d', `M ${left} ${y1} H ${gutter} V ${y2} H ${b.left - bounds.left}`);
-      path.setAttribute('marker-end', 'url(#dependency-arrow)'); svg.append(path);
-    });
-  }
-  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => requestAnimationFrame(drawEdges)).observe($('flow-nodes'));
-  window.addEventListener('resize', drawEdges);
-
+  function selectNode(id) { explorer.selectLegacy(id); }
+  function drawEdges() { explorer.draw(); }
   function showTab(map, focus = false) {
     $('model-reference').hidden = map; $('calculation-map').hidden = !map;
     $('top').classList.toggle('explorer-visible', map);
@@ -548,7 +474,7 @@
     const target = $(id);
     if (id === 'calculation-map' || id.startsWith('map-node-')) {
       showTab(true);
-      if (target && id.startsWith('map-node-')) { selectNode(id.replace('map-node-', '')); target.scrollIntoView(); }
+      if (id.startsWith('map-node-')) selectNode(id.replace('map-node-', ''));
     } else if (target && (id === 'model-reference' || $('model-reference').contains(target))) {
       showTab(false); target.scrollIntoView();
     }

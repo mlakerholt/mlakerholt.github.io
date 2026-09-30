@@ -1480,6 +1480,7 @@
       renderResults(result);
       showStep(6);
       setStatus(`Simulation completed with ${result.records.length} stored time points.`);
+      window.FermentationFailureResults?.present(result);
     } catch (error) {
       setStatus(error.message || "Simulation failed.", true);
     }

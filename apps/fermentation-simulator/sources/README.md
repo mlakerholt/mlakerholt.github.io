@@ -70,6 +70,16 @@ approximations. Constant RPM ceilings cannot reproduce fill-dependent envelopes.
 
 This directory contains the local source and provenance library used by the Fermentation Simulator vessel selector.
 
+The simulation guide at `simulation.html#calculation-map` also contains the
+interactive process explorer. `simulation-map.js` owns the isolated example,
+inputs and worker requests; `process-explorer.js` is a presentation-only layer
+for the broth-centred feedback diagram and eight-stage calculation sequence.
+Both consume the same `simulation-core.js` trace. The worked-example tabs expose
+actual intermediate values, starting/final pools and fixed parameters. No
+simulator settings or storage are changed. See `test-process-explorer.cjs` for
+view mappings and conditional paths, and `test-simulation-map.cjs` for trace/app
+parity. Run all `test-*.cjs` scripts after numerical or inspector changes.
+
 - `index.html` renders either the complete source index or one vessel record selected with `?id=<preset-id>`.
 - `source-records.payload` is a gzip-compressed, Base64-encoded JSON catalogue containing one locally authored evidence record for every vessel preset.
 - `source.css` provides the retro presentation layer.

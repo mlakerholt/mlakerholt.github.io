@@ -1,16 +1,7 @@
 (() => {
   "use strict";
 
-  const BUILD_ID = "2026-09-21.2";
-
-  const retroStylesheet = document.createElement("link");
-  retroStylesheet.rel = "stylesheet";
-  retroStylesheet.href = `retro.css?v=${BUILD_ID}`;
-  document.head.appendChild(retroStylesheet);
-
-  const hiddenElementStyle = document.createElement("style");
-  hiddenElementStyle.textContent = "[hidden] { display: none !important; }";
-  document.head.appendChild(hiddenElementStyle);
+  const BUILD_ID = "2026-09-22.1";
 
   const modelStatus = document.querySelector(".hero-note");
   if (modelStatus) {
@@ -24,6 +15,7 @@
 
   const showLoadError = (error) => {
     console.error(error);
+    window.FermentationEntryScreen?.fail(error);
     const status = document.getElementById("saveStatus");
     if (status) {
       status.textContent = `Application failed to load: ${error.message}`;
@@ -139,6 +131,7 @@
     await loadScript(`source-panel.js?v=${BUILD_ID}`);
 
     document.documentElement.dataset.fermentationBuild = BUILD_ID;
+    window.FermentationEntryScreen?.ready();
   };
 
   loadSimulator().catch(showLoadError);

@@ -6,13 +6,15 @@
   <meta name="description" content="A browser-based microbial fermentation and animal-cell culture simulator for batch, fed-batch and continuous stirred-tank processes.">
   <title>Fermentation Simulator</title>
   <link rel="stylesheet" href="simulator.css">
+  <link rel="stylesheet" href="retro.css?v=2026-09-22.1">
 </head>
 <body>
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="site-title" href="./">Fermentation Simulator</a>
+      <a class="site-title" href="#introduction">Fermentation Simulator</a>
       <nav aria-label="Main navigation">
-        <a href="./" aria-current="page">Simulator</a>
+        <a id="introductionNavLink" href="#introduction" aria-current="page">Introduction</a>
+        <a id="simulatorNavLink" href="#simulator">Simulator</a>
         <a href="sources/">Vessel sources</a>
         <a href="sources/biology/">Biology sources</a>
         <a href="https://mlakerholt.github.io/">Author’s website</a>
@@ -21,6 +23,24 @@
   </header>
 
   <main class="page-shell">
+    <section id="introduction" class="introduction" aria-labelledby="introductionHeading">
+      <h1 id="introductionHeading" tabindex="-1">About the fermentation simulator</h1>
+      <p>The simulator calculates biomass growth, substrate consumption, product formation, oxygen availability and pH from specified organism, vessel and process parameters. It uses simplified equations and preset assumptions; results are not validated predictions of a particular experiment.</p>
+      <ul class="introduction-resources">
+        <li><a href="sources/databank.html" target="_blank" rel="noopener noreferrer">Vessel database ↗</a> — Vessel dimensions, working volumes, impellers and operating limits. Values come from manufacturer documentation, calculations and explicitly identified estimates or assumptions.</li>
+        <li><a href="sources/biology/databank.html" target="_blank" rel="noopener noreferrer">Organism database ↗</a> — Growth and physiological parameters for microbial and animal-cell presets. Values combine published measurements, unit conversions and modeling assumptions. Generalized profiles draw on multiple studies.</li>
+        <li><a href="sources/simulation.html" target="_blank" rel="noopener noreferrer">Calculation guide ↗</a> — Equations, calculation order, oxygen transfer, feeding and control logic. Documents the implemented mass balances and empirical relationships, including their assumptions and limitations.</li>
+        <li><a href="sources/failure-modes.html" target="_blank" rel="noopener noreferrer">Failure-mode guide ↗</a> — Conditions that trigger warnings, growth penalties or batch failure. Thresholds are simplified teaching rules rather than experimentally validated survival limits.</li>
+      </ul>
+      <p>Individual sources and derivations are documented in the <a href="sources/" target="_blank" rel="noopener noreferrer">vessel sheets ↗</a> and <a href="sources/biology/" target="_blank" rel="noopener noreferrer">organism sheets ↗</a>.</p>
+      <div class="introduction-actions">
+        <button type="button" id="getStartedBtn" class="primary large" aria-controls="simulator" disabled>Get started</button>
+        <p id="introductionStatus" role="status" aria-live="polite">Loading simulator…</p>
+      </div>
+      <noscript><p>JavaScript is required to start the simulator. The reference links above remain available.</p></noscript>
+    </section>
+
+    <div id="simulator" hidden>
     <section class="hero">
       <div>
         <h1>Fermentation Simulator</h1>
@@ -778,12 +798,14 @@
         </section>
       </aside>
     </div>
+    </div>
   </main>
 
   <footer>
     <p>© 2026 Magnus Lian Akerholt · <a href="https://mlakerholt.github.io/apps/">More apps</a></p>
   </footer>
 
-  <script src="app.js" defer></script>
+  <script src="entry-screen.js?v=2026-09-22.1" defer></script>
+  <script src="app.js?v=2026-09-22.1" defer></script>
 </body>
 </html>

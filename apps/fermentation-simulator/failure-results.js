@@ -39,8 +39,13 @@
     'Washout risk':'growth','Maximum working volume exceeded':'volume','Total vessel volume exceeded':'volume','Model scope':'model'};
   const priority={'culture-failure':0,'batch-failure':1,stress:2,warning:3,high:3,medium:4,low:5};
   const categoryFor=(mapping,key)=>Object.hasOwn(mapping,key)?mapping[key]:'other';
-  let current=null,index=0,selected=null,groups={};
-  function eventOrder(){return (groups[selected]??[]).filter(item=>item.eventIndex!==undefined).map(item=>item.eventIndex);}
+  let current=null,index=0,selected=null,groups={},allEvents=false;
+  const presented=new WeakSet();
+  function eventOrder(){
+    const items=(allEvents?Object.values(groups).flat():groups[selected]??[]).filter(item=>item.eventIndex!==undefined);
+    if(allEvents)items.sort((a,b)=>a.rank-b.rank||a.eventIndex-b.eventIndex);
+    return items.map(item=>item.eventIndex);
+  }
   function renderCategories() {
     $('warningCategoryButtons').innerHTML=categories.filter(c=>c.id!=='other'||groups.other?.length).map(c=>{
       const items=groups[c.id]??[],count=items.length;
@@ -91,7 +96,7 @@
       ['Largest excursion in episode',`${number(event.worstDeviation)} ${event.unit}`]];
     $('failureDialogData').innerHTML=rows.map(([k,v])=>`<dt>${escape(k)}</dt><dd>${escape(v)}</dd>`).join('');
     $('failureDialogPenalty').textContent=penalties[event.penalty]+(event.id==='total-volume'?' Subsequent values are invalid physical extrapolations; no spillage model is applied.':'');
-    $('failureDialogPosition').textContent=`Event ${position+1} of ${order.length} in ${categories.find(c=>c.id===selected).label}`;
+    $('failureDialogPosition').textContent=`Event ${position+1} of ${order.length} ${allEvents?'across all failure modes':'in '+categories.find(c=>c.id===selected).label}`;
     $('failureDialogPrevious').disabled=position===0;
     $('failureDialogNext').disabled=position===order.length-1;
     if(!dialog.open)dialog.showModal();
@@ -106,11 +111,11 @@
   });
   $('warningCategoryClose').addEventListener('click',()=>{if(selected)selectCategory(selected);});
   $('warningList').addEventListener('click',event=>{
-    const button=event.target.closest('[data-failure-event]');if(button)openEvent(Number(button.dataset.failureEvent));
+    const button=event.target.closest('[data-failure-event]');if(button){allEvents=false;openEvent(Number(button.dataset.failureEvent));}
   });
   window.FermentationFailureResults={
     render(result) {
-      if(current!==result){dialog.close();selected=null;}
+      if(current!==result){dialog.close();selected=null;allEvents=false;}
       current=result;
       groups=Object.fromEntries(categories.map(c=>[c.id,[]]));
       (result.failures?.events??[]).forEach((event,eventIndex)=>{
@@ -123,7 +128,12 @@
       if(!groups[selected]?.length)selected=null;
       renderCategories();
     },
-    reset(){dialog.close();current=null;selected=null;groups={};$('warningCategoryButtons').replaceChildren();
+    // Called only after a completed run has made Stage 7 visible, never during setup or a result re-render.
+    present(result){
+      if(current!==result||presented.has(result)||!result.failures?.events?.length)return;
+      presented.add(result);allEvents=true;openEvent(eventOrder()[0]);
+    },
+    reset(){dialog.close();current=null;selected=null;groups={};allEvents=false;$('warningCategoryButtons').replaceChildren();
       $('warningCategoryPanel').hidden=true;$('warningCategoryTitle').textContent='';$('warningList').replaceChildren();}
   };
 })();

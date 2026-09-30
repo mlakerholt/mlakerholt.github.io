@@ -64,7 +64,7 @@ function element() {
 }
 const dom={createElement:element,getElementById:id=>{if(!elements.has(id))elements.set(id,element());return elements.get(id);}};
 const mapSource=fs.readFileSync(__dirname+'/simulation-map.js','utf8');
-const resetStart=mapSource.indexOf("  $('reset-example').addEventListener");
+const resetStart=mapSource.indexOf('  function resetExample(');
 const resetEnd=mapSource.indexOf('  function fail(',resetStart);
 const mapCode=mapSource.slice(0,mapSource.indexOf('  function updateTime('))+
   '\n function updateTime(){} function schedule(){}\n'+mapSource.slice(resetStart,resetEnd)+

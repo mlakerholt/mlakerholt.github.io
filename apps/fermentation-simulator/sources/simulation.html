@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="How Fermentation Simulator calculates growth, feeding, oxygen, pH, product and final results at each time step, with equations and limitations.">
-  <meta name="model-build" content="2026-09-21.2">
+  <meta name="model-build" content="2026-09-22.1">
   <meta name="model-engine-version" content="2026-09-21.1">
   <meta name="model-core-sha256" content="751e0285d183a97bbc0f04f5e942522a2d302fbf16b709ad318906b6dcb37b51">
   <title>How the simulation works — Fermentation Simulator</title>
   <link rel="stylesheet" href="source.css?v=2026-09-12.1">
   <link rel="stylesheet" href="simulation.css?v=2026-09-12.1">
-  <link rel="stylesheet" href="simulation-map.css?v=2026-09-16.2">
+  <link rel="stylesheet" href="simulation-map.css?v=2026-09-22.2">
+  <link rel="stylesheet" href="process-explorer.css?v=2026-09-22.2">
 </head>
 <body>
 <main id="top">
@@ -24,11 +25,11 @@
     <p class="eyebrow">STEP 3 · PROCESS AND CONTROLS · MODEL REFERENCE</p>
     <h1>How the simulation works</h1>
     <p>From the starting inoculum to the final harvest: the equations, the exact calculation sequence, the control responses, and what happens when conditions restrict growth.</p>
-    <p class="section-label">Documents UI build 2026-09-21.2 and engine 2026-09-21.1 · reviewed on 21 September 2026. Includes strict culture/batch failure rules, viable/nonviable biomass, collapsed warning-category icons with counters and click-to-open details, uncapped volume, bidirectional acid/base control and process/reactor graphs.</p>
+    <p class="section-label">Documents UI build 2026-09-22.1 and engine 2026-09-21.1 · reviewed on 22 September 2026. The entry introduction adds reference links without changing the model. Includes strict culture/batch failure rules, viable/nonviable biomass, automatic illustrated failure popups after a run, collapsed warning-category icons with counters and click-to-open details, uncapped volume, bidirectional acid/base control and process/reactor graphs.</p>
   </header>
   <div class="reference-tabs" role="tablist" aria-label="Simulation guide view" hidden>
     <button id="reference-tab" type="button" role="tab" aria-controls="model-reference" aria-selected="true">Model reference</button>
-    <button id="map-tab" type="button" role="tab" aria-controls="calculation-map" aria-selected="false" tabindex="-1">Interactive calculation map</button>
+    <button id="map-tab" type="button" role="tab" aria-controls="calculation-map" aria-selected="false" tabindex="-1">Interactive process explorer</button>
   </div>
   <p class="notice"><strong>This describes the current implementation, not a validated fermentation process.</strong> Preset data and general biological equations do not validate the combined simulator. Fixed coefficients, simplified controls and known numerical limitations are identified below. This page does not change the model or apply settings to your run.</p>
   <div id="model-reference" role="tabpanel" aria-labelledby="reference-tab">
@@ -224,9 +225,9 @@ pH = target − H / (buffer capacity × V)</pre>
   <p class="back-to-top"><a href="#top">Back to top ↑</a></p>
   </div>
   <section id="calculation-map" role="tabpanel" aria-labelledby="map-tab" hidden>
-    <h2>One time step, made visible</h2>
-    <p>Reset preset: <strong>E. coli BL21(DE3) · 10 L Rushton vessel · 1.5 L starting broth · 36 h fed-batch</strong>. Defaults: 0.05 gDCW/L initial biomass (not OD), 15 g/L glucose and a 500 g/L glucose feed with a generic recombinant product. The controls below show your current example settings. Geometry and kinetics are illustrative.</p>
-    <p>Move a slider to replay the example from time zero through the selected interval. Readouts show the <strong>actual shared-engine calculation</strong>. No settings are saved to or changed in your main simulator. Click a node to see substituted equations and highlighted dependencies.</p>
+    <h2>Process interactions and calculation order</h2>
+    <p>Default example: <strong>E. coli BL21(DE3) · 10 L Rushton vessel · 1.5 L starting broth · 36 h fed-batch</strong>. Select an 18 h batch without feed under Adjust the example process. Both start with 0.05 gDCW/L biomass (not OD), 15 g/L glucose and a generic recombinant product; the fed-batch feed contains 500 g/L glucose. Geometry and kinetics are illustrative.</p>
+    <p>Explore the feedback loops around the broth, or switch to the numbered calculation order. Both views share the same timeline and <strong>actual shared-engine calculation</strong>. Open a node for its Explanation or Worked example. Changing a parameter replays the example from time zero; no settings are read from or saved to your main simulator.</p>
     <p class="plain-note">Readouts are rounded for readability; calculations keep full precision. Intervals split at feed, induction and duration boundaries; the inspector selects the actual interval containing the chosen time.</p>
     <div class="time-controls">
       <label for="inspect-time">Inspect interval starting at <output id="inspect-time-label" for="inspect-time">12.00 h</output></label>
@@ -244,8 +245,10 @@ pH = target − H / (buffer capacity × V)</pre>
     <p id="map-status" role="status" aria-live="polite">Preparing the example…</p>
     <p id="map-error" class="error" role="alert" hidden></p>
     <div class="explorer-layout">
-      <aside class="explorer-controls" aria-label="Example process parameters">
-        <h3>Adjust the example</h3>
+      <details class="explorer-controls">
+        <summary>Adjust the example process</summary>
+        <label for="example-process">Example process</label>
+        <select id="example-process"><option value="fed-batch">36 h E. coli fed-batch</option><option value="batch">18 h E. coli batch · no feed</option></select>
         <div id="parameter-controls"></div>
         <details class="map-options">
           <summary>Model switches and numerical step</summary>
@@ -256,19 +259,18 @@ pH = target − H / (buffer capacity × V)</pre>
           <label for="example-oxygen-mode">Inlet oxygen mode</label>
           <select id="example-oxygen-mode"><option value="fixed">Fixed gas composition (default)</option><option value="adaptive">Adaptive enrichment (DO cascade)</option></select>
           <label for="example-overflow"><input id="example-overflow" type="checkbox" checked> Enable acetate overflow / reuse</label>
+          <label for="example-strict-failures"><input id="example-strict-failures" type="checkbox"> Enable strict teaching failure rules</label>
           <label for="example-dt">Requested maximum interval</label>
           <select id="example-dt"><option value="0.02" selected>0.02 h requested · capped at 3.6 s</option><option value="0.001">0.001 h · 3.6 s</option><option value="0.0005">0.0005 h · 1.8 s</option><option value="0.00025">0.00025 h · 0.9 s</option></select>
           <p class="plain-note">The engine caps intervals at 0.001 h. Smaller requests test refinement; convergence is not guaranteed for every scenario.</p>
         </details>
         <p class="plain-note">Optima remain 37 °C and pH 7. Feed, gas, acid and base reservoir depletion is not modeled. Nitrogen and phosphate are not separate resource pools.</p>
-      </aside>
+      </details>
       <div class="map-content">
-        <p class="map-legend"><span class="sequence-key" aria-hidden="true">↓</span> Solid: execution order. <span class="dependency-key" aria-hidden="true">⇢</span> Dashed: selected node's data dependencies. <span class="limit-key">Limit</span> Modeled restriction, not an automatic stop.</p>
         <div id="flow-surface" aria-busy="true">
-          <svg id="dependency-lines" aria-hidden="true"></svg>
-          <ol id="flow-nodes" aria-label="Calculation order and live readouts"></ol>
+          <div id="process-explorer"></div>
         </div>
-        <p class="limitation"><strong>Within-step coupling:</strong> node 5 solves substrate, oxygen and all reaction rates together. Later nodes apply those funded increments and acid/base dilution. Final pools and controller history become the next interval’s initial state. pH effects use the post-feed, pre-reaction value.</p>
+        <p class="limitation"><strong>Within-step coupling:</strong> calculation stage 4 solves substrate, oxygen and reaction rates together. Later stages apply those funded increments and acid/base dilution. Final pools and controller history become the next interval’s initial state. pH effects use the post-feed, pre-reaction value. Overview arrows describe physical interactions, not a different solver order.</p>
       </div>
     </div>
     <noscript><p>The written model reference works without JavaScript. The interactive map requires JavaScript.</p></noscript>
@@ -280,6 +282,7 @@ pH = target − H / (buffer capacity × V)</pre>
 </main>
 <script src="../simulation-core.js?v=2026-09-21.1" defer></script>
 <script src="simulation-example.js?v=2026-09-21.1" defer></script>
-<script src="simulation-map.js?v=2026-09-21.1" defer></script>
+<script src="process-explorer.js?v=2026-09-22.2" defer></script>
+<script src="simulation-map.js?v=2026-09-22.2" defer></script>
 </body>
 </html>

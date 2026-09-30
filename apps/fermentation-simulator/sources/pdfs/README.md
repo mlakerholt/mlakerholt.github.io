@@ -1,7 +1,11 @@
-# Reviewed vessel PDF derivation sheets
+# Local vessel source PDFs
 
-There are 71 simulator-authored derivation/stat sheets, generated from the reviewed parameter records.
-They are not manufacturer originals. Publisher links in the PDFs and the interactive source sheets
-remain available online. Links marked "Local original" refer to the separate desktop archive and are
-not included in this public release; use the adjacent publisher link or the manufacturer reference index.
-Regenerate locally with `python sources/build_audited_pdfs.py` after reviewing source records.
+Updated 11 September 2026. These are reviewed derivation/stat sheets generated from
+`../audited-sheets.json`, not manufacturer originals. Source citations open documents
+in `../originals/`; online-only evidence is explicitly marked. Regenerate using
+`python ../build_audited_pdfs.py` after `node ../audit-vessels.cjs`.
+Pre-audit sheets are preserved in `../audit-baseline/pdfs/`.
+
+This directory contains 67 generated local PDF source records, one per vessel preset.
+
+Each PDF contains the locally authored evidence summary and clickable manufacturer references. Accessible original manufacturer PDFs are separately archived in `../originals/`; failed downloads are listed in its manifest.

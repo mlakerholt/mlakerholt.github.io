@@ -25,8 +25,8 @@ const result={summary:{batchFailed:true,cultureFailed:true,invalidExtrapolation:
 const original=JSON.stringify(result);
 const choose=id=>element('warningCategoryButtons').handlers.click({target:{closest:()=>({dataset:{warningCategory:id}})}});
 const details=i=>element('warningList').handlers.click({target:{closest:()=>({dataset:{failureEvent:String(i)}})}});
-ui.render(result);assert.equal(dialog.opens,0,'No automatic modal after a run');
-assert.equal(ui.present,undefined,'The automatic presentation entry point is removed');
+ui.render(result);assert.equal(dialog.opens,0,'Rendering alone does not open a modal before the results stage is visible');
+assert.equal(typeof ui.present,'function','Completed runs have an explicit presentation entry point');
 assert.equal(element('warningList').innerHTML,'','Warnings are not initially rendered');
 assert(element('warningCategoryPanel').hidden);
 const bar=element('warningCategoryButtons').innerHTML;
@@ -83,7 +83,6 @@ const allTypes={...clean,warnings:[{title:'Maximum working volume exceeded'},{ti
 ui.render(allTypes);const counts=element('warningCategoryButtons').innerHTML;
 for(const label of ['Volume: 3 warnings','pH: 2 warnings','Metabolites: 2 warnings','Agitation: 1 warning','Feed &amp; nutrients: 2 warnings','Oxygen: 1 warning'])assert(counts.includes(label),label);
 assert.equal(JSON.stringify(result),original,'Grouping does not mutate exported engine results');
-assert(!fs.readFileSync(__dirname+'/../tmp/app-source.js','utf8').includes('FermentationFailureResults?.present'));
 // Every illustrated failure keeps its category, dialog mapping and descriptive alternative text.
 const illustrations={oxygen:['oxygen',/scientists and oversized microbial cells gasp for air/],
   hyperoxia:['oxygen',/giant floating bubbles/],ph:['ph',/indicator paper/],
@@ -91,7 +90,7 @@ const illustrations={oxygen:['oxygen',/scientists and oversized microbial cells 
   starvation:['feed',/last drop/],shear:['agitation',/vortex/],volume:['volume',/mountain of foam/]};
 for(const [image,[category,description]] of Object.entries(illustrations)) {
   ui.render({...clean,failures:{...clean.failures,events:[{...event,image}]}});
-  assert(!dialog.open,'Illustrations must not reintroduce automatic popups');
+  assert(!dialog.open,'Rendering alone leaves the dialog closed');
   choose(category);details(0);
   assert(dialog.open);
   assert.equal(element('failureDialogImage').src,`assets/failures/${image}.png`);
@@ -102,5 +101,61 @@ for(const [image,[category,description]] of Object.entries(illustrations)) {
   assert.equal(png.readUInt32BE(20),1024);
   element('failureDialogClose').handlers.click();
 }
-console.log('PASS: collapsed-by-default category icons/counts, all warning types, severity order, scoped event navigation, accessible controls, zero/unknown categories, rerender/reset, no automatic popup, escaping and unchanged result data.');
+// Automatic presentation is run-only, once per result, and includes every failure category.
+ui.reset();
+let opens=dialog.opens;
+ui.present(result);assert.equal(dialog.opens,opens,'Unrendered/stale results cannot trigger an alert');
+ui.render(result);assert(!dialog.open);
+ui.present(result);assert(dialog.open);assert.equal(dialog.opens,opens+1);
+assert(element('warningCategoryPanel').hidden,'Automatic dialog leaves category lists collapsed');
+assert.equal(element('warningList').innerHTML,'');
+assert.match(element('failureDialogTitle').textContent,/Culture failed/,'Most severe event is first');
+assert.match(element('failureDialogPosition').textContent,/Event 1 of 3 across all failure modes/);
+assert(element('failureDialogPrevious').disabled);
+ui.present(result);ui.render(result);assert.equal(dialog.opens,opens+1,'Duplicate presentation/render does not reopen the dialog');
+element('failureDialogNext').handlers.click();
+assert.match(element('failureDialogTitle').textContent,/pH excursion/,'Equal severity keeps engine event order');
+element('failureDialogNext').handlers.click();
+assert.equal(element('failureDialogImage').src,'assets/failures/oxygen.png','Automatic navigation crosses categories');
+assert.match(element('failureDialogPosition').textContent,/Event 3 of 3 across all failure modes/);
+assert(element('failureDialogNext').disabled);
+element('failureDialogPrevious').handlers.click();
+assert.match(element('failureDialogPosition').textContent,/Event 2 of 3 across all failure modes/);
+element('failureDialogClose').handlers.click();
+ui.render(result);ui.present(result);assert(!dialog.open,'Dismissed alerts stay closed on revisit');
+choose('ph');details(2);
+assert.match(element('failureDialogPosition').textContent,/Event 1 of 2 in pH/,'Manual details restore category-scoped navigation');
+ui.reset();assert(!dialog.open,'Settings changes/reset dismiss a current dialog');
+ui.render(result);ui.present(result);assert(!dialog.open,'Reset cannot replay an already presented result');
+const rerun=structuredClone(result);
+ui.render(rerun);ui.present(rerun);assert(dialog.open,'A fresh run with identical failures alerts again');
+assert(element('warningCategoryPanel').hidden);
+const ordinary={...clean,warnings:[{title:'Oxygen limitation',message:'Ordinary warning',severity:'high'}]};
+for(const quiet of [clean,ordinary,{summary:{},warnings:[]}]) {
+  opens=dialog.opens;ui.render(quiet);ui.present(quiet);
+  assert(!dialog.open);assert.equal(dialog.opens,opens,'No popup for a clean, notice-only or legacy result');
+}
+// Reporting-only rule events and recovered stress episodes still merit an alert.
+for(const penalty of ['warning','stress','batch-failure','culture-failure']) {
+  const single={...clean,failures:{...clean.failures,events:[{...event,penalty}]}};
+  ui.render(single);ui.present(single);assert(dialog.open,penalty);
+  assert(element('failureDialogPrevious').disabled&&element('failureDialogNext').disabled);
+  assert.match(element('failureDialogStatus').textContent,/recovered/);
+}
+// Exercise the actual run function: rendering may happen twice, presentation must follow Stage 7.
+const appSource=fs.readFileSync(__dirname+'/../tmp/app-source.js','utf8');
+const runSource=appSource.slice(appSource.indexOf('  function runCurrentSimulation() {'),appSource.indexOf('  function renderResultsPlaceholder() {'));
+const calls=[],runContext={state:{},buildScenario:()=>({}),validateScenario:()=>({errors:[]}),
+  simulate:()=>({records:[{}]}),renderResults:r=>calls.push('render'),
+  showStep:step=>calls.push(`step:${step}`),setStatus:()=>calls.push('status'),
+  window:{FermentationFailureResults:{present:r=>{assert.equal(r,runContext.state.lastResult);calls.push('present');}}}};
+vm.runInNewContext(runSource,runContext);runContext.runCurrentSimulation();
+assert.deepEqual(calls,['render','step:6','status','present'],'Popup follows completed calculation and visible results');
+calls.length=0;runContext.validateScenario=()=>({errors:['Invalid input']});runContext.runCurrentSimulation();
+assert.deepEqual(calls,['step:5','status'],'Blocked runs do not show failure popups');
+calls.length=0;runContext.validateScenario=()=>({errors:[]});runContext.simulate=()=>{throw new Error('Solver failed');};runContext.runCurrentSimulation();
+assert.deepEqual(calls,['status'],'Solver errors do not present stale failure events');
+assert.equal(JSON.stringify(result),original,'Presentation leaves engine/export data unchanged');
+console.log('PASS: collapsed category icons/counts, all warning types, category-scoped manual navigation, accessible controls, zero/unknown categories, rerender/reset, escaping and unchanged result data.');
+console.log('PASS: automatic post-run failure popup, severity-first cross-category navigation, all rule penalties, once-per-run dismissal, clean/notice-only runs, new-run alerts and actual run integration ordering.');
 console.log('PASS: all eight replacement illustrations, category-to-dialog mappings, descriptive alt text and 1536 x 1024 PNG assets.');

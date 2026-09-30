@@ -6,24 +6,24 @@ Created with the imagegen skill using the built-in native image-generation tool,
 
 These are deliberately absurd, photorealistic fictional illustrations, not simulation output or laboratory operating guidance. Anthropomorphic giant cells, pickles, sugar cubes and floating bubbles are visual metaphors. Instrument readings are illustrative, not live values or universal failure thresholds. Showing gasping scientists does not mean the simulator models room oxygen or personnel exposure. No simulation rules were changed.
 
-All active images are 1536 × 1024 PNGs. Existing filenames and dialog mappings are preserved. The previous images and their prompts are backed up in `archive/original-2026-09-21/` in the local project (not published).
+All active images are 1536 × 1024 PNGs. Existing filenames and dialog mappings are preserved. The previous images and their prompts are backed up in [archive/original-2026-09-21](archive/original-2026-09-21/).
 
 ## Installed files and source originals
 
 | Failure | App asset | Generated original |
 | --- | --- | --- |
-| volume | [volume.png](volume.png) | `exec-b2e40fc2-1a31-4b7f-84b5-84438ad9c319.png` |
-| oxygen | [oxygen.png](oxygen.png) | `exec-d9c5b0c9-833d-4a1c-aa77-bb46e28088fb.png` |
-| ph | [ph.png](ph.png) | `exec-505ada45-a6a7-473f-a5ac-5429f26e2251.png` |
-| substrate | [substrate.png](substrate.png) | `exec-02467834-04dd-40c3-af06-350efd8517d7.png` |
-| acetate | [acetate.png](acetate.png) | `exec-c1fb8934-40c7-444f-9de9-4bfa9c7ef753.png` |
-| starvation | [starvation.png](starvation.png) | `exec-817ad44a-2571-40b6-8d3e-f471a989ac4b.png` |
-| shear | [shear.png](shear.png) | `exec-7c565fdc-d502-4c4b-a027-e69e6195f415.png` |
-| hyperoxia | [hyperoxia.png](hyperoxia.png) | `exec-5db6009a-2546-4ecd-a582-54efe7c9755e.png` |
+| volume | [volume.png](volume.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-b2e40fc2-1a31-4b7f-84b5-84438ad9c319.png` |
+| oxygen | [oxygen.png](oxygen.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-d9c5b0c9-833d-4a1c-aa77-bb46e28088fb.png` |
+| ph | [ph.png](ph.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-505ada45-a6a7-473f-a5ac-5429f26e2251.png` |
+| substrate | [substrate.png](substrate.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-02467834-04dd-40c3-af06-350efd8517d7.png` |
+| acetate | [acetate.png](acetate.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-c1fb8934-40c7-444f-9de9-4bfa9c7ef753.png` |
+| starvation | [starvation.png](starvation.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-817ad44a-2571-40b6-8d3e-f471a989ac4b.png` |
+| shear | [shear.png](shear.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-7c565fdc-d502-4c4b-a027-e69e6195f415.png` |
+| hyperoxia | [hyperoxia.png](hyperoxia.png) | `C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-5db6009a-2546-4ecd-a582-54efe7c9755e.png` |
 
 ## Exact final prompts
 
-For the seven new images, Image 1 is the approved overfill style reference (`exec-b2e40fc2-1a31-4b7f-84b5-84438ad9c319.png`). For the approved overfill image itself, Image 1 was the former `volume.png`, now preserved in `archive/original-2026-09-21/volume.png`.
+For the seven new images, Image 1 is the approved overfill style reference (`C:/Users/wizar/.codex/generated_images/01a0948d-18ab-7eb0-a49b-3cf1b6bc826c/exec-b2e40fc2-1a31-4b7f-84b5-84438ad9c319.png`). For the approved overfill image itself, Image 1 was the former `volume.png`, now preserved in `archive/original-2026-09-21/volume.png`.
 
 ### volume
 

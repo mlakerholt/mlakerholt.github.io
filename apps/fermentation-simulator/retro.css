@@ -756,3 +756,56 @@ footer {
   margin-top: 8px;
   font-size: 0.875rem;
 }
+
+.introduction {
+  max-width: 940px;
+  padding: 10px 0 8px;
+}
+
+.introduction h1 {
+  margin: 0 0 18px;
+  color: var(--green);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  line-height: 1.15;
+}
+
+.introduction p,
+.introduction-resources {
+  line-height: 1.5;
+}
+
+.introduction-resources {
+  margin: 20px 0;
+  padding-left: 22px;
+}
+
+.introduction-resources li {
+  margin-bottom: 14px;
+}
+
+.introduction-resources a {
+  font-weight: 700;
+}
+
+.introduction-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--green);
+}
+
+.introduction-actions p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.introduction-actions .load-error {
+  color: var(--danger);
+}
+
+@media print {
+  .introduction-actions { display: none; }
+}

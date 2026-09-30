@@ -14,7 +14,7 @@
     <a href="./">All vessel sources</a>
     <a href="databank.html">Reactor databank</a>
     <a href="biology/">Biology sources</a>
-    <a href="originals/">Manufacturer source references</a>
+    <a href="originals/">Local manufacturer backups</a>
     <a href="https://mlakerholt.github.io/apps/">More apps</a>
   </nav>
 
@@ -46,7 +46,7 @@
     </section>
 
     <h2>Values used by the app</h2>
-    <p class="plain-note">Every status label is clickable: open it for the source citation and PDF page, the calculation, or the unresolved assumption. Green verifies only that parameter and its stated configuration. These simulation presets are not equipment operating instructions.</p>
+    <p class="plain-note">Every status label is clickable: open it for the local original PDF page, the calculation, or the unresolved assumption. Green verifies only that parameter and its stated configuration. These simulation presets are not equipment operating instructions.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Parameter</th><th>Value in preset</th><th>Where it came from</th><th>Status</th></tr></thead>
@@ -147,12 +147,11 @@
     card.append(calculationHeading, calculation, result, rationale, verification);
     (explanation.citations || []).forEach(source => {
       const p = document.createElement("p"), local = document.createElement("a"), online = document.createElement("a");
-      const hasOnlineSource = /^https?:\/\//i.test(source.url || '');
-      if (hasOnlineSource) local.href = source.url; else local.removeAttribute('href');
-      local.textContent = `${source.title}${source.page ? ` - PDF page ${source.page}` : ''} (${hasOnlineSource ? 'manufacturer publication' : 'original retained in local archive; public URL unavailable'})`;
+      local.href = source.file ? `originals/${source.file}${source.page ? `#page=${source.page}` : ''}` : source.url;
+      local.textContent = `${source.title}${source.page ? ` - PDF page ${source.page}` : ''} (${source.file ? 'local original' : 'online only; local backup unavailable'})`;
       online.href = source.url; online.textContent = "Manufacturer publication";
       [local, online].forEach(a => {a.target = "_blank"; a.rel = "noopener noreferrer";});
-      p.append(local); if(hasOnlineSource) p.append(document.createTextNode(" | "), online); card.append(p);
+      p.append(local); if(source.url) p.append(document.createTextNode(" | "), online); card.append(p);
     });
     return card;
   };
@@ -256,7 +255,7 @@
     $("sourceCoverage").textContent = record.audit ? "Field-level review: use the citations and qualifications beside each parameter; document relevance alone does not verify a value." : primary?.supports || "No manufacturer source applies to this custom template.";
 
     const primaryLink = $("primarySourceLink");
-    if (/^https?:\/\//i.test(primary?.url || '')) {
+    if (primary?.url) {
       primaryLink.hidden = false;
       primaryLink.href = primary.url;
     } else {

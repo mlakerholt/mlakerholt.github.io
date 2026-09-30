@@ -10,6 +10,8 @@ Use the shortcut instead of opening `index.html` directly: browsers block the fi
 
 Edit the files in this folder and refresh the browser to see changes. The local server disables caching. Saved scenarios belong to this local browser address, separately from the GitHub website; use JSON export/import to transfer scenarios.
 
+The entry page introduces the model and links to the vessel and organism databases, calculation and failure-mode guides, and derivation sheets. **Get started** opens the simulator once it has loaded. Introduction/Simulator navigation and browser Back/Forward preserve the current in-page scenario and results; no simulation runs or browser saves are triggered by entering. A direct `#simulator` link opens the simulator after loading. The entry page uses the existing presentation style and does not change the calculation engine (UI build 2026-09-22.1).
+
 For a visible server you can stop with Ctrl+C, run `node local-server.cjs` in this folder when the desktop server is not already running.
 
 ## Included in beta 0.1
@@ -33,7 +35,16 @@ For a visible server you can stop with Ctrl+C, run `node local-server.cjs` in th
 - Clickable explanations in each derivation sheet for every derived or assumed vessel value
 - Step 3 model-reference link with an interactive calculation-map tab: replay a predefined E. coli process, adjust sliders, and inspect actual intermediate values and resource pools
 
-The interactive map lives at `sources/simulation.html#calculation-map`. It uses
+The interactive process explorer lives at `sources/simulation.html#calculation-map`.
+Its **Process overview** centres on broth conditions and shows resource, metabolism
+and controller feedback loops. **Calculation order** groups the engine into eight
+numbered, expandable stages. Both views share a timeline, fine-step controls,
+adjustable example settings, and Explanation / Worked example tabs. Starting and
+resulting resource pools and fixed parameters are inspectable. The example can be
+a 36 h fed-batch or 18 h batch; DO-stat, fixed/adaptive gas, acetate and pH control
+paths reflect the selected modes. This is presentation only, not a new solver.
+`node sources/test-process-explorer.cjs` checks its mappings and conditional paths.
+It uses
 `simulation-core.js`, the same calculation engine as the main simulator, and
 does not read or overwrite saved scenarios. See `sources/README.md` for build
 and numerical regression checks.
@@ -134,6 +145,7 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 - `index.html` — staged interface and report layout
 - `simulator.css` — responsive visual design
 - `app.js` — lightweight compressed-bundle loader
+- `entry-screen.js` — introduction/Get started navigation; preserves the in-page scenario and results
 - `app.payload.*` — compressed UI source containing presets, state management, charts and exports
 - `simulation-core.js` — shared numerical engine used by the main app and calculation map
 - `vessel-catalog.payload` — compressed manufacturer/model selector and source-link integration
@@ -146,6 +158,8 @@ Product yield cannot be predicted from strain identity alone. Recombinant-protei
 
 ## Model-guide checks
 
+Run `node sources/test-entry-screen.cjs` for introduction/reference links, startup gating, navigation, focus handling and load-error behavior.
+
 Run `node sources/test-simulation-guide.cjs` after changing the guide or simulator. This checks the Step 3 link, local navigation, calculation-order sections, numerical pH/DO examples, and a fingerprint of the shipped model functions. A model/build change requires reviewing the guide before updating its recorded version and fingerprint. The guide documents the current repaired engine, including its remaining limitations.
 
 Run `node sources/test-oxygen-revision.cjs` for transfer units, independent controller response and stability, anti-windup, scenario defaults and oxygen-conservation checks. The comparison is reproducible with `node benchmarks/oxygen-revision-2026-09-16/run.cjs`; it preserves the original benchmark artifacts.
@@ -156,6 +170,6 @@ New app scenarios enable `process.strictFailures`; imported scenarios that omit 
 
 The engine retains total/viable/nonviable biomass, episode diagnostics and latched culture/batch flags. Growth/product potentials are scaled once during stress; dead cells cease reactions without deleting biomass carbon. Accepted output is distinct from physical recoverable output. Flows and controllers continue after failure and volume is never capped. Records, reports and the interval trace expose the added state.
 
-`failure-results.js` / `.css` implement results-only category icons with counters (UI build 2026-09-21.2). Warning lists start collapsed; a category click reveals its events/notices, and individual event buttons open the accessible illustrated dialog. Nothing opens automatically. Category selection survives re-rendering of the same result and resets for a new run. No process-warning list is shown during setup. `assets/failures/` contains eight native imagegen lab illustrations and `PROMPTS.md` records their prompts/provenance. Only the selected event image loads when the dialog opens.
+`failure-results.js` / `.css` implement results-only category icons with counters (UI build 2026-09-21.3). Warning lists start collapsed. After a completed run reaches Stage 7, any strict failure-rule events automatically open the accessible illustrated dialog, most severe first, with navigation across all failure events. Ordinary notices alone do not open it. Dismissing the dialog prevents repeat automatic alerts for that result; a new run can alert again. A category click reveals its events/notices, and individual event buttons reopen the dialog with category-scoped navigation. Category selection survives re-rendering of the same result and resets for a new run. No process-warning list or failure dialog is shown during setup. `assets/failures/` contains eight native imagegen lab illustrations and `PROMPTS.md` records their prompts/provenance. Only the selected event image loads when the dialog opens.
 
-Run `node sources/test-failure-modes.cjs` and `node sources/test-failure-results.cjs` for rule boundaries, timers, latching, conservation, no-feed starvation guards, continued operation, category counts, collapsed defaults and scoped UI event navigation. Run all `sources/test-*.cjs` for regression checks. After editing `tmp/app-source.js`, rebuild the shipped payloads with `node sources/build-app.cjs`; review the simulation guide and refresh its core fingerprint after changing the engine.
+Run `node sources/test-failure-modes.cjs` and `node sources/test-failure-results.cjs` for rule boundaries, timers, latching, conservation, no-feed starvation guards, continued operation, category counts, collapsed defaults, once-per-run automatic popups and scoped/manual versus cross-category/automatic event navigation. Run all `sources/test-*.cjs` for regression checks. After editing `tmp/app-source.js`, rebuild the shipped payloads with `node sources/build-app.cjs`; review the simulation guide and refresh its core fingerprint after changing the engine.
