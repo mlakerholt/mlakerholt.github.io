@@ -1,3 +1,9 @@
+# Evozyme 2.0 — teaching edition
+
+The homepage now follows the nine-stage learning workflow: Define, Characterize, Measure, Diversify, Build, Screen / Select, Confirm, Learn, Iterate. It includes eight laboratories, three cases, eight diagnostic puzzles and a campaign report. See [teaching documentation](teaching/README.md) for architecture and validation. Existing data-analysis tools remain at `planner.html`.
+
+---
+
 # Evozyme — Directed Evolution Planner
 
 A static browser application for planning directed-evolution campaigns, estimating library costs, reviewing results, recording confirmation evidence, and deciding the next round.
